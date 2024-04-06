@@ -1,0 +1,30 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+#email-icon {
+    position: relative;
+}
+
+.email-text {
+    display: none;
+    position: absolute;
+    top: 50%;
+    /* right: 100%; */
+    left: -110vh;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+#email-icon:hover .email-text {
+    display: block;
+}
