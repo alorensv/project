@@ -1,0 +1,268 @@
+#email-icon {
+    position: relative;
+}
+
+.email-text {
+    display: none;
+    position: absolute;
+    top: 46%;
+    /* right: 100%; */
+    left: -28vh;
+    transform: translateY(-50%);
+    background-color: #3f8dc9;
+    padding: 5px 12px;
+    border: 1px solid #3f8dc9;
+    border-top: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#email-icon:hover .email-text {
+    display: block;
+}
+
+.center {
+    max-width: 95%;
+}
+
+.texto-cotiza{
+    color: #1f6ba6;
+    padding: 0px 0px 40px 0px;
+    text-align: center;
+}
+
+
+.texto-cotiza p i {
+    font-size: 20px;
+    margin-left: 5px;
+    position: relative;
+    color: #1f6ba6;
+    transform: rotate(
+    -90deg
+    );
+}
+
+.texto-clientes{
+    color: #1f6ba6;
+    padding: 0px 0px 10px 0px;
+    text-align: center;
+}
+
+.texto-clientes p i {
+    font-size: 20px;
+    margin-left: 5px;
+    position: relative;
+    color: #1f6ba6;
+    transform: rotate(
+    -90deg
+    );
+}
+
+
+#contacto{
+    padding: 20px;
+}
+
+.marketing{
+    
+}
+
+.portafolio{
+    background: rgb(255, 255, 255);
+}
+
+
+.portafolio p{
+    color: black;
+}
+
+.portafolio h2{
+    color: #3f8dc9;
+}
+
+.cotiza{
+    background: rgb(41,41,47);
+    background: linear-gradient(90deg, rgba(41,41,47,1) 0%, rgba(34,32,32,1) 35%, rgba(75,72,72,1) 100%); 
+}
+
+.cotiza p{
+    color: white;
+}
+
+.cotiza h2{
+    color: #3f8dc9;
+}
+
+.titles-heading{
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.05rem;
+    font-size: 20px;
+}
+
+/* Estilo para el contenedor del código QR */
+#qr-container {
+    text-align: center; /* Centra horizontalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centra vertical y horizontalmente */
+    margin-top: 20px; /* Espacio superior opcional */
+}
+
+
+.qrInptus{
+    
+}
+
+
+/*COUNTER*/
+.clientes {
+    padding-bottom: 20px;
+}
+
+.counter-style {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.clientes .box {
+    border-right: 1px solid #ccc;
+}
+
+.clientes .box b {
+    display: block;
+    font-weight: bold;
+    font-size: 70px;
+    color: #5a646a;
+    text-align: center;
+    min-height: 100px;
+}
+
+.clientes .box span {
+    width: 120px;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    margin: 0 auto;
+    color: #5a646a;
+}
+
+/*CONVENIO MARCO*/
+.convenio-marco-home {
+    background: #25292c;
+}
+
+.convenio-marco-home .center {
+    display: grid;
+    grid-template-columns: 30% 50%;
+    grid-column-gap: 100px;
+    grid-template-rows: 150px;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.convenio-marco-home img {
+    width: 100%;
+}
+
+.convenio-marco-home p {
+    margin: 0;
+    color: #979798;
+}
+
+.convenio-marco-home a {
+    display: block;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/*FOOTER*/
+footer {
+    padding: 50px 0;
+    min-height: 370px;
+    background: #1e2225;
+}
+
+footer .center {
+    position: relative;
+}
+
+footer .logo-footer {
+    padding-bottom: 1px;
+}
+
+footer span {
+    color: #9aa8b1;
+    display: block;
+    font-size: 14px;
+    margin: 15px 0 30px;
+}
+
+footer .menu-footer {
+    top: 0;
+    padding: 0 50px;
+    border-right: 1px solid #313131;
+    border-left: 1px solid #313131;
+    max-width: 470px;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+}
+
+footer .menu-footer h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #9aa8b1;
+    margin-bottom: 20px;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer .menu-footer ul li {
+    margin-bottom: 10px;
+    letter-spacing: 0;
+}
+
+footer .menu-footer ul li a {
+    font-size: 16px;
+    color: #fff;
+    font-weight: lighter;
+    text-decoration: none;
+}
+
+footer .social-media {
+    right: 0;
+    top: 0;
+    text-align: center;
+}
+
+footer .social-media h3 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #9aa8b1;
+    margin-bottom: 20px;
+}
+
+footer .social-media i {
+    color: #fff;
+    font-size: 27px;
+    margin-left: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+#lineas {
+    padding: 8px 10px;
+    text-align: right;
+}
+
+
+/*webs*/
+.portada_web{
+    margin-top: 45px;
+}
+
+.portada_web img{
+    width: 100%;
+}
