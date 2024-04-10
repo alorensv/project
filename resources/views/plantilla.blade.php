@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Líneas de Código') }}</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- Scripts -->
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('assets/js/consultas.js') }}" defer></script>
@@ -20,7 +21,7 @@
     <script src="https://kit.fontawesome.com/67b6e8d4c0.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
