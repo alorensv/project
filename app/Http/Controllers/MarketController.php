@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+
+use App\Models\Productos;
+
 
 class MarketController extends Controller
 {
@@ -12,62 +16,29 @@ class MarketController extends Controller
 
     public function show()
     {
-        $rutaArchivo = resource_path('data/ejemplo.json');
-        $datos = json_decode(File::get($rutaArchivo), true);
-        return view('market/index')->with('datos', $datos);
+        return view('market/index');
     }
 
     public function getCategorias(Request $request)
     {
-        $categoriasSeleccionadas = $request->input('categorias');
-        $subcategorias = [];
 
-        $rutaArchivo = resource_path('data/ejemplo.json');
-        $datos = json_decode(File::get($rutaArchivo), true);
-        
-        foreach ($datos['categorias'] as $categoria) {
-            foreach ($categoria['subcategorias'] as $subcategoria) {
-                $subcategorias[] = $subcategoria;
-            }
-        }
-
-        return response()->json(['subcategorias' => $subcategorias]);
+        $datos = Categorias::obtenerCategoriasConSubcategorias();       
+        //dd($datos);
+        return response()->json(['datos' => $datos]);
     }
 
     public function getProductos(Request $request)
     {
-        $subcategoriasSeleccionadas = $request->input('subcategorias');
-        $productos = [];
+        // Obtener subcategorias del request
+        $subcategorias = $request->input('subcategorias');
 
-        $rutaArchivo = resource_path('data/ejemplo.json');
-        $datos = json_decode(File::get($rutaArchivo), true);
-        
-        // Verificar si se enviaron subcategorías seleccionadas
-        if ($subcategoriasSeleccionadas) {
-            foreach ($datos['categorias'] as $categoria) {
-                foreach ($categoria['subcategorias'] as $subcategoria) {
-                    if (in_array($subcategoria['id'], $subcategoriasSeleccionadas)) {
-                        foreach ($subcategoria['productos'] as $producto) {
-                            $productos[] = $producto;
-                        }
-                    }
-                }
-            }
+        if (empty($subcategorias)) {
+            $productos = Productos::all();
         } else {
-            // Si no se envían filtros, devolver todos los productos
-            foreach ($datos['categorias'] as $categoria) {
-                foreach ($categoria['subcategorias'] as $subcategoria) {
-                    foreach ($subcategoria['productos'] as $producto) {
-                        $productos[] = $producto;
-                    }
-                }
-            }
+            $productos = Productos::whereIn('subcategoria_id', $subcategorias)->get();
         }
-        //dd($productosFiltrados);
-        
-        
-        return response()->json(['message' => 'Producto añadido al carrito', 'productos' => $productos]);
-        //return response()->json($productosFiltrados);
+
+        return response()->json(['message' => 'Productos disponibles', 'productos' => $productos]);
     }
 
 
@@ -75,9 +46,13 @@ class MarketController extends Controller
     {
         // Obtener el contenido del carrito de la sesión
         $cart = session()->get('cart', []);
+        $producto = Productos::find($id);
 
-        //dd($cart);
-        return view('market/detalle', ['id' => $id, 'cart' => $cart]);
+        return view('market/detalle', ['producto' => $producto, 'cart' => $cart]);
+    }
+
+    public function carro(){
+        return view('market/carro');
     }
 
     public function addToCart(Request $request)
@@ -110,19 +85,38 @@ class MarketController extends Controller
         return response()->json(['message' => 'Producto añadido al carrito', 'cantidad' => $quantity]);
     }
     
-    public function showCart()
+    public function getCart()
     {
-        $cart = session()->get('cart', []);
-        return view('cart')->with('cart', $cart);
+        $carts = session()->get('cart', []);
+
+        $carrito = [];
+        foreach($carts as $key => $value){
+            $producto = Productos::find($key);
+            $producto->cantidad = $value;
+            $carrito[] = $producto;
+        }
+        return response()->json($carrito);
     }
 
-    public function getCart()
-{
-    $cart = session()->get('cart', []);
-    return response()->json($cart);
-}
+    public function deleteCart($id) {
+        try {
+            // Aquí debes escribir la lógica para eliminar el producto del carrito
+            // Por ejemplo, si estás almacenando el carrito en la sesión, podrías hacer algo como esto:
+            $cart = session()->get('cart', []);
+            unset($cart[$id]);
+            session()->put('cart', $cart);
 
-    
+            // Si estás usando una base de datos, podrías hacer algo como esto:
+            // $producto = Producto::find($id);
+            // $producto->delete();
+
+            // Después de eliminar el producto, puedes redirigir a la página del carrito o devolver una respuesta JSON
+            return response()->json(['message' => 'Producto eliminado del carrito correctamente'], 200);
+        } catch (\Exception $e) {
+            // Manejar cualquier error que ocurra durante la eliminación del producto
+            return response()->json(['message' => 'Error al eliminar el producto del carrito'], 500);
+        }
+    }    
 
     
 }

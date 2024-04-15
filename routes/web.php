@@ -46,12 +46,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 /** MARKET DIVISION */
-Route::get('/market', [MarketController::class, 'show']);
+Route::get('/market', [MarketController::class, 'show'])->name('market');;
 Route::get('/getProductos', [MarketController::class, 'getProductos']); 
 Route::get('/getCategorias', [MarketController::class, 'getCategorias']); 
 Route::get('/detalle/{id}', [MarketController::class, 'detalle'])->name('detalle');
 Route::post('/add-to-cart', [MarketController::class, 'addToCart'])->name('cart.add');
 Route::get('/get-cart', [MarketController::class, 'getCart'])->name('cart.get');
+Route::get('/carro', [MarketController::class, 'carro'])->name('carro');
+Route::post('/deleteCart/{id}', [MarketController::class, 'deleteCart'])->name('deleteCart');
 
 /* Route::get('/market', function () {
     return view('pages.market');

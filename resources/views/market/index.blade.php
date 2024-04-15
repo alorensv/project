@@ -2,24 +2,17 @@
 
 @section('content')
 <style>
+    /* Estilos personalizados para la página */
     .market-body {
-        height: 100%;
+        min-height: 100vh;
+        padding-top: 20px;
     }
 
-    .productDiv {
-        flex-basis: 100%;
-        flex-basis: 31.3868613139%;
-        margin-right: 2.9197080292%;
-        margin-top: 2.9197080292%;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, .1);
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        position: relative;
-        text-align: left;
-        transition: translate .18s, box-shadow .18s;
+    .categoria-title {
+        background-color: #f8f9fa; /* Fondo gris claro para el título de la categoría */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
     }
 
     .subcategoriaDiv {
@@ -27,29 +20,105 @@
         background-color: #f8f9fa;
         padding: 10px;
         margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .productDiv {
+        margin-bottom: 20px;
+    }
+
+    .card {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para las tarjetas de productos */
+    }
+
+    .card-img-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 200px; /* Altura fija para las imágenes de los productos */
+        object-fit: cover; /* Ajustar la imagen dentro del contenedor */
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-top: 10px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* Color azul brillante para los botones */
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3; /* Cambio de color al pasar el ratón */
+        border-color: #0056b3;
+    }
+    .card-text {
+        text-align: center; /* Centra el texto */
+    }
+
+    .card-text::before {
+        content: "\0024"; /* Agrega el símbolo de dólar */
+        font-weight: bold;
+        padding-right: 3px; /* Espacio entre el símbolo y el número */
     }
 </style>
-<section class="container py-4" style="margin-top: 20px;">
-    <div class="row market-body ">
-        <div class="col-3">
-            <div class="subcategoriaDiv" v-for="subcategoria in subcategorias" :key="subcategoria.id">
-                <input type="checkbox" :id="'subcategoria_' + subcategoria.id" v-model="subcategoriasSeleccionadas" :value="subcategoria.id" @change="listarProductos">
-                <label :for="'subcategoria_' + subcategoria.id">@{{ subcategoria.nombre }}</label>
+<section class="container">
+    <div class="row market-body mt-5 pt-5">
+        <!-- Columna de categorías -->
+        <div class="col-md-3">
+            <div class="h-100 bg-white pl-4 pr-4 pt-2 pb-2">
+            <p class="pt-1">Filtros</p><span class="material-icons">search</span>
+
+            <div v-for="categoria in categorias" :key="categoria.id">
+                <div class="categoria-title">
+                    <hr>
+                    <h5>@{{ categoria.nombre }}</h5> <!-- Título de la categoría -->
+                    <hr>
+                </div>
+                <!-- Lista de subcategorías -->
+                <div v-for="subcategoria in categoria.subcategorias" :key="subcategoria.id">
+                    <div class="subcategoriaDiv">
+                        <input type="checkbox" :id="'subcategoria_' + subcategoria.id" v-model="subcategoriasSeleccionadas" :value="subcategoria.id" @change="listarProductos">
+                        <label :for="'subcategoria_' + subcategoria.id">@{{ subcategoria.nombre }}</label> <!-- Nombre de la subcategoría -->
+                    </div>
+                </div>
             </div>
+            </div>
+            
         </div>
-        <div class="col-9">
+        <!-- Columna de productos -->
+        <div class="col-md-9">
             <div class="row">
-                <div v-for="producto in productos" :key="producto.id" class="col-4">
+                <!-- Tarjetas de productos -->
+                <div v-for="producto in productos" :key="producto.id" class="col-md-4">
                     <div class="productDiv">
                         <div class="card">
-                            <img class="card-img-top" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22286%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20286%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18ec3f96031%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18ec3f96031%22%3E%3Crect%20width%3D%22286%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22107.1953125%22%20y%3D%2296.3%22%3E286x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image cap">
-                                
-                            <!-- <img class="card-img-top" :src="producto.imagen" :alt="producto.nombre"> -->
-                            <div class="card-body">
+                            
+                            
+                             <img class="card-img-top" :src="producto.imagen" alt="Imagen del producto"><!-- Imagen del producto -->
+                             <div class="card-body">
                                 <h5 class="card-title">@{{ producto.nombre }}</h5>
-                                <p class="card-text">@{{ producto.id }}</p>
-                                <a :href="'/detalle/' + producto.id" class="btn btn-primary">ID: @{{ producto.id }}</a>
+                                <!-- Nombre del producto -->
+                                <p class="card-text">@{{ producto.descripcion.substring(0, 150) }}...</p>
+                                <!-- Descripción del producto -->
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center">
+                                        <p class="card-text">$@{{ parseInt(producto.costo).toLocaleString('es-CL') }}</p>
+                                        <!-- Costo del producto -->
+                                    </div>
+                                    <div class="col-8 text-center">
+                                        <a :href="'/detalle/' + producto.id" class="btn btn-primary"><span class="material-icons" style="font-size: 11px !important;">shopping_cart</span> Comprar</a>
+                                        <!-- Botón de detalles -->
+                          
+                                    </div>
+                                </div>
+                                
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -65,7 +134,7 @@
         el: '#app',
         data: {
             productos: [],
-            subcategorias: [],
+            categorias: [],
             subcategoriasSeleccionadas: []
         },
         mounted() {
@@ -76,21 +145,22 @@
         },
         methods: {
             getCategorias() {
-                // Llamar a la ruta para obtener las subcategorias
+                // Llamar a la ruta para obtener las categorías y subcategorías
                 axios.get('/getCategorias')
                     .then(response => {
-                        // Actualizar la lista de subcategorias con la respuesta del servidor
-                        this.subcategorias = response.data.subcategorias;
+                        // Actualizar la lista de categorías con la respuesta del servidor
+                        console.log(response.data.datos)
+                        this.categorias = response.data.datos;
                     })
                     .catch(error => {
-                        console.error('Error al obtener subcategorias:', error);
+                        console.error('Error al obtener categorías:', error);
                     });
             },
             listarProductos() {
-                // Llamar a la ruta filtrar.productos
+                // Llamar a la ruta para obtener los productos filtrados por subcategorías seleccionadas
                 axios.get('/getProductos', {
                         params: {
-                            subcategorias: this.subcategoriasSeleccionadas // Pasar las subcategorías seleccionadas como parámetros de la solicitud
+                            subcategorias: this.subcategoriasSeleccionadas
                         }
                     })
                     .then(response => {
