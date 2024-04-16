@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MarketController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
@@ -54,6 +55,13 @@ Route::post('/add-to-cart', [MarketController::class, 'addToCart'])->name('cart.
 Route::get('/get-cart', [MarketController::class, 'getCart'])->name('cart.get');
 Route::get('/carro', [MarketController::class, 'carro'])->name('carro');
 Route::post('/deleteCart/{id}', [MarketController::class, 'deleteCart'])->name('deleteCart');
+
+/* anexos */
+Route::post('/agregarDireccion', [RegisterController::class, 'agregarDireccion'])->name('agregarDireccion');
+
+Route::get('/regiones', [MarketController::class, 'regiones'])->name('regiones');
+Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('comunas');
+
 
 /* Route::get('/market', function () {
     return view('pages.market');

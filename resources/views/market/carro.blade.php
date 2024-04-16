@@ -6,6 +6,68 @@
 </style>
 <section class="container py-4" style="margin-top: 20px;">
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro / Iniciar sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="guardarCorreo">
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="correo" v-model="correo" required>
+                        </div>
+                        <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Continuar</button>
+                        </div>
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form @submit.prevent="submitRegister">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" v-model="nombre" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="correo" v-model="correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="clave">Contraseña:</label>
+                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">
+                            <small class="form-text text-muted">La contraseña debe tener al menos 6 caracteres.</small>
+                        </div>
+
+                        <div class="col-12 text-right">
+                        <button type="submit" class="btn btn-primary">Continuar</button>
+                        </div>
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12 pl-3">
             <nav aria-label="breadcrumb">
@@ -117,28 +179,30 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="nombre">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre" v-model="nombre" required>
+                                                    <label for="direccion">Región</label>
+                                                    <select v-model="selectedRegion" class="form-control" @change="fetchComunas">
+                                                        <option value="" disabled selected>Selecciona una región</option>
+                                                        <option v-for="region in regiones" :key="region.codigo" :value="region.codigo">@{{ region.nombre }}</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="apellido">Apellido</label>
-                                                    <input type="text" class="form-control" id="apellido" v-model="apellido" required>
+                                                    <label for="comuna">Comuna</label>
+                                                    <select v-model="selectedComuna" class="form-control">
+                                                        <option value="" disabled selected>Selecciona una comuna</option>
+                                                        <option v-for="comuna in comunas" :key="comuna.codigo" :value="comuna.nombre">@{{ comuna.nombre }}</option>
+                                                    </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="rut">Rut</label>
-                                                    <input type="rut" class="form-control" id="rut" v-model="rut" required>
+                                                    <label for="codigo_postal">Código postal</label>
+                                                    <input type="text" class="form-control" id="codigo_postal" required>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="email">Correo electrónico</label>
-                                                    <input type="email" class="form-control" id="email" v-model="correo" required>
-                                                </div>
-                                            </div>
+
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="direccion">Dirección</label>
@@ -146,7 +210,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                        <div class="col-12 text-right">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
+
                                     </form>
                                 </div>
                             </div>
@@ -229,6 +296,19 @@
 
 </section>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@if(Auth::check())
+    <!-- El usuario está autenticado, no es necesario mostrar el modal -->
+@else
+    <!-- El usuario no está autenticado, muestra el modal -->
+    <script>
+        $(document).ready(function() {
+            $('#loginRegister').modal('show');
+        });
+    </script>
+@endif
+
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
@@ -240,10 +320,17 @@
             apellido: '',
             rut: '',
             correo: '',
-            direccion: ''
+            clave: '',
+            password_confirmation: '',
+            direccion: '',
+            regiones: [],
+            comunas: [],
+            selectedRegion: '',
+            selectedComuna: ''
         },
         mounted() {
             this.listarCarrito();
+            this.fetchRegiones();
         },
         methods: {
             listarCarrito() {
@@ -287,17 +374,88 @@
                         console.error(error);
                     });
             },
-            submitForm: function() {
-                // Aquí puedes realizar la validación del formulario y enviar los datos
-                // Por ejemplo, podrías enviar los datos mediante una solicitud HTTP utilizando Axios
-                // y luego reiniciar los valores de las variables del formulario
+            submitForm: function() {               
+                
+                /* var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post('/deleteCart/' + itemId, {
+                        nombre: csrfToken,
+                        _token: csrfToken,
+                        _token: csrfToken,
+                        _token: csrfToken,
+                        _token: csrfToken
+                    })
+                    .then((response) => {
+                        this.listarCarrito();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    }); */
+
                 console.log('Formulario enviado');
                 this.nombre = '';
                 this.apellido = '';
                 this.rut = '';
                 this.correo = '';
                 this.direccion = '';
+            },
+            _submitRegister: function() {
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');                
+                var claveEncriptada = this.clave;
+                //this.clave = '';
+                //this.nombre = 'Test';
+                this.password_confirmation = this.clave; 
+
+                // Enviar los datos al servidor usando HTTPS
+                axios.post('/register', { 
+                    _token: csrfToken,
+                    name: this.nombre, 
+                    email: this.correo,                    
+                    password: claveEncriptada ,
+                    password_confirmation: this.password_confirmation,                    
+                    })
+                    .then(response => {
+                        console.log(response.data); // Aquí puedes listar el POST recibido del servidor
+                        // Lógica adicional después de recibir la respuesta del servidor
+                    })
+                    .catch(error => {
+                        console.error('Error al enviar el formulario:', error);
+                    });
+            },
+            submitRegister: function() {
+                this._submitRegister();
+            },
+            async fetchRegiones() {
+                try {
+                    axios.get('/regiones')
+                        .then((response) => {
+
+                            this.regiones = response.data;
+                            console.log(this.regiones)
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                } catch (error) {
+                    console.error('Error al obtener las regiones:', error);
+                }
+            },
+            async fetchComunas() {
+                if (!this.selectedRegion) {
+                    return;
+                }
+                try {
+                    const response = await axios.get(`/comunas/${this.selectedRegion}`);
+                    this.comunas = response.data;
+                } catch (error) {
+                    console.error('Error al obtener las comunas:', error);
+                }
+            },
+            guardarCorreo() {
+                console.log("por aca")
+                $('#loginRegister').modal('hide');
+                $('#register').modal('show');
             }
+
         }
     });
 </script>

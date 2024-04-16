@@ -6,6 +6,8 @@ use App\Models\Categorias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Http;
+
 
 use App\Models\Productos;
 
@@ -116,7 +118,21 @@ class MarketController extends Controller
             // Manejar cualquier error que ocurra durante la eliminación del producto
             return response()->json(['message' => 'Error al eliminar el producto del carrito'], 500);
         }
-    }    
+    }   
+    
+    public function regiones(){
+        $rutaArchivo = resource_path('data/regiones.json');
+        $regiones = json_decode(File::get($rutaArchivo), true);
+        
+        return $regiones;
+    }
+
+    public function comunas($region)
+    {
+        $response = Http::get("https://apis.digital.gob.cl/dpa/regiones/{$region}/comunas");
+
+        return $response->json();
+    }
 
     
 }
