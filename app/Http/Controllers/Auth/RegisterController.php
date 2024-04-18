@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Http\Request;
+
 class RegisterController extends Controller
 {
     /*
@@ -70,4 +72,15 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    protected function existeUsuario($email){
+        $user = User::where('email', $email)->first();
+        if(empty($user)){
+            return response()->json(['message' => 'error', 'email' => $email]);
+        }else{
+            return response()->json(['message' => 'ok', 'user' => $user]);
+        }
+
+    }
+
 }

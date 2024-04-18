@@ -13,7 +13,7 @@ class AddTableEventos extends Migration
      */
     public function up()
     {
-        Schema::table('eventos', function (Blueprint $table) {
+        /* Schema::table('eventos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('user_id');
@@ -27,7 +27,7 @@ class AddTableEventos extends Migration
             $table->text('message');
             $table->timestamps();
             //
-        });
+        }); */
     }
 
     /**
