@@ -55,9 +55,12 @@ Route::post('/add-to-cart', [MarketController::class, 'addToCart'])->name('cart.
 Route::get('/get-cart', [MarketController::class, 'getCart'])->name('cart.get');
 Route::get('/carro', [MarketController::class, 'carro'])->name('carro');
 Route::post('/deleteCart/{id}', [MarketController::class, 'deleteCart'])->name('deleteCart');
+Route::post('/updateCart/{id}', [MarketController::class, 'updateCart'])->name('updateCart');
 
 /* anexos */
-Route::post('/agregarDireccion', [RegisterController::class, 'agregarDireccion'])->name('agregarDireccion');
+Route::get('/existeUsuario/{email}', [RegisterController::class, 'existeUsuario'])->name('existeUsuario');
+Route::post('/agregarDireccion', [MarketController::class, 'agregarDireccion'])->name('agregarDireccion');
+Route::get('/getUserDirecciones', [MarketController::class, 'getUserDirecciones'])->name('getUserDirecciones');
 
 Route::get('/regiones', [MarketController::class, 'regiones'])->name('regiones');
 Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('comunas');

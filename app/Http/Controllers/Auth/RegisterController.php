@@ -73,9 +73,14 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function agregarDireccion(Request $request)
-    {
-        var_dump($request);
+    protected function existeUsuario($email){
+        $user = User::where('email', $email)->first();
+        if(empty($user)){
+            return response()->json(['message' => 'error', 'email' => $email]);
+        }else{
+            return response()->json(['message' => 'ok', 'user' => $user]);
+        }
 
     }
+
 }

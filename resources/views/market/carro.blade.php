@@ -6,67 +6,9 @@
 </style>
 <section class="container py-4" style="margin-top: 20px;">
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="loginRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registro / Iniciar sesión</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="guardarCorreo">
-                        <div class="form-group">
-                            <label for="correo">Correo Electrónico:</label>
-                            <input type="email" class="form-control" id="correo" v-model="correo" required>
-                        </div>
-                        <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-primary">Continuar</button>
-                        </div>
-                    </form>
-                </div>                
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="submitRegister">
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" v-model="nombre" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="correo">Correo Electrónico:</label>
-                            <input type="email" class="form-control" id="correo" v-model="correo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="clave">Contraseña:</label>
-                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">
-                            <small class="form-text text-muted">La contraseña debe tener al menos 6 caracteres.</small>
-                        </div>
-
-                        <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-primary">Continuar</button>
-                        </div>
-                    </form>
-                </div>                
-            </div>
-        </div>
-    </div>
+    @include('market.modals.loginRegister')
+    @include('market.modals.register')
+    @include('market.modals.login')
 
     <div class="row">
         <div class="col-12 pl-3">
@@ -173,48 +115,35 @@
                                 </h5>
                             </div>
 
-                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="card-body">
-                                    <form @submit.prevent="submitForm">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="direccion">Región</label>
-                                                    <select v-model="selectedRegion" class="form-control" @change="fetchComunas">
-                                                        <option value="" disabled selected>Selecciona una región</option>
-                                                        <option v-for="region in regiones" :key="region.codigo" :value="region.codigo">@{{ region.nombre }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="comuna">Comuna</label>
-                                                    <select v-model="selectedComuna" class="form-control">
-                                                        <option value="" disabled selected>Selecciona una comuna</option>
-                                                        <option v-for="comuna in comunas" :key="comuna.codigo" :value="comuna.nombre">@{{ comuna.nombre }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                @auth
+                                <table v-if="direcciones.length > 0" class="table" :authenticated="{{ Auth::check() ? 'true' : 'false' }}">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Region / Comuna</th>
+                                            <th>Dirección</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="direccion in direcciones" :key="direccion.id">
+                                            <td><input type="checkbox" style="width: 20px;" class="form-control" name="selectDireccion" id="selectDireccion"></td>
+                                            <td>@{{ direccion.region }} / @{{ direccion.comuna }}</td>
+                                            <td>@{{ direccion.direccion }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h5 style="cursor: pointer;" @click="mostrarFormularioAgregarDireccion">Agregar dirección</h5>
 
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <label for="codigo_postal">Código postal</label>
-                                                    <input type="text" class="form-control" id="codigo_postal" required>
-                                                </div>
-                                            </div>
+                                <div v-if="mostrarAgregarDireccion">
+                                    @include('market.forms.agregarDirecciones')
+                                </div>
+                                @else
+                                    <p>Para continuar, inicia sesión o regístrate</p>
+                                    <button class="btn btn-primary" onclick="$('#loginRegister').modal('show');">Iniciar sesión / registro</button>
+                                @endauth                              
 
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="direccion">Dirección</label>
-                                                    <input type="text" class="form-control" id="direccion" v-model="direccion" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 text-right">
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                        </div>
-
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -286,7 +215,13 @@
                         </div>
                     </div>
                     <div class="row pb-3" style="text-align: center;">
-                        <a href="/carro" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</a>
+                        @auth
+                            <a href="/carro" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</a>
+                        @else
+                            <a href="#" title="Para continuar, inicia sesión o regístrate" data-toggle="tooltip" class="w-100 mb-3 btn btn-secondary"><i class="material-icons">shopping_cart</i>Pagar</a>
+                            
+                            <a href="/carro" class="w-100 btn btn-primary"><i class="material-icons">person</i>Iniciar sesión / registro</a>
+                            @endauth
                     </div>
                 </div>
             </div>
@@ -298,14 +233,15 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @if(Auth::check())
-    <!-- El usuario está autenticado, no es necesario mostrar el modal -->
+<!-- El usuario está autenticado, no es necesario mostrar el modal -->
 @else
-    <!-- El usuario no está autenticado, muestra el modal -->
-    <script>
-        $(document).ready(function() {
-            $('#loginRegister').modal('show');
-        });
-    </script>
+<!-- El usuario no está autenticado, muestra el modal -->
+<script>
+    $(document).ready(function() {
+        $('#loginRegister').modal('show');
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 @endif
 
 
@@ -315,6 +251,11 @@
     new Vue({
         el: '#app',
         data: {
+            authenticated: {
+                type: Boolean,
+                default: false
+            },
+            user: [],
             cart: [],
             nombre: '',
             apellido: '',
@@ -323,14 +264,22 @@
             clave: '',
             password_confirmation: '',
             direccion: '',
+            region: '',
+            comuna: '',
+            codigo_postal: '',
             regiones: [],
             comunas: [],
             selectedRegion: '',
-            selectedComuna: ''
+            selectedComuna: '',
+            direcciones: [],
+            mostrarAgregarDireccion: false
         },
         mounted() {
             this.listarCarrito();
             this.fetchRegiones();
+            if (this.authenticated) {
+                this.listarDirecciones(); // Ejecutar la función listarDirecciones si está autenticado
+            }
         },
         methods: {
             listarCarrito() {
@@ -374,48 +323,44 @@
                         console.error(error);
                     });
             },
-            submitForm: function() {               
-                
-                /* var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                axios.post('/deleteCart/' + itemId, {
-                        nombre: csrfToken,
+            submitForm: function() {
+
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post('/agregarDireccion', {
                         _token: csrfToken,
-                        _token: csrfToken,
-                        _token: csrfToken,
-                        _token: csrfToken
+                        region: this.selectedRegion,
+                        comuna: this.selectedComuna,
+                        codigo_postal: this.codigo_postal,
+                        direccion: this.direccion
                     })
                     .then((response) => {
-                        this.listarCarrito();
+                        this.listarDirecciones();
                     })
                     .catch((error) => {
                         console.error(error);
-                    }); */
+                    });
 
                 console.log('Formulario enviado');
-                this.nombre = '';
-                this.apellido = '';
-                this.rut = '';
-                this.correo = '';
+                
                 this.direccion = '';
             },
             _submitRegister: function() {
-                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');                
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 var claveEncriptada = this.clave;
                 //this.clave = '';
                 //this.nombre = 'Test';
-                this.password_confirmation = this.clave; 
+                this.password_confirmation = this.clave;
 
                 // Enviar los datos al servidor usando HTTPS
-                axios.post('/register', { 
-                    _token: csrfToken,
-                    name: this.nombre, 
-                    email: this.correo,                    
-                    password: claveEncriptada ,
-                    password_confirmation: this.password_confirmation,                    
+                axios.post('/register', {
+                        _token: csrfToken,
+                        name: this.nombre,
+                        email: this.correo,
+                        password: claveEncriptada,
+                        password_confirmation: this.password_confirmation,
                     })
                     .then(response => {
-                        console.log(response.data); // Aquí puedes listar el POST recibido del servidor
-                        // Lógica adicional después de recibir la respuesta del servidor
+                        location.reload();
                     })
                     .catch(error => {
                         console.error('Error al enviar el formulario:', error);
@@ -423,6 +368,27 @@
             },
             submitRegister: function() {
                 this._submitRegister();
+            },
+            _submitLogin: function() {
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var claveEncriptada = this.clave;
+                var remember = 'false';
+
+                axios.post('/login', {
+                        _token: csrfToken,
+                        email: this.correo,
+                        password: claveEncriptada,
+                        remember: remember,
+                    })
+                    .then(response => {
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error al enviar el formulario:', error);
+                    });
+            },
+            submitLogin: function() {
+                this._submitLogin();
             },
             async fetchRegiones() {
                 try {
@@ -450,11 +416,64 @@
                     console.error('Error al obtener las comunas:', error);
                 }
             },
-            guardarCorreo() {
-                console.log("por aca")
-                $('#loginRegister').modal('hide');
-                $('#register').modal('show');
-            }
+            listarDirecciones() {
+                axios.get('/getUserDirecciones') // Realiza una solicitud GET al servidor para obtener las direcciones del usuario
+                    .then(response => {
+                        console.log(response.data.userDirecciones)
+                        this.direcciones = response.data.userDirecciones; // Asigna las direcciones obtenidas al array de direcciones
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener las direcciones del usuario:', error);
+                    });
+            },
+            mostrarFormularioAgregarDireccion() {
+                // Cambia el estado para mostrar u ocultar el formulario
+                this.mostrarAgregarDireccion = !this.mostrarAgregarDireccion;
+            },
+            consultarCorreo() {
+                axios.get(`/existeUsuario/${this.correo}`)
+                    .then(response => {
+                        if (response.data.message == 'ok') {
+                            $('#loginRegister').modal('hide');
+                            $('#login').modal('show');
+                        } else {
+                            $('#loginRegister').modal('hide');
+                            $('#register').modal('show');
+                        }                        
+
+                    })
+                    .catch(error => {
+                        console.error('Error al enviar el formulario:', error);
+                    });
+            },
+            decrementQuantity: function(item) {
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post(`/updateCart/${item.id}`, {
+                        _token: csrfToken,
+                        itemId: item.id,
+                        action: 'decrement'
+                    })
+                    .then((response) => {
+                        this.listarCarrito(); // Actualizar el carrito después de la operación
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            },
+            incrementQuantity: function(item) {
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post(`/updateCart/${item.id}`, {
+                        _token: csrfToken,
+                        itemId: item.id,
+                        action: 'increment'
+                    })
+                    .then((response) => {
+                        this.listarCarrito(); // Actualizar el carrito después de la operación
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            },
 
         }
     });

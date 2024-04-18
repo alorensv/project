@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Http;
 
 
 use App\Models\Productos;
-
+use App\Models\UserDirecciones;
+use Illuminate\Support\Facades\Auth;
 
 class MarketController extends Controller
 {
@@ -24,7 +25,7 @@ class MarketController extends Controller
     public function getCategorias(Request $request)
     {
 
-        $datos = Categorias::obtenerCategoriasConSubcategorias();       
+        $datos = Categorias::obtenerCategoriasConSubcategorias();
         //dd($datos);
         return response()->json(['datos' => $datos]);
     }
@@ -53,7 +54,8 @@ class MarketController extends Controller
         return view('market/detalle', ['producto' => $producto, 'cart' => $cart]);
     }
 
-    public function carro(){
+    public function carro()
+    {
         return view('market/carro');
     }
 
@@ -63,12 +65,22 @@ class MarketController extends Controller
         $quantity = $request->input('quantity');
 
         if (\Illuminate\Support\Facades\Auth::check()) {
-            // El usuario está autenticado, agrega el producto al carrito en la base de datos
-            // Aquí puedes agregar la lógica para almacenar el producto en la base de datos
+            $cart = session()->get('cart', []);
+
+            // Verifica si el producto ya está en el carrito
+            if (array_key_exists($productId, $cart)) {
+                // Si el producto ya está en el carrito, actualiza la cantidad
+                $cart[$productId] += $quantity;
+            } else {
+                // Si el producto no está en el carrito, añádelo
+                $cart[$productId] = $quantity;
+            }
+
+            session()->put('cart', $cart);
         } else {
             // El usuario no está autenticado, agrega el producto al carrito en la sesión
             $cart = session()->get('cart', []);
-            
+
             // Verifica si el producto ya está en el carrito
             if (array_key_exists($productId, $cart)) {
                 // Si el producto ya está en el carrito, actualiza la cantidad
@@ -84,15 +96,46 @@ class MarketController extends Controller
             //dd($cart);
         }
 
-        return response()->json(['message' => 'Producto añadido al carrito', 'cantidad' => $quantity]);
+        return response()->json(['message' => 'Producto añadido al carrito', 'carro' => $cart]);
     }
-    
+
+    public function updateCart(Request $request)
+    {
+        $itemId = $request->itemId;
+        $action = $request->action; // 'increment' o 'decrement'
+
+        $cart = session()->get('cart', []);
+
+        // Verifica si el producto ya está en el carrito
+        if (array_key_exists($itemId, $cart)) {
+            // Si el producto ya está en el carrito, actualiza la cantidad
+            
+            if ($action === 'increment') {
+                $cart[$itemId] += 1;
+            } elseif ($action === 'decrement') {
+                $cart[$itemId] -= 1;
+                if ($cart[$itemId] < 1) {
+                    // Si la cantidad es menor que 1, elimina el producto del carrito
+                    unset($cart[$itemId]);
+                }
+            }
+            
+        } else {
+            // Si el producto no está en el carrito, añádelo
+            //error
+        }
+
+        session()->put('cart', $cart);
+
+        return response()->json(['success' => true]);
+    }
+
     public function getCart()
     {
         $carts = session()->get('cart', []);
 
         $carrito = [];
-        foreach($carts as $key => $value){
+        foreach ($carts as $key => $value) {
             $producto = Productos::find($key);
             $producto->cantidad = $value;
             $carrito[] = $producto;
@@ -100,7 +143,8 @@ class MarketController extends Controller
         return response()->json($carrito);
     }
 
-    public function deleteCart($id) {
+    public function deleteCart($id)
+    {
         try {
             // Aquí debes escribir la lógica para eliminar el producto del carrito
             // Por ejemplo, si estás almacenando el carrito en la sesión, podrías hacer algo como esto:
@@ -118,12 +162,13 @@ class MarketController extends Controller
             // Manejar cualquier error que ocurra durante la eliminación del producto
             return response()->json(['message' => 'Error al eliminar el producto del carrito'], 500);
         }
-    }   
-    
-    public function regiones(){
+    }
+
+    public function regiones()
+    {
         $rutaArchivo = resource_path('data/regiones.json');
         $regiones = json_decode(File::get($rutaArchivo), true);
-        
+
         return $regiones;
     }
 
@@ -134,5 +179,28 @@ class MarketController extends Controller
         return $response->json();
     }
 
+    public function agregarDireccion(Request $request)
+    {
+
+        //$data = $request->json()->all();
+        // Obtener el ID del usuario logeado
+        $userId = Auth::id();
+        // Crear una nueva instancia de UserDireccion y asignar el user_id
+        $userDireccion = new UserDirecciones();
+        $userDireccion->region = $request->input('region');
+        $userDireccion->comuna = $request->input('comuna');
+        $userDireccion->codigo_postal = $request->input('codigo_postal');
+        $userDireccion->direccion = $request->input('direccion');
+        $userDireccion->user_id = $userId; // Asignar el ID del usuario logeado
+        $userDireccion->save();
+
+        return response()->json(['message' => 'request', 'userDireccion' => $userDireccion]);
+    }
+
+    public function getUserDirecciones(){
+        $userId = Auth::id();
+        $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
     
+        return response()->json(['message' => 'request', 'userDirecciones' => $userDirecciones]);
+    }
 }
