@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 
 use App\Models\Productos;
+use App\Models\Subcategorias;
 use App\Models\UserDirecciones;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +29,16 @@ class MarketController extends Controller
         $datos = Categorias::obtenerCategoriasConSubcategorias();
         //dd($datos);
         return response()->json(['datos' => $datos]);
+    }
+
+    public function getSubcategorias($idCategoria)
+    {
+    
+        // Buscar todas las subcategorías con el ID de categoría proporcionado
+        $subcategorias = Subcategorias::where('categoria_id', $idCategoria)->get();
+    
+        // Devolver las subcategorías como respuesta JSON
+        return response()->json($subcategorias);
     }
 
     public function getProductos(Request $request)
