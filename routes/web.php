@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MarketController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/market', [MarketController::class, 'show'])->name('market');;
 Route::get('/getProductos', [MarketController::class, 'getProductos']); 
 Route::get('/getCategorias', [MarketController::class, 'getCategorias']); 
+Route::get('/getSubcategorias/{idCategoria}', [MarketController::class, 'getSubcategorias'])->name('getSubcategorias');
 Route::get('/detalle/{id}', [MarketController::class, 'detalle'])->name('detalle');
 Route::post('/add-to-cart', [MarketController::class, 'addToCart'])->name('cart.add');
 Route::get('/get-cart', [MarketController::class, 'getCart'])->name('cart.get');
@@ -65,6 +67,10 @@ Route::get('/getUserDirecciones', [MarketController::class, 'getUserDirecciones'
 Route::get('/regiones', [MarketController::class, 'regiones'])->name('regiones');
 Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('comunas');
 
+
+/* ADMIN MARKET PLACE */
+Route::get('/productos', [AdminMarketController::class, 'productos'])->name('productos');
+Route::post('/agregarProducto', [AdminMarketController::class, 'agregarProducto'])->name('agregarProducto');
 
 /* Route::get('/market', function () {
     return view('pages.market');
