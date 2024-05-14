@@ -72,6 +72,12 @@ Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('com
 Route::get('/productos', [AdminMarketController::class, 'productos'])->name('productos');
 Route::post('/agregarProducto', [AdminMarketController::class, 'agregarProducto'])->name('agregarProducto');
 
+
+Route::get('/pagar', [MarketController::class, 'pagar'])->name('pagar');
+Route::post('/getResult', [MarketController::class, 'getResult'])->name('getResult');
+Route::post('/getStatus', [MarketController::class, 'getStatus'])->name('getStatus');
+Route::post('/refund', [MarketController::class, 'refund'])->name('refund');  
+Route::post('/detail', [MarketController::class, 'detail'])->name('detail');  
 /* Route::get('/market', function () {
     return view('pages.market');
 })->name('market'); */

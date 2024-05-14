@@ -216,7 +216,7 @@
                     </div>
                     <div class="row pb-3" style="text-align: center;">
                         @auth
-                            <a href="/carro" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</a>
+                            <button @click="pagarWebpay" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</button>
                         @else
                             <a href="#" title="Para continuar, inicia sesión o regístrate" data-toggle="tooltip" class="w-100 mb-3 btn btn-secondary"><i class="material-icons">shopping_cart</i>Pagar</a>
                             
@@ -272,7 +272,8 @@
             selectedRegion: '',
             selectedComuna: '',
             direcciones: [],
-            mostrarAgregarDireccion: false
+            mostrarAgregarDireccion: false,
+            total: ''
         },
         mounted() {
             this.listarCarrito();
@@ -309,6 +310,7 @@
                 this.cart.forEach(item => {
                     total += parseInt(item.costo) * parseInt(item.cantidad);
                 });
+                this.total = total;
                 return total;
             },
             deleteFromCart: function(itemId) {
@@ -474,6 +476,9 @@
                         console.error(error);
                     });
             },
+            pagarWebpay(){
+                location.href = 'pagar';
+            }
 
         }
     });
