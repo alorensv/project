@@ -4,26 +4,30 @@
 <style>
 
 </style>
-<section class="container py-4" style="margin-top: 20px;">
-
-    @include('market.modals.loginRegister')
-    @include('market.modals.register')
-    @include('market.modals.login')
-
-    <div class="row">
-        <div class="col-12 pl-3">
-            <nav aria-label="breadcrumb">
-                <ol class="bg-white breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('market') }}">Market</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('carro') }}">Carro</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Carro</li>
-                </ol>
-            </nav>
+<section class="pt-4" style="margin-top: 20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pl-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('market') }}">Market</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Comprar</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
+</section>
+
+<section class="white-division pt-2 pb-2">
+
+<div class="container">
+    @include('market.modals.loginRegister')
+    @include('market.modals.register')
+    @include('market.modals.login')    
 
     <div class="row bg-white market-body ">
-        <div class="col-8 pt-4 pl-4">
+        <div class="col-8">
             <div class="row pb-3">
                 <div class="col-12">
                     <div id="accordionCarrito">
@@ -64,12 +68,12 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="quantity-input mr-2">
-                                                                    <button id="minus-btn" @click="decrementQuantity(item)">
-                                                                        <i class="fas fa-minus" style="font-size: 11px;"></i>
+                                                                    <button id="minus-btn" class="border border-light border-1" @click="decrementQuantity(item)">
+                                                                        <i class="fas fa-minus fas-727272"style="font-size: 11px;"></i>
                                                                     </button>
-                                                                    <input type="number" v-model="item.cantidad" min="1" style="width: 42px;">
-                                                                    <button id="plus-btn" @click="incrementQuantity(item)">
-                                                                        <i class="fas fa-plus" style="font-size: 11px;"></i>
+                                                                    <input type="number" class="border border-light border-1" v-model="item.cantidad" min="1" style="width: 42px;">
+                                                                    <button id="plus-btn" class="border border-light border-1" @click="incrementQuantity(item)">
+                                                                        <i class="fas fa-plus fas-727272" style="font-size: 11px;"></i>
                                                                     </button>
                                                                 </div>
                                                                 <button class="btn btn-sm btn-danger" id="deleteFromCart" @click="deleteFromCart(item.id)">
@@ -154,13 +158,13 @@
             </div>
 
         </div>
-        <div class="col-4 bg-white border border-ligh pt-3 pl-5 pr-4">
+        <div class="col-4 bg-white border border-ligh pt-3 pl-5 pr-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="row pb-3">
+                    <div class="w-100 pb-3">
                         <p class="w-100">Resumen</p>
                     </div>
-                    <div class="row w-100">
+                    <div class="w-100">
                         <div class="w-100" v-if="cart.length > 0" id="cart-items">
                             <table class="table w-100">
                                 <thead>
@@ -214,7 +218,7 @@
                             <p class="carrito_vacio" style="margin-left: 13px; align-self: center; padding-top: 17px;">Tu Carro está vacío</p>
                         </div>
                     </div>
-                    <div class="row pb-3" style="text-align: center;">
+                    <div class="w-100 pb-3" style="text-align: center;">
                         @auth
                             <button @click="pagarWebpay" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</button>
                         @else
@@ -227,6 +231,8 @@
             </div>
         </div>
     </div>
+</div>
+
 
 
 </section>

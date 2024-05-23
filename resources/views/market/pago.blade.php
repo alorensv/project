@@ -100,7 +100,7 @@ error_reporting(E_ALL);
                var auto_refresh = setInterval(
                   function() {
                      submitform();
-                  },1000);
+                  },200);
                //}, 5000);
                function submitform() {
                   //alert('test');

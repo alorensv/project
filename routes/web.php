@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MarketController;
+use App\Http\Controllers\TransbankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 /*
@@ -69,15 +71,18 @@ Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('com
 
 
 /* ADMIN MARKET PLACE */
+Route::get('/misCompras',[HomeController::class, 'misCompras'])->name('misCompras');
+Route::get('/getMisCompras',[HomeController::class, 'getMisCompras'])->name('getMisCompras');
 Route::get('/productos', [AdminMarketController::class, 'productos'])->name('productos');
 Route::post('/agregarProducto', [AdminMarketController::class, 'agregarProducto'])->name('agregarProducto');
 
 
-Route::get('/pagar', [MarketController::class, 'pagar'])->name('pagar');
-Route::post('/getResult', [MarketController::class, 'getResult'])->name('getResult');
-Route::post('/getStatus', [MarketController::class, 'getStatus'])->name('getStatus');
-Route::post('/refund', [MarketController::class, 'refund'])->name('refund');  
-Route::post('/detail', [MarketController::class, 'detail'])->name('detail');  
+Route::get('/pagar', [TransbankController::class, 'pagar'])->name('pagar');
+Route::get('/enviarPago', [TransbankController::class, 'enviarPago'])->name('enviarPago');
+Route::post('/getResult', [TransbankController::class, 'getResult'])->name('getResult');
+Route::post('/getStatus', [TransbankController::class, 'getStatus'])->name('getStatus');
+Route::post('/refund', [TransbankController::class, 'refund'])->name('refund');  
+Route::post('/detail', [TransbankController::class, 'detail'])->name('detail');  
 /* Route::get('/market', function () {
     return view('pages.market');
 })->name('market'); */
