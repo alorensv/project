@@ -65,13 +65,17 @@ class Compras extends Model
 
         $productos = self::getSessionCart();
         $amount = 0;
+
+        $userDireccion = UserDirecciones::where('user_id', $userId)
+                                ->where('is_default', 0)
+                                ->first();
         
         $order = new Compras();
         $order->user_id =  $userId;
         $order->forma_pago_id = 1; 
         $order->monto = $amount;
         $order->estado = Compras::ESTADO_COTIZANDO;
-        $order->user_direccion_id = 1; 
+        $order->user_direccion_id = $userDireccion->id; 
         if($order->save()){            
 
             foreach($productos as $producto){
@@ -81,6 +85,9 @@ class Compras extends Model
                 $detalleOrder->cantidad = $producto->cantidad; 
                 $detalleOrder->monto = ( $producto->cantidad * $producto->costo );
                 if($detalleOrder->save()){
+                    $productoOriginal = Productos::find($producto->id);
+                    $productoOriginal->cantidad = $productoOriginal->cantidad - $detalleOrder->cantidad;
+                    $productoOriginal->save();
                     $amount = $amount + ($producto->costo * $producto->cantidad);
                 }
                 //end foreach

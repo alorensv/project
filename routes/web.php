@@ -65,6 +65,7 @@ Route::post('/updateCart/{id}', [MarketController::class, 'updateCart'])->name('
 Route::get('/existeUsuario/{email}', [RegisterController::class, 'existeUsuario'])->name('existeUsuario');
 Route::post('/agregarDireccion', [MarketController::class, 'agregarDireccion'])->name('agregarDireccion');
 Route::get('/getUserDirecciones', [MarketController::class, 'getUserDirecciones'])->name('getUserDirecciones');
+Route::post('/updateDireccionPredeterminada/{id}',[MarketController::class, 'updateDireccionPredeterminada'])->name('updateDireccionPredeterminada');
 
 Route::get('/regiones', [MarketController::class, 'regiones'])->name('regiones');
 Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('comunas');

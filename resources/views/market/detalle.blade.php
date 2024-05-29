@@ -1,4 +1,4 @@
-@extends('plantilla')
+@extends('tiny.tinyTemplate')
 
 @section('content')
 <style>
@@ -52,7 +52,7 @@
         color: #333333;
     }
 </style>
-<section class="pt-4" style="margin-top: 20px;">
+<!-- <section class="pt-4" style="margin-top: 20px;">
     <div class="container">
         <div class="row">
             <div class="col-12 pl-3">
@@ -65,9 +65,9 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
-<section class="white-division pt-2 pb-2">
+<section class="white-division pt-5 pb-2"  style="margin-top: 20px;">
 
     <div class="container">
 
@@ -170,6 +170,7 @@
                         <div class="row">
                             <div v-for="producto in productos" :key="producto.id" class="col-md-3">
                                 <div class="productDiv">
+                                    <a :href="'/detalle/' + producto.id">
                                     <div class="card">
                                         <img class="card-img-top" :src="producto.imagen" alt="Imagen del producto"><!-- Imagen del producto -->
                                         <div class="card-body">
@@ -177,6 +178,7 @@
                                             <p class="card-text" style="font-size: 13px!important;">@{{ producto.descripcion.substring(0, 150) }}</p>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -197,6 +199,7 @@
 
 
 </section>
+@include('tiny.footer')
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

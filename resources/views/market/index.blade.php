@@ -1,4 +1,4 @@
-@extends('plantilla')
+@extends('tiny.tinyTemplate')
 
 @section('content')
 <style>
@@ -66,17 +66,20 @@
         padding-right: 3px; /* Espacio entre el símbolo y el número */
     }
 </style>
-<section class="container">
+
+<section class="white-division pt-2 pb-2">
+
+<div class="container">
     <div class="row market-body mt-5 pt-5">
         <!-- Columna de categorías -->
         <div class="col-md-3">
             <div class="h-100 bg-white pl-4 pr-4 pt-2 pb-2">
-            <p class="pt-1">Filtros</p><span class="material-icons">search</span>
+            <span class="material-icons float-left">search</span><h4 class="font-weight-bold">Filtros</h4>
 
             <div v-for="categoria in categorias" :key="categoria.id">
                 <div class="categoria-title">
                     <hr>
-                    <h5>@{{ categoria.nombre }}</h5> <!-- Título de la categoría -->
+                    <h5 class="font-weight-bold">@{{ categoria.nombre }}</h5> <!-- Título de la categoría -->
                     <hr>
                 </div>
                 <!-- Lista de subcategorías -->
@@ -111,7 +114,11 @@
                                         <!-- Costo del producto -->
                                     </div>
                                     <div class="col-8 text-center">
-                                        <a :href="'/detalle/' + producto.id" class="btn btn-primary"><span class="material-icons" style="font-size: 11px !important;">shopping_cart</span> Comprar</a>
+                                        <a :href="producto.cantidad > 0 ? '/detalle/' + producto.id : '#'" 
+                                            :class="{'btn': true, 'btn-primary': producto.cantidad > 0, 'btn-danger': producto.cantidad <= 0}" 
+                                            :disabled="producto.cantidad < 1">
+                                            <span class="material-icons" style="font-size: 11px !important;">shopping_cart</span> @{{ producto.cantidad > 0 ? 'Comprar' : 'Agotado' }}
+                                        </a>
                                         <!-- Botón de detalles -->
                           
                                     </div>
@@ -125,7 +132,9 @@
             </div>
         </div>
     </div>
+</div>
 </section>
+@include('tiny.footer')
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -174,4 +183,5 @@
         }
     });
 </script>
+
 @endsection

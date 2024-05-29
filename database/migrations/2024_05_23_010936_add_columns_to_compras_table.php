@@ -17,7 +17,7 @@ class AddColumnsToComprasTable extends Migration
             $table->integer('ultimos_num_tarjeta')->nullable()->default(null);
             $table->dateTime('fecha_transaccion')->nullable()->default(null);
             $table->integer('codigo_auth')->default(0);
-            $table->string('codigo_tipo_transaccion', 4);
+            $table->string('codigo_tipo_transaccion', 4)->nullable()->default(null);
             $table->integer('num_cuotas')->nullable()->default(null);
         });
     }

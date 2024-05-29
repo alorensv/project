@@ -1,25 +1,11 @@
-@extends('plantilla')
+@extends('tiny.tinyTemplate')
 
 @section('content')
 <style>
 
 </style>
-<section class="pt-4" style="margin-top: 20px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 pl-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('market') }}">Market</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Comprobante de pago</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="white-division pt-2 pb-2">
+<section class="white-division pt-5 pb-2" style="margin-top: 20px;">
 
 <div class="container">
 <?php //echo "<pre>"; print_r($detalleCompra); ?>
@@ -111,5 +97,6 @@
 
 
 </section>
+@include('tiny.footer')
 
 @endsection

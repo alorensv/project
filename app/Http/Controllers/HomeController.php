@@ -36,6 +36,7 @@ class HomeController extends Controller
     public function getMisCompras(){
         $misCompras = Compras::where('user_id', Auth::id())
         ->with('productos', 'productos.producto')
+        ->orderBy('id', 'desc')
         ->get();
         return response()->json($misCompras);
     }

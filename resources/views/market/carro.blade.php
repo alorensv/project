@@ -1,25 +1,10 @@
-@extends('plantilla')
+@extends('tiny.tinyTemplate')
 
 @section('content')
 <style>
 
 </style>
-<section class="pt-4" style="margin-top: 20px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 pl-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('market') }}">Market</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Comprar</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="white-division pt-2 pb-2">
+<section class="white-division pt-5 pb-2" style="margin-top: 20px;">
 
 <div class="container">
     @include('market.modals.loginRegister')
@@ -132,7 +117,12 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="direccion in direcciones" :key="direccion.id">
-                                            <td><input type="checkbox" style="width: 20px;" class="form-control" name="selectDireccion" id="selectDireccion"></td>
+                                            <td class="pt-0"><input type="checkbox" style="width: 20px;" 
+                                            class="form-control" 
+                                            name="selectDireccion" 
+                                            id="selectDireccion" 
+                                            :checked="direccion.is_default == 1"
+                                            @change="cambiarDireccionPredeterminada(direccion.id)"></td>
                                             <td>@{{ direccion.region }} / @{{ direccion.comuna }}</td>
                                             <td>@{{ direccion.direccion }}</td>
                                         </tr>
@@ -236,6 +226,7 @@
 
 
 </section>
+@include('tiny.footer')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @if(Auth::check())
@@ -269,10 +260,13 @@
             correo: '',
             clave: '',
             password_confirmation: '',
+            nombre_contacto: '',
+            fono_contacto: '',
             direccion: '',
             region: '',
             comuna: '',
             codigo_postal: '',
+            is_default: false,
             regiones: [],
             comunas: [],
             selectedRegion: '',
@@ -339,10 +333,20 @@
                         region: this.selectedRegion,
                         comuna: this.selectedComuna,
                         codigo_postal: this.codigo_postal,
-                        direccion: this.direccion
+                        direccion: this.direccion,
+                        nombre_contacto: this.nombre_contacto,
+                        fono_contacto: this.fono_contacto,
+                        is_default: this.is_default
                     })
                     .then((response) => {
                         this.listarDirecciones();
+                        this.nombre_contacto = '';
+                        this.fono_contacto = '';
+                        this.region = '';
+                        this.comuna = '';
+                        this.direccion = '';
+                        this.codigo_postal = '';
+                        this.is_default = '';
                     })
                     .catch((error) => {
                         console.error(error);
@@ -477,6 +481,18 @@
                     })
                     .then((response) => {
                         this.listarCarrito(); // Actualizar el carrito después de la operación
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            },
+            cambiarDireccionPredeterminada(id){
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post(`/updateDireccionPredeterminada/${id}`, {
+                        _token: csrfToken,
+                    })
+                    .then((response) => {
+                        this.listarDirecciones();
                     })
                     .catch((error) => {
                         console.error(error);

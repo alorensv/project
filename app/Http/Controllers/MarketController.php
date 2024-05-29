@@ -52,6 +52,7 @@ class MarketController extends Controller
 
         if (empty($subcategorias)) {
             $productos = Productos::all();
+            //$productos = Productos::where('cantidad', '>', 0)->get();
         } else {
             $productos = Productos::whereIn('subcategoria_id', $subcategorias)->get();
         }
@@ -198,12 +199,25 @@ class MarketController extends Controller
         // Obtener el ID del usuario logeado
         $userId = Auth::id();
         // Crear una nueva instancia de UserDireccion y asignar el user_id
+
+        $is_default = $request->input('is_default') ? 1 : 0;
+        if($is_default == 1){
+            $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
+            foreach ($userDirecciones as $direccion) {
+                $direccion->is_default = 0;
+                $direccion->save();
+            }
+        }
+
         $userDireccion = new UserDirecciones();
         $userDireccion->region = $request->input('region');
         $userDireccion->comuna = $request->input('comuna');
         $userDireccion->codigo_postal = $request->input('codigo_postal');
         $userDireccion->direccion = $request->input('direccion');
         $userDireccion->user_id = $userId; // Asignar el ID del usuario logeado
+        $userDireccion->nombre_contacto = $request->input('nombre_contacto');
+        $userDireccion->fono_contacto = $request->input('fono_contacto');
+        $userDireccion->is_default = $is_default;
         $userDireccion->save();
 
         return response()->json(['message' => 'request', 'userDireccion' => $userDireccion]);
@@ -215,6 +229,16 @@ class MarketController extends Controller
         $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
 
         return response()->json(['message' => 'request', 'userDirecciones' => $userDirecciones]);
+    }
+
+    public function updateDireccionPredeterminada($id){
+        $userId = Auth::id();
+        $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
+        foreach ($userDirecciones as $direccion) {
+            $direccion->is_default = ($direccion->id == $id)?  1 : 0;
+            $direccion->save();
+        }
+        return response()->json(['message' => 'ok']);
     }
 
 }

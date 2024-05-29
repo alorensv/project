@@ -11,7 +11,7 @@ class UserDirecciones extends Model
     
     protected $table = 'user_direcciones';
 
-    protected $fillable = ['region', 'comuna', 'codigo_postal', 'direccion'];
+    protected $fillable = ['region', 'comuna', 'codigo_postal', 'direccion','nombre_contacto', 'fono_contacto','is_default'];
 
     public function user()
     {
