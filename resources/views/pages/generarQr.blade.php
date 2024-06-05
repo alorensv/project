@@ -225,7 +225,7 @@
     } else {
       $textContainer.text(filesCount + ' archivos seleccionados');
       var logo = new Image();
-      logo.src = '/img/logo.png'; 
+      logo.src = '/img/tbl/TBL.png'; 
       return logo;
     }
   }

@@ -34,6 +34,11 @@ class Compras extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function direccion()
+    {
+        return $this->belongsTo(UserDirecciones::class, 'user_direccion_id', 'id');
+    }
+
     public function productos()
     {
         return $this->hasMany(CompraProductos::class, 'compra_id', 'id');
@@ -67,7 +72,7 @@ class Compras extends Model
         $amount = 0;
 
         $userDireccion = UserDirecciones::where('user_id', $userId)
-                                ->where('is_default', 0)
+                                ->where('is_default', 1)
                                 ->first();
         
         $order = new Compras();

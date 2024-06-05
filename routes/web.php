@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MarketController;
+use App\Http\Controllers\QrManagerController;
 use App\Http\Controllers\TransbankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
@@ -74,6 +75,7 @@ Route::get('/comunas/{region}', [MarketController::class, 'comunas'])->name('com
 /* ADMIN MARKET PLACE */
 Route::get('/misCompras',[HomeController::class, 'misCompras'])->name('misCompras');
 Route::get('/getMisCompras',[HomeController::class, 'getMisCompras'])->name('getMisCompras');
+Route::get('/verDetalleCompra/{id}',[AdminMarketController::class, 'verDetalleCompra'])->name('verDetalleCompra');
 Route::get('/productos', [AdminMarketController::class, 'productos'])->name('productos');
 Route::post('/agregarProducto', [AdminMarketController::class, 'agregarProducto'])->name('agregarProducto');
 
@@ -87,3 +89,7 @@ Route::post('/detail', [TransbankController::class, 'detail'])->name('detail');
 /* Route::get('/market', function () {
     return view('pages.market');
 })->name('market'); */
+
+
+/* CODIGOS QR*/
+Route::get('/view', [QrManagerController::class, 'view'])->name('view');
