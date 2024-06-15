@@ -443,7 +443,11 @@
                 this.mostrarAgregarDireccion = !this.mostrarAgregarDireccion;
             },
             consultarCorreo() {
-                axios.get(`/existeUsuario/${this.correo}`)
+                axios.get('/existeUsuario', {
+                        params: {
+                            correo: this.correo
+                        }
+                    })
                     .then(response => {
                         if (response.data.message == 'ok') {
                             $('#loginRegister').modal('hide');
@@ -451,11 +455,10 @@
                         } else {
                             $('#loginRegister').modal('hide');
                             $('#register').modal('show');
-                        }                        
-
+                        }  
                     })
                     .catch(error => {
-                        console.error('Error al enviar el formulario:', error);
+                        console.error('Error al obtener productos:', error);
                     });
             },
             decrementQuantity: function(item) {

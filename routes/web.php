@@ -8,6 +8,8 @@ use App\Http\Controllers\QrManagerController;
 use App\Http\Controllers\TransbankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\WebtblController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +21,9 @@ use App\Http\Controllers\WebController;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('pages.inicio');
-})->name('inicio');
+})->name('inicio'); */
 
 Route::get('/paginaWeb', function () {
     return view('pages.paginaWeb');
@@ -51,7 +53,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 /** MARKET DIVISION */
-Route::get('/market', [MarketController::class, 'show'])->name('market');;
+Route::get('/', [MarketController::class, 'show'])->name('inicio');
+//Route::get('/market', [MarketController::class, 'show'])->name('market');
 Route::get('/getProductos', [MarketController::class, 'getProductos']); 
 Route::get('/getCategorias', [MarketController::class, 'getCategorias']); 
 Route::get('/getSubcategorias/{idCategoria}', [MarketController::class, 'getSubcategorias'])->name('getSubcategorias');
@@ -63,7 +66,7 @@ Route::post('/deleteCart/{id}', [MarketController::class, 'deleteCart'])->name('
 Route::post('/updateCart/{id}', [MarketController::class, 'updateCart'])->name('updateCart');
 
 /* anexos */
-Route::get('/existeUsuario/{email}', [RegisterController::class, 'existeUsuario'])->name('existeUsuario');
+Route::get('/existeUsuario', [MarketController::class, 'existeUsuario'])->name('existeUsuario');
 Route::post('/agregarDireccion', [MarketController::class, 'agregarDireccion'])->name('agregarDireccion');
 Route::get('/getUserDirecciones', [MarketController::class, 'getUserDirecciones'])->name('getUserDirecciones');
 Route::post('/updateDireccionPredeterminada/{id}',[MarketController::class, 'updateDireccionPredeterminada'])->name('updateDireccionPredeterminada');
@@ -93,3 +96,7 @@ Route::post('/detail', [TransbankController::class, 'detail'])->name('detail');
 
 /* CODIGOS QR*/
 Route::get('/view', [QrManagerController::class, 'view'])->name('view');
+
+
+/* TRANSPORTES BULNES */
+Route::get('/', [WebtblController::class, 'index'])->name('inicio');

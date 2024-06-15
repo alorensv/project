@@ -3,7 +3,7 @@
                 <div class="col-md-3 bg-light py-1">
                     
                     <a class="navbar-brand" href="{{ route('inicio') }}">
-                        <img src="/img/tiny/tiny_logo.png" class="mx-auto d-block img-fluid">
+                        <img src="{{ env('PRE_HOST') . '/img/tiny/tiny_logo.png' }}" class="mx-auto d-block img-fluid">
                     </a>
                 </div>
 

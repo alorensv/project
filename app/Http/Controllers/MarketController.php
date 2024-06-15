@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Http;
 
 use App\Models\Productos;
 use App\Models\Subcategorias;
+use App\Models\User;
 use App\Models\UserDirecciones;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,17 @@ class MarketController extends Controller
     public function show()
     {
         return view('market/index');
+    }
+
+    public function existeUsuario(Request $request){
+        $email = $request->input('correo');
+        
+        $user = User::where('email', $email)->first();
+         if(empty($user)){
+             return response()->json(['message' => 'error', 'email' => $email]);
+         }else{
+             return response()->json(['message' => 'ok', 'user' => $user]);
+         }
     }
 
     public function getCategorias(Request $request)
