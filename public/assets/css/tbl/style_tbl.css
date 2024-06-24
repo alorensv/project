@@ -1,13 +1,42 @@
 /* tbl */
 
+/*galeria*/
+
+/* styles.css */
+.gallery-item {
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  .gallery-item img {
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item img:hover {
+    transform: scale(1.1);
+  }
+  
+
+
 /*carusel traslados*/
+
+
+.blueH  {
+    font-weight: 600;
+    color: #060737;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
 
 .traslados .carousel {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 500px; /* Aumenta la altura del contenedor principal del carrusel si es necesario */
+    height: 500px;
+    /* Aumenta la altura del contenedor principal del carrusel si es necesario */
 }
 
 .traslados .titles {
@@ -22,18 +51,25 @@
 }
 
 .traslados .title {
-    padding: 20px 10px; /* Ajuste de padding */
+    padding: 25px 21px 20px 27px;
+    /* Ajuste de padding */
     cursor: pointer;
-    transition: font-size 0.2s ease, transform 0.2s ease; /* Transición suave */
+    transition: font-size 0.2s ease, transform 0.2s ease;
+    /* Transición suave */
 }
 
 .traslados .title:hover {
-    font-size: 1.1rem; /* Aumenta el tamaño de la fuente al pasar el cursor */
-    transform: scale(1.1); /* Añade un efecto de escala para mayor impacto */
+    font-size: 1.1rem;
+    /* Aumenta el tamaño de la fuente al pasar el cursor */
+    transform: scale(1.1);
+    background-color: white;
+    color: #060737;
+    /* Añade un efecto de escala para mayor impacto */
 }
 
 .traslados .indicators {
-    flex: 0 0 40px; /* Ajusta el tamaño de la columna de indicadores */
+    flex: 0 0 40px;
+    /* Ajusta el tamaño de la columna de indicadores */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,7 +86,7 @@
 }
 
 .traslados .indicator.active {
-    background-color: black;
+    background-color: white;
 }
 
 .traslados .photos {
@@ -58,16 +94,19 @@
     display: flex;
     overflow: hidden;
     width: 100%;
-    height: 764px; /* Ajusta la altura del contenedor de fotos */
+    height: 764px;
+    /* Ajusta la altura del contenedor de fotos */
     position: relative;
-    align-items: flex-end; /* Asegura que las fotos se alineen hacia la parte inferior del contenedor */
+    align-items: flex-end;
+    /* Asegura que las fotos se alineen hacia la parte inferior del contenedor */
     top: -21px;
 }
 
 .traslados .photo {
     display: none;
     width: 100%;
-    height: 80%; /* Aumenta la altura de las fotos dentro del contenedor */
+    height: 80%;
+    /* Aumenta la altura de las fotos dentro del contenedor */
     position: relative;
 }
 
@@ -75,9 +114,70 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top; /* Ajusta la imagen hacia la parte superior del contenedor */
+    object-position: top;
+    /* Ajusta la imagen hacia la parte superior del contenedor */
 }
 
+.traslados .title.active {
+    background-color: white;
+    color: #060737;
+    /* Cambia el color según tu preferencia */
+}
+
+
+
+.indicators-container {
+    width: 70%;
+    margin: 20px auto;
+    /* Margen automático en la parte superior e inferior y centrado horizontal */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.indicadores .indicator {
+    flex: 1 1 25%;
+    /* Ocupa el 25% del ancho del contenedor en pantallas grandes */
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.value-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.indicadores .indicator .value {
+    font-size: 1em;
+    /* Ajusta el tamaño para que sea consistente con el contenedor */
+}
+
+.indicadores .indicator .title {
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .indicadores .indicator {
+        flex: 1 1 50%;
+        /* Ocupa el 50% del ancho del contenedor en pantallas pequeñas */
+    }
+}
+
+.bgIndicadores {
+    width: 100%;
+    height: 260px;
+    background-image: url(/img/tbl/ruta_indicadores.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 /* */
 
@@ -90,11 +190,13 @@
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background-color: #fff; /* Cambia el color de fondo si lo deseas */
+    background-color: #fff;
+    /* Cambia el color de fondo si lo deseas */
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #060737; /* Fondo de color #060737 */
+    background-color: #060737;
+    /* Fondo de color #060737 */
 }
 
 .spinner {
@@ -107,29 +209,35 @@
 }
 
 #preloader img {
-    width: 25%; /* Ajusta el tamaño de la imagen según sea necesario */
+    width: 25%;
+    /* Ajusta el tamaño de la imagen según sea necesario */
     height: auto;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-.titleCarousel{
+.titleCarousel {
     position: absolute;
     background-color: #0607379e;
     padding: 28px;
     width: 101%;
     color: #ffffff;
-    
+
     /* border-radius: 40px; */
     top: 40%;
     animation: transformTitleCarousel 2s ease-in-out forwards;
-    
+
 }
 
-.titleServices1{
+.titleServices1 {
     width: 80%;
     font-family: "Kanit", sans-serif;
     font-weight: 800;
@@ -138,8 +246,8 @@
     font-weight: bold;
 }
 
-.titleServices2{
-    width: 25%;    
+.titleServices2 {
+    width: 25%;
 }
 
 .titleServices2 .material-icons:hover {
@@ -153,7 +261,7 @@
     }
 }
 
-.bgRuta{
+.bgRuta {
     width: 100%;
     height: 300px;
     background-image: url(/img/tbl/ruta.png);
@@ -161,6 +269,46 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.presentacionServicio {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+    animation: transformpresentacionServicio 2s ease forwards;
+}
+
+@keyframes transformpresentacionServicio {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+.presentacionR{
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+}
+
+.presentacionR.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.ceroR {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+}
+
+.ceroR.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
 
 .btn {
     display: inline-block;
@@ -188,51 +336,107 @@
     color: #fff;
     background-color: #060737;
     border-color: #060737;
-  }
-  .btn-primary:hover {
+}
+
+.btn-primary:hover {
     color: #060737;
     background-color: #fff;
     border-color: #fff;
-  }
-  .btn-primary:focus, .btn-primary.focus {
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
     color: #060737;
     background-color: #fff;
     border-color: #fff;
     box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
-  }
-  .btn-primary.disabled, .btn-primary:disabled {
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
-  }
-  .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
-  }
-  .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem rgba(133, 142, 150, 0.5);
-  }
-  .carousel {
-    z-index: 2;
-    }
-  .welcome{
-        position: relative;
-        right: 0;
-        left: 0;
-        z-index: 1;
-        background-color: white;
-        min-height: 700px;
-        padding-top: 50px;
-        text-align: justify;    
-  }
+}
 
-  .traslados{
+.btn-secondary {
+    color: #060737;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.btn-secondary:hover {
+    color: #fff;
     background-color: #060737;
-        min-height: 611px;
+    border-color: #060737;
+}
+
+
+.carousel {
+    z-index: 2;
+}
+
+.welcome {
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    min-height: 700px;
+    padding-top: 50px;
+    text-align: justify;
+}
+
+.traslados {
+    background-color: #060737;
+    min-height: 611px;
+}
+
+.indicadores {
+    background-color: white;
+    min-height: 260px;
+    
+}
+
+.transporte-cargas {
+    background-color: #060737;
+    min-height: 611px;
   }
 
-  .carousel-caption {
+  .transporte-cargas h2 {
+    color: #fff!important;
+} 
+
+.transporte-cargas p {
+    color: #fff!important;
+} 
+  
+  
+  .transporte-cargas img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .logoGrande{
+    padding-top: 5%;
+  }
+
+.carousel-caption {
     position: absolute;
     right: 8%;
     bottom: 20px;
@@ -242,12 +446,64 @@
     padding-bottom: 20px;
     color: #fff;
     text-align: center;
-    }
+}
+
+
+.welcome-servicios {
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #060737;
+    min-height: 687px;
+    padding-top: 70px;
+    text-align: justify;
+}
+
+.welcome-servicios p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+/*sobredimensionados*/
+.bg_sobredimensionados {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/servicio_sobredimensionado.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.galery {
+    background-color: white;
+}
+.galery {
+    width: 100%;
+    /* height: 260px; */
+    background-image: url(/img/tbl/ruta_indicadores.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bgservicios {
+    width: 100%;
+    /* height: 260px; */
+    background-image: url(/img/tbl/ruta_indicadores.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 
 /*MIS COMPRAS */
 .order-item {
     display: block;
-    margin-bottom: 16px;    
+    margin-bottom: 16px;
     padding: 0 24px 16px;
     background-color: #fff;
     color: #222;
@@ -260,7 +516,8 @@
     background-color: #e5e5e5;
 }
 
-.order-item-header-date, .order-item-header-right a span {
+.order-item-header-date,
+.order-item-header-right a span {
     margin: 0 4px;
 }
 
@@ -278,12 +535,14 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.order-item-header, .order-item-header label {
+.order-item-header,
+.order-item-header label {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
 }
+
 .order-item-header {
     -webkit-box-align: center;
     -webkit-align-items: center;
@@ -376,7 +635,8 @@
     justify-content: space-between;
 }
 
-.order-item-content-body, .order-item-content-img-list {
+.order-item-content-body,
+.order-item-content-img-list {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -401,7 +661,8 @@
     line-height: 1.5;
 }
 
-.order-item-content-info-name, .order-item-content-info-tag {
+.order-item-content-info-name,
+.order-item-content-info-tag {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -418,7 +679,9 @@
 .order-item-content-info-sku {
     color: #999;
 }
-.order-item-content-info-number, .order-item-content-info-sku {
+
+.order-item-content-info-number,
+.order-item-content-info-sku {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -430,7 +693,8 @@
     margin-bottom: 8px;
 }
 
-.order-item-content-info-number, .order-item-content-info-sku {
+.order-item-content-info-number,
+.order-item-content-info-sku {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -438,7 +702,8 @@
     margin-bottom: 12px;
 }
 
-.order-item-content-info-name, .order-item-content-info-tag {
+.order-item-content-info-name,
+.order-item-content-info-tag {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -525,7 +790,8 @@
 
 /*market place*/
 
-.fa, .fas-727272 {
+.fa,
+.fas-727272 {
     font-size: 11px;
     color: #727272;
 }
@@ -534,15 +800,15 @@
     background: #25292c;
 }
 
-.breadcrumb{
-    background-color: #e8e8e8!important;
+.breadcrumb {
+    background-color: #e8e8e8 !important;
 }
 
-.a:hover{
-    text-decoration: none!important;
+.a:hover {
+    text-decoration: none !important;
 }
 
-.emptyCart{
+.emptyCart {
     background-color: rgb(246, 246, 246);
     text-align: center;
     padding-top: 15px;
@@ -553,21 +819,21 @@
 
 .material-icons-min {
     padding: 5px;
-    font-size: 15px!important;
-    color: #727272!important;
+    font-size: 15px !important;
+    color: #727272 !important;
 }
 
-.white-division{
+.white-division {
     background: rgb(255, 255, 255);
 }
 
-.white-division p{
+.white-division p {
     color: black;
 }
 
-.white-division h2{
+.white-division h2 {
     color: #3f8dc9;
-} 
+}
 
 /*fin market place*/
 
@@ -598,7 +864,7 @@
     max-width: 95%;
 }
 
-.texto-cotiza{
+.texto-cotiza {
     color: #1f6ba6;
     padding: 0px 0px 40px 0px;
     text-align: center;
@@ -610,12 +876,10 @@
     margin-left: 5px;
     position: relative;
     color: #1f6ba6;
-    transform: rotate(
-    -90deg
-    );
+    transform: rotate(-90deg);
 }
 
-.texto-clientes{
+.texto-clientes {
     color: #1f6ba6;
     padding: 0px 0px 10px 0px;
     text-align: center;
@@ -626,12 +890,10 @@
     margin-left: 5px;
     position: relative;
     color: #1f6ba6;
-    transform: rotate(
-    -90deg
-    );
+    transform: rotate(-90deg);
 }
 
-.div_cotiza{
+.div_cotiza {
     position: absolute;
     z-index: 99;
     /* padding-top: 10%; */
@@ -641,41 +903,41 @@
     top: 89%;
 }
 
-#contacto{
+#contacto {
     padding: 35px 60px 14px;
 }
 
-#contacto .form-group{
+#contacto .form-group {
     text-align: left;
     font-weight: 600;
 }
 
-.portafolio{
+.portafolio {
     background: rgb(255, 255, 255);
 }
 
-.portafolio p{
+.portafolio p {
     color: black;
 }
 
-.portafolio h2{
+.portafolio h2 {
     color: #3f8dc9;
 }
 
-.cotiza{
-    background: rgb(41,41,47);
-    background: linear-gradient(90deg, rgba(41,41,47,1) 0%, rgba(34,32,32,1) 35%, rgba(75,72,72,1) 100%); 
+.cotiza {
+    background: rgb(41, 41, 47);
+    background: linear-gradient(90deg, rgba(41, 41, 47, 1) 0%, rgba(34, 32, 32, 1) 35%, rgba(75, 72, 72, 1) 100%);
 }
 
-.cotiza p{
+.cotiza p {
     color: white;
 }
 
-.cotiza h2{
+.cotiza h2 {
     color: #3f8dc9;
 }
 
-.titles-heading{
+.titles-heading {
     font-weight: 300;
     line-height: 1;
     letter-spacing: -.05rem;
@@ -684,18 +946,19 @@
 
 /* Estilo para el contenedor del código QR */
 #qr-container {
-    text-align: center; /* Centra horizontalmente */
+    text-align: center;
+    /* Centra horizontalmente */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* Centra vertical y horizontalmente */
-    margin-top: 20px; /* Espacio superior opcional */
+    align-items: center;
+    /* Centra vertical y horizontalmente */
+    margin-top: 20px;
+    /* Espacio superior opcional */
 }
 
 
-.qrInptus{
-    
-}
+.qrInptus {}
 
 
 /*COUNTER*/
@@ -762,8 +1025,22 @@
 /*FOOTER*/
 footer {
     padding: 50px 0;
-    min-height: 370px;
-    background: #1e2225;
+    background: white;
+     /* border-radius: 40px; */     
+}
+
+footer .map-container {
+    width: 450px;
+    height: 70px;
+    overflow: hidden;
+}
+footer .map-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+footer .custom-link{
+    height: 45px; text-decoration: none;
 }
 
 footer .center {
@@ -773,6 +1050,60 @@ footer .center {
 footer .logo-footer {
     padding-bottom: 1px;
 }
+
+footer .logo-footer h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #060737;
+    margin-bottom: 20px;
+}
+
+
+footer .ceroR {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+}
+
+footer .ceroR.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.ceroTop {
+    opacity: 0;
+    transition: transform 1s ease;
+    transform: translateY(0); /* Inicialmente sin traslación */
+}
+
+.ceroTop.animate {
+    transform: translateY(-200px); /* Movimiento hacia abajo */
+}
+
+
+
+footer .logo-footer h3:hover {
+    color: #41425f; /* Cambia el color del texto a blanco al pasar el cursor */
+    font-weight: 400;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer .logo-footer ul li {
+    margin-bottom: 10px;
+    letter-spacing: 0;
+}
+
+footer .logo-footer ul li a {
+    font-size: 16px;
+    color: #060737;
+    font-weight: lighter;
+    text-decoration: none;
+}
+
 
 footer span {
     color: #9aa8b1;
@@ -784,19 +1115,19 @@ footer span {
 footer .menu-footer {
     top: 0;
     padding: 0 50px;
-    border-right: 1px solid #313131;
-    border-left: 1px solid #313131;
-    max-width: 470px;
+    border-right: 1px solid #c3c3c3;
+    border-left: 1px solid #d7d7d7;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 40px;
 }
 
 footer .menu-footer h3 {
     font-size: 18px;
-    font-weight: normal;
-    color: #9aa8b1;
+    font-weight: 600;
+    color: #060737;
     margin-bottom: 20px;
 }
+
 
 footer ul {
     list-style: none;
@@ -809,7 +1140,7 @@ footer .menu-footer ul li {
 
 footer .menu-footer ul li a {
     font-size: 16px;
-    color: #fff;
+    color: #060737;
     font-weight: lighter;
     text-decoration: none;
 }
@@ -817,21 +1148,30 @@ footer .menu-footer ul li a {
 footer .social-media {
     right: 0;
     top: 0;
-    text-align: center;
+    text-align: right;
 }
 
 footer .social-media h3 {
     font-size: 18px;
-    font-weight: normal;
-    color: #9aa8b1;
+    font-weight: 600;
+    color: #060737;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
+
 footer .social-media i {
-    color: #fff;
+    color: #060737;
     font-size: 27px;
     margin-left: 20px;
     transition: all 0.3s ease-in-out;
+}
+
+footer .social-media ul li a {
+    font-size: 16px;
+    color: #060737;
+    font-weight: lighter;
+    text-decoration: none;
 }
 
 #lineas {
@@ -841,18 +1181,19 @@ footer .social-media i {
 
 
 /*webs*/
-.portada_web{
+.portada_web {
     margin-top: 45px;
 }
 
-.portada_web img{
+.portada_web img {
     width: 100%;
 }
 
 
 @media (max-width: 600px) {
     #preloader img {
-        width: 50%!important; /* Ajusta el tamaño de la imagen según sea necesario */
+        width: 50% !important;
+        /* Ajusta el tamaño de la imagen según sea necesario */
         height: auto;
         margin-right: 21px;
     }
@@ -860,28 +1201,50 @@ footer .social-media i {
 
 
 @media (min-width: 1200px) {
-    h2, .h2 {
+
+    h2,
+    .h2 {
         font-size: 2.5rem;
         font-size: 2.5rem;
         font-weight: 600;
         color: #060737;
     }
+
+    .welcome-servicios h2,
+    .h2 {
+        font-size: 2.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .transporte-cargas .h2 {
+        font-size: 2.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #fff!important;
+    } 
+
+    .bg_sobredimensionados {
+        height: 617px;
+    }
 }
 
 
 @media (min-width: 1700px) {
-    h2, .h2 {
-        top: 18%!important;
+
+    h2,
+    .h2 {
+        top: 18% !important;
     }
 
     .div_cotiza {
-        top: 60%!important;
+        top: 60% !important;
     }
 
     #preloader img {
-        width: 45%!important; /* Ajusta el tamaño de la imagen según sea necesario */
+        width: 45% !important;
+        /* Ajusta el tamaño de la imagen según sea necesario */
         height: auto;
     }
 }
-
-

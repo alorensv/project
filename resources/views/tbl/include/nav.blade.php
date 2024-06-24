@@ -26,11 +26,26 @@
                                     <li class="nav-item px-2 pt-1">
                                         <a class="nav-link {{request()->routeIs('inicio') ? 'active' : ''}}" href="{{ route('inicio') }}">{{ __('Inicio') }}</a>
                                     </li>
-                                   
-                                    <li class="nav-item pl-2 pr-3 pt-1">
-                                        <a class="nav-link {{request()->routeIs('portafolio') ? 'active' : ''}}" href="{{ route('portafolio') }}">{{ __('Servicios') }}</a>
-                                    </li>
 
+                                    <li class="nav-item dropdown px-2 pt-1">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ __('Servicios') }}
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item {{request()->routeIs('servicio_sobredimensionado') ? 'active' : ''}}" href="{{ route('servicio_sobredimensionado') }}">{{ __('Transporte sobre dimensionado y sobre contenedores') }}
+                                            </a>
+
+                                            <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ route('generarQr') }}">{{ __('Generar QR') }}
+                                            </a>
+
+                                        </div>
+                                    
+                                    </li>                                   
+                              
                                     <li class="nav-item pl-2 pr-3 pt-1">
                                         <a class="nav-link {{request()->routeIs('portafolio') ? 'active' : ''}}" href="{{ route('portafolio') }}">{{ __('Nuestros equipos') }}</a>
                                     </li>

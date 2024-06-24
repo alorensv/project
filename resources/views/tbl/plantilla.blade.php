@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,106 +41,130 @@
     <script src="assets/owlcarousel/owl.carousel.js"></script>
 
     <style>
-        
+
     </style>
 </head>
+
 <body>
 
     <!-- Preloader -->
     <div id="preloader">
-        <img src="{{ asset('/img/tbl/logo2.png') }}" >
+        <img src="{{ asset('/img/tbl/logo2.png') }}">
         <!-- <div class="spinner"></div> -->
     </div>
 
     <div id="app">
         @include('tbl.include.nav')
-        <div class="div_cotiza">
-        <section class="shadow-lg" style=" background-color: white;color: #060737;" id="contacto">
-            <form action="{{route('enviarEmail')}}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-md-12">
-                <div class="text-center pb-4">
-                    <h4 style="font-size: 1.8rem;font-weight: 600;">Cotiza con nosotros</h4>
-                </div>
-
-                @if (session('info'))
-                <div class="status alert alert-success">{{session('info')}}</div>
-                @endif
-
-                <div class="form-group">
-                    <label for="Nombre">Nombre</label>
-                    <input type="text" id="name" name="name" class="form-control" required="required" placeholder="Nombre">
-                </div>
-                @error('name')
-                <p class="">{{$message}}</p>
-                @enderror
-                <div class="form-group">
-                    <label for="emai">Correo</label>
-                    <input type="email" id="email" name="email" class="form-control" required="required" placeholder="Correo">
-                </div>
-                @error('email')
-                <p class="">{{$message}}</p>
-                @enderror
-                <div class="form-group">
-                    <label for="Teléfono">Teléfono</label>
-                    <input type="number" id="fono" name="fono" class="form-control" placeholder="Teléfono">
-                </div>
-                <div class="form-group">
-                    <label for="fecha">Fecha posible del servicio</label>
-                    <input type="number" id="fono" name="fono" class="form-control" placeholder="Fecha posible del servicio">
-                </div>
-
-            </div><!--/.col-md-12-->
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="fecha">Origen</label>
-                    <input type="number" id="fono" name="fono" class="form-control" placeholder="Fecha posible del servicio">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="fecha">Destino</label>
-                    <input type="number" id="fono" name="fono" class="form-control" placeholder="Fecha posible del servicio">
-                </div>
-            </div>
-            <div class="col-12">
-
-                <div class="form-group">
-                    <label for="mensaje">Comentarios</label>
-                    <textarea name="message" id="message" required="required" class="form-control" rows="4" placeholder="Consultas"></textarea>
-                </div>
-                @error('message')
-                <p class="">{{$message}}</p>
-                @enderror
-                <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-light btn-lg" required="required" onClick="enviarmail()">Enviar</button>
-                </div>
-
-                
-
-            </div><!--/.row-->
-            </form>
-        </section>
-        </div>
 
         <div>
             @yield('slide')
-        </div>        
+        </div>
         <main>
             @yield('content')
         </main>
 
 
-    <!-- @include('include.footer') -->
-    <script>
-        // JavaScript to hide the preloader after 2 seconds
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const preloader = document.getElementById('preloader');
-                preloader.style.display = 'none';
-            }, 800); // 2000 ms = 2 seconds
-        });
-    </script>
+        @include('tbl.include.footer')
+        <script>
+            // JavaScript to hide the preloader after 2 seconds
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    const preloader = document.getElementById('preloader');
+                    preloader.style.display = 'none';
+                }, 800); // 2000 ms = 2 seconds
+            });
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+
+                 // Función para remover la clase después de 4 segundos
+                 function removerClase() {
+                    miDiv.classList.remove("presentacionServicio");
+                }
+
+                var miDiv = document.getElementById("welcomeTitle");
+
+                // Función para agregar la clase después de 2 segundos
+                function agregarClase() {
+                    miDiv.classList.add("ceroR");
+                    miDiv.classList.add("animate");
+                    let elements = document.querySelectorAll('.ceroR');
+                }
+
+                // Llamar a removerClase después de 4 segundos
+                setTimeout(removerClase, 5000);
+
+                // Llamar a agregarClase después de 2 segundos
+                setTimeout(agregarClase, 5500);
+
+                setTimeout(function() {
+                    miDiv.classList.add("ceroR");
+                }, 5500); // 2000 ms = 2 seconds
+
+                
+
+            });
+
+
+
+            document.addEventListener('DOMContentLoaded', () => {
+
+                // Animación de números en .indicator .value
+                const indicators = document.querySelectorAll('.indicator .value');
+
+                indicators.forEach(indicator => {
+                    const startValue = parseInt(indicator.getAttribute('data-start'), 10);
+                    const endValue = parseInt(indicator.getAttribute('data-end'), 10);
+                    const duration = 2000; // Duración del efecto en milisegundos
+
+                    const increment = (endValue - startValue) / (duration / 50);
+
+                    let currentValue = startValue;
+                    const interval = setInterval(() => {
+                        currentValue += increment;
+                        if ((increment > 0 && currentValue >= endValue) || (increment < 0 && currentValue <= endValue)) {
+                            currentValue = endValue;
+                            clearInterval(interval);
+                        }
+                        indicator.textContent = Math.round(currentValue);
+                    }, 50);
+                });
+
+                // Animación de elementos .ceroR en el footer
+                let elements = document.querySelectorAll('.ceroR');
+                const animationTriggered = {};
+
+                function checkAnimation(element) {
+                    const rect = element.getBoundingClientRect();
+                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                    if (rect.top <= windowHeight && rect.bottom >= 0) {
+                        if (!animationTriggered[element]) {
+                            element.classList.add('animate');
+                            animationTriggered[element] = true;
+                        }
+                    } else {
+                        animationTriggered[element] = false;
+                        element.classList.remove('animate');
+                    }
+                }
+
+                function handleScroll() {
+                    elements.forEach(element => {
+                        checkAnimation(element);
+                    });
+                }
+
+                // Llamar a checkAnimation para cada elemento al cargar la página
+                elements.forEach(element => {
+                    checkAnimation(element);
+                });
+
+                // Escuchar el evento de desplazamiento (scroll)
+                window.addEventListener('scroll', handleScroll);
+
+            });
+        </script>
 </body>
+
 </html>

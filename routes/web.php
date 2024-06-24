@@ -100,3 +100,7 @@ Route::get('/view', [QrManagerController::class, 'view'])->name('view');
 
 /* TRANSPORTES BULNES */
 Route::get('/', [WebtblController::class, 'index'])->name('inicio');
+Route::get('/servicio_sobredimensionado', [WebtblController::class, 'servicio_sobredimensionado'])->name('servicio_sobredimensionado');
+Route::get('/servicio_cargas_especiales', [WebtblController::class, 'servicio_cargas_especiales'])->name('servicio_cargas_especiales');
+
+Route::get('/equipos', [WebtblController::class, 'equipos'])->name('equipos');
