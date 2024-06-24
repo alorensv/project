@@ -225,7 +225,7 @@
     } else {
       $textContainer.text(filesCount + ' archivos seleccionados');
       var logo = new Image();
-      logo.src = '/img/tbl/TBL.png'; 
+      logo.src = '/img/tbl/qr/edu.png'; 
       return logo;
     }
   }
@@ -250,15 +250,15 @@
     // Crea una instancia de QRCode.js
     var qrcode = new QRCode(document.getElementById("qr-container"), {
       text: url,
-      width: 250, // Ancho del código QR
-      height: 250, // Alto del código QR
+      width: 400, // Ancho del código QR
+      height: 400, // Alto del código QR
       colorDark: colorQr, // Color de los elementos oscuros del código QR
       colorLight: "#ffffff", // Color de los elementos claros del código QR
     });
 
     var canvas = document.querySelector("canvas"); // Obtiene el elemento canvas del código QR
     var context = canvas.getContext("2d");
-    var logoSize = 100; // Tamaño en píxeles
+    var logoSize = 150; // Tamaño en píxeles
     var x = (canvas.width - logoSize) / 2; // Posición en X
     var y = (canvas.height - logoSize) / 2; // Posición en Y
 

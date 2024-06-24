@@ -39,19 +39,19 @@
                                             <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
                                             </a>
 
-                                            <a class="dropdown-item" href="{{ route('generarQr') }}">{{ __('Generar QR') }}
-                                            </a>
+                                            <!-- <a class="dropdown-item" href="{{ route('generarQr') }}">{{ __('Generar QR') }}
+                                            </a> -->
 
                                         </div>
                                     
                                     </li>                                   
                               
                                     <li class="nav-item pl-2 pr-3 pt-1">
-                                        <a class="nav-link {{request()->routeIs('portafolio') ? 'active' : ''}}" href="{{ route('portafolio') }}">{{ __('Nuestros equipos') }}</a>
+                                        <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="{{ route('equipos') }}">{{ __('Nuestros equipos') }}</a>
                                     </li>
 
                                     <li class="nav-item pl-2 pr-3 pt-1">
-                                        <a class="nav-link {{request()->routeIs('portafolio') ? 'active' : ''}}" href="{{ route('portafolio') }}">{{ __('Sobre nosotros') }}</a>
+                                        <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="{{ route('transportes_bulnes') }}">{{ __('Sobre nosotros') }}</a>
                                     </li>
                                 @endguest
                             </ul>

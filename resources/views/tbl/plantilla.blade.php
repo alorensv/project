@@ -21,8 +21,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <script src="https://kit.fontawesome.com/67b6e8d4c0.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -40,17 +40,13 @@
     <script src="assets/vendors/jquery.min.js"></script>
     <script src="assets/owlcarousel/owl.carousel.js"></script>
 
-    <style>
-
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
-
     <!-- Preloader -->
     <div id="preloader">
         <img src="{{ asset('/img/tbl/logo2.png') }}">
-        <!-- <div class="spinner"></div> -->
     </div>
 
     <div id="app">
@@ -63,108 +59,105 @@
             @yield('content')
         </main>
 
-
         @include('tbl.include.footer')
-        <script>
-            // JavaScript to hide the preloader after 2 seconds
-            window.addEventListener('load', function() {
-                setTimeout(function() {
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                equipos: [],
+                tipos: [],
+                subcategoriasSeleccionadas: [],
+                animationTriggered: {},
+                elements: []
+            },
+            mounted() {
+                // Ocultar el preloader después de 0.8 segundos
+                setTimeout(() => {
                     const preloader = document.getElementById('preloader');
-                    preloader.style.display = 'none';
-                }, 800); // 2000 ms = 2 seconds
-            });
+                    if (preloader) {
+                        preloader.style.display = 'none';
+                    }
+                }, 800);
 
+                // Remover la clase presentacionServicio después de 5 segundos
+                setTimeout(() => {
+                    const miDiv = document.getElementById('welcomeTitle');
+                    if (miDiv) {
+                        miDiv.classList.remove('presentacionServicio');
+                    }
+                }, 1000);
 
-            document.addEventListener("DOMContentLoaded", function() {
+                // Agregar las clases ceroR y animate después de 5.5 segundos
+                setTimeout(() => {
+                    const miDiv = document.getElementById('welcomeTitle');
+                    if (miDiv) {
+                        miDiv.classList.add('ceroR');
+                        miDiv.classList.add('animate');
+                        
+                    }
+                }, 1500);
 
-                 // Función para remover la clase después de 4 segundos
-                 function removerClase() {
-                    miDiv.classList.remove("presentacionServicio");
-                }
+                this.updateElements();
 
-                var miDiv = document.getElementById("welcomeTitle");
+                this.getTiposEquipos();
+                this.getEquipos();
 
-                // Función para agregar la clase después de 2 segundos
-                function agregarClase() {
-                    miDiv.classList.add("ceroR");
-                    miDiv.classList.add("animate");
-                    let elements = document.querySelectorAll('.ceroR');
-                }
-
-                // Llamar a removerClase después de 4 segundos
-                setTimeout(removerClase, 5000);
-
-                // Llamar a agregarClase después de 2 segundos
-                setTimeout(agregarClase, 5500);
-
-                setTimeout(function() {
-                    miDiv.classList.add("ceroR");
-                }, 5500); // 2000 ms = 2 seconds
-
-                
-
-            });
-
-
-
-            document.addEventListener('DOMContentLoaded', () => {
-
-                // Animación de números en .indicator .value
-                const indicators = document.querySelectorAll('.indicator .value');
-
-                indicators.forEach(indicator => {
-                    const startValue = parseInt(indicator.getAttribute('data-start'), 10);
-                    const endValue = parseInt(indicator.getAttribute('data-end'), 10);
-                    const duration = 2000; // Duración del efecto en milisegundos
-
-                    const increment = (endValue - startValue) / (duration / 50);
-
-                    let currentValue = startValue;
-                    const interval = setInterval(() => {
-                        currentValue += increment;
-                        if ((increment > 0 && currentValue >= endValue) || (increment < 0 && currentValue <= endValue)) {
-                            currentValue = endValue;
-                            clearInterval(interval);
-                        }
-                        indicator.textContent = Math.round(currentValue);
-                    }, 50);
-                });
-
-                // Animación de elementos .ceroR en el footer
-                let elements = document.querySelectorAll('.ceroR');
-                const animationTriggered = {};
-
-                function checkAnimation(element) {
+                // Configurar el evento de desplazamiento
+                window.addEventListener('scroll', this.handleScroll);
+            },
+            methods: {
+                getTiposEquipos() {
+                    axios.get('/tiposEquipos')
+                        .then(response => {
+                            this.tipos = response.data.datos;
+                        })
+                        .catch(error => {
+                            console.error('Error al obtener categorías:', error);
+                        });
+                },
+                getEquipos() {
+                    axios.get('/getEquipos', {
+                            params: {
+                                subcategorias: this.subcategoriasSeleccionadas
+                            }
+                        })
+                        .then(response => {
+                            this.equipos = response.data.equipos;
+                        })
+                        .catch(error => {
+                            console.error('Error al obtener productos:', error);
+                        });
+                        console.log(this.equipos)
+                },
+                updateElements() {
+                    this.elements = document.querySelectorAll('.ceroR');
+                    this.elements.forEach(element => {
+                        this.checkAnimation(element);
+                    });
+                },
+                checkAnimation(element) {
                     const rect = element.getBoundingClientRect();
                     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-
                     if (rect.top <= windowHeight && rect.bottom >= 0) {
-                        if (!animationTriggered[element]) {
+                        if (!this.animationTriggered[element]) {
                             element.classList.add('animate');
-                            animationTriggered[element] = true;
+                            this.animationTriggered[element] = true;
                         }
                     } else {
-                        animationTriggered[element] = false;
+                        this.animationTriggered[element] = false;
                         element.classList.remove('animate');
                     }
-                }
-
-                function handleScroll() {
-                    elements.forEach(element => {
-                        checkAnimation(element);
+                },
+                handleScroll() {
+                    this.elements.forEach(element => {
+                        this.checkAnimation(element);
                     });
                 }
-
-                // Llamar a checkAnimation para cada elemento al cargar la página
-                elements.forEach(element => {
-                    checkAnimation(element);
-                });
-
-                // Escuchar el evento de desplazamiento (scroll)
-                window.addEventListener('scroll', handleScroll);
-
-            });
-        </script>
+            }
+        });
+    </script>
 </body>
 
 </html>

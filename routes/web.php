@@ -103,4 +103,10 @@ Route::get('/', [WebtblController::class, 'index'])->name('inicio');
 Route::get('/servicio_sobredimensionado', [WebtblController::class, 'servicio_sobredimensionado'])->name('servicio_sobredimensionado');
 Route::get('/servicio_cargas_especiales', [WebtblController::class, 'servicio_cargas_especiales'])->name('servicio_cargas_especiales');
 
-Route::get('/equipos', [WebtblController::class, 'equipos'])->name('equipos');
+Route::get('/equipos', [WebtblController::class, 'equipos'])->name('equipos'); 
+Route::get('/getEquipos', [WebtblController::class, 'getEquipos'])->name('getEquipos');
+Route::get('/tiposEquipos', [WebtblController::class, 'tiposEquipos'])->name('tiposEquipos');
+
+Route::get('/transportes_bulnes', [WebtblController::class, 'transportes_bulnes'])->name('transportes_bulnes');
+
+Route::get('/presentacion', [WebtblController::class, 'presentacion'])->name('presentacion');
