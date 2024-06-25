@@ -225,7 +225,7 @@
     } else {
       $textContainer.text(filesCount + ' archivos seleccionados');
       var logo = new Image();
-      logo.src = '/img/tbl/qr/edu.png'; 
+      logo.src = '/img/tbl/qr/friedel.png'; 
       return logo;
     }
   }

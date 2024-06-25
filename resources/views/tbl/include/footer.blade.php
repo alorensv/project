@@ -8,7 +8,7 @@
         <a class="d-flex align-items-center custom-link" href="https://sitios.cl/servicios/distancias.htm" ><span class="material-icons icon">place</span><h3 class="mt-2 ml-2"> Calcular distancias</h3></a>
       </div>
       <div class="col-md-5 menu-footer  ">
-        <h3>¿Dónde nos puedes visitar?</h3>
+        <h3>¡Visítanos!</h3>
         <ul>
           <li><a href="{{route('web')}}">Lautaro 740, Concepción, Región del Bío Bío, CHILE</a></li>
           <li><a href="{{route('desarrollo')}}">Patio Aparcamiento: Camino a Penco, Concepción</a></li>

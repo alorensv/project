@@ -96,4 +96,63 @@
   </div>
 </section>
 
+@include('tbl.include.footer')
+
+<script>
+  setTimeout(() => {
+    const miDiv = document.getElementById('welcomeTitle');
+    if (miDiv) {
+      miDiv.classList.remove('presentacionServicio');
+    }
+  }, 1000);
+
+  // Agregar las clases ceroR y animate después de 5.5 segundos
+  setTimeout(() => {
+    const miDiv = document.getElementById('welcomeTitle');
+    if (miDiv) {
+      miDiv.classList.add('ceroR');
+      miDiv.classList.add('animate');
+
+    }
+  }, 1500);
+</script>
+<script>
+  let inicio = new Vue({
+    el: '#vueInicio',
+    data: {
+      animationTriggered: {},
+      elements: []
+    },
+    mounted() {
+      this.updateElements();
+      window.addEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+      updateElements() {
+        this.elements = document.querySelectorAll('.ceroR');
+        this.elements.forEach(element => {
+          this.checkAnimation(element);
+        });
+      },
+      checkAnimation(element) {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top <= windowHeight && rect.bottom >= 0) {
+          if (!this.animationTriggered[element]) {
+            element.classList.add('animate');
+            this.animationTriggered[element] = true;
+          }
+        } else {
+          this.animationTriggered[element] = false;
+          element.classList.remove('animate');
+        }
+      },
+      handleScroll() {
+        this.elements.forEach(element => {
+          this.checkAnimation(element);
+        });
+      },
+    }
+  });
+</script>
 @endsection

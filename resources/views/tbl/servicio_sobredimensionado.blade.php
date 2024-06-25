@@ -96,4 +96,23 @@
   </div>
 </section>
 
+
+<script>
+  setTimeout(() => {
+    const miDiv = document.getElementById('welcomeTitle');
+    if (miDiv) {
+      miDiv.classList.remove('presentacionServicio');
+    }
+  }, 1000);
+
+  // Agregar las clases ceroR y animate después de 5.5 segundos
+  setTimeout(() => {
+    const miDiv = document.getElementById('welcomeTitle');
+    if (miDiv) {
+      miDiv.classList.add('ceroR');
+      miDiv.classList.add('animate');
+
+    }
+  }, 1500);
+</script>
 @endsection

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-center pb-4">
-                        <h4 style="font-size: 1.8rem;font-weight: 600;">Cotiza con nosotros</h4>
+                        <h4 style="font-size: 1.8rem;font-weight: 600;">¡Cotiza y trabajemos juntos!</h4>
                     </div>
 
                     @if (session('info'))

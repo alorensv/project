@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Líneas de Código') }}</title>
+    <title>{{ config('app.name', 'Transportes Bulnes') }}</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <!-- Scripts -->

@@ -58,106 +58,18 @@
         <main>
             @yield('content')
         </main>
-
-        @include('tbl.include.footer')
+        
     </div>
 
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                equipos: [],
-                tipos: [],
-                subcategoriasSeleccionadas: [],
-                animationTriggered: {},
-                elements: []
-            },
-            mounted() {
-                // Ocultar el preloader después de 0.8 segundos
-                setTimeout(() => {
-                    const preloader = document.getElementById('preloader');
-                    if (preloader) {
-                        preloader.style.display = 'none';
-                    }
-                }, 800);
-
-                // Remover la clase presentacionServicio después de 5 segundos
-                setTimeout(() => {
-                    const miDiv = document.getElementById('welcomeTitle');
-                    if (miDiv) {
-                        miDiv.classList.remove('presentacionServicio');
-                    }
-                }, 1000);
-
-                // Agregar las clases ceroR y animate después de 5.5 segundos
-                setTimeout(() => {
-                    const miDiv = document.getElementById('welcomeTitle');
-                    if (miDiv) {
-                        miDiv.classList.add('ceroR');
-                        miDiv.classList.add('animate');
-                        
-                    }
-                }, 1500);
-
-                this.updateElements();
-
-                this.getTiposEquipos();
-                this.getEquipos();
-
-                // Configurar el evento de desplazamiento
-                window.addEventListener('scroll', this.handleScroll);
-            },
-            methods: {
-                getTiposEquipos() {
-                    axios.get('/tiposEquipos')
-                        .then(response => {
-                            this.tipos = response.data.datos;
-                        })
-                        .catch(error => {
-                            console.error('Error al obtener categorías:', error);
-                        });
-                },
-                getEquipos() {
-                    axios.get('/getEquipos', {
-                            params: {
-                                subcategorias: this.subcategoriasSeleccionadas
-                            }
-                        })
-                        .then(response => {
-                            this.equipos = response.data.equipos;
-                        })
-                        .catch(error => {
-                            console.error('Error al obtener productos:', error);
-                        });
-                        console.log(this.equipos)
-                },
-                updateElements() {
-                    this.elements = document.querySelectorAll('.ceroR');
-                    this.elements.forEach(element => {
-                        this.checkAnimation(element);
-                    });
-                },
-                checkAnimation(element) {
-                    const rect = element.getBoundingClientRect();
-                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                    if (rect.top <= windowHeight && rect.bottom >= 0) {
-                        if (!this.animationTriggered[element]) {
-                            element.classList.add('animate');
-                            this.animationTriggered[element] = true;
-                        }
-                    } else {
-                        this.animationTriggered[element] = false;
-                        element.classList.remove('animate');
-                    }
-                },
-                handleScroll() {
-                    this.elements.forEach(element => {
-                        this.checkAnimation(element);
-                    });
-                }
+        setTimeout(() => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.display = 'none';
             }
-        });
+        }, 800);
     </script>
+
 </body>
 
 </html>
