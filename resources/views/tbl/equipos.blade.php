@@ -99,10 +99,7 @@
   </section>
 </div>
 
-
-
-
-
+@include('tbl.include.footer')
 
 <script>
   let equipos = new Vue({
@@ -111,10 +108,16 @@
       equipos: [],
       tipos: [],
       subcategoriasSeleccionadas: [],
+      animationTriggered: {},
+      elements: []
     },
     created() {
       this.getTiposEquipos();
       this.getEquipos();
+    },
+    mounted() {
+      this.updateElements();
+      window.addEventListener('scroll', this.handleScroll);
     },
     methods: {
       getTiposEquipos() {
@@ -139,6 +142,30 @@
             console.error('Error al obtener productos:', error);
           });
         console.log(this.equipos)
+      },
+      updateElements() {
+        this.elements = document.querySelectorAll('.ceroR');
+        this.elements.forEach(element => {
+          this.checkAnimation(element);
+        });
+      },
+      checkAnimation(element) {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top <= windowHeight && rect.bottom >= 0) {
+          if (!this.animationTriggered[element]) {
+            element.classList.add('animate');
+            this.animationTriggered[element] = true;
+          }
+        } else {
+          this.animationTriggered[element] = false;
+          element.classList.remove('animate');
+        }
+      },
+      handleScroll() {
+        this.elements.forEach(element => {
+          this.checkAnimation(element);
+        });
       },
     }
   });
