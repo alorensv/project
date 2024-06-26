@@ -2,6 +2,31 @@
 
 /*galeria*/
 
+
+.titleServices1 h1 {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    border-right: 0.15em solid #060737;
+    animation: typing 2s steps(38) 1s 1 normal both, blink 1s steps(1) infinite;
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+
+  
+
 /* styles.css */
 .gallery-item {
     margin-bottom: 20px;
@@ -345,12 +370,18 @@
     color: #fff;
     background-color: #060737;
     border-color: #060737;
+    -webkit-transition: ease-out 0.7s;
+    -moz-transition: ease-out 0.7s;
+    transition: ease-out 0.7s;
 }
 
 .btn-primary:hover {
     color: #060737;
     background-color: #fff;
     border-color: #fff;
+    border-color: #060737; /* Color del borde al hacer hover */
+    transition: all 0.3s ease; /* Transición suave */
+    box-shadow: inset 400px 0 0 0 #fff;
 }
 
 .btn-primary:focus,

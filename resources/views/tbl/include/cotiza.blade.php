@@ -4,7 +4,7 @@
             @csrf
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center pb-4">
+                    <div class="text-center pb-4 ">
                         <h4 style="font-size: 1.8rem;font-weight: 600;">¡Cotiza y trabajemos juntos!</h4>
                     </div>
 
@@ -57,8 +57,8 @@
                     @error('message')
                     <p class="">{{$message}}</p>
                     @enderror
-                    <div class="form-group">
-                        <button type="submit" name="submit" class="btn btn-light btn-lg" required="required" onClick="enviarmail()">Enviar</button>
+                    <div class="form-group w-100">
+                        <button type="submit" name="submit" class="w-100 btn btn-primary btn-lg" required="required" onClick="enviarmail()">Enviar</button>
                     </div>
 
 

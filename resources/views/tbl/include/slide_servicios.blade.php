@@ -24,6 +24,10 @@
         <div class="photos">
           <div class="photo" v-for="(item, index) in servicesItems" :key="index" :class="{ active: currentServices === index }">
             <img :src="item.image" :alt="item.alt">
+            <div class="form-group ">
+              <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required" onClick="enviarmail()">Enviar</button>
+            </div>
+
           </div>
         </div>
       </div>

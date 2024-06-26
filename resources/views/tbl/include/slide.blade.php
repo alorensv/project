@@ -60,7 +60,7 @@
       this.showSlide(0); // Muestra la primera diapositiva
       this.intervalId = setInterval(() => {
         this.nextSlide();
-      }, 4000); // Cambia cada 2 segundos (2000 ms)
+      }, 6000); // Cambia cada 2 segundos (2000 ms)
     },
     methods: {
       showSlide(index) {

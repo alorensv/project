@@ -14,11 +14,11 @@
       <div class="container">
         <div class="row py-5">
           <div class="col-lg-6 pt16 pb16 ceroR">
-            <h2>
+            <h2 class="escribiendo ceroR">
               Transportes Bulnes Limitada
             </h2>
             <p><br></p>
-            <p>
+            <p class="ceroR">
               Constituida como empresa el año 2011, actualmente contamos con más de <strong>11 años de antiguedad y experiencia en el mercado.</strong> Nos especializamos en el traslado de carga sobredimensionada como maquinarias, equipos, contenedores y carga en general por todo Chile.
             </p>
             <p>
@@ -42,17 +42,17 @@
   <section id="traslados" class="traslados">
       <div class="carousel">
         <div class="titles">
-          <div class="title" @click="showAlert(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado y sobre contenedores</strong></div>
-          <div class="title" @click="showAlert(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
-          <div class="title" @click="showAlert(2)" :class="{ active: currentServices === 2 }">Transporte maquinaria y equipos forestales</div>
+          <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado y sobre contenedores</strong></div>
+          <div class="title" @click="showSlide(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
+          <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte maquinaria y equipos forestales</div>
           <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
           <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria menor y rescate de vehículos</div>
           <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
           <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Arriendos nuestros equipos</div>
         </div>
         <div class="indicators">
-          <span class="indicator" @click="showAlert(0)" :class="{ active: currentServices === 0 }"></span>
-          <span class="indicator" @click="showAlert(1)" :class="{ active: currentServices === 1 }"></span>
+          <span class="indicator" @click="showSlide(0)" :class="{ active: currentServices === 0 }"></span>
+          <span class="indicator" @click="showSlide(1)" :class="{ active: currentServices === 1 }"></span>
           <span class="indicator" @click="showSlide(2)" :class="{ active: currentServices === 2 }"></span>
           <span class="indicator" @click="showSlide(3)" :class="{ active: currentServices === 3 }"></span>
           <span class="indicator" @click="showSlide(4)" :class="{ active: currentServices === 4 }"></span>
@@ -61,7 +61,12 @@
         </div>
         <div class="photos">
           <div class="photo" v-for="(item, index) in servicesItems" :key="index" :class="{ active: currentServices === index }">
+            <div style="position: absolute;left: 30%;top: 80%;width: 350px;">
+            <a :href="item.url" class="w-100 btn btn-primary btn-lg">
+              <h5 style="padding-top: 10px;">¡Conoce más sobre este servicio!</h5></a>
+            </div>  
             <img :src="item.image" :alt="item.alt">
+            
           </div>
         </div>
       </div>
@@ -147,31 +152,38 @@
         servicesItems: [
           {
             image: 'img/tbl/sobredimensionado.png',
-            alt: 'Transporte sobre dimensionado y sobre contenedores'
+            alt: 'Transporte sobre dimensionado y sobre contenedores',
+            url: '/servicio_sobredimensionado'
           },
           {
             image: 'img/tbl/transporte.png',
-            alt: 'Transporte de cargas especiales'
+            alt: 'Transporte de cargas especiales',
+            url: '/servicio_cargas_especiales'
           },
           {
             image: 'img/tbl/transporte.png',
-            alt: 'Transporte maquinaria y equipos forestales'
+            alt: 'Transporte maquinaria y equipos forestales',
+            url: '/servicio_cargas_especiales'
           },
           {
             image: 'img/tbl/transporte.png',
-            alt: 'Transporte y rescate equipos siniestrados'
+            alt: 'Transporte y rescate equipos siniestrados',
+            url: '/servicio_cargas_especiales'
           },
           {
             image: 'img/tbl/transporte.png',
-            alt: 'Transporte de maquinaria menor y rescate de vehículos'
+            alt: 'Transporte de maquinaria menor y rescate de vehículos',
+            url: '/servicio_cargas_especiales'
           },
           {
             image: 'img/tbl/transporte.png',
-            alt: 'Servicios de Izaje'
+            alt: 'Servicios de Izaje',
+            url: '/servicio_cargas_especiales'
           },
           {
             image: 'img/tbl/transporte.png',
-            alt: 'Arriendos nuestros equipos'
+            alt: 'Arriendos nuestros equipos',
+            url: '/servicio_cargas_especiales'
           }
         ],
         intervalId: null
