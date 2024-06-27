@@ -110,3 +110,5 @@ Route::get('/tiposEquipos', [WebtblController::class, 'tiposEquipos'])->name('ti
 Route::get('/transportes_bulnes', [WebtblController::class, 'transportes_bulnes'])->name('transportes_bulnes');
 
 Route::get('/presentacion', [WebtblController::class, 'presentacion'])->name('presentacion');
+Route::post('/guardarContacto',[WebtblController::class, 'guardarContacto'])->name('guardarContacto');
+Route::post('/guardarCotizacion',[WebtblController::class, 'guardarCotizacion'])->name('guardarCotizacion');

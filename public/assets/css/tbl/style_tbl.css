@@ -2,8 +2,14 @@
 
 /*galeria*/
 
+.modal-header {
+    background-color: #060737;
+    color: white;
+}
 
-
+.modal-header .close {
+    color: white;
+}
 
 
 .titleServices1 h1 {
@@ -990,7 +996,7 @@
 }
 
 #contacto {
-    padding: 35px 60px 14px;
+    padding: 35px 60px 50px;
 }
 
 #contacto .form-group {

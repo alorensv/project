@@ -1,9 +1,7 @@
 @extends('tbl.plantilla')
 
-@include('tbl.include.cotiza')
-
 @section('slide')
-@include('tbl.include.slide')
+  @include('tbl.include.slide')
 @endsection
 
 @section('content')
@@ -42,11 +40,11 @@
   <section id="traslados" class="traslados">
       <div class="carousel">
         <div class="titles">
-          <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado y sobre contenedores</strong></div>
+          <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado</strong></div>
           <div class="title" @click="showSlide(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
           <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte maquinaria y equipos forestales</div>
           <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
-          <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria menor y rescate de vehículos</div>
+          <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria</div>
           <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
           <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Arriendos nuestros equipos</div>
         </div>
@@ -194,6 +192,9 @@
       window.addEventListener('scroll', this.handleScroll);
     },
     methods: {
+      guardarCotizacion(){
+        alert(aca)
+      },
       showAlert(index) {
           console.log('Mostrando alerta para el índice:', index);
           alert('Hola'); // Muestra un alert con el mensaje 'Hola'

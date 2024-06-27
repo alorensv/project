@@ -48,6 +48,9 @@
                         <p class="card-text"><span class="material-icons">chevron_right</span>@{{ equipo.marca }}</p>
                         <p class="card-text titleEquipos"><strong>Modelo</strong></p>
                         <p class="card-text"><span class="material-icons">chevron_right</span>@{{ equipo.modelo }}</p>
+                        <p class="card-text titleEquipos"><strong>Año</strong></p>
+                        <p class="card-text"><span class="material-icons">chevron_right</span>2022</p>
+                        <p class="card-text titleEquipos"><strong>Descargar ficha técnica</strong></p>
                       </div>
                     </div>
 

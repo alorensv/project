@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactReceived;
+use App\Mail\NuevaCotizacion;
+use App\Models\Contact;
+use App\Models\ContactMessage;
+use App\Models\Cotizacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class WebtblController extends Controller
 {
@@ -153,5 +159,97 @@ class WebtblController extends Controller
         
 
         return response()->json($response);        
+    }
+
+    public function guardarContacto(Request $request)
+    {
+        // Validar los datos del formulario
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'telefono' => 'nullable|string|max:255',
+            'correo' => 'required|string|email|max:255',
+            'comentarios' => 'required|string',
+        ]);
+
+        // Limpiar el correo electrónico (aplicar trim)
+        $email = trim($validatedData['correo']);
+
+        // Buscar el contacto por correo electrónico
+        $contact = Contact::where('email', $email)->first();
+
+        if ($contact) {
+            // Si el contacto existe, crear un nuevo mensaje
+            $message = new ContactMessage([
+                'contact_id' => $contact->id,
+                'message' => $validatedData['comentarios'],
+            ]);
+        } else {
+            // Si el contacto no existe, crear el contacto y registrar su comentario
+            $contact = Contact::create([
+                'name' => $validatedData['nombre'],
+                'email' => $email,
+                'phone' => $validatedData['telefono'],
+            ]);
+
+            $message = new ContactMessage([
+                'contact_id' => $contact->id,
+                'message' => $validatedData['comentarios'],
+            ]);
+        }
+
+        // Guardar el mensaje y enviar el correo si se guarda correctamente
+        if ($message->save()) {
+            Mail::to('alorensv@gmail.com')->send(new ContactReceived($contact, $message->message));
+            return response()->json(['status' => 'ok'], 200);
+        }else{
+            return response()->json(['status' => 'error'], 500);
+        }
+
+        // Retornar respuesta en formato JSON
+       
+    }
+
+    public function guardarCotizacion(Request $request)
+    {
+        // Validar los datos del formulario
+        $validatedData = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'telefono' => 'nullable|string|max:255',
+            'fecha_servicio' => 'nullable|date|max:255',
+            'origen' => 'nullable|string|max:255',
+            'destino' => 'nullable|string|max:255',
+            'comentarios' => 'required|string',
+        ]);
+
+        $email = trim($validatedData['email']);
+        $contact = Contact::where('email', $email)->first();
+        if (!$contact) {
+            // Si el contacto no existe, crearlo
+            $contact = Contact::create([
+                'name' => $validatedData['nombre'],
+                'email' => $email,
+                'phone' => $validatedData['telefono'],
+            ]);
+        }
+
+        $cotizacion = Cotizacion::create([
+            'contact_id' => $contact->id,
+            'nombre' => $validatedData['nombre'],
+            'email' => $email,
+            'telefono' => $validatedData['telefono'],
+            'fecha_servicio' => $validatedData['fecha_servicio'],
+            'origen' => $validatedData['origen'],
+            'destino' => $validatedData['destino'],
+            'comentarios' => $validatedData['comentarios'],
+        ]);
+
+        if ($cotizacion) {
+            // Enviar el correo
+            Mail::to('dalorensv@gmail.com')->send(new NuevaCotizacion($cotizacion));
+        }
+
+        // Retornar respuesta en formato JSON
+        return response()->json(['status' => 'ok'], 200);
     }
 }

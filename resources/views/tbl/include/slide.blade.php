@@ -1,44 +1,138 @@
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding-bottom: 0px !important; margin-top: 3%;">
-  <ol class="carousel-indicators">
-    <li v-for="(item, index) in carouselItems" :key="index" :data-slide-to="index" :class="{ active: index === currentSlide }" @click="showSlide(index)"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
-      <img class="second-slide" :src="item.image" alt="Second slide">
-      <div class="row titleCarousel">
-        <div class="container d-flex">
-          <div class="titleServices1">
-            <h1 class="text-center">@{{ item.title }}</h1>
+<div id="formSlide">
+
+  <div id="cotiza" class="div_cotiza">
+    <section class="shadow-lg" style="background-color: white; color: #060737;" id="contacto">
+      <form @submit.prevent="guardarCotizacion">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center pb-4">
+              <h4 style="font-size: 1.8rem; font-weight: 600;">¡Cotiza y trabajemos juntos!</h4>
+            </div>
+
+            <!-- Aquí puedes colocar tu formulario de contacto -->
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" class="form-control" v-model="cotizacion.nombre" placeholder="Acá tu nombre" maxlength="255" name="cotizacion.nombre" id="nombre">
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="text" class="form-control" v-model="cotizacion.telefono" placeholder="Recuerda ingresar el +569 " maxlength="255" name="cotizacion.telefono" id="telefono">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Correo</label>
+              <input type="email" class="form-control" v-model="cotizacion.email" placeholder="Acá tu correo" maxlength="255" name="cotizacion.email" id="email">
+            </div>
+
+            <div class="form-group">
+              <label for="fecha">Fecha posible del servicio</label>
+              <input type="date" v-model="cotizacion.fecha_servicio" id="fecha" name="fecha" class="form-control" placeholder="Fecha posible del servicio">
+            </div>
+
           </div>
-          <div class="titleServices2">
-            <a class="btn btn-lg btn-primary d-flex align-items-center" style="font-size: 22px !important;padding: 1rem 1.35rem;margin-top: -14px;" href="#" role="button" @click.prevent="goToServices">Nuestros servicios
-              <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
-            </a>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="origen">Origen</label>
+              <input type="text" v-model="cotizacion.origen" id="origen" name="origen" class="form-control" placeholder="Origen">
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group">
+              <label for="destino">Destino</label>
+              <input type="text" v-model="cotizacion.destino" id="destino" name="destino" class="form-control" placeholder="Destino">
+            </div>
+          </div>
+
+          <div class="col-12">
+          <div class="form-group">
+            <label for="comentarios">Mensaje:</label>
+            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizacion.comentarios" id="comentarios" name="cotizacion.comentarios" maxlength="255" rows="4"></textarea>
+          </div>
+          <button type="submit" class="w-100 btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding-bottom: 0px !important; margin-top: 3%;">
+    <ol class="carousel-indicators">
+      <li v-for="(item, index) in carouselItems" :key="index" :data-slide-to="index" :class="{ active: index === currentSlide }" @click="showSlide(index)"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
+        <img class="second-slide" :src="item.image" alt="Second slide">
+        <div class="row titleCarousel">
+          <div class="container d-flex">
+            <div class="titleServices1">
+              <h1 class="text-center">@{{ item.title }}</h1>
+            </div>
+            <div class="titleServices2">
+              <a class="btn btn-lg btn-primary d-flex align-items-center" style="font-size: 22px !important;padding: 1rem 1.35rem;margin-top: -14px;" href="#" role="button" @click.prevent="goToServices">Nuestros servicios
+                <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev" @click.prevent="prevSlide">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next" @click.prevent="nextSlide">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev" @click.prevent="prevSlide">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next" @click.prevent="nextSlide">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+
+
+  <!-- Modal de contacto -->
+<div class="modal fade" id="successContact" style="display: none;" tabindex="-1" aria-labelledby="successContactLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-body">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      <div class=" p-5">
+      <div class="text-center">
+        <div class="icon-check pb-3">
+            <i class="material-icons" style="color: #8bb06f;font-size: 60px;">check_circle</i>
+          </div>
+          <p>¡Hemos recibido tu solicitud de cotización con éxito, te contactaremos lo más luego posible!</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
+</div>
 
 
 <script>
-  let carusel = new Vue({
-    el: '#myCarousel',
+  let formSlide = new Vue({
+    el: '#formSlide',
     data: {
+      cotizacion: {
+        nombre: '',
+        email: '',
+        telefono: '',
+        fecha_servicio: '',
+        origen: '',
+        destino: '',
+        comentarios: '',
+      },
       currentSlide: 0,
-      carouselItems: [
-        {
+      carouselItems: [{
           image: 'img/tbl/traslados.png',
           alt: 'Second slide',
           title: 'Traslado de carga general - sobredimensión'
@@ -77,7 +171,9 @@
         let trasladosElement = document.getElementById('traslados');
         if (trasladosElement) {
           // Opción 1: Scroll suave hacia el elemento
-          trasladosElement.scrollIntoView({ behavior: 'smooth' });
+          trasladosElement.scrollIntoView({
+            behavior: 'smooth'
+          });
 
           // Opción 2: Si prefieres un salto instantáneo en lugar de un scroll suave, usa:
           // trasladosElement.scrollIntoView({ behavior: 'auto' });
@@ -86,7 +182,25 @@
         }
         // Agrega aquí tu lógica para desplazarte o realizar acciones específicas
         // Asegúrate de que esta parte esté funcionando correctamente
-      }
+      },
+      guardarCotizacion() {
+        axios.post('/guardarCotizacion', this.cotizacion)
+          .then(response => {
+ 
+            // Manejar la respuesta exitosa
+            if (response.data.status === 'ok') {
+              $("#successContact").modal('show');    
+              setTimeout(() => {
+                $("#successContact").modal('hide'); 
+              }, 4000); 
+            }
+                    
+          })
+          .catch(error => {
+            // Manejar el error
+            console.error('Hubo un error al enviar el formulario', error);
+          });
+      },
     }
   });
 </script>

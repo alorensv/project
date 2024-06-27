@@ -11,7 +11,9 @@
 
     <title>{{ config('app.name', 'Transportes Bulnes') }}</title>
 
+    <!-- Incluir Vue.js desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
     <!-- Scripts -->
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('assets/js/consultas.js') }}" defer></script>
@@ -35,10 +37,10 @@
     <link href="{{ asset('assets/css/tbl/style_tbl.css') }}" rel="stylesheet">
 
     <!--owl carousel-->
-    <link rel="stylesheet" href="assets/owlcarousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/owlcarousel/assets/owl.theme.default.min.css">
-    <script src="assets/vendors/jquery.min.js"></script>
-    <script src="assets/owlcarousel/owl.carousel.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/owlcarousel/assets/owl.theme.default.min.css') }}">
+    <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/owlcarousel/owl.carousel.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -58,18 +60,20 @@
         <main>
             @yield('content')
         </main>
-        
     </div>
 
     <script>
-        setTimeout(() => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.display = 'none';
-            }
-        }, 800);
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                //const cotiza = document.getElementById('cotiza');
+                if (preloader) {
+                    preloader.style.display = 'none';
+                    //cotiza.style.display = 'block';
+                }
+            }, 800);
+        });
     </script>
-
 </body>
 
 </html>
