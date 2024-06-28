@@ -39,9 +39,20 @@
                                 <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
                                 </a>
 
-                                <!-- <a class="dropdown-item" href="{{ route('generarQr') }}">{{ __('Generar QR') }}
-                                            </a> -->
+                                <a class="dropdown-item {{request()->routeIs('transporte_equipos_forestales') ? 'active' : ''}}" href="{{ route('transporte_equipos_forestales') }}">{{ __('Transportes de equipos forestales') }}
+                                </a>
 
+                                <a class="dropdown-item {{request()->routeIs('rescate_equipos_siniestrados') ? 'active' : ''}}" href="{{ route('rescate_equipos_siniestrados') }}">{{ __('Transporte y rescate equipos siniestrados') }}
+                                </a>
+
+                                <a class="dropdown-item {{request()->routeIs('transporte_maquinaria') ? 'active' : ''}}" href="{{ route('transporte_maquinaria') }}">{{ __('Transporte de maquinaria') }}
+                                </a>
+
+                                <a class="dropdown-item {{request()->routeIs('servicios_izajes') ? 'active' : ''}}" href="{{ route('servicios_izajes') }}">{{ __('Servicios de Izaje') }}
+                                </a>
+
+                                
+                                
                             </div>
 
                         </li>

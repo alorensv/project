@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="welcome-servicios">
-  <div class="bg_sobredimensionados">
+  <div class="bg_equiposforestales">
 
   </div>
   <div>
@@ -11,7 +11,7 @@
       <div class="row py-5">
         <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio">
           <h2>
-            Transporte sobre dimensionado
+            Transporte de equipos forestales
           </h2>
           <p><br></p>
           <p>
@@ -41,19 +41,19 @@
     <h2 class="blueH my-4">Nuestros trabajos</h2>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="gallery-item">
           <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
+          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
         </div>
       </div>
       <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
@@ -97,6 +97,7 @@
 </section>
 
 @include('tbl.include.footer')
+
 <script>
   setTimeout(() => {
     const miDiv = document.getElementById('welcomeTitle');

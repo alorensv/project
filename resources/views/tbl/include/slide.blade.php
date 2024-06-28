@@ -66,7 +66,7 @@
     </ol>
     <div class="carousel-inner">
       <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
-        <img class="second-slide" :src="item.image" alt="Second slide">
+        <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
         <div class="row titleCarousel">
           <div class="container d-flex">
             <div class="titleServices1">
@@ -132,20 +132,21 @@
         comentarios: '',
       },
       currentSlide: 0,
-      carouselItems: [{
-          image: 'img/tbl/traslados.png',
-          alt: 'Second slide',
-          title: 'Traslado de carga general - sobredimensión'
+      carouselItems: [
+        {
+          image: 'img/tbl/transporte_a_todo_chile.png',
+          alt: 'Third slide',
+          title: 'Transporte de cargas especiales'
         },
         {
-          image: 'img/tbl/services/carga_especial_0.png',
-          alt: 'Third slide',
-          title: 'Transporte a todo Chile'
-        },
+          image: 'img/tbl/traslados.png',
+          alt: 'Second slide',
+          title: 'Traslado sobre dimensionado'
+        },        
         {
           image: 'img/tbl/transporte.png',
           alt: 'Third slide',
-          title: 'Transporte de cargas especial'
+          title: 'Transporte a todo Chile'
         }
       ],
       intervalId: null
@@ -167,22 +168,29 @@
         this.currentSlide = (this.currentSlide - 1 + this.carouselItems.length) % this.carouselItems.length;
       },
       goToServices() {
-        console.log('goToServices called');
-        let trasladosElement = document.getElementById('traslados');
-        if (trasladosElement) {
-          // Opción 1: Scroll suave hacia el elemento
-          trasladosElement.scrollIntoView({
-            behavior: 'smooth'
-          });
+          console.log('goToServices called');
+          let trasladosElement = document.getElementById('traslados');
+          if (trasladosElement) {
+              // Obtener la posición del elemento
+              let elementPosition = trasladosElement.getBoundingClientRect().top + window.scrollY;
+              // Calcular la posición deseada (50px más arriba)
+              let offsetPosition = elementPosition - 150;
 
-          // Opción 2: Si prefieres un salto instantáneo en lugar de un scroll suave, usa:
-          // trasladosElement.scrollIntoView({ behavior: 'auto' });
-        } else {
-          console.error('Elemento con id="traslados" no encontrado.');
-        }
-        // Agrega aquí tu lógica para desplazarte o realizar acciones específicas
-        // Asegúrate de que esta parte esté funcionando correctamente
+              // Desplazar la ventana a la posición deseada
+              window.scrollTo({
+                  top: offsetPosition,
+                  behavior: 'smooth'
+              });
+
+              // Si prefieres un salto instantáneo en lugar de un scroll suave, usa:
+              // window.scrollTo({ top: offsetPosition, behavior: 'auto' });
+          } else {
+              console.error('Elemento con id="traslados" no encontrado.');
+          }
+          // Agrega aquí tu lógica para desplazarte o realizar acciones específicas
+          // Asegúrate de que esta parte esté funcionando correctamente
       },
+
       guardarCotizacion() {
         axios.post('/guardarCotizacion', this.cotizacion)
           .then(response => {

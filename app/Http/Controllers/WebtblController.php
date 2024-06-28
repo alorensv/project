@@ -26,6 +26,22 @@ class WebtblController extends Controller
         return view('tbl.servicio_cargas_especiales');
     }
 
+    public function transporte_equipos_forestales(){
+        return view('tbl.transporte_equipos_forestales');
+    }
+
+    public function rescate_equipos_siniestrados(){
+        return view('tbl.rescate_equipos_siniestrados');
+    }
+
+    public function transporte_maquinaria(){
+        return view('tbl.transporte_maquinaria');
+    }
+
+    public function servicios_izajes(){
+        return view('tbl.servicios_izajes');
+    }
+
     public function equipos(){
         return view('tbl.equipos');
     }
@@ -46,7 +62,7 @@ class WebtblController extends Controller
                 "cargo"  => 'Gerente de Operaciones',
                 "empresa"=> 'Transportes Bulnes Limitada',
                 "empresa2" => 'Comercial e Industrial Bulnes SPA',
-                "funciones" => 'Traslados Maquinarias, equipos y carga general. Enfocados en sobredimensión.',
+                "funciones" => 'Transporte de maquinaria, equipo y carga general.',
                 "telefono" => '+56 9 78565544',
                 "correo" => 'eduardo@empresasbulnes.com',
             ];

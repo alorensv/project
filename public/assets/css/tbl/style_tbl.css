@@ -2,6 +2,13 @@
 
 /*galeria*/
 
+.imgCaruselPrincipal{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
 .modal-header {
     background-color: #060737;
     color: white;
@@ -553,6 +560,50 @@
     width: 50%;
     height: 300px;
     background-image: url(/img/tbl/services/carga_especial_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_equiposforestales {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/maquinaria_forestal_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_rescateequipos {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/rescate_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_izaje{
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/izaje.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_transportemaquinaria{
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/maquinaria_menor.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1334,6 +1385,22 @@ footer .social-media ul li a {
     }
 
     .bg_cargaespecial {
+        height: 617px;
+    }
+
+    .bg_equiposforestales{
+        height: 617px;
+    }
+
+    .bg_rescateequipos{
+        height: 617px;
+    }
+
+    .bg_transportemaquinaria{
+        height: 617px;
+    }
+
+    .bg_izaje{
         height: 617px;
     }
 }

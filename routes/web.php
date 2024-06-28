@@ -102,6 +102,11 @@ Route::get('/view', [QrManagerController::class, 'view'])->name('view');
 Route::get('/', [WebtblController::class, 'index'])->name('inicio');
 Route::get('/servicio_sobredimensionado', [WebtblController::class, 'servicio_sobredimensionado'])->name('servicio_sobredimensionado');
 Route::get('/servicio_cargas_especiales', [WebtblController::class, 'servicio_cargas_especiales'])->name('servicio_cargas_especiales');
+Route::get('/transporte_equipos_forestales', [WebtblController::class, 'transporte_equipos_forestales'])->name('transporte_equipos_forestales');
+Route::get('/rescate_equipos_siniestrados', [WebtblController::class, 'rescate_equipos_siniestrados'])->name('rescate_equipos_siniestrados');
+Route::get('/transporte_maquinaria', [WebtblController::class, 'transporte_maquinaria'])->name('transporte_maquinaria');
+Route::get('/servicios_izajes', [WebtblController::class, 'servicios_izajes'])->name('servicios_izajes');
+
 
 Route::get('/equipos', [WebtblController::class, 'equipos'])->name('equipos'); 
 Route::get('/getEquipos', [WebtblController::class, 'getEquipos'])->name('getEquipos');
