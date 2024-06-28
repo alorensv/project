@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="welcome-servicios">
-  <div class="bg_sobredimensionados">
+  <div class="bg_cargaespecial">
 
   </div>
   <div>

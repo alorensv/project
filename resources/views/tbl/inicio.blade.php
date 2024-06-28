@@ -42,9 +42,9 @@
         <div class="titles">
           <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado</strong></div>
           <div class="title" @click="showSlide(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
-          <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte maquinaria y equipos forestales</div>
+          <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte de equipos forestales</div>
           <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
-          <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria</div>
+          <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria menor</div>
           <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
           <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Arriendos nuestros equipos</div>
         </div>
@@ -149,39 +149,39 @@
       currentServices: 0,
         servicesItems: [
           {
-            image: 'img/tbl/sobredimensionado.png',
+            image: 'img/tbl/services/sobredimensionado_0.png',
             alt: 'Transporte sobre dimensionado y sobre contenedores',
             url: '/servicio_sobredimensionado'
           },
           {
-            image: 'img/tbl/transporte.png',
+            image: 'img/tbl/services/carga_especial_0.png',
             alt: 'Transporte de cargas especiales',
             url: '/servicio_cargas_especiales'
           },
           {
-            image: 'img/tbl/transporte.png',
-            alt: 'Transporte maquinaria y equipos forestales',
-            url: '/servicio_cargas_especiales'
+            image: 'img/tbl/services/maquinaria_forestal_0.png',
+            alt: 'Transporte de equipos forestales',
+            url: '/#'
           },
           {
-            image: 'img/tbl/transporte.png',
+            image: 'img/tbl/services/rescate_0.png',
             alt: 'Transporte y rescate equipos siniestrados',
-            url: '/servicio_cargas_especiales'
+            url: '/#'
           },
           {
-            image: 'img/tbl/transporte.png',
-            alt: 'Transporte de maquinaria menor y rescate de vehículos',
-            url: '/servicio_cargas_especiales'
+            image: 'img/tbl/services/maquinaria_menor.png',
+            alt: 'Transporte de maquinaria menor',
+            url: '/#'
           },
           {
-            image: 'img/tbl/transporte.png',
+            image: 'img/tbl/services/izaje.png',
             alt: 'Servicios de Izaje',
-            url: '/servicio_cargas_especiales'
+            url: '/#'
           },
           {
-            image: 'img/tbl/transporte.png',
+            image: 'img/tbl/services/arriendo_equipos.png',
             alt: 'Arriendos nuestros equipos',
-            url: '/servicio_cargas_especiales'
+            url: '/#'
           }
         ],
         intervalId: null

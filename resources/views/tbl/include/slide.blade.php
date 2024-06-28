@@ -138,7 +138,7 @@
           title: 'Traslado de carga general - sobredimensión'
         },
         {
-          image: 'img/tbl/sobredimensionado.png',
+          image: 'img/tbl/services/carga_especial_0.png',
           alt: 'Third slide',
           title: 'Transporte a todo Chile'
         },

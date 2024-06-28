@@ -540,7 +540,19 @@
 .bg_sobredimensionados {
     width: 50%;
     height: 300px;
-    background-image: url(/img/tbl/servicio_sobredimensionado.png);
+    background-image: url(/img/tbl/services/sobredimensionado_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+/*sobredimensionados*/
+.bg_cargaespecial {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/carga_especial_0.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1318,6 +1330,10 @@ footer .social-media ul li a {
     } 
 
     .bg_sobredimensionados {
+        height: 617px;
+    }
+
+    .bg_cargaespecial {
         height: 617px;
     }
 }

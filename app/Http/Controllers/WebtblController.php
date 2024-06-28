@@ -41,7 +41,7 @@ class WebtblController extends Controller
 
         if($nombre == 'eduardo'){
             $response = [
-                "foto" =>  '/img/tbl/perfil.png',
+                "foto" =>  '/img/tbl/perfil_eduardo.png',
                 "nombre" => 'Eduardo Pincheira Pinto',
                 "cargo"  => 'Gerente de Operaciones',
                 "empresa"=> 'Transportes Bulnes Limitada',
@@ -52,9 +52,9 @@ class WebtblController extends Controller
             ];
         }elseif($nombre == 'elias'){
             $response = [
-                "foto" =>  '/img/tbl/perfil.png',
+                "foto" =>  '/img/tbl/perfil_elias.png',
                 "nombre" => 'Elías Sotomayor Henriquez',
-                "cargo"  => 'Ingeniero en Prevención de Riesgos - N° Registro TH/P 718',
+                "cargo"  => 'Ingeniero en Prevención de Riesgos',
                 "empresa"=> 'Transportes Bulnes Limitada',
                 "empresa2" => 'Comercial e Industrial Bulnes SPA',
                 "funciones" => 'Traslados Maquinarias, equipos y carga general. Enfocados en sobredimensión.',
@@ -63,7 +63,7 @@ class WebtblController extends Controller
             ];
         }elseif($nombre == 'friedel'){
             $response = [
-                "foto" =>  '/img/tbl/perfil.png',
+                "foto" =>  '/img/tbl/perfil_friedel.png',
                 "nombre" => 'Friedel Christ Constanzo',
                 "cargo"  => 'Jefe de Proyectos Especiales',
                 "empresa"=> 'Transportes Bulnes Limitada',
