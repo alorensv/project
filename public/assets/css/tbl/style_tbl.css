@@ -1344,13 +1344,56 @@ footer .social-media ul li a {
     width: 100%;
 }
 
+.margenCarusel{
+    padding-bottom: 0px !important; margin-top: 3%;
+}
 
-@media (max-width: 600px) {
+.estiloCotiza{
+    background-color: white;
+    color: rgb(6, 7, 55);
+}
+
+.buttonServices{
+    font-size: 22px !important;
+    padding: 1rem 1.5rem;
+    margin-top: -14px;
+}
+
+.buttonServices p{
+    margin-top: 10px;
+}
+
+.buttonServices {
+    display: inline-block;
+    text-align: center;
+}
+
+.buttonServices span,
+.buttonServices i {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.buttonServices i {
+    margin-left: 10px; /* Ajusta el margen según sea necesario */
+}
+
+
+@media (min-width: 1700px) {
+
+    h2,
+    .h2 {
+        top: 18% !important;
+    }
+
+    .div_cotiza {
+        top: 60% !important;
+    }
+
     #preloader img {
-        width: 50% !important;
+        width: 45% !important;
         /* Ajusta el tamaño de la imagen según sea necesario */
         height: auto;
-        margin-right: 21px;
     }
 }
 
@@ -1406,20 +1449,117 @@ footer .social-media ul li a {
 }
 
 
-@media (min-width: 1700px) {
 
-    h2,
-    .h2 {
-        top: 18% !important;
-    }
-
-    .div_cotiza {
-        top: 60% !important;
-    }
-
+@media (max-width: 990px) {
     #preloader img {
-        width: 45% !important;
+        width: 50% !important;
         /* Ajusta el tamaño de la imagen según sea necesario */
         height: auto;
+        margin-right: 21px;
     }
+
+    .margenCarusel {
+        margin-top: 30%!important;
+    }
+
+    .estiloCotiza{
+        display: none;
+    }
+
+    footer .map-container {
+        width: 390px!important;
+    }
+
+    .titleCarousel {
+        width: 103%!important;
+    }
+
+    .titleCarousel .d-flex{
+        display: grid!important;
+    }
+
+    h1, .h1 {
+        font-size: 1.5rem!important;
+    }
+
+    .titleServices1 {
+        width: 100%!important;
+    }
+
+    .carousel-item {
+        height: 31rem!important;
+    }
+
+    .imgCaruselPrincipal {
+        width: 230%!important;
+    }
+
+    .titleServices2 {
+        width: 100%!important;
+        margin-top: 25px;
+    }
+
+    .section-phone-padding {
+        padding: 0px 50px!important;
+    }
+    .bgRuta {
+        margin-top: -133px!important;
+    }
+
+    .traslados .titles {
+        margin-left: 0vh!important;
+    }
+
+    .traslados .title {
+        padding: 10px 6px 0px 21px!important;
+        font-size: 1rem!important;
+    }
+
+    footer .menu-footer {
+        padding: 40px 16px!important;
+        border-left: 0px solid #c3c3c3!important;
+        border-right: 0px solid #c3c3c3!important;
+        border-top: 1px solid #c3c3c3!important;
+        border-bottom: 1px solid #d7d7d7!important;
+    }
+
+    footer .social-media {
+        text-align: left!important;
+        padding-top: 40px!important;
+    }
+
+    .sobre_tbl {
+        margin-top: 80px!important;
+    }
+
+    .bg_sobredimensionados {
+        width: 100%!important;
+        height: 564px!important;
+        position: relative!important;
+    }
+    
+    .bg_transportesbulnes {
+        width: 100%!important;
+        height: 564px!important;
+        position: relative!important;
+    }
+
+    h2, .h2 {
+        font-size: 1.5rem!important;
+        font-weight: 600!important;
+    }
+
+    .logoGrande {
+        padding-top: 15%!important;
+    }
+
+    footer .logo-footer {
+        padding-bottom: 30px!important;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    
 }

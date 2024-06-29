@@ -9,7 +9,7 @@
   <div>
     <div class="container">
       <div class="row py-5">
-        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio">
+        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio section-phone-padding">
           <h2>
             Transporte sobre dimensionado
           </h2>
@@ -35,7 +35,7 @@
 
 
 <section class="galery py-5 bgservicios ceroR">
-  <div class="container ">
+  <div class="container  section-phone-padding">
 
 
     <h2 class="blueH my-4">Nuestros trabajos</h2>
@@ -65,10 +65,10 @@
   </div>
 </section>
 
-<section class="transporte-cargas">
+<section class="transporte-cargas section-phone-padding">
   <div class="container">
     <div class="row">
-      <div class="col-6 d-flex justify-content-center align-items-center logoGrande">
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center logoGrande">
         <img src="/img/tbl/logo2.png" alt="" style="width: 50%;">
       </div>
       <div class="col-lg-6 pt-5 text-justify ceroR">

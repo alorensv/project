@@ -39,7 +39,7 @@
                   <div class="card-header pt-4">
                     <h5 class="card-title">@{{ equipo.nombre }}</h5>
                   </div>
-                  <img class="card-img-top" :src="equipo.imagen" alt="Imagen del equipo">
+                  <img class="card-img-top" :src="equipo.img" alt="Imagen del equipo">
                   <div class="card-body">
 
                     <div class="row">

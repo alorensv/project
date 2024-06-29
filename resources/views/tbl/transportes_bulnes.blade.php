@@ -2,12 +2,12 @@
 
 @section('content')
 
-<section class="sobre_tbl">
+<section class="sobre_tbl ">
   <div class="bg_transportesbulnes">
 
   </div>
   <div>
-    <div class="container">
+    <div class="container section-phone-padding">
       <div class="row py-5">
         <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio">
           <h2>
@@ -21,7 +21,7 @@
             Nuestros principales valores son entregar un precio justo, profesionalismo en el servicio y puntualidad.
           </p>
           <p>
-          <strong>PREPARADOS PARA NUEVOS DESAFÍOS LOGISTICOS Y DE TRANSPORTE, SOMOS UN REAL APORTE</strong>
+          <strong>Preparados para nuevos desafíos logisticos y de transportes, somos un real aporte.</strong>
           </p>
         </div>
         <div class="col-6">
@@ -33,10 +33,10 @@
 
 </section>
 
-<section class="mision-vision">
+<section class="mision-vision section-phone-padding">
   <div class="container">
     <div class="row">
-      <div class="col-6 d-flex justify-content-center align-items-center logoGrande">
+      <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center logoGrande">
         <img src="/img/tbl/logo2.png" alt="" style="width: 50%;">
       </div>
       <div class="col-lg-6 pt-5 pb-5 text-justify ceroR">

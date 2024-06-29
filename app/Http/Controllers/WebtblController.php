@@ -7,6 +7,8 @@ use App\Mail\NuevaCotizacion;
 use App\Models\Contact;
 use App\Models\ContactMessage;
 use App\Models\Cotizacion;
+use App\Models\Equipo;
+use App\Models\TiposEquipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -93,9 +95,9 @@ class WebtblController extends Controller
         return view('tbl.presentacion', $response);
     }
 
-    public function getEquipos(){
+    public function getEquipos(Request $request){
 
-        $response = [
+        /* $response = [
             "message" => "equipos disponibles",
             "equipos" => [
                 [
@@ -131,16 +133,27 @@ class WebtblController extends Controller
                     "imagen" => '/img/tbl/equipos/cama_baja.png',
                 ],
             ],
-        ];
-        
+        ]; */
 
-        return response()->json($response);
+
+        // Obtener subcategorias del request
+        $subcategorias = $request->input('subcategorias');
+
+        if (empty($subcategorias)) {
+            $equipos = Equipo::all();
+            //$productos = Productos::where('cantidad', '>', 0)->get();
+        } else {
+            $equipos = Equipo::whereIn('subtipo_id', $subcategorias)->get();
+        }
+
+        return response()->json(['message' => 'equipos disponibles', 'equipos' => $equipos]);
+ 
     }
 
 
     public function tiposEquipos(){
 
-        $response = [
+        /* $response = [
             "datos" => [
                 [
                     "id" => 1,
@@ -171,10 +184,12 @@ class WebtblController extends Controller
                     ]
                 ],
             ],
-        ];
-        
+        ]; */
 
-        return response()->json($response);        
+        $datos = TiposEquipo::obtenerTiposConSubtipos();
+        //dd($datos);
+        return response()->json(['datos' => $datos]);
+              
     }
 
     public function guardarContacto(Request $request)

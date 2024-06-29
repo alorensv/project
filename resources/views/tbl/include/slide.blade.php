@@ -1,7 +1,7 @@
 <div id="formSlide">
 
   <div id="cotiza" class="div_cotiza">
-    <section class="shadow-lg" style="background-color: white; color: #060737;" id="contacto">
+    <section class="shadow-lg estiloCotiza" id="contacto">
       <form @submit.prevent="guardarCotizacion">
 
         <div class="row">
@@ -60,7 +60,7 @@
   </div>
 
 
-  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding-bottom: 0px !important; margin-top: 3%;">
+  <div id="myCarousel" class="carousel slide margenCarusel" data-ride="carousel">
     <ol class="carousel-indicators">
       <li v-for="(item, index) in carouselItems" :key="index" :data-slide-to="index" :class="{ active: index === currentSlide }" @click="showSlide(index)"></li>
     </ol>
@@ -73,9 +73,11 @@
               <h1 class="text-center">@{{ item.title }}</h1>
             </div>
             <div class="titleServices2">
-              <a class="btn btn-lg btn-primary d-flex align-items-center" style="font-size: 22px !important;padding: 1rem 1.35rem;margin-top: -14px;" href="#" role="button" @click.prevent="goToServices">Nuestros servicios
+              <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
+                <span>Nuestros servicios</span>
                 <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
               </a>
+
             </div>
           </div>
         </div>
@@ -137,16 +139,6 @@
           image: 'img/tbl/transporte_a_todo_chile.png',
           alt: 'Third slide',
           title: 'Transporte de cargas especiales'
-        },
-        {
-          image: 'img/tbl/traslados.png',
-          alt: 'Second slide',
-          title: 'Traslado sobre dimensionado'
-        },        
-        {
-          image: 'img/tbl/transporte.png',
-          alt: 'Third slide',
-          title: 'Transporte a todo Chile'
         }
       ],
       intervalId: null

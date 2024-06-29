@@ -1,5 +1,5 @@
 <footer style="background-color: white!important;">
-  <div class="container">
+  <div class="container section-phone-padding">
     <div class="row ">
       <div class="col-md-4 logo-footer ">
         <h3 class="ceroR">Cantidad de visitas: 125.233</h3>

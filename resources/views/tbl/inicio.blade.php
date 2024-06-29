@@ -9,7 +9,7 @@
 <div id="vueInicio">
   <section class="welcome">
     <div>
-      <div class="container">
+      <div class="container section-phone-padding">
         <div class="row py-5">
           <div class="col-lg-6 pt16 pb16 ceroR">
             <h2 class="escribiendo ceroR">
