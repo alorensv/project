@@ -277,7 +277,7 @@ class WebtblController extends Controller
 
         if ($cotizacion) {
             // Enviar el correo
-            Mail::to('dalorensv@gmail.com')->send(new NuevaCotizacion($cotizacion));
+            Mail::to('alorensv@gmail.com')->send(new NuevaCotizacion($cotizacion));
         }
 
         // Retornar respuesta en formato JSON

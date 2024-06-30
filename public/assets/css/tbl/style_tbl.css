@@ -2,7 +2,7 @@
 
 /*galeria*/
 
-.imgCaruselPrincipal{
+.imgCaruselPrincipal {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -26,49 +26,52 @@
     margin: 0 auto;
     border-right: 0.15em solid #060737;
     animation: typing 2s steps(38) 1s 1 normal both, blink 1s steps(1) infinite;
-  }
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
+}
 
-  
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
 
 /* styles.css */
 .gallery-item {
     margin-bottom: 20px;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  .gallery-item img {
-    transition: transform 0.3s ease;
-  }
-  
-  .gallery-item img:hover {
-    transform: scale(1.1);
-  }
-  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .titleEquipos{
+.gallery-item img {
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+}
+
+
+.titleEquipos {
     margin-bottom: -12px;
     margin-left: 23px;
-  }
+}
 
 /*carusel traslados*/
 
 
-.blueH  {
+.blueH {
     font-weight: 600;
     color: #060737;
     margin-bottom: 20px;
@@ -132,7 +135,7 @@
 
 .traslados .indicator.active {
     background-color: white;
-    
+
 }
 
 .traslados .photos {
@@ -297,7 +300,7 @@
 }
 
 .titleServices2 {
-    width: 25%;
+    width: 28%;
 }
 
 .titleServices2 .material-icons:hover {
@@ -335,7 +338,7 @@
 }
 
 
-.presentacionR{
+.presentacionR {
     opacity: 0;
     transition: opacity 1s ease, transform 1s ease;
     transform: translateX(-200px);
@@ -395,8 +398,10 @@
     color: #060737;
     background-color: #fff;
     border-color: #fff;
-    border-color: #060737; /* Color del borde al hacer hover */
-    transition: all 0.3s ease; /* Transición suave */
+    border-color: #060737;
+    /* Color del borde al hacer hover */
+    transition: all 0.3s ease;
+    /* Transición suave */
     box-shadow: inset 400px 0 0 0 #fff;
 }
 
@@ -465,53 +470,53 @@
 .indicadores {
     background-color: white;
     min-height: 260px;
-    
+
 }
 
 .transporte-cargas {
     background-color: #060737;
     min-height: 611px;
-  }
+}
 
-  .transporte-cargas h2 {
-    color: #fff!important;
-} 
+.transporte-cargas h2 {
+    color: #fff !important;
+}
 
 .transporte-cargas p {
-    color: #fff!important;
-} 
-  
-  
-  .transporte-cargas img {
+    color: #fff !important;
+}
+
+
+.transporte-cargas img {
     display: block;
     max-width: 100%;
     height: auto;
-  }
+}
 
-  .mision-vision {
+.mision-vision {
     background-color: #060737;
     min-height: 450px;
-  }
+}
 
-  .mision-vision h2 {
-    color: #fff!important;
-} 
+.mision-vision h2 {
+    color: #fff !important;
+}
 
 .mision-vision p {
-    color: #fff!important;
-} 
-  
-  
-  .mision-vision img {
+    color: #fff !important;
+}
+
+
+.mision-vision img {
     display: block;
     max-width: 100%;
     height: auto;
-  }
+}
 
 
-  .logoGrande{
+.logoGrande {
     padding-top: 5%;
-  }
+}
 
 .carousel-caption {
     position: absolute;
@@ -589,7 +594,7 @@
     right: 0;
 }
 
-.bg_izaje{
+.bg_izaje {
     width: 50%;
     height: 300px;
     background-image: url(/img/tbl/services/izaje.png);
@@ -600,7 +605,7 @@
     right: 0;
 }
 
-.bg_transportemaquinaria{
+.bg_transportemaquinaria {
     width: 50%;
     height: 300px;
     background-image: url(/img/tbl/services/maquinaria_menor.png);
@@ -611,7 +616,7 @@
     right: 0;
 }
 
-.bg_transportesbulnes{
+.bg_transportesbulnes {
     width: 50%;
     height: 501px;
     background-image: url(/img/tbl/sobre_tbl.png);
@@ -625,6 +630,7 @@
 .galery {
     background-color: white;
 }
+
 .galery {
     width: 100%;
     /* height: 260px; */
@@ -1092,6 +1098,10 @@
     color: #3f8dc9;
 }
 
+.welcome-servicios h2{
+    color: white!important;
+}
+
 .titles-heading {
     font-weight: 300;
     line-height: 1;
@@ -1181,7 +1191,7 @@
 footer {
     padding: 50px 0;
     background: white;
-     /* border-radius: 40px; */     
+    /* border-radius: 40px; */
 }
 
 footer .map-container {
@@ -1189,13 +1199,15 @@ footer .map-container {
     height: 70px;
     overflow: hidden;
 }
+
 footer .map-container iframe {
     width: 100%;
     height: 100%;
 }
 
-footer .custom-link{
-    height: 45px; text-decoration: none;
+footer .custom-link {
+    height: 45px;
+    text-decoration: none;
 }
 
 footer .center {
@@ -1229,17 +1241,20 @@ footer .ceroR.animate {
 .ceroTop {
     opacity: 0;
     transition: transform 1s ease;
-    transform: translateY(0); /* Inicialmente sin traslación */
+    transform: translateY(0);
+    /* Inicialmente sin traslación */
 }
 
 .ceroTop.animate {
-    transform: translateY(-200px); /* Movimiento hacia abajo */
+    transform: translateY(-200px);
+    /* Movimiento hacia abajo */
 }
 
 
 
 footer .logo-footer h3:hover {
-    color: #41425f; /* Cambia el color del texto a blanco al pasar el cursor */
+    color: #41425f;
+    /* Cambia el color del texto a blanco al pasar el cursor */
     font-weight: 400;
 }
 
@@ -1344,28 +1359,26 @@ footer .social-media ul li a {
     width: 100%;
 }
 
-.margenCarusel{
-    padding-bottom: 0px !important; margin-top: 3%;
+.margenCarusel {
+    padding-bottom: 0px !important;
+    margin-top: 3%;
 }
 
-.estiloCotiza{
+.estiloCotiza {
     background-color: white;
     color: rgb(6, 7, 55);
 }
 
-.buttonServices{
+.buttonServices {
     font-size: 22px !important;
     padding: 1rem 1.5rem;
     margin-top: -14px;
-}
-
-.buttonServices p{
-    margin-top: 10px;
-}
-
-.buttonServices {
     display: inline-block;
     text-align: center;
+}
+
+.buttonServices p {
+    margin-top: 10px;
 }
 
 .buttonServices span,
@@ -1375,7 +1388,21 @@ footer .social-media ul li a {
 }
 
 .buttonServices i {
-    margin-left: 10px; /* Ajusta el margen según sea necesario */
+    margin-left: 10px;
+    /* Ajusta el margen según sea necesario */
+}
+
+.titleCarousel .d-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.indicators-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 
@@ -1420,8 +1447,8 @@ footer .social-media ul li a {
         font-size: 2.5rem;
         font-size: 2.5rem;
         font-weight: 600;
-        color: #fff!important;
-    } 
+        color: #fff !important;
+    }
 
     .bg_sobredimensionados {
         height: 617px;
@@ -1431,19 +1458,19 @@ footer .social-media ul li a {
         height: 617px;
     }
 
-    .bg_equiposforestales{
+    .bg_equiposforestales {
         height: 617px;
     }
 
-    .bg_rescateequipos{
+    .bg_rescateequipos {
         height: 617px;
     }
 
-    .bg_transportemaquinaria{
+    .bg_transportemaquinaria {
         height: 617px;
     }
 
-    .bg_izaje{
+    .bg_izaje {
         height: 617px;
     }
 }
@@ -1459,107 +1486,124 @@ footer .social-media ul li a {
     }
 
     .margenCarusel {
-        margin-top: 30%!important;
+        margin-top: 30% !important;
     }
 
-    .estiloCotiza{
+    .estiloCotiza {
         display: none;
     }
 
     footer .map-container {
-        width: 390px!important;
+        width: 390px !important;
     }
 
     .titleCarousel {
-        width: 103%!important;
+        width: 103% !important;
     }
 
-    .titleCarousel .d-flex{
-        display: grid!important;
+    .titleCarousel .d-flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    h1, .h1 {
-        font-size: 1.5rem!important;
+    .buttonServices {
+        margin-left: 0;
+        /* Asegura que el margen izquierdo se restablezca */
+        margin-top: 20px;
+        /* Ajusta el margen superior según sea necesario */
+    }
+
+    h1,
+    .h1 {
+        font-size: 1.5rem !important;
     }
 
     .titleServices1 {
-        width: 100%!important;
+        width: 100% !important;
     }
 
     .carousel-item {
-        height: 31rem!important;
+        height: 31rem !important;
     }
 
     .imgCaruselPrincipal {
-        width: 230%!important;
+        width: 230% !important;
     }
 
     .titleServices2 {
-        width: 100%!important;
+        width: 100% !important;
         margin-top: 25px;
     }
 
     .section-phone-padding {
-        padding: 0px 50px!important;
+        padding: 0px 50px 50px !important;
     }
+
     .bgRuta {
-        margin-top: -133px!important;
+        margin-top: -133px !important;
     }
 
     .traslados .titles {
-        margin-left: 0vh!important;
+        margin-left: 0vh !important;
     }
 
     .traslados .title {
-        padding: 10px 6px 0px 21px!important;
-        font-size: 1rem!important;
+        padding: 10px 6px 0px 21px !important;
+        font-size: 1rem !important;
     }
 
     footer .menu-footer {
-        padding: 40px 16px!important;
-        border-left: 0px solid #c3c3c3!important;
-        border-right: 0px solid #c3c3c3!important;
-        border-top: 1px solid #c3c3c3!important;
-        border-bottom: 1px solid #d7d7d7!important;
+        padding: 40px 16px !important;
+        border-left: 0px solid #c3c3c3 !important;
+        border-right: 0px solid #c3c3c3 !important;
+        border-top: 1px solid #c3c3c3 !important;
+        border-bottom: 1px solid #d7d7d7 !important;
     }
 
     footer .social-media {
-        text-align: left!important;
-        padding-top: 40px!important;
+        text-align: left !important;
+        padding-top: 40px !important;
     }
 
     .sobre_tbl {
-        margin-top: 80px!important;
+        margin-top: 80px !important;
     }
 
     .bg_sobredimensionados {
-        width: 100%!important;
-        height: 564px!important;
-        position: relative!important;
-    }
-    
-    .bg_transportesbulnes {
-        width: 100%!important;
-        height: 564px!important;
-        position: relative!important;
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
     }
 
-    h2, .h2 {
-        font-size: 1.5rem!important;
-        font-weight: 600!important;
+    .bg_transportesbulnes {
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
+    }
+
+    h2,
+    .h2 {
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
     }
 
     .logoGrande {
-        padding-top: 15%!important;
+        padding-top: 15% !important;
     }
 
     footer .logo-footer {
-        padding-bottom: 30px!important;
+        padding-bottom: 30px !important;
+    }
+
+    .indicators-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .indicadores {
+        min-height: 420px !important;
     }
 
 }
 
-@media (max-width: 480px) {
-
-    
-}
+@media (max-width: 480px) {}

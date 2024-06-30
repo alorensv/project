@@ -68,19 +68,19 @@
       <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
         <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
         <div class="row titleCarousel">
-          <div class="container d-flex">
-            <div class="titleServices1">
-              <h1 class="text-center">@{{ item.title }}</h1>
-            </div>
-            <div class="titleServices2">
-              <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
+    <div class="container d-flex">
+        <div class="titleServices1">
+            <h1 class="text-center">@{{ item.title }}</h1>
+        </div>
+        <div class="titleServices2">
+            <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
                 <span>Nuestros servicios</span>
                 <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
-              </a>
-
-            </div>
-          </div>
+            </a>
         </div>
+    </div>
+</div>
+
       </div>
     </div>
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev" @click.prevent="prevSlide">
@@ -193,6 +193,14 @@
               setTimeout(() => {
                 $("#successContact").modal('hide'); 
               }, 4000); 
+
+              this.nombre = '';
+              this.email = '';
+              this.telefono = '';
+              this.fecha_servicio = '';
+              this.origen = '';
+              this.destino = '';
+              this.comentarios = '';
             }
                     
           })

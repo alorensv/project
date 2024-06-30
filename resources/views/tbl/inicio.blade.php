@@ -1,7 +1,7 @@
 @extends('tbl.plantilla')
 
 @section('slide')
-  @include('tbl.include.slide')
+@include('tbl.include.slide')
 @endsection
 
 @section('content')
@@ -38,41 +38,41 @@
   </section>
 
   <section id="traslados" class="traslados">
-      <div class="carousel">
-        <div class="titles">
-          <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado</strong></div>
-          <div class="title" @click="showSlide(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
-          <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte de equipos forestales</div>
-          <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
-          <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria</div>
-          <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
-          <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Arriendos nuestros equipos</div>
-        </div>
-        <div class="indicators">
-          <span class="indicator" @click="showSlide(0)" :class="{ active: currentServices === 0 }"></span>
-          <span class="indicator" @click="showSlide(1)" :class="{ active: currentServices === 1 }"></span>
-          <span class="indicator" @click="showSlide(2)" :class="{ active: currentServices === 2 }"></span>
-          <span class="indicator" @click="showSlide(3)" :class="{ active: currentServices === 3 }"></span>
-          <span class="indicator" @click="showSlide(4)" :class="{ active: currentServices === 4 }"></span>
-          <span class="indicator" @click="showSlide(5)" :class="{ active: currentServices === 5 }"></span>
-          <span class="indicator" @click="showSlide(6)" :class="{ active: currentServices === 6 }"></span>
-        </div>
-        <div class="photos">
-          <div class="photo" v-for="(item, index) in servicesItems" :key="index" :class="{ active: currentServices === index }">
-            <div style="position: absolute;left: 30%;top: 80%;width: 350px;">
+    <div class="carousel">
+      <div class="titles">
+        <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado</strong></div>
+        <div class="title" @click="showSlide(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
+        <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte de equipos forestales</div>
+        <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
+        <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria</div>
+        <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
+        <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Arriendos nuestros equipos</div>
+      </div>
+      <div class="indicators">
+        <span class="indicator" @click="showSlide(0)" :class="{ active: currentServices === 0 }"></span>
+        <span class="indicator" @click="showSlide(1)" :class="{ active: currentServices === 1 }"></span>
+        <span class="indicator" @click="showSlide(2)" :class="{ active: currentServices === 2 }"></span>
+        <span class="indicator" @click="showSlide(3)" :class="{ active: currentServices === 3 }"></span>
+        <span class="indicator" @click="showSlide(4)" :class="{ active: currentServices === 4 }"></span>
+        <span class="indicator" @click="showSlide(5)" :class="{ active: currentServices === 5 }"></span>
+        <span class="indicator" @click="showSlide(6)" :class="{ active: currentServices === 6 }"></span>
+      </div>
+      <div class="photos">
+        <div class="photo" v-for="(item, index) in servicesItems" :key="index" :class="{ active: currentServices === index }">
+          <div style="position: absolute;left: 30%;top: 80%;width: 350px;">
             <a :href="item.url" class="w-100 btn btn-primary btn-lg">
-              <h5 style="padding-top: 10px;">¡Conoce más sobre este servicio!</h5></a>
-            </div>  
-            <img :src="item.image" :alt="item.alt">
-            
+              <h5 style="padding-top: 10px;">¡Conoce más sobre este servicio!</h5>
+            </a>
           </div>
+          <img :src="item.image" :alt="item.alt">
+
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
   <section class="indicadores py-5 bgIndicadores">
-    <div class="container ">
-
+    <div class="container">
       <div class="indicators-container">
         <div class="indicator" id="indicator-accidentes">
           <div class="value-container" data-start="0" data-end="0">0</div>
@@ -99,43 +99,11 @@
           <div class="title">Compromiso con nuestros clientes</div>
         </div>
       </div>
-
-
-
-
     </div>
   </section>
 
-  <section class="transporte-cargas">
-    <div class="container">
-      <div class="row">
-        <div class="col-6 d-flex justify-content-center align-items-center logoGrande">
-          <img src="/img/tbl/logo2.png" alt="" style="width: 50%;">
-        </div>
-        <div class="col-lg-6 pt-5 text-justify ceroR">
-          <h2 class="pt-3" style="color: white;">
-            ¿Porqué trabajar con nosotros?
-          </h2>
-          <p><br></p>
-          <p>
-            Equipos de diferentes anchos, largos y altos, tractos, cama baja, ramplas, camas bajas extensibles, ramplas extensibles y drop.
-          </p>
-          <p>
-            Patio de almacenamiento transitorio para cargas con elementos con certificación (elementos de anclaje).
-          </p>
-          <p>
-            Tramitación, pago de permisos y coordinación con Carabineros de Chile para traslado de cargas especiales.
-          </p>
-          <p>
-            Mantenemos vigentes con la aseguradora "Davidson Eltit Asociados", segurtos personales (trabajadores), seguros de carga, cabotaje, responsabilidad civil y daños propios.
-          </p>
-          <p class="pt-4">
-            <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Descubre más </a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+
+  @include('tbl.include.trabaja_con_nosotros')
 
   @include('tbl.include.footer')
 </div>
@@ -147,85 +115,82 @@
       animationTriggered: {},
       elements: [],
       currentServices: 0,
-        servicesItems: [
-          {
-            image: 'img/tbl/services/sobredimensionado_0.png',
-            alt: 'Transporte sobre dimensionado y sobre contenedores',
-            url: '/servicio_sobredimensionado'
-          },
-          {
-            image: 'img/tbl/services/carga_especial_0.png',
-            alt: 'Transporte de cargas especiales',
-            url: '/servicio_cargas_especiales'
-          },
-          {
-            image: 'img/tbl/services/maquinaria_forestal_0.png',
-            alt: 'Transporte de equipos forestales',
-            url: '/transporte_equipos_forestales'
-          },
-          {
-            image: 'img/tbl/services/rescate_0.png',
-            alt: 'Transporte y rescate equipos siniestrados',
-            url: '/rescate_equipos_siniestrados'
-          },
-          {
-            image: 'img/tbl/services/maquinaria_menor.png',
-            alt: 'Transporte de maquinaria',
-            url: '/transporte_maquinaria'
-          },
-          {
-            image: 'img/tbl/services/izaje.png',
-            alt: 'Servicios de Izaje',
-            url: '/servicios_izajes'
-          },
-          {
-            image: 'img/tbl/services/arriendo_equipos.png',
-            alt: 'Arriendos nuestros equipos',
-            url: '/equipos'
-          }
-        ],
-        intervalId: null
+      servicesItems: [{
+          image: 'img/tbl/services/sobredimensionado_0.png',
+          alt: 'Transporte sobre dimensionado y sobre contenedores',
+          url: '/servicio_sobredimensionado'
+        },
+        {
+          image: 'img/tbl/services/carga_especial_0.png',
+          alt: 'Transporte de cargas especiales',
+          url: '/servicio_cargas_especiales'
+        },
+        {
+          image: 'img/tbl/services/maquinaria_forestal_0.png',
+          alt: 'Transporte de equipos forestales',
+          url: '/transporte_equipos_forestales'
+        },
+        {
+          image: 'img/tbl/services/rescate_0.png',
+          alt: 'Transporte y rescate equipos siniestrados',
+          url: '/rescate_equipos_siniestrados'
+        },
+        {
+          image: 'img/tbl/services/maquinaria_menor.png',
+          alt: 'Transporte de maquinaria',
+          url: '/transporte_maquinaria'
+        },
+        {
+          image: 'img/tbl/services/izaje.png',
+          alt: 'Servicios de Izaje',
+          url: '/servicios_izajes'
+        },
+        {
+          image: 'img/tbl/services/arriendo_equipos.png',
+          alt: 'Arriendos nuestros equipos',
+          url: '/equipos'
+        }
+      ],
+      intervalId: null
     },
     mounted() {
       this.updateElements();
       this.showSlide(0);
       window.addEventListener('scroll', this.handleScroll);
+      this.animateNumbers();
     },
     methods: {
-      guardarCotizacion(){
-        alert(aca)
-      },
       showAlert(index) {
-          console.log('Mostrando alerta para el índice:', index);
-          alert('Hola'); // Muestra un alert con el mensaje 'Hola'
-        },
-        showSlide(index) {
-          // Detener el intervalo para no cambiar la diapositiva automáticamente mientras el usuario interactúa
-          clearInterval(this.intervalId);
+        console.log('Mostrando alerta para el índice:', index);
+        alert('Hola'); // Muestra un alert con el mensaje 'Hola'
+      },
+      showSlide(index) {
+        // Detener el intervalo para no cambiar la diapositiva automáticamente mientras el usuario interactúa
+        clearInterval(this.intervalId);
 
-          // Ocultar la diapositiva actual y quitar la clase activa de los indicadores y títulos
-          const photos = document.querySelectorAll('.photo');
-          const indicators = document.querySelectorAll('.indicator');
-          const titles = document.querySelectorAll('.title');
+        // Ocultar la diapositiva actual y quitar la clase activa de los indicadores y títulos
+        const photos = document.querySelectorAll('.photo');
+        const indicators = document.querySelectorAll('.indicator');
+        const titles = document.querySelectorAll('.title');
 
-          photos[this.currentServices].classList.remove('active');
-          indicators[this.currentServices].classList.remove('active');
-          titles[this.currentServices].classList.remove('active');
+        photos[this.currentServices].classList.remove('active');
+        indicators[this.currentServices].classList.remove('active');
+        titles[this.currentServices].classList.remove('active');
 
-          // Mostrar la nueva diapositiva y añadir la clase activa a los indicadores y títulos correspondientes
-          photos[index].classList.add('active');
-          indicators[index].classList.add('active');
-          titles[index].classList.add('active');
+        // Mostrar la nueva diapositiva y añadir la clase activa a los indicadores y títulos correspondientes
+        photos[index].classList.add('active');
+        indicators[index].classList.add('active');
+        titles[index].classList.add('active');
 
-          // Actualizar el índice de la diapositiva actual
-          this.currentServices = index;
+        // Actualizar el índice de la diapositiva actual
+        this.currentServices = index;
 
-          // Reiniciar el intervalo para cambiar la diapositiva automáticamente después de 2 segundos
-          this.intervalId = setInterval(() => {
-            const nextSlide = (this.currentServices + 1) % this.servicesItems.length;
-            this.showSlide(nextSlide);
-          }, 2000);
-        },
+        // Reiniciar el intervalo para cambiar la diapositiva automáticamente después de 2 segundos
+        this.intervalId = setInterval(() => {
+          const nextSlide = (this.currentServices + 1) % this.servicesItems.length;
+          this.showSlide(nextSlide);
+        }, 2000);
+      },
       updateElements() {
         this.elements = document.querySelectorAll('.ceroR');
         this.elements.forEach(element => {
@@ -249,7 +214,44 @@
         this.elements.forEach(element => {
           this.checkAnimation(element);
         });
+
+        const indicadoresSection = document.querySelector('.indicadores');
+        if (this.isElementInViewport(indicadoresSection)) {
+          this.animateNumbers();
+        }
       },
+      animateNumbers() {
+        const indicators = document.querySelectorAll('.value-container .value');
+        indicators.forEach(indicator => {
+          const start = parseInt(indicator.getAttribute('data-start'), 10);
+          const end = parseInt(indicator.getAttribute('data-end'), 10);
+          this.countUp(indicator, start, end, 2000);
+        });
+      },
+      countUp(element, start, end, duration) {
+        let startTime = null;
+
+        function animation(currentTime) {
+          if (startTime === null) startTime = currentTime;
+          const progress = currentTime - startTime;
+          const current = Math.min(start + (progress / duration) * (end - start), end);
+          element.textContent = Math.floor(current);
+          if (current < end) {
+            requestAnimationFrame(animation);
+          }
+        }
+
+        requestAnimationFrame(animation);
+      },
+      isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
     }
   });
 </script>
