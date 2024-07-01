@@ -9,7 +9,7 @@
   <div>
     <div class="container">
       <div class="row py-5">
-        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio section-phone-padding">
+        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio">
           <h2>
             Transporte sobre dimensionado
           </h2>
@@ -35,38 +35,67 @@
 
 
 <section class="galery py-5 bgservicios ceroR">
-  <div class="container  section-phone-padding">
-
-
+  <div class="container ">
     <h2 class="blueH my-4">Nuestros trabajos</h2>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="gallery-item">
+    <div class="services_gallery-container">
+      <div class="services_gallery-inner">
+        <div class="services_gallery-item">
           <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="gallery-item">
+        <div class="services_gallery-item">
           <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="gallery-item">
+        <div class="services_gallery-item">
           <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
         </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
       </div>
-      <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
     </div>
-
-    
-
-
   </div>
 </section>
 
-
-@include('tbl.include.trabaja_con_nosotros')
+<section class="transporte-cargas">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 d-flex justify-content-center align-items-center logoGrande">
+        <img src="/img/tbl/logo2.png" alt="" style="width: 50%;">
+      </div>
+      <div class="col-lg-6 pt-5 text-justify ceroR">
+        <h2 class="pt-3" style="color: white;">
+          ¿Porqué trabajar con nosotros?
+        </h2>
+        <p><br></p>
+        <p>
+          Equipos de diferentes anchos, largos y altos, tractos, cama baja, ramplas, camas bajas extensibles, ramplas extensibles y drop.
+        </p>
+        <p>
+          Patio de almacenamiento transitorio para cargas con elementos con certificación (elementos de anclaje).
+        </p>
+        <p>
+          Tramitación, pago de permisos y coordinación con Carabineros de Chile para traslado de cargas especiales.
+        </p>
+        <p>
+          Mantenemos vigentes con la aseguradora "Davidson Eltit Asociados", segurtos personales (trabajadores), seguros de carga, cabotaje, responsabilidad civil y daños propios.
+        </p>
+        <p class="pt-4">
+          <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Descubre más </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 @include('tbl.include.footer')
 <script>
@@ -92,11 +121,13 @@
     el: '#vueInicio',
     data: {
       animationTriggered: {},
-      elements: []
+      elements: [],
+      currentSlide: 0
     },
     mounted() {
       this.updateElements();
       window.addEventListener('scroll', this.handleScroll);
+      this.startCarousel();
     },
     methods: {
       updateElements() {
@@ -123,6 +154,19 @@
           this.checkAnimation(element);
         });
       },
+
+      startCarousel() {
+        const galleryContainer = document.querySelector('.services_gallery-container');
+        const galleryInner = document.querySelector('.services_gallery-inner');
+        const items = document.querySelectorAll('.services_gallery-item');
+        const itemCount = items.length;
+
+        setInterval(() => {
+          this.currentSlide = (this.currentSlide + 1) % itemCount;
+          const offset = this.currentSlide * items[0].clientWidth;
+          galleryInner.style.transform = `translateX(-${offset}px)`;
+        }, 3000);
+      }
     }
   });
 </script>

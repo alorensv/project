@@ -8,7 +8,7 @@
       <div class="row market-body mt-5 pt-5">
         <!-- Columna de categorías -->
         <div class="col-md-3">
-          <div class="h-100 bg-white pl-4 pr-4 pt-2 pb-2">
+          <div class="h-100 filtrosDiv">
             <span class="material-icons float-left">search</span>
             <h4 class="font-weight-bold">Filtros</h4>
             <div v-for="tipo in tipos" :key="tipo.id">
@@ -50,11 +50,13 @@
                         <p class="card-text"><span class="material-icons">chevron_right</span>@{{ equipo.modelo }}</p>
                         <p class="card-text titleEquipos"><strong>Año</strong></p>
                         <p class="card-text"><span class="material-icons">chevron_right</span>2022</p>
-                        <p class="card-text titleEquipos"><strong>Descargar ficha técnica</strong></p>
                       </div>
                     </div>
 
                     <div class="row">
+                      <div class="col-12 d-flex align-items-center pt-3">
+                        <button class="w-100 btn btn-outline-successs">Descargar ficha técnica</button>
+                      </div>
                       <div class="col-12 d-flex align-items-center pt-3">
                         <button class="w-100 btn btn-primary">Cotizar</button>
                       </div>

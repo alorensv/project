@@ -33,35 +33,35 @@
 
 </section>
 
-
 <section class="galery py-5 bgservicios ceroR">
   <div class="container ">
-
-
     <h2 class="blueH my-4">Nuestros trabajos</h2>
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="gallery-item">
+    <div class="services_gallery-container">
+      <div class="services_gallery-inner">
+        <div class="services_gallery-item">
           <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
         </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <div class="services_gallery-item">
+          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+        </div>
+        <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
       </div>
-      <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
     </div>
-
-
-
-
   </div>
 </section>
 
@@ -92,11 +92,13 @@
     el: '#vueInicio',
     data: {
       animationTriggered: {},
-      elements: []
+      elements: [],
+      currentSlide: 0
     },
     mounted() {
       this.updateElements();
       window.addEventListener('scroll', this.handleScroll);
+      this.startCarousel();
     },
     methods: {
       updateElements() {
@@ -123,6 +125,17 @@
           this.checkAnimation(element);
         });
       },
+      startCarousel() {
+        const galleryInner = document.querySelector('.services_gallery-inner');
+        const items = document.querySelectorAll('.services_gallery-item');
+        const itemCount = items.length;
+
+        setInterval(() => {
+          this.currentSlide = (this.currentSlide + 1) % itemCount;
+          const offset = this.currentSlide * items[0].clientWidth;
+          galleryInner.style.transform = `translateX(-${offset}px)`;
+        }, 3000);
+      }
     }
   });
 </script>

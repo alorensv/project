@@ -75,7 +75,7 @@ class WebtblController extends Controller
                 "cargo"  => 'Ingeniero en Prevención de Riesgos',
                 "empresa"=> 'Transportes Bulnes Limitada',
                 "empresa2" => 'Comercial e Industrial Bulnes SPA',
-                "funciones" => 'Traslados Maquinarias, equipos y carga general. Enfocados en sobredimensión.',
+                "funciones" => 'Transporte de maquinaria, equipo y carga general.',
                 "telefono" => '+56 9 32699840',
                 "correo" => 'elias@empresasbulnes.com',
             ];
@@ -86,7 +86,7 @@ class WebtblController extends Controller
                 "cargo"  => 'Jefe de Proyectos Especiales',
                 "empresa"=> 'Transportes Bulnes Limitada',
                 "empresa2" => 'Comercial e Industrial Bulnes SPA',
-                "funciones" => 'Traslados Maquinarias, equipos y carga general. Enfocados en sobredimensión.',
+                "funciones" => 'Transporte de maquinaria, equipo y carga general.',
                 "telefono" => '+56 9 62084589',
                 "correo" => 'friedel@empresasbulnes.com',
             ];
