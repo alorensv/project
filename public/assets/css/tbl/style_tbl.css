@@ -2,6 +2,7 @@
 
 /*galeria*/
 
+
 .imgCaruselPrincipal {
     width: 100%;
     height: 100%;
@@ -44,12 +45,7 @@
     }
 }
 
-.btn-outline-success {
-    color: #28a745;
-    background-color: transparent;
-    background-image: none;
-    border-color: #28a745;
-}
+
 
 /* styles.css */
 .gallery-item {
@@ -419,13 +415,10 @@
     display: inline-block;
     font-weight: 600;
     line-height: 1.5;
-    color: #212529;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
     user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
     padding: 0.45rem 1.35rem;
     font-size: 1rem;
     border-radius: 10rem;
@@ -1627,6 +1620,38 @@ footer .social-media ul li a {
         height: 564px !important;
         position: relative !important;
     }
+
+    .bg_cargaespecial {
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
+    }
+
+    .bg_rescateequipos {
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
+    }
+
+    .bg_izaje {
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
+    }
+
+    .bg_equiposforestales {
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
+    }
+    
+    .bg_transportemaquinaria {
+        width: 100% !important;
+        height: 564px !important;
+        position: relative !important;
+    }
+
+    
 
     .bg_transportesbulnes {
         width: 100% !important;

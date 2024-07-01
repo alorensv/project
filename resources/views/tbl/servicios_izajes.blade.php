@@ -15,11 +15,17 @@
           </h2>
           <p><br></p>
           <p>
-            La precisión en cada carga y descarga de equipos pesados ​​y sobredimensionados es la clave en todas nuestras operaciones especiales.
+          Servicio garantizado y altos estándares! Contamos con camiones pluma de 10 toneladas, grúas de 25 a 150 toneladas y grúas camión con capacidad desde las 25 toneladas hasta las 220 toneladas. 
           </p>
+          
           <p>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
+            Asesoramos a nuestros clientes en el diseño, implementación y/o ajustes de programas para manejo seguro de cargas.
           </p>
+          <p>¡Tenemos socios estratégicos para que confíes en nosotros con tus proyectos más exigentes! Trabajamos con Grollmus Group, Grúas Elebö y Grúas Hydrosur.</p>
+          <div class="d-flex">
+            <img src="/img/tbl/grollmus.png" alt="" style="width: 25%;height: 25%;">
+            <img src="/img/tbl/elebo.png" style="width: 25%;height: 25%;    margin-right: 20px;" alt="">
+          </div>
           <p class="pt-3">
             <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Quiero cotizar </a>
           </p>
@@ -40,25 +46,22 @@
     <div class="services_gallery-container">
       <div class="services_gallery-inner">
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
+          <img src="/img/tbl/services/servicios_izajes.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
+          <img src="/img/tbl/services/izajes_2.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/izajes_3.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/gruas.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/izajes_4.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/izajes_5.png" class="img-fluid">
         </div>
         <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
       </div>
@@ -134,7 +137,7 @@
           this.currentSlide = (this.currentSlide + 1) % itemCount;
           const offset = this.currentSlide * items[0].clientWidth;
           galleryInner.style.transform = `translateX(-${offset}px)`;
-        }, 3000);
+        }, 2000);
       }
     }
   });

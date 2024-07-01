@@ -8,10 +8,14 @@
       <div class="row market-body mt-5 pt-5">
         <!-- Columna de categorías -->
         <div class="col-md-3">
-          <div class="h-100 filtrosDiv">
-            <span class="material-icons float-left">search</span>
-            <h4 class="font-weight-bold">Filtros</h4>
-            <div v-for="tipo in tipos" :key="tipo.id">
+          <div class="filtrosDiv">
+           
+            <button class="btn btn-primary w-100"  @click="toggleFiltros">
+              <span class="material-icons float-left">search</span>
+              <h5 class="font-weight-bold" style="margin-bottom: 0px !important;">@{{filters}}</h5>
+            </button>
+            
+            <div id="listarFiltros" v-show="filtrosVisibles" v-for="tipo in tipos" :key="tipo.id">
               <div class="categoria-title">
                 <hr>
                 <h5 class="font-weight-bold">@{{ tipo.nombre }}</h5>
@@ -39,7 +43,7 @@
                   <div class="card-header pt-4">
                     <h5 class="card-title">@{{ equipo.nombre }}</h5>
                   </div>
-                  <img class="card-img-top" :src="equipo.img" alt="Imagen del equipo">
+                  <img v-if="equipo.img" class="card-img-top" :src="equipo.img" alt="Imagen del equipo">
                   <div class="card-body">
 
                     <div class="row">
@@ -54,9 +58,10 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-12 d-flex align-items-center pt-3">
-                        <button class="w-100 btn btn-outline-successs">Descargar ficha técnica</button>
+                      <div v-if="equipo.link_ficha_tecnica" class="col-12 d-flex align-items-center pt-3">
+                        <a :href="equipo.link_ficha_tecnica" target="_blank" class="w-100 btn btn-outline-success">Descargar ficha técnica</a>
                       </div>
+
                       <div class="col-12 d-flex align-items-center pt-3">
                         <button class="w-100 btn btn-primary">Cotizar</button>
                       </div>
@@ -85,7 +90,9 @@
       tipos: [],
       subcategoriasSeleccionadas: [],
       animationTriggered: {},
-      elements: []
+      elements: [],
+      filtrosVisibles: true,
+      filters: 'Ocultar filtros',
     },
     created() {
       this.getTiposEquipos();
@@ -143,6 +150,15 @@
           this.checkAnimation(element);
         });
       },
+      toggleFiltros() {
+        this.filtrosVisibles = !this.filtrosVisibles;
+        if (this.filtrosVisibles) {
+          this.filters = 'Ocultar filtros';
+        } else {
+          this.filters = 'Ver filtros';
+        }
+      }
+
     }
   });
 </script>
