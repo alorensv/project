@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Mail\ContactoMailable;
+use App\Models\ContadorVisita;
 use App\Models\Correo;
 
 use Illuminate\Support\Facades\Mail;
@@ -31,6 +32,19 @@ class WebController extends Controller
         Mail::to('alorensv@gmail.com')->send($correo);
 
         return redirect()->route('contacto')->with('info', "Mensaje enviado con éxito");
+    }
+
+    public function guardarVisita(Request $request)
+    {
+        $ip = $request->ip();
+        $fec_registro = date('Y-m-d H:i:s');
+
+        $visita = new ContadorVisita();
+        $visita->ip = $ip;
+        $visita->fec_registro = $fec_registro;
+        $visita->save();
+
+        return response()->json(['success' => true, 'message' => 'Visita guardada con éxito']);
     }
 
 

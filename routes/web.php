@@ -106,6 +106,8 @@ Route::get('/transporte_equipos_forestales', [WebtblController::class, 'transpor
 Route::get('/rescate_equipos_siniestrados', [WebtblController::class, 'rescate_equipos_siniestrados'])->name('rescate_equipos_siniestrados');
 Route::get('/transporte_maquinaria', [WebtblController::class, 'transporte_maquinaria'])->name('transporte_maquinaria');
 Route::get('/servicios_izajes', [WebtblController::class, 'servicios_izajes'])->name('servicios_izajes');
+Route::get('/cantidadVisitas', [WebtblController::class, 'cantidadVisitas'])->name('cantidadVisitas');  
+Route::post('/guardarVisita', [WebController::class, 'guardarVisita'])->name('guardarVisita');  
 
 
 Route::get('/equipos', [WebtblController::class, 'equipos'])->name('equipos'); 

@@ -21,9 +21,9 @@
         <p>
           Mantenemos vigentes con la aseguradora "Davidson Eltit Asociados", segurtos personales (trabajadores), seguros de carga, cabotaje, responsabilidad civil y daños propios.
         </p>
-        <p class="pt-4">
+        <!-- <p class="pt-4">
           <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Descubre más </a>
-        </p>
+        </p> -->
       </div>
     </div>
   </div>

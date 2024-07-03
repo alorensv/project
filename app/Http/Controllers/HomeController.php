@@ -25,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $web = 'tbl'; 
+
+        if($web == 'tbl'){
+            return view('tbl.intranet.home');
+        }
+
         return view('home');
     }
 

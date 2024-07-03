@@ -9,7 +9,7 @@
   <div>
     <div class="container">
       <div class="row py-5">
-        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio">
+        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio section-phone-padding">
           <h2>
           Servicios de Izaje
           </h2>
@@ -21,10 +21,10 @@
           <p>
             Asesoramos a nuestros clientes en el diseño, implementación y/o ajustes de programas para manejo seguro de cargas.
           </p>
-          <p>¡Tenemos socios estratégicos para que confíes en nosotros con tus proyectos más exigentes! Trabajamos con Grollmus Group, Grúas Elebö y Grúas Hydrosur.</p>
+          <p>¡Tenemos socios estratégicos para que confíes en nosotros tus proyectos más exigentes! Trabajamos con Grollmus Group, Grúas Elebö y Grúas Hydrosur.</p>
           <div class="d-flex">
-            <img src="/img/tbl/grollmus.png" alt="" style="width: 25%;height: 25%;">
-            <img src="/img/tbl/elebo.png" style="width: 25%;height: 25%;    margin-right: 20px;" alt="">
+            <img src="/img/tbl/grollmus.png" class="sociosIzajes" alt="servicios de izajes">
+            <img src="/img/tbl/elebo.png" class="sociosIzajes" alt="servicios de izajes" >
           </div>
           <p class="pt-3">
             <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Quiero cotizar </a>

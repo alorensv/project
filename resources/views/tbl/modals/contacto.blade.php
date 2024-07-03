@@ -1,5 +1,5 @@
 <!-- Modal de contacto -->
-<div class="modal fade" id="contactModal" tabindex="-1" style="display: none;" aria-labelledby="contactModalLabel" aria-hidden="true">
+<div class="modal fade" id="contactModal" tabindex="-1"  aria-labelledby="contactModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -43,7 +43,7 @@
 
 
 <!-- Modal de contacto -->
-<div class="modal fade" id="successContact" style="display: none;" tabindex="-1" aria-labelledby="successContactLabel" aria-hidden="true">
+<div class="modal fade" id="successContact"  tabindex="-1" aria-labelledby="successContactLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -88,6 +88,8 @@
               setTimeout(() => {
                 $("#successContact").modal('hide'); 
               }, 4000); 
+
+              this.limpiarContacto();
             }
                     
           })
@@ -96,6 +98,14 @@
             console.error('Hubo un error al enviar el formulario', error);
           });
       },
+      limpiarContacto(){
+        this.contacto.nombre = '';
+        this.contacto.telefono = '';
+        this.contacto.correo = '';
+        this.contacto.comentarios = '';
+      }
+
+
     },
   });
 </script>

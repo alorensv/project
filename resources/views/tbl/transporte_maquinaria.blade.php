@@ -9,7 +9,7 @@
   <div>
     <div class="container">
       <div class="row py-5">
-        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio">
+        <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio section-phone-padding">
           <h2>
             Transporte de maquinaria
           </h2>

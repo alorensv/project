@@ -23,7 +23,7 @@
               Disponemos de profesionales calificados y operadores certificados con experiencia para entregar servicios de calidad, cumpliendo con los estándares de seguridad y puntualidad.
             </p>
             <p>
-              <a href="#" class="btn btn-primary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
+              <a href="/transportes_bulnes" class="btn btn-primary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
             </p>
           </div>
           <div class="col-6">
@@ -36,6 +36,103 @@
 
     </div>
   </section>
+
+  <section id="traslados_celular" class="traslados_celular">
+
+    <div class="container section-phone-padding">
+      <h2 class="escribiendo ceroR animate pt-5 text-center" style="color: white;">
+        ¡Conoce nuestros servicios!
+      </h2>
+    </div>
+
+
+    <div class="swiffy-slider">
+      <ul class="slider-container">
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Transporte sobre dimensionado</strong></h5>
+              <a href="/servicio_sobredimensionado" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/carga_especial_0.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Transporte de cargas especiales</strong></h5>
+              <a href="/servicio_cargas_especiales" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/maquinaria_forestal_0.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Transporte de equipos forestales</strong></h5>
+              <a href="/transporte_equipos_forestales" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/rescate_0.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Transporte y rescate equipos siniestrados</strong></h5>
+              <a href="/rescate_equipos_siniestrados" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/maquinaria_menor.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Transporte de maquinaria</strong></h5>
+              <a href="/transporte_maquinaria" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/izaje.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Servicios de Izaje</strong></h5>
+              <a href="/servicios_izajes" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/arriendo_equipos.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Arriendos de nuestros equipos</strong></h5>
+              <a href="/equipos" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
+        </li>
+
+
+      </ul>
+
+      <button type="button" class="slider-nav"></button>
+      <button type="button" class="slider-nav slider-nav-next"></button>
+
+      <div class="slider-indicators">
+        <button class="active"></button>
+        <button></button>
+        <button></button>
+      </div>
+    </div>
+
+  </section>
+
 
   <section id="traslados" class="traslados">
     <div class="carousel">
@@ -105,7 +202,55 @@
 
   @include('tbl.include.trabaja_con_nosotros')
 
-  @include('tbl.include.footer')
+  <footer id="footerVue" style="background-color: white!important;">
+  <div class="container section-phone-padding">
+    <div class="row ">
+      <div class="col-md-4 logo-footer ">
+        <h3 class="">Cantidad de visitas: @{{parseInt(total).toLocaleString('es-CL')}}</h3>
+        <a class="d-flex align-items-center custom-link" target="_blank" href="https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml" ><span class="material-icons icon">cloud</span><h3 class="mt-2 ml-2"> Consultar el clima</h3></a>
+        <a class="d-flex align-items-center custom-link" target="_blank" href="https://www.bcentral.cl/web/banco-central" ><span class="material-icons icon">trending_up</span><h3 class="mt-2 ml-2"> Consultar indicadores económicos</h3></a>
+        <a class="d-flex align-items-center custom-link" target="_blank" href="https://sitios.cl/servicios/distancias.htm" ><span class="material-icons icon">place</span><h3 class="mt-2 ml-2"> Calcular distancias</h3></a>
+      </div>
+      <div class="col-md-5 menu-footer  ">
+        <h3>¡Visítanos!</h3>
+        <ul>
+          <li><a href="{{route('web')}}">Lautaro 740, Concepción, Región del Bío Bío, CHILE</a></li>
+          <li><a href="{{route('desarrollo')}}">Patio Aparcamiento: Camino a Penco, Concepción</a></li>
+        </ul>
+
+        <div class="map-container">
+
+          <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3195.5492720083016!2d-73.02737554902022!3d-36.781378900926164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDQ2JzUzLjAiUyA3M8KwMDEnMjEuMCJX!5e0!3m2!1ses!2scl!4v1719166888531!5m2!1ses!2scl" 
+            width="600" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy"></iframe>
+
+        </div>
+        
+      </div>
+      <div class="col-md-3 social-media ">
+        <h3>Encuentranos en:</h3>
+        <a href="https://www.facebook.com/L%C3%ADneas-de-C%C3%B3digo-SPA-334915964097846" target="_blank"><i class="bi bi-facebook"></i></a>
+        <!--<a href="https://twitter.com/aeurus/" target="_blank"><i class="bi bi-twitter"></i></a>-->
+        <a href="https://www.instagram.com/lineasdecodigocl/" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/79925476/admin/" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <h3 class="mt-3">Contáctenos</h3>
+        <ul>
+          <li><a href="tel:+56978565544">+569 78565544</a></li>
+          <li><a href="mailto:eduardo@empresasbulnes.com">eduardo@empresasbulnes.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<div id="lineas" style="font-family: 'Roboto', sans-serif;font-size: 14px;background-color: #333;">
+  <a href="https://www.lineasdecodigo.cl/" title="Diseño Web - Posicionamiento Web - Sistema Web">
+    <img width="142" height="22" src="img/logo.png" alt="Diseño Web - Posicionamiento Web - Sistema Web"></a>
+</div>
 </div>
 
 <script>
@@ -115,6 +260,7 @@
       animationTriggered: {},
       elements: [],
       currentServices: 0,
+      currentTraslados: 0,
       servicesItems: [{
           image: 'img/tbl/services/sobredimensionado_0.png',
           alt: 'Transporte sobre dimensionado y sobre contenedores',
@@ -151,13 +297,18 @@
           url: '/equipos'
         }
       ],
-      intervalId: null
+      intervalId: null,
+      total: 0,
+    },
+    created(){
+      this.guardarVisita();
     },
     mounted() {
       this.updateElements();
       this.showSlide(0);
       window.addEventListener('scroll', this.handleScroll);
       this.animateNumbers();
+      this.getVisitas();
     },
     methods: {
       showAlert(index) {
@@ -189,7 +340,7 @@
         this.intervalId = setInterval(() => {
           const nextSlide = (this.currentServices + 1) % this.servicesItems.length;
           this.showSlide(nextSlide);
-        }, 2000);
+        }, 3000);
       },
       updateElements() {
         this.elements = document.querySelectorAll('.ceroR');
@@ -251,7 +402,31 @@
           rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
           rect.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
+      },
+      getVisitas() {
+        axios.get('/cantidadVisitas')
+          .then(response => {
+            this.total = response.data.cantidad;
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.error('Error al obtener productos:', error);
+          });
+        
+      },
+      guardarVisita(){
+
+        axios.post('/guardarVisita')
+          .then(response => {
+            console.log(response.data.message)
+          })
+          .catch(error => {
+            console.error('Error al obtener productos:', error);
+          });
       }
+
+
+
     }
   });
 </script>

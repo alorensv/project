@@ -1,11 +1,11 @@
-<footer style="background-color: white!important;">
+<footer id="footerVue" style="background-color: white!important;">
   <div class="container section-phone-padding">
     <div class="row ">
       <div class="col-md-4 logo-footer ">
-        <h3 class="ceroR">Cantidad de visitas: 125.233</h3>
-        <a class="d-flex align-items-center custom-link" href="https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml" ><span class="material-icons icon">cloud</span><h3 class="mt-2 ml-2"> Consultar el clima</h3></a>
-        <a class="d-flex align-items-center custom-link" href="https://www.bcentral.cl/web/banco-central" ><span class="material-icons icon">trending_up</span><h3 class="mt-2 ml-2"> Consultar indicadores económicos</h3></a>
-        <a class="d-flex align-items-center custom-link" href="https://sitios.cl/servicios/distancias.htm" ><span class="material-icons icon">place</span><h3 class="mt-2 ml-2"> Calcular distancias</h3></a>
+        <h3 class="ceroR">Cantidad de visitas: @{{ parseInt(total).toLocaleString('es-CL') }}</h3>
+        <a class="d-flex align-items-center custom-link" target="_blank" href="https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml" ><span class="material-icons icon">cloud</span><h3 class="mt-2 ml-2"> Consultar el clima</h3></a>
+        <a class="d-flex align-items-center custom-link" target="_blank" href="https://www.bcentral.cl/web/banco-central" ><span class="material-icons icon">trending_up</span><h3 class="mt-2 ml-2"> Consultar indicadores económicos</h3></a>
+        <a class="d-flex align-items-center custom-link" target="_blank" href="https://sitios.cl/servicios/distancias.htm" ><span class="material-icons icon">place</span><h3 class="mt-2 ml-2"> Calcular distancias</h3></a>
       </div>
       <div class="col-md-5 menu-footer  ">
         <h3>¡Visítanos!</h3>
@@ -34,8 +34,8 @@
         <a href="https://www.linkedin.com/company/79925476/admin/" target="_blank"><i class="bi bi-linkedin"></i></a>
         <h3 class="mt-3">Contáctenos</h3>
         <ul>
-          <li><a href="#">+569 78565544</a></li>
-          <li><a href="#">eduardo@empresasbulnes.com</a></li>
+          <li><a href="tel:+56978565544">+569 78565544</a></li>
+          <li><a href="mailto:eduardo@empresasbulnes.com">eduardo@empresasbulnes.com</a></li>
         </ul>
       </div>
     </div>
@@ -47,3 +47,30 @@
   <a href="https://www.lineasdecodigo.cl/" title="Diseño Web - Posicionamiento Web - Sistema Web">
     <img width="142" height="22" src="img/logo.png" alt="Diseño Web - Posicionamiento Web - Sistema Web"></a>
 </div>
+
+
+<script>
+  let footerVue = new Vue({
+    el: '#footerVue',
+    data: {
+      total: 0,
+    },
+    mounted() {
+      this.getVisitas();
+    },
+    methods: {
+      getVisitas() {
+        axios.get('/cantidadVisitas')
+          .then(response => {
+            this.total = response.data.cantidad;
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.error('Error al obtener productos:', error);
+          });
+        
+      },
+
+    }
+  });
+</script>

@@ -2,6 +2,10 @@
 
 /*galeria*/
 
+.sociosIzajes{
+    width: 25%;height: 25%;
+    margin-right: 5px;
+}
 
 .imgCaruselPrincipal {
     width: 100%;
@@ -18,7 +22,7 @@
 .modal-header .close {
     color: white;
 }
-
+  
 
 .titleServices1 h1 {
     width: 0;
@@ -117,6 +121,7 @@
       max-width: 33.333%;
     }
   }
+  
   
 
 .blueH {
@@ -351,7 +356,15 @@
     width: 28%;
 }
 
+.titleServices2Celular{
+    display: none;
+}
+
 .titleServices2 .material-icons:hover {
+    color: #060737 !important;
+}
+
+.titleServices2Celular .material-icons:hover {
     color: #060737 !important;
 }
 
@@ -1271,13 +1284,13 @@ footer .logo-footer h3 {
 }
 
 
-footer .ceroR {
+footer .footerCero {
     opacity: 0;
     transition: opacity 1s ease, transform 1s ease;
     transform: translateX(-200px);
 }
 
-footer .ceroR.animate {
+footer .footerCero.animate {
     opacity: 1;
     transform: translateX(0);
 }
@@ -1315,7 +1328,7 @@ footer .logo-footer ul li {
 footer .logo-footer ul li a {
     font-size: 16px;
     color: #060737;
-    font-weight: lighter;
+
     text-decoration: none;
 }
 
@@ -1356,7 +1369,7 @@ footer .menu-footer ul li {
 footer .menu-footer ul li a {
     font-size: 16px;
     color: #060737;
-    font-weight: lighter;
+
     text-decoration: none;
 }
 
@@ -1385,7 +1398,7 @@ footer .social-media i {
 footer .social-media ul li a {
     font-size: 16px;
     color: #060737;
-    font-weight: lighter;
+
     text-decoration: none;
 }
 
@@ -1448,6 +1461,11 @@ footer .social-media ul li a {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+}
+
+.traslados_celular{
+    display: none;
+    background-color: #060737;    
 }
 
 
@@ -1553,15 +1571,21 @@ footer .social-media ul li a {
     }
 
     .buttonServices {
-        margin-left: 0;
-        /* Asegura que el margen izquierdo se restablezca */
-        margin-top: 20px;
-        /* Ajusta el margen superior según sea necesario */
+        margin-left: 55px;
+        margin-top: -4px;
+        font-size: 16px !important;
+    }
+
+    @keyframes transformTitleCarousel {
+        to {
+            padding: 45px 28px;
+            top: 2%;
+        }
     }
 
     h1,
     .h1 {
-        font-size: 1.5rem !important;
+        font-size: 1.2rem !important;
     }
 
     .titleServices1 {
@@ -1577,12 +1601,17 @@ footer .social-media ul li a {
     }
 
     .titleServices2 {
+        display: none;
+    }
+
+    .titleServices2Celular {
         width: 100% !important;
         margin-top: 25px;
+        display: block;
     }
 
     .section-phone-padding {
-        padding: 0px 50px 50px !important;
+        padding: 0px 35px 40px !important;
     }
 
     .bgRuta {
@@ -1617,52 +1646,61 @@ footer .social-media ul li a {
 
     .bg_sobredimensionados {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
+        margin-top: 65px;
     }
 
     .bg_cargaespecial {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
+        margin-top: 65px;
     }
 
     .bg_rescateequipos {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
+        margin-top: 65px;
     }
 
     .bg_izaje {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
+        margin-top: 65px;
     }
 
     .bg_equiposforestales {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
+        margin-top: 65px;
     }
     
     .bg_transportemaquinaria {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
-    }
-
-    
+        margin-top: 65px;
+    }    
 
     .bg_transportesbulnes {
         width: 100% !important;
-        height: 564px !important;
+        height: 300px !important;
         position: relative !important;
+        margin-top: -20px;
     }
 
     h2,
     .h2 {
         font-size: 1.5rem !important;
         font-weight: 600 !important;
+    }
+
+    .pt-5, .py-5 {
+        padding-top: 2rem !important;
     }
 
     .logoGrande {
@@ -1681,6 +1719,60 @@ footer .social-media ul li a {
         min-height: 420px !important;
     }
 
+    #traslados{
+        display: none;
+    }
+
+    .traslados_celular{
+        display: block;
+    }
+
+    .swiffy-slider li{
+        padding: 0px 40px 40px;
+    }
+
+    .swiffy-slider .slider-nav{
+        visibility: visible!important;
+    }
+
+    .swiffy-slider .img-fluid {
+        height: 200px!important;
+    }
+
+    .nav-item{
+        max-width: 200px;
+        padding-bottom: 5px;
+    }
+
+    .modal {
+        width: 89%!important;
+    }
+
+    .sociosIzajes{
+        width: 45%;height: 45%;
+        margin-right: 5px;
+    }
+
+    .filtrosDiv {
+        margin-top: 80px;
+    }
+
 }
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+    .modal {
+        width: 97%!important;
+    }
+
+    footer .map-container {
+        width: 345px !important;
+        height: 182px!important;
+    }
+
+    .navbar-nav .dropdown-menu {
+        position: static;
+        float: none;
+        width: 354px;
+    }
+
+}

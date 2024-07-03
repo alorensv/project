@@ -6,6 +6,7 @@ use App\Mail\ContactReceived;
 use App\Mail\NuevaCotizacion;
 use App\Models\Contact;
 use App\Models\ContactMessage;
+use App\Models\ContadorVisita;
 use App\Models\Cotizacion;
 use App\Models\Equipo;
 use App\Models\TiposEquipo;
@@ -282,5 +283,12 @@ class WebtblController extends Controller
 
         // Retornar respuesta en formato JSON
         return response()->json(['status' => 'ok'], 200);
+    }
+
+    public function cantidadVisitas(){
+
+        $cantidad = ContadorVisita::count();
+
+        return response()->json([ 'cantidad' => $cantidad]);
     }
 }

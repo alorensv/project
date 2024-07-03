@@ -64,6 +64,13 @@
                         <li class="nav-item pl-2 pr-3 pt-1">
                             <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="{{ route('transportes_bulnes') }}">{{ __('Sobre nosotros') }}</a>
                         </li>
+
+                        @else
+
+                        <li class="nav-item pl-2 pr-3 pt-1">
+                            <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="{{ route('transportes_bulnes') }}">{{ __('Sobre nosotros') }}</a>
+                        </li>
+                        
                         @endguest
                     </ul>
 
@@ -85,7 +92,7 @@
                         <!-- Authentication Links -->
                         @guest
                         <li class="nav-item pl-2">
-                            <a class="btn btn-outline-secondary d-flex align-items-center" href="{{ route('contacto') }}">
+                            <a class="btn btn-outline-secondary d-flex align-items-center" href="{{ route('login') }}">
                                 {{ __('Iniciar sesión') }}
                             </a>
                         </li>
@@ -96,6 +103,7 @@
                         </li>
 
                         @else
+
                         <li class="nav-item dropdown">
 
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

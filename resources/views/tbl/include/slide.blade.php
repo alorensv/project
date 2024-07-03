@@ -48,11 +48,11 @@
           </div>
 
           <div class="col-12">
-          <div class="form-group">
-            <label for="comentarios">Mensaje:</label>
-            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizacion.comentarios" id="comentarios" name="cotizacion.comentarios" maxlength="255" rows="4"></textarea>
-          </div>
-          <button type="submit" class="w-100 btn btn-primary">Enviar</button>
+            <div class="form-group">
+              <label for="comentarios">Mensaje:</label>
+              <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizacion.comentarios" id="comentarios" name="cotizacion.comentarios" maxlength="255" rows="4"></textarea>
+            </div>
+            <button type="submit" class="w-100 btn btn-primary">Enviar</button>
           </div>
         </div>
       </form>
@@ -68,18 +68,24 @@
       <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
         <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
         <div class="row titleCarousel">
-    <div class="container d-flex">
-        <div class="titleServices1">
-            <h1 class="text-center">@{{ item.title }}</h1>
-        </div>
-        <div class="titleServices2">
-            <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
+          <div class="container d-flex">
+            <div class="titleServices1">
+              <h1 class="text-center">@{{ item.title }}</h1>
+            </div>
+            <div class="titleServices2">
+              <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
                 <span>Nuestros servicios</span>
                 <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
-            </a>
+              </a>
+            </div>
+            <div class="titleServices2Celular">
+              <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServicesPhone">
+                <span>Nuestros servicios</span>
+                <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
+              </a>
+            </div>
+          </div>
         </div>
-    </div>
-</div>
 
       </div>
     </div>
@@ -95,26 +101,26 @@
 
 
   <!-- Modal de contacto -->
-<div class="modal fade" id="successContact" style="display: none;" tabindex="-1" aria-labelledby="successContactLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal fade" id="successContact" style="display: none;" tabindex="-1" aria-labelledby="successContactLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
 
-      <div class="modal-body">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <div class=" p-5">
-      <div class="text-center">
-        <div class="icon-check pb-3">
-            <i class="material-icons" style="color: #8bb06f;font-size: 60px;">check_circle</i>
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class=" p-5">
+            <div class="text-center">
+              <div class="icon-check pb-3">
+                <i class="material-icons" style="color: #8bb06f;font-size: 60px;">check_circle</i>
+              </div>
+              <p>¡Hemos recibido tu solicitud de cotización con éxito, te contactaremos lo más luego posible!</p>
+            </div>
           </div>
-          <p>¡Hemos recibido tu solicitud de cotización con éxito, te contactaremos lo más luego posible!</p>
         </div>
-      </div>
       </div>
     </div>
   </div>
-</div>
 
 
 </div>
@@ -134,20 +140,28 @@
         comentarios: '',
       },
       currentSlide: 0,
-      carouselItems: [
-        {
-          image: 'img/tbl/transporte_a_todo_chile.png',
-          alt: 'Third slide',
-          title: 'Transporte de cargas especiales'
-        }
-      ],
+      carouselItems: [{
+        image: 'img/tbl/transporte_a_todo_chile.png',
+        alt: 'Third slide',
+        title: 'Transporte sobre dimensionado'
+      },
+      {
+        image: 'img/tbl/traslados.png',
+        alt: 'Third slide',
+        title: 'Transporte de maquinaria'
+      },
+      {
+        image: 'img/tbl/services/izaje.png',
+        alt: 'Third slide',
+        title: 'Servicio de Izajes'
+      }],
       intervalId: null
     },
     created() {
       this.showSlide(0); // Muestra la primera diapositiva
       this.intervalId = setInterval(() => {
         this.nextSlide();
-      }, 6000); // Cambia cada 2 segundos (2000 ms)
+      }, 7000); // Cambia cada 2 segundos (2000 ms)
     },
     methods: {
       showSlide(index) {
@@ -160,55 +174,79 @@
         this.currentSlide = (this.currentSlide - 1 + this.carouselItems.length) % this.carouselItems.length;
       },
       goToServices() {
-          console.log('goToServices called');
-          let trasladosElement = document.getElementById('traslados');
-          if (trasladosElement) {
-              // Obtener la posición del elemento
-              let elementPosition = trasladosElement.getBoundingClientRect().top + window.scrollY;
-              // Calcular la posición deseada (50px más arriba)
-              let offsetPosition = elementPosition - 150;
+        console.log('goToServices called');
+        let trasladosElement = document.getElementById('traslados');
+        let trasladosElementCelular = document.getElementById('traslados_celular');
+        if (trasladosElement) {
+          // Obtener la posición del elemento
+          let elementPosition = trasladosElement.getBoundingClientRect().top + window.scrollY;
+          // Calcular la posición deseada (50px más arriba)
+          let offsetPosition = elementPosition - 150;
 
-              // Desplazar la ventana a la posición deseada
-              window.scrollTo({
-                  top: offsetPosition,
-                  behavior: 'smooth'
-              });
+          // Desplazar la ventana a la posición deseada
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
 
-              // Si prefieres un salto instantáneo en lugar de un scroll suave, usa:
-              // window.scrollTo({ top: offsetPosition, behavior: 'auto' });
-          } else {
-              console.error('Elemento con id="traslados" no encontrado.');
-          }
-          // Agrega aquí tu lógica para desplazarte o realizar acciones específicas
-          // Asegúrate de que esta parte esté funcionando correctamente
+          // Si prefieres un salto instantáneo en lugar de un scroll suave, usa:
+          // window.scrollTo({ top: offsetPosition, behavior: 'auto' });
+        } 
+        
+        /* if (trasladosElementCelular){
+          let elementPosition = trasladosElementCelular.getBoundingClientRect().top + window.scrollY;
+          let offsetPosition = elementPosition - 210;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } */
+        // Agrega aquí tu lógica para desplazarte o realizar acciones específicas
+        // Asegúrate de que esta parte esté funcionando correctamente
+      },
+      goToServicesPhone() {
+        console.log('goToServicesphone called');
+        let trasladosElementCelular = document.getElementById('traslados_celular');  
+        if (trasladosElementCelular){
+          let elementPosition = trasladosElementCelular.getBoundingClientRect().top + window.scrollY;
+          let offsetPosition = elementPosition - 210;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+        // Agrega aquí tu lógica para desplazarte o realizar acciones específicas
+        // Asegúrate de que esta parte esté funcionando correctamente
       },
 
       guardarCotizacion() {
         axios.post('/guardarCotizacion', this.cotizacion)
           .then(response => {
- 
+
             // Manejar la respuesta exitosa
             if (response.data.status === 'ok') {
-              $("#successContact").modal('show');    
+              $("#successContact").modal('show');
               setTimeout(() => {
-                $("#successContact").modal('hide'); 
-              }, 4000); 
-
-              this.nombre = '';
-              this.email = '';
-              this.telefono = '';
-              this.fecha_servicio = '';
-              this.origen = '';
-              this.destino = '';
-              this.comentarios = '';
+                $("#successContact").modal('hide');
+              }, 4000);
             }
-                    
+            this.limpiarCotizacion();
+
           })
           .catch(error => {
             // Manejar el error
             console.error('Hubo un error al enviar el formulario', error);
           });
       },
+      limpiarCotizacion() {
+        this.cotizacion.nombre = '';
+        this.cotizacion.email = '';
+        this.cotizacion.telefono = '';
+        this.cotizacion.fecha_servicio = '';
+        this.cotizacion.origen = '';
+        this.cotizacion.destino = '';
+        this.cotizacion.comentarios = '';
+      }
     }
   });
 </script>
