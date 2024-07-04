@@ -257,9 +257,11 @@ class WebtblController extends Controller
             'fecha_termino' => 'nullable|date|max:255',
             'origen' => 'nullable|string|max:255',
             'destino' => 'nullable|string|max:255',
-            'equipo.id' => 'required|integer|exists:equipos,id',
+            'equipo.id' => 'nullable|integer|exists:equipos,id',
             'comentarios' => 'required|string',
         ]);
+
+        //dd($validatedData);
 
         $email = trim($validatedData['email']);
         $contact = Contact::where('email', $email)->first();
@@ -281,7 +283,7 @@ class WebtblController extends Controller
             'fecha_termino' => $validatedData['fecha_termino'] ?? null,
             'origen' => $validatedData['origen'],
             'destino' => $validatedData['destino'] ?? null,
-            'equipo_id' => $validatedData['equipo']['id'],
+            'equipo_id' => $validatedData['equipo']['id'] ?? null,
             'comentarios' => $validatedData['comentarios'],
         ]);
 

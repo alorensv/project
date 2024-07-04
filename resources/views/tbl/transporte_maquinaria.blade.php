@@ -15,10 +15,10 @@
           </h2>
           <p><br></p>
           <p>
-            La precisión en cada carga y descarga de equipos pesados ​​y sobredimensionados es la clave en todas nuestras operaciones especiales.
+          Ofrecemos soluciones de transporte para maquinaria pesada y voluminosa. Nos encargamos del traslado de todo tipo de equipos industriales y de construcción, asegurando un servicio seguro, puntual y adaptado a tus necesidades. 
           </p>
           <p>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
+          Con nuestra flota y personal capacitado, garantizamos la protección y entrega eficiente de tu maquinaria. ¡Confía en nosotros para mover tus equipos con la máxima seguridad y profesionalismo!
           </p>
           <p class="pt-3">
             <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Quiero cotizar </a>
@@ -40,25 +40,22 @@
     <div class="services_gallery-container">
       <div class="services_gallery-inner">
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
+          <img src="/img/tbl/services/transporte_maquinaria_1.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
+          <img src="/img/tbl/services/transporte_maquinaria_2.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/transporte_maquinaria_3.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/transporte_maquinaria_4.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/transporte_maquinaria_5.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/transporte_maquinaria_6.png" class="img-fluid">
         </div>
         <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
       </div>

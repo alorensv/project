@@ -140,16 +140,17 @@
         comentarios: '',
       },
       currentSlide: 0,
-      carouselItems: [{
-        image: 'img/tbl/transporte_a_todo_chile.png',
-        alt: 'Third slide',
-        title: 'Transporte sobre dimensionado'
-      },
+      carouselItems: [
       {
-        image: 'img/tbl/traslados.png',
+        image: 'img/tbl/traslado_equipos.png',
         alt: 'Third slide',
         title: 'Transporte de maquinaria'
       },
+      {
+        image: 'img/tbl/transporte_a_todo_chile.png',
+        alt: 'Third slide',
+        title: 'Transporte sobre dimensionado'
+      },      
       {
         image: 'img/tbl/services/izaje.png',
         alt: 'Third slide',

@@ -11,15 +11,13 @@
       <div class="row py-5">
         <div id="welcomeTitle" class="col-lg-6 pt-5 pr-5 presentacionServicio section-phone-padding">
           <h2>
-            Transporte sobre dimensionado
+            Transporte de cargas especiales
           </h2>
           <p><br></p>
           <p>
-            La precisión en cada carga y descarga de equipos pesados ​​y sobredimensionados es la clave en todas nuestras operaciones especiales.
-          </p>
+          Somos expertos en Transporte de Cargas Especiales. Nos dedicamos a mover maquinaria pesada, equipos sobredimensionados y cualquier carga que requiera un manejo especializado.</p>
           <p>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
-          </p>
+          Confíe en nosotros para el transporte de sus cargas especiales. ¡Llámenos hoy y descubra cómo podemos ayudarle a mover su negocio hacia adelante!</p>
           <p class="pt-3">
             <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Quiero cotizar </a>
           </p>
@@ -39,25 +37,25 @@
     <div class="services_gallery-container">
       <div class="services_gallery-inner">
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_1.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_2.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_3.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_4.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_5.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_6.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/carga_especial_7.png" class="img-fluid">
         </div>
         <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
       </div>

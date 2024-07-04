@@ -88,8 +88,8 @@
 </div>
 <script>
 
-  let contactModal = new Vue({
-    el: '#contactModal',
+  let cotiza = new Vue({
+    el: '#cotiza',
     data: {
       cotizacion: {
         nombre: '',

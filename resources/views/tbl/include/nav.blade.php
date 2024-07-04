@@ -33,7 +33,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item {{request()->routeIs('servicio_sobredimensionado') ? 'active' : ''}}" href="{{ route('servicio_sobredimensionado') }}">{{ __('Transporte sobre dimensionado y sobre contenedores') }}
+                                <a class="dropdown-item {{request()->routeIs('servicio_sobredimensionado') ? 'active' : ''}}" href="{{ route('servicio_sobredimensionado') }}">{{ __('Transporte sobre dimensionado') }}
                                 </a>
 
                                 <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
@@ -131,5 +131,3 @@
 
     </div>
 </nav>
-
-@include('tbl.modals.contacto')
