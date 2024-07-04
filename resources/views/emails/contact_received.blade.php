@@ -36,8 +36,8 @@
         <td style="padding: 8px;">{{ $contact->phone }}</td>
     </tr>
     <tr style="color:#000">
-        <td style="padding: 8px;">Fecha posible del servicio</td>
-        <td style="padding: 8px;">Comentario: {{ $messageContent }}</td>
+        <td style="padding: 8px;">Comentarios</td>
+        <td style="padding: 8px;">{{ $messageContent }}</td>
     </tr>
 
 </table>

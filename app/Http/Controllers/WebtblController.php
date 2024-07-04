@@ -234,7 +234,7 @@ class WebtblController extends Controller
 
         // Guardar el mensaje y enviar el correo si se guarda correctamente
         if ($message->save()) {
-            Mail::to('alorensv@gmail.com')->send(new ContactReceived($contact, $message->message));
+            Mail::to(['alorensv@gmail.com', 'eduardo@empresasbulnes.com', 'elias@empresasbulnes.com', 'friedel@empresasbulnes.com'])->send(new ContactReceived($contact, $message->message));
             return response()->json(['status' => 'ok'], 200);
         }else{
             return response()->json(['status' => 'error'], 500);
@@ -289,7 +289,7 @@ class WebtblController extends Controller
 
         if ($cotizacion) {
             // Enviar el correo
-            Mail::to('alorensv@gmail.com')->send(new NuevaCotizacion($cotizacion));
+            Mail::to(['alorensv@gmail.com', 'eduardo@empresasbulnes.com', 'elias@empresasbulnes.com', 'friedel@empresasbulnes.com'])->send(new NuevaCotizacion($cotizacion));
         }
 
         // Retornar respuesta en formato JSON
