@@ -17,7 +17,7 @@
           <!-- Aquí puedes colocar tu formulario de contacto -->
 
           <div class="form-group">
-            <label for="equipoNombre">Estas cotizando el servicio <strong>@{{servicioSeleccionado.nombre}}</strong></label>
+            <label for="equipoNombre">Estas cotizando el servicio <strong>@{{cotizaServ.nombre}}</strong></label>
           </div>
 
           

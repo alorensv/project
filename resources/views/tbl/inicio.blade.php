@@ -10,6 +10,7 @@
 
   <div id="buttonCotizarCelular" class="col-12 text-center pt-3">
     <button class="w-100 btn btn-primary" data-toggle="modal" data-target="#cotizarGeneral">Cotizar</button>
+    @include('tbl.modals.cotizarGeneral')
   </div>
 
 
@@ -309,6 +310,15 @@
       ],
       intervalId: null,
       total: 0,
+      cotizaGeneral: {
+        nombre: '',
+        email: '',
+        telefono: '',
+        fecha_servicio: '',
+        origen: '',
+        destino: '',
+        comentarios: '',
+      },
     },
     created() {
       this.guardarVisita();
@@ -433,6 +443,34 @@
           .catch(error => {
             console.error('Error al obtener productos:', error);
           });
+      },
+      guardarCotizacionGeneral(){
+        axios.post('/guardarCotizacion', this.cotizaGeneral)
+          .then(response => {
+            $("#cotizarGeneral").modal('hide');
+            // Manejar la respuesta exitosa
+            if (response.data.status === 'ok') {
+              $("#successContact").modal('show');
+              setTimeout(() => {
+                $("#successContact").modal('hide');
+              }, 4000);
+            }
+            this.limpiarCotizacionGeneral();
+
+          })
+          .catch(error => {
+            // Manejar el error
+            console.error('Hubo un error al enviar el formulario', error);
+          });
+      },
+      limpiarCotizacionGeneral() {
+        this.cotizaGeneral.nombre = '';
+        this.cotizaGeneral.email = '';
+        this.cotizaGeneral.telefono = '';
+        this.cotizaGeneral.fecha_servicio = '';
+        this.cotizaGeneral.origen = '';
+        this.cotizaGeneral.destino = '';
+        this.cotizaGeneral.comentarios = '';
       }
 
 

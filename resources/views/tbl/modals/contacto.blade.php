@@ -1,38 +1,31 @@
-<!-- Modal de contacto -->
-<div class="modal fade" id="contactModal" tabindex="-1"  aria-labelledby="contactModalLabel" aria-hidden="true">
+<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="text-center">
-          <h4 class="modal-title" id="contactModalLabel">¡Contáctanos y hablemos!</h4>
-        </div>
+        <h4 class="modal-title" id="contactModalLabel">¡Contáctanos y hablemos!</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body p-5">
-        <!-- Contenido del formulario de contacto -->
         <form @submit.prevent="guardarContacto">
           @csrf
-          <!-- Aquí puedes colocar tu formulario de contacto -->
+          <!-- Formulario de contacto -->
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" v-model="contacto.nombre" placeholder="Acá tu nombre" v-validate="{required: true, max: 255}" maxlength="255" name="contacto.nombre" id="nombre">
+            <input type="text" class="form-control" v-model="contacto.nombre" placeholder="Acá tu nombre" required maxlength="255" id="nombre">
           </div>
-
           <div class="form-group">
             <label for="telefono">Teléfono</label>
-            <input type="text" class="form-control" v-model="contacto.telefono" placeholder="Recuerda ingresar el +569 " v-validate="{required: true, max: 255}" maxlength="255" name="contacto.telefono" id="telefono">
+            <input type="text" class="form-control" v-model="contacto.telefono" placeholder="Recuerda ingresar el +569 " required maxlength="255" id="telefono">
           </div>
-
           <div class="form-group">
             <label for="correo">Correo</label>
-            <input type="email" class="form-control" v-model="contacto.correo" placeholder="Acá tu correo" v-validate="{required: true, max: 255}" maxlength="255" name="contacto.correo" id="correo">
+            <input type="email" class="form-control" v-model="contacto.correo" placeholder="Acá tu correo" required maxlength="255" id="correo">
           </div>
-
           <div class="form-group">
             <label for="comentarios">Mensaje:</label>
-            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="contacto.comentarios" id="comentarios" name="contacto.comentarios" v-validate="{required: true, max: 255}" rows="4"></textarea>
+            <textarea class="form-control" v-model="contacto.comentarios" placeholder="Haznos saber tus dudas o consultas" required maxlength="255" rows="4" id="comentarios"></textarea>
           </div>
           <button type="submit" class="w-100 btn btn-primary">Enviar</button>
         </form>
@@ -40,7 +33,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- Modal de contacto -->
 <div class="modal fade" id="successContact"  tabindex="-1" aria-labelledby="successContactLabel" aria-hidden="true">

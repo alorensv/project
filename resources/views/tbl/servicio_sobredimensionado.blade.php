@@ -2,9 +2,13 @@
 
 @section('content')
 
+<div class="serviciosVue">
+
+@include('tbl.modals.cotizaServicio')
+
+
 <section class="welcome-servicios">
   <div class="bg_sobredimensionados">
-
   </div>
   <div>
     <div class="container">
@@ -22,7 +26,7 @@
             Elijanos para sus necesidades de transporte sobredimensionado. ¡Contáctenos hoy y descubra cómo podemos facilitar su logística!
           </p>
           <p class="pt-3">
-            <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;">Quiero cotizar</a>
+            <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;"  data-toggle="modal" data-target="#cotizarServicio">Quiero cotizar</a>
           </p>
 
         </div>
@@ -34,7 +38,6 @@
   </div>
 
 </section>
-
 
 <section class="galery py-5 bgservicios ceroR">
   <div class="container ">
@@ -61,9 +64,11 @@
 
 @include('tbl.include.trabaja_con_nosotros')
 
-@include('tbl.modals.cotizaServicio')
-
 @include('tbl.include.footer')
+
+</div>
+
+
 <script>
   setTimeout(() => {
     const miDiv = document.getElementById('welcomeTitle');
@@ -83,12 +88,23 @@
   }, 1500);
 </script>
 <script>
-  let inicio = new Vue({
-    el: '#vueInicio',
+  let serviciosVue = new Vue({
+    el: '#serviciosVue',
     data: {
       animationTriggered: {},
       elements: [],
-      currentSlide: 0
+      currentSlide: 0,
+      cotiza: {
+        nombre: '',
+        telefono: '',
+        email: '',
+        origen: '',
+        destino: '',
+        fecha_servicio: '',
+        fecha_termino: '',
+        comentarios: '',
+        servicio: 'Transporte sobre dimensionado',
+      },
     },
     mounted() {
       this.updateElements();
@@ -132,7 +148,13 @@
           const offset = this.currentSlide * items[0].clientWidth;
           galleryInner.style.transform = `translateX(-${offset}px)`;
         }, 3000);
+      },
+      guardarCotizacionServicio(){
+        alert("Aca");
       }
+
+
+
     }
   });
 </script>

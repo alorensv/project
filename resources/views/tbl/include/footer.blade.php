@@ -28,10 +28,10 @@
       </div>
       <div class="col-md-3 social-media ">
         <h3>Encuentranos en:</h3>
-        <a href="https://www.facebook.com/L%C3%ADneas-de-C%C3%B3digo-SPA-334915964097846" target="_blank"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.facebook.com/people/TBL-Transportes-Bulnes/61561526563987/" target="_blank"><i class="bi bi-facebook"></i></a>
         <!--<a href="https://twitter.com/aeurus/" target="_blank"><i class="bi bi-twitter"></i></a>-->
-        <a href="https://www.instagram.com/lineasdecodigocl/" target="_blank"><i class="bi bi-instagram"></i></a>
-        <a href="https://www.linkedin.com/company/79925476/admin/" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="https://www.instagram.com/tbl_transportesbulnes/" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/tbl-transportes-bulnes" target="_blank"><i class="bi bi-linkedin"></i></a>
         <h3 class="mt-3">Contáctenos</h3>
         <ul>
           <li><a href="tel:+56978565544">+569 78565544</a></li>

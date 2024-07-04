@@ -97,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item pl-2">
-                            <a class="btn btn-primary d-flex align-items-center" href="#" data-toggle="modal" data-target="#contactModal">
+                            <a class="btn btn-primary  d-flex align-items-center" href="#" data-toggle="modal" data-target="#contactModal">
                                 Contáctenos
                             </a>
                         </li>
@@ -131,3 +131,5 @@
 
     </div>
 </nav>
+
+@include('tbl.modals.contacto')
