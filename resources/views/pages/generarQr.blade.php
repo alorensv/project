@@ -181,11 +181,13 @@
   // highlight drag area
   $fileInput.on('dragenter focus click', function() {
     $droparea.addClass('is-active');
+    alert("filename")
   });
 
   // back to normal state
   $fileInput.on('dragleave blur drop', function() {
     $droparea.removeClass('is-active');
+    alert("filename")
   });
 
   // change inner text
@@ -196,8 +198,11 @@
     if (filesCount === 1) {
       // if single file is selected, show file name
       var fileName = $(this).val().split('\\').pop();
+      alert("filename");
+      alert(fileName)
       $textContainer.text(fileName);
     } else {
+      alert("filename")
       // otherwise show number of files
       $textContainer.text(filesCount + ' files selected');
     }
@@ -215,6 +220,7 @@
     var $textContainer = $(input).prev();
 
     if (filesCount === 1) {
+      alert("1")
       var fileName = input.files[0].name;
       $textContainer.text(fileName);
 
@@ -223,6 +229,7 @@
       logo.src = URL.createObjectURL(input.files[0]);
       return logo;
     } else {
+      alert("2")
       $textContainer.text(filesCount + ' archivos seleccionados');
       var logo = new Image();
       logo.src = '/img/tbl/qr/friedel.png'; 
@@ -233,15 +240,13 @@
 
 
   function updateQr(logo = false) {
-        
+
     document.getElementById("qr-container").innerHTML = '';
 
     var urlInput = document.getElementById('link').value;
     var colorInput = document.getElementById('color').value;
     var logoInput = document.getElementById('logo');
     var logo = handleImageChange(logoInput);
-    alert(logo)
-
 
     var url = (!urlInput || urlInput === undefined) ? 'https://lineasdecodigo.cl/' : urlInput;
 

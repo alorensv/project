@@ -141,7 +141,10 @@ class WebtblController extends Controller
         $subcategorias = $request->input('subcategorias');
 
         if (empty($subcategorias)) {
-            $equipos = Equipo::all();
+            //$equipos = Equipo::all();
+
+           $equipos = Equipo::fullEquipos();
+
             //$productos = Productos::where('cantidad', '>', 0)->get();
         } else {
             $equipos = Equipo::whereIn('subtipo_id', $subcategorias)->get();

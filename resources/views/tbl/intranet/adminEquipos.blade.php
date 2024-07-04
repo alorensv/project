@@ -33,30 +33,48 @@
         <table id="equiposTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>Tipo ID</th>
+                    <th>Categoria</th>
                     <th>Nombre</th>
                     <th>Año</th>
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Patente</th>
                     <th>Color</th>
-                    <th>Subtipo ID</th>
-                    <th>Link Ficha Técnica</th>
+                    <th>Tipo</th>
+                    <th><i class="material-icons">attach_file</i>Ficha</th>
                     <th>Imagen</th>
+                    <th>QR</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="equipo in filteredEquipos" :key="equipo.id">
-                    <td>@{{ equipo.tipo_id }}</td>
+                    <td>@{{ equipo.nombreTipo }}</td>
                     <td>@{{ equipo.nombre }}</td>
                     <td>@{{ equipo.anio }}</td>
                     <td>@{{ equipo.marca }}</td>
                     <td>@{{ equipo.modelo }}</td>
                     <td>@{{ equipo.patente }}</td>
                     <td>@{{ equipo.color }}</td>
-                    <td>@{{ equipo.subtipo_id }}</td>
-                    <td><a :href="equipo.link_ficha_tecnica" target="_blank">Ficha Técnica</a></td>
-                    <td><img :src="equipo.img" alt="Imagen del equipo" style="width: 50px; height: auto;"></td>
+                    <td>@{{ equipo.nombreSubtipo }}</td>
+                    <td class="text-center align-middle">
+                        <template v-if="equipo.link_ficha_tecnica">
+                            <a :href="equipo.link_ficha_tecnica" target="_blank" title="Descargar ficha técnica">
+                                <i class="material-icons">download</i>
+                            </a>
+                        </template>
+                    </td>
+                    <td class="text-center align-middle">
+                        <template v-if="equipo.img">
+                            <a :href="equipo.img" target="_blank" title="Descargar ficha técnica">
+                                <img :src="equipo.img" alt="Imagen del equipo" style="width: 50px; height: auto;">
+                            </a>
+                        </template>
+                    </td>
+                    <td>
+                        <div>
+                        <i class="material-icons" @click="showOrGenerateQR(equipo)" >qr_code_2</i>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -64,9 +82,11 @@
 </section>
 
 @include('tbl.intranet.modals.addEditEquipo')
+@include('tbl.intranet.modals.showQR')
 </div>
 <!-- Material Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 
 <script>
     let vueAdminEquipos = new Vue({
@@ -139,6 +159,62 @@
                     console.error('Hubo un error al enviar el formulario', error);
                 });
             },
+            showOrGenerateQR(equipo) {
+                var logo = new Image();
+                logo.src = '/img/tbl/TBL.png'; 
+
+                logo.onload = () => {
+                    console.log("Logo loaded successfully");
+                    var url = 'https://tbl.transportesbulnes.cl/';
+                    var colorQr = '#060737';
+
+                    // Limpia el contenedor del QR antes de generar uno nuevo
+                    document.getElementById("qr-container").innerHTML = '';
+
+                    var qrcode = new QRCode(document.getElementById("qr-container"), {
+                        text: url,
+                        width: 400, 
+                        height: 400, 
+                        colorDark: colorQr, 
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H  // Añadir este parámetro para mejor corrección de errores
+                    });
+
+                    // Usar MutationObserver para detectar cuando el QR se haya generado
+                    const observer = new MutationObserver((mutationsList, observer) => {
+                        for (const mutation of mutationsList) {
+                            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                                var canvas = document.querySelector("#qr-container canvas");
+                                if (canvas) {
+                                    var context = canvas.getContext("2d");
+                                    var logoSize = 150;
+                                    var x = (canvas.width - logoSize) / 2;
+                                    var y = (canvas.height - logoSize) / 2;
+
+                                    console.log("Drawing logo on QR code");
+                                    context.drawImage(logo, x, y, logoSize, logoSize);
+
+                                    // Mostrar el modal después de dibujar el logo
+                                    $("#showQR").modal('show');
+
+                                    // Dejar de observar
+                                    observer.disconnect();
+                                }
+                            }
+                        }
+                    });
+
+                    // Configurar el observer
+                    observer.observe(document.getElementById("qr-container"), { childList: true });
+                };
+
+                logo.onerror = () => {
+                    console.error("Error loading logo");
+                };
+            }
+
+
+            
         }
     });
 </script>
