@@ -243,14 +243,18 @@ class WebtblController extends Controller
 
     public function guardarCotizacion(Request $request)
     {
+
+        
         // Validar los datos del formulario
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'telefono' => 'nullable|string|max:255',
             'fecha_servicio' => 'nullable|date|max:255',
+            'fecha_termino' => 'nullable|date|max:255',
             'origen' => 'nullable|string|max:255',
             'destino' => 'nullable|string|max:255',
+            'equipo.id' => 'required|integer|exists:equipos,id',
             'comentarios' => 'required|string',
         ]);
 
@@ -271,8 +275,10 @@ class WebtblController extends Controller
             'email' => $email,
             'telefono' => $validatedData['telefono'],
             'fecha_servicio' => $validatedData['fecha_servicio'],
+            'fecha_termino' => $validatedData['fecha_termino'] ?? null,
             'origen' => $validatedData['origen'],
-            'destino' => $validatedData['destino'],
+            'destino' => $validatedData['destino'] ?? null,
+            'equipo_id' => $validatedData['equipo']['id'],
             'comentarios' => $validatedData['comentarios'],
         ]);
 

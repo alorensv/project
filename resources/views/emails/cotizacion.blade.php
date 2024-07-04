@@ -23,6 +23,14 @@
         <th style="text-align: left; padding: 8px; background-color: #060737; color: white; width: 250px;">Campo</th>
         <th style="text-align: left; padding: 8px; background-color: #060737; color: white; width: 250px;">Valor</th>
     </tr>
+
+    @if($cotizacion->equipo_id)
+        <tr style="color:#000">
+            <td style="padding: 8px;">Equipo</td>
+            <td style="padding: 8px;">{{ $cotizacion->equipo->nombre }} {{ $cotizacion->equipo->marca }} {{ $cotizacion->equipo->modelo }} {{ $cotizacion->equipo->patente }}</td>
+        </tr>
+    @endif
+
     <tr style="background-color: #f6f6f6;color:#000">
         <td style="padding: 8px;">Nombre</td>
         <td style="padding: 8px;">{{ $cotizacion->nombre }}</td>
@@ -36,17 +44,39 @@
         <td style="padding: 8px;">{{ $cotizacion->telefono }}</td>
     </tr>
     <tr style="color:#000">
+        @if($cotizacion->equipo_id)
+        <td style="padding: 8px;">Fecha de arriendo</td>
+        @else
         <td style="padding: 8px;">Fecha posible del servicio</td>
+        @endif
         <td style="padding: 8px;">{{ date('d-m-Y', strtotime($cotizacion->fecha_servicio)) }}</td>
     </tr>
+
+    @if($cotizacion->fecha_termino)
+        <tr style="color:#000">
+            <td style="padding: 8px;">Fecha de devolución</td>
+            <td style="padding: 8px;">{{ date('d-m-Y', strtotime($cotizacion->fecha_termino)) }}</td>
+        </tr>
+    @endif
+
+    @if($cotizacion->origen)
     <tr style="background-color: #f6f6f6;color:#000">
         <td style="padding: 8px;">Origen</td>
         <td style="padding: 8px;">{{ $cotizacion->origen }}</td>
     </tr>
-    <tr style="color:#000">
-        <td style="padding: 8px;">Destino</td>
-        <td style="padding: 8px;">{{ $cotizacion->destino }}</td>
-    </tr>
+    @endif
+    
+    @if($cotizacion->destino)
+        <tr style="color:#000">
+            @if($cotizacion->equipo_id)
+            <td style="padding: 8px;">Lugar de faena</td>
+            @else
+            <td style="padding: 8px;">Destino</td>
+            @endif
+            <td style="padding: 8px;">{{ $cotizacion->destino }}</td>
+        </tr>
+    @endif
+
     <tr style="background-color: #f6f6f6;color:#000">
         <td style="padding: 8px;">Comentarios</td>
         <td style="padding: 8px;">{{ $cotizacion->comentarios }}</td>

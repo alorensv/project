@@ -17,8 +17,10 @@ class Cotizacion extends Model
         'email',
         'telefono',
         'fecha_servicio',
+        'fecha_termino',
         'origen',
         'destino',
+        'equipo_id',
         'comentarios',
     ];
 
@@ -27,4 +29,10 @@ class Cotizacion extends Model
     {
         return $this->belongsTo(Contact::class);
     }
+
+    public function equipo()
+    {
+        return $this->belongsTo(Equipo::class, 'equipo_id');
+    }
+
 }

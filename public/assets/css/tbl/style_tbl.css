@@ -1,5 +1,44 @@
 /* tbl */
 
+/* INTRANET */
+
+.adminDiv{
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    min-height: 700px;
+    padding-top: 50px;
+    text-align: justify;
+    top: 50px; 
+}
+
+.custom-rounded .form-control, 
+.custom-rounded .input-group-text {
+    border-radius: 20px;
+}
+
+.custom-rounded .input-group {
+    display: flex;
+    flex-wrap: nowrap;
+    border-radius: 20px; /* Aplica border-radius a toda la input-group */
+}
+
+.custom-rounded .input-group .form-control {
+    border-top-right-radius: 20px; /* Redondea las esquinas superiores derecha del input */
+    border-bottom-right-radius: 20px; /* Redondea las esquinas inferiores derecha del input */
+}
+
+.custom-rounded .input-group .input-group-append .input-group-text {
+    border-top-left-radius: 20px; /* Redondea las esquinas superiores izquierda del span */
+    border-bottom-left-radius: 20px; /* Redondea las esquinas inferiores izquierda del span */
+}
+
+.custom-rounded .input-group .input-group-text {
+    border-radius: 0; /* Asegúrate de que el span no tenga borde redondeado para evitar inconsistencias */
+}
+
 /*galeria*/
 
 .sociosIzajes{
@@ -519,6 +558,10 @@
     padding-top: 50px;
     text-align: justify;
 }
+
+
+
+
 
 .traslados {
     background-color: #060737;

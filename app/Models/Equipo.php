@@ -12,8 +12,16 @@ class Equipo extends Model
     protected $table = 'equipos';
 
     protected $fillable = [
-        'tipo_id', 'nombre', 'anio', 'marca', 'modelo', 'patente', 
-        'color', 'subtipo_id', 'link_ficha_tecnica', 'img'
+        'tipo_id',
+        'nombre',
+        'anio',
+        'marca',
+        'modelo',
+        'patente',
+        'color',
+        'subtipo_id',
+        'link_ficha_tecnica',
+        'img'
     ];
 
     public function tipo()

@@ -7,6 +7,12 @@
 @section('content')
 
 <div id="vueInicio">
+
+ <div class="col-12 d-flex align-items-center pt-3">
+  <button class="w-100 btn btn-outline-succes" data-toggle="modal" data-target="#arriendoEquipo">Cotizar</button>
+  </div>
+
+
   <section class="welcome">
     <div>
       <div class="container section-phone-padding">

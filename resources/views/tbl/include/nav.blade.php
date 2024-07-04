@@ -68,9 +68,9 @@
                         @else
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="{{ route('transportes_bulnes') }}">{{ __('Sobre nosotros') }}</a>
+                            <a class="nav-link {{request()->routeIs('adminEquipos') ? 'active' : ''}}" href="{{ route('adminEquipos') }}">{{ __('Equipos') }}</a>
                         </li>
-                        
+                            
                         @endguest
                     </ul>
 

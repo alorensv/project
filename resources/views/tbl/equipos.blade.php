@@ -53,7 +53,7 @@
                         <p class="card-text titleEquipos"><strong>Modelo</strong></p>
                         <p class="card-text"><span class="material-icons">chevron_right</span>@{{ equipo.modelo }}</p>
                         <p class="card-text titleEquipos"><strong>Año</strong></p>
-                        <p class="card-text"><span class="material-icons">chevron_right</span>2022</p>
+                        <p class="card-text"><span class="material-icons">chevron_right</span>@{{ equipo.anio }}</p>
                       </div>
                     </div>
 
@@ -63,7 +63,7 @@
                       </div>
 
                       <div class="col-12 d-flex align-items-center pt-3">
-                        <button class="w-100 btn btn-primary">Cotizar</button>
+                        <button class="w-100 btn btn-primary" @click="seleccionarEquipo(equipo)" data-toggle="modal" data-target="#arriendoEquipo">Cotizar</button>
                       </div>
                     </div>
 
@@ -78,9 +78,12 @@
   </section>
 
   @include('tbl.include.trabaja_con_nosotros')
+
+  @include('tbl.modals.cotizaEquipo')
 </div>
 
 @include('tbl.include.footer')
+
 
 <script>
   let equipos = new Vue({
@@ -93,6 +96,18 @@
       elements: [],
       filtrosVisibles: true,
       filters: 'Ocultar filtros',
+      cotiza: {
+        nombre: '',
+        telefono: '',
+        email: '',
+        origen: '',
+        destino: '',
+        fecha_servicio: '',
+        fecha_termino: '',
+        comentarios: '',
+        equipo: {},
+      },
+      equipoSeleccionado: {},
     },
     created() {
       this.getTiposEquipos();
@@ -157,6 +172,37 @@
         } else {
           this.filters = 'Ver filtros';
         }
+      },
+      seleccionarEquipo(equipo) {
+        this.equipoSeleccionado = equipo;
+        this.cotiza.equipo = equipo;
+      },
+      guardarCotizacionEquipo() {
+        axios.post('/guardarCotizacion', this.cotiza)
+          .then(response => {
+            $("#arriendoEquipo").modal('hide'); 
+            // Manejar la respuesta exitosa
+            if (response.data.status === 'ok') {
+              $("#successContact").modal('show');    
+              setTimeout(() => {
+                $("#successContact").modal('hide'); 
+              }, 4000); 
+
+              this.limpiarContacto();
+            }
+                    
+          })
+          .catch(error => {
+            // Manejar el error
+            console.error('Hubo un error al enviar el formulario', error);
+          });
+      },
+      limpiarForm(){
+        this.cotiza.nombre = '';
+        this.cotiza.telefono = '';
+        this.cotiza.correo = '';
+        this.cotiza.comentarios = '';
+        this.cotiza.equipo = {};
       }
 
     }

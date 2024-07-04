@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IntranetTblController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\QrManagerController;
 use App\Http\Controllers\TransbankController;
@@ -119,3 +120,17 @@ Route::get('/transportes_bulnes', [WebtblController::class, 'transportes_bulnes'
 Route::get('/presentacion', [WebtblController::class, 'presentacion'])->name('presentacion');
 Route::post('/guardarContacto',[WebtblController::class, 'guardarContacto'])->name('guardarContacto');
 Route::post('/guardarCotizacion',[WebtblController::class, 'guardarCotizacion'])->name('guardarCotizacion');
+
+
+/*INTRANET TBL */
+
+// routes/web.php
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/adminEquipos', [IntranetTblController::class, 'adminEquipos'])->name('adminEquipos');
+    Route::post('/agregarTipoEquipo', [IntranetTblController::class, 'agregarTipoEquipo']);
+    Route::post('/agregarEquipo', [IntranetTblController::class, 'agregarEquipo']);
+    
+});
+
+

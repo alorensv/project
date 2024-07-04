@@ -68,6 +68,8 @@
 
 @include('tbl.include.trabaja_con_nosotros')
 
+@include('tbl.modals.cotizaServicio')
+
 @include('tbl.include.footer')
 <script>
   setTimeout(() => {
