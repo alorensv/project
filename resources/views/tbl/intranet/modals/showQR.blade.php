@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title" id="addEditEquipoLabel">Codigo QR de: </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close closeModal" data-bs-dismiss="modal" aria-label="Close" @click="closeShowQR">x</button>
       </div>
       <div class="modal-body text-center">
         <div class="p-5">

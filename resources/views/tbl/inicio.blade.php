@@ -19,20 +19,23 @@
     <div>
       <div class="container section-phone-padding">
         <div class="row py-5">
-          <div class="col-lg-6 pt16 pb16 ceroR">
-            <h2 class="escribiendo ceroR">
+          <div class="col-lg-6 pt16 pb16 ">
+            <h2 class="escribiendo ">
               Transportes Bulnes Limitada
             </h2>
             <p><br></p>
-            <p class="ceroR">
-              Constituida como empresa el año 2011, actualmente contamos con más de <strong>11 años de antiguedad y experiencia en el mercado.</strong> Nos especializamos en el traslado de carga sobredimensionada como maquinarias, equipos, contenedores y carga en general por todo Chile.
-            </p>
-            <p>
-              Disponemos de profesionales calificados y operadores certificados con experiencia para entregar servicios de calidad, cumpliendo con los estándares de seguridad y puntualidad.
-            </p>
-            <p>
-              <a href="/transportes_bulnes" class="btn btn-primary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
-            </p>
+            <div class="ceroR">
+              <p>
+                Constituida como empresa el año 2011, actualmente contamos con más de <strong>11 años de antiguedad y experiencia en el mercado.</strong> Nos especializamos en el traslado de carga sobredimensionada como maquinarias, equipos, contenedores y carga en general por todo Chile.
+              </p>
+              <p>
+                Disponemos de profesionales calificados y operadores certificados con experiencia para entregar servicios de calidad, cumpliendo con los estándares de seguridad y puntualidad.
+              </p>
+              <p>
+                <a href="/transportes_bulnes" class="btn btn-primary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
+              </p>
+            </div>
+
           </div>
           <div class="col-6">
 
@@ -114,6 +117,16 @@
               <a href="/servicios_izajes" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
             </div>
           </div>
+        </li> 
+
+        <li>
+          <div class="card" style="max-width: 100%;height: auto;">
+            <img src="/img/tbl/services/arriendo_equipos.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <div class="card-body text-center">
+              <h5 class="card-title"><strong>Venta de combustible y arriendo de camiones de combustible</strong></h5>
+              <a href="/equipos" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
+            </div>
+          </div>
         </li>
 
         <li>
@@ -151,7 +164,9 @@
         <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
         <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria</div>
         <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
-        <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Arriendos nuestros equipos</div>
+        <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Venta de combustible y arriendo de camiones de combustible</div>
+        
+        <div class="title" @click="showSlide(7)" :class="{ active: currentServices === 7 }">Arriendos nuestros equipos</div>
       </div>
       <div class="indicators">
         <span class="indicator" @click="showSlide(0)" :class="{ active: currentServices === 0 }"></span>
@@ -161,6 +176,7 @@
         <span class="indicator" @click="showSlide(4)" :class="{ active: currentServices === 4 }"></span>
         <span class="indicator" @click="showSlide(5)" :class="{ active: currentServices === 5 }"></span>
         <span class="indicator" @click="showSlide(6)" :class="{ active: currentServices === 6 }"></span>
+        <span class="indicator" @click="showSlide(7)" :class="{ active: currentServices === 7 }"></span>
       </div>
       <div class="photos">
         <div class="photo" v-for="(item, index) in servicesItems" :key="index" :class="{ active: currentServices === index }">
@@ -301,6 +317,11 @@
           image: 'img/tbl/services/izaje.png',
           alt: 'Servicios de Izaje',
           url: '/servicios_izajes'
+        },
+        {
+          image: 'img/tbl/services/arriendo_combustible.png',
+          alt: 'Venta de combustible y arriendo de camiones de combustible',
+          url: '/venta_combustible'
         },
         {
           image: 'img/tbl/services/arriendo_equipos.png',
@@ -444,7 +465,7 @@
             console.error('Error al obtener productos:', error);
           });
       },
-      guardarCotizacionGeneral(){
+      guardarCotizacionGeneral() {
         axios.post('/guardarCotizacion', this.cotizaGeneral)
           .then(response => {
             $("#cotizarGeneral").modal('hide');

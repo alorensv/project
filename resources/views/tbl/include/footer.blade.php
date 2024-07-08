@@ -47,30 +47,3 @@
   <a href="https://www.lineasdecodigo.cl/" title="Diseño Web - Posicionamiento Web - Sistema Web">
     <img width="142" height="22" src="img/logo.png" alt="Diseño Web - Posicionamiento Web - Sistema Web"></a>
 </div>
-
-
-<script>
-  let footerVue = new Vue({
-    el: '#footerVue',
-    data: {
-      total: 0,
-    },
-    mounted() {
-      this.getVisitas();
-    },
-    methods: {
-      getVisitas() {
-        axios.get('/cantidadVisitas')
-          .then(response => {
-            this.total = response.data.cantidad;
-            console.log(response.data)
-          })
-          .catch(error => {
-            console.error('Error al obtener productos:', error);
-          });
-        
-      },
-
-    }
-  });
-</script>

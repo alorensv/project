@@ -41,7 +41,8 @@ class Equipo extends Model
                   t.nombre as nombreTipo, st.nombre as nombreSubtipo
                   FROM equipos c
                   JOIN tipos_equipo t ON c.tipo_id = t.id
-                  JOIN subtipos_equipo st ON c.subtipo_id = st.id";
+                  JOIN subtipos_equipo st ON c.subtipo_id = st.id
+                  ORDER BY c.tipo_id asc";
 
         $selectData = DB::select($query);
 

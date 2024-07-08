@@ -21,6 +21,7 @@ class Cotizacion extends Model
         'origen',
         'destino',
         'equipo_id',
+        'servicio_id',
         'comentarios',
     ];
 
@@ -33,6 +34,11 @@ class Cotizacion extends Model
     public function equipo()
     {
         return $this->belongsTo(Equipo::class, 'equipo_id');
+    }
+
+    public function servicio()
+    {
+        return $this->belongsTo(Servicio::class, 'servicio_id');
     }
 
 }

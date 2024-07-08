@@ -107,6 +107,8 @@ Route::get('/transporte_equipos_forestales', [WebtblController::class, 'transpor
 Route::get('/rescate_equipos_siniestrados', [WebtblController::class, 'rescate_equipos_siniestrados'])->name('rescate_equipos_siniestrados');
 Route::get('/transporte_maquinaria', [WebtblController::class, 'transporte_maquinaria'])->name('transporte_maquinaria');
 Route::get('/servicios_izajes', [WebtblController::class, 'servicios_izajes'])->name('servicios_izajes');
+Route::get('/venta_combustible', [WebtblController::class, 'venta_combustible'])->name('venta_combustible');
+
 Route::get('/cantidadVisitas', [WebtblController::class, 'cantidadVisitas'])->name('cantidadVisitas');  
 Route::post('/guardarVisita', [WebController::class, 'guardarVisita'])->name('guardarVisita');  
 
@@ -118,6 +120,8 @@ Route::get('/tiposEquipos', [WebtblController::class, 'tiposEquipos'])->name('ti
 Route::get('/transportes_bulnes', [WebtblController::class, 'transportes_bulnes'])->name('transportes_bulnes');
 
 Route::get('/presentacion', [WebtblController::class, 'presentacion'])->name('presentacion');
+Route::get('/presentacionEquipo', [WebtblController::class, 'presentacionEquipo'])->name('presentacionEquipo');
+
 Route::post('/guardarContacto',[WebtblController::class, 'guardarContacto'])->name('guardarContacto');
 Route::post('/guardarCotizacion',[WebtblController::class, 'guardarCotizacion'])->name('guardarCotizacion');
 
@@ -130,7 +134,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/adminEquipos', [IntranetTblController::class, 'adminEquipos'])->name('adminEquipos');
     Route::post('/agregarTipoEquipo', [IntranetTblController::class, 'agregarTipoEquipo']);
     Route::post('/agregarEquipo', [IntranetTblController::class, 'agregarEquipo']);
-    
+    Route::get('/adminCotizaciones', [IntranetTblController::class, 'adminCotizaciones'])->name('adminCotizaciones');
+    Route::get('/getCotizaciones', [IntranetTblController::class, 'getCotizaciones'])->name('getCotizaciones');
 });
 
 

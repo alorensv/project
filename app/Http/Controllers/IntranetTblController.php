@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cotizacion;
 use App\Models\Equipo;
 use App\Models\TiposEquipo;
 use Illuminate\Http\Request;
@@ -21,6 +22,15 @@ class IntranetTblController extends Controller
     public function adminEquipos()
     {
         return view('tbl.intranet.adminEquipos');
+    }
+
+    public function adminCotizaciones(){
+        return view('tbl.intranet.adminCotizaciones');
+    }
+
+    public function getCotizaciones(){
+        $cotizaciones = Cotizacion::all();
+        return response()->json(['message' => 'cotizaciones disponibles', 'cotizaciones' => $cotizaciones]);
     }
 
     // IntranetTblController.php

@@ -1,6 +1,37 @@
 /* tbl */
 
 /* INTRANET */
+.table-bordered th, .table-bordered td {
+    border: 0px solid #dee2e6; 
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.closeModal{
+    width: 35px;
+    height: 30px;
+    padding-top: 0px;
+    padding-bottom: 29px;
+    background-color: white;
+    color: #060737;
+    font-weight: 600;
+}
+
+.material-icons:hover{
+    font-size: 22px!important;
+    color: #5f5d5d!important;
+}
+
+.badge:hover{
+    font-size: 14px!important;
+    color: yellow!important;
+}
+
+tr:hover{
+    background-color: #fff16738!important;
+}
 
 .adminDiv{
     position: relative;
@@ -179,7 +210,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 500px;
+    height: 521px;
     /* Aumenta la altura del contenedor principal del carrusel si es necesario */
 }
 
@@ -195,7 +226,7 @@
 }
 
 .traslados .title {
-    padding: 25px 21px 20px 27px;
+    padding: 20px 15px 18px 20px;
     /* Ajuste de padding */
     cursor: pointer;
     transition: font-size 0.2s ease, transform 0.2s ease;
@@ -239,12 +270,10 @@
     display: flex;
     overflow: hidden;
     width: 100%;
-    height: 764px;
-    /* Ajusta la altura del contenedor de fotos */
+    height: 763px;
     position: relative;
     align-items: flex-end;
-    /* Asegura que las fotos se alineen hacia la parte inferior del contenedor */
-    top: -21px;
+    top: -31px;
 }
 
 .traslados .photo {
@@ -710,6 +739,17 @@
     right: 0;
 }
 
+.bg_ventacombustible{
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/arriendo_combustible.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
 .bg_transportemaquinaria {
     width: 50%;
     height: 300px;
@@ -1166,7 +1206,7 @@
     width: 30%;
     /* left: 0; */
     right: 7%;
-    top: 89%;
+    top: 84%;
 }
 
 #contacto {
@@ -1532,6 +1572,14 @@ footer .social-media ul li a {
         /* Ajusta el tamaño de la imagen según sea necesario */
         height: auto;
     }
+
+    .carousel-item {
+        height: 53rem !important;
+    }
+
+    .div_cotiza {
+        top: 90% !important;
+    }
 }
 
 
@@ -1581,6 +1629,10 @@ footer .social-media ul li a {
     }
 
     .bg_izaje {
+        height: 617px;
+    }
+
+    .bg_ventacombustible{
         height: 617px;
     }
 }
@@ -1640,7 +1692,7 @@ footer .social-media ul li a {
     }
 
     .carousel-item {
-        height: 31rem !important;
+        height: 43rem !important;
     }
 
     .imgCaruselPrincipal {
@@ -1713,6 +1765,13 @@ footer .social-media ul li a {
     }
 
     .bg_izaje {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+
+    .bg_ventacombustible{
         width: 100% !important;
         height: 300px !important;
         position: relative !important;

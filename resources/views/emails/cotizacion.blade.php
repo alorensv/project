@@ -31,6 +31,15 @@
         </tr>
     @endif
 
+    @if($cotizacion->servicio_id)
+        <tr style="color:#000">
+            <td style="padding: 8px;">Servicio</td>
+            <td style="padding: 8px;">{{ $cotizacion->servicio->nombre }}</td>
+        </tr>
+    @endif
+
+    
+
     <tr style="background-color: #f6f6f6;color:#000">
         <td style="padding: 8px;">Nombre</td>
         <td style="padding: 8px;">{{ $cotizacion->nombre }}</td>

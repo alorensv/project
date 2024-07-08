@@ -51,6 +51,9 @@
                                 <a class="dropdown-item {{request()->routeIs('servicios_izajes') ? 'active' : ''}}" href="{{ route('servicios_izajes') }}">{{ __('Servicios de Izaje') }}
                                 </a>
 
+                                <a class="dropdown-item {{request()->routeIs('venta_combustible') ? 'active' : ''}}" href="{{ route('venta_combustible') }}">{{ __('Venta de combustible') }}
+                                </a>
+
                                 
                                 
                             </div>
@@ -69,6 +72,10 @@
 
                         <li class="nav-item pl-2 pr-3 pt-1">
                             <a class="nav-link {{request()->routeIs('adminEquipos') ? 'active' : ''}}" href="{{ route('adminEquipos') }}">{{ __('Equipos') }}</a>
+                        </li>
+
+                        <li class="nav-item pl-2 pr-3 pt-1">
+                            <a class="nav-link {{request()->routeIs('adminCotizaciones') ? 'active' : ''}}" href="{{ route('adminCotizaciones') }}">{{ __('Cotizaciones') }}</a>
                         </li>
                             
                         @endguest

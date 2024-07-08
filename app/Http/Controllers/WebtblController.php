@@ -45,6 +45,10 @@ class WebtblController extends Controller
         return view('tbl.servicios_izajes');
     }
 
+    public function venta_combustible(){
+        return view('tbl.venta_combustible');
+    }
+
     public function equipos(){
         return view('tbl.equipos');
     }
@@ -94,6 +98,15 @@ class WebtblController extends Controller
         }
         
         return view('tbl.presentacion', $response);
+    }
+
+    public function presentacionEquipo(Request $request)
+    {
+        // Obtener el valor del parámetro 'name' desde la solicitud GET
+        $id = $request->query('id');
+        $response = Equipo::find($id);        
+        
+        return view('tbl.presentacionEquipo', $response);
     }
 
     public function getEquipos(Request $request){
@@ -258,6 +271,7 @@ class WebtblController extends Controller
             'origen' => 'nullable|string|max:255',
             'destino' => 'nullable|string|max:255',
             'equipo.id' => 'nullable|integer|exists:equipos,id',
+            'servicioId' => 'nullable|integer|exists:cotizaciones,id',
             'comentarios' => 'required|string',
         ]);
 
@@ -284,6 +298,7 @@ class WebtblController extends Controller
             'origen' => $validatedData['origen'],
             'destino' => $validatedData['destino'] ?? null,
             'equipo_id' => $validatedData['equipo']['id'] ?? null,
+            'servicio_id' => $validatedData['servicioId'] ?? null,
             'comentarios' => $validatedData['comentarios'],
         ]);
 
