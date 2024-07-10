@@ -9,6 +9,11 @@
     cursor: pointer;
 }
 
+.material-icons {
+    cursor: pointer;
+}
+
+
 .closeModal{
     width: 35px;
     height: 30px;
@@ -25,7 +30,8 @@
 }
 
 .badge:hover{
-    font-size: 14px!important;
+    font-size: 11px!important;
+    cursor: pointer;
     color: yellow!important;
 }
 

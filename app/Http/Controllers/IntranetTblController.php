@@ -28,9 +28,22 @@ class IntranetTblController extends Controller
         return view('tbl.intranet.adminCotizaciones');
     }
 
-    public function getCotizaciones(){
-        $cotizaciones = Cotizacion::all();
+    public function getCotizaciones(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $perPage = 10;
+
+        $cotizaciones = Cotizacion::fullCotizaciones($page, $perPage);
         return response()->json(['message' => 'cotizaciones disponibles', 'cotizaciones' => $cotizaciones]);
+    }
+
+    public function getEquiposPerPage(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $perPage = 10;
+
+        $equipos = Equipo::fullEquiposPerPage($page, $perPage);
+        return response()->json(['message' => 'equipos disponibles', 'equipos' => $equipos]);
     }
 
     // IntranetTblController.php

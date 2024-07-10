@@ -30,7 +30,7 @@
             </div>
 
             <h1>Listado de Equipos</h1>
-            <table id="equiposTable" class="table table-striped table-bordered" style="width:100%">
+            <table id="equiposTable" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Equipo</th>
@@ -82,7 +82,7 @@
                                 </a>
                             </template>
                         </td>
-                        <td  class="cursorPointer" @click="showOrGenerateQR(equipo)">
+                        <td class="cursorPointer" @click="showOrGenerateQR(equipo)">
                             <div>
                                 <i class="material-icons">qr_code_2</i>
                             </div>
@@ -90,6 +90,30 @@
                     </tr>
                 </tbody>
             </table>
+
+
+            <div class="col-md-12 text-center" style="width: 100%;">
+                <span>
+                    @{{ equipos.from }}-@{{ equipos.to }} de @{{ equipos.total }} Resultados
+                </span>
+            </div>
+
+            <div class="col-md-12 text-center paginate mt-3 mb-3">
+                <button class="btn" style="border: none;" :class="{ 'disabled': !equipos.prev_page_url }" @click="prevPage">&lt;&lt;</button>
+
+                <!-- Botones de paginación -->
+                <template v-for="(page, index) in pageNumbers">
+                    <button v-if="page === '...'" :key="index" class="btn disabled">
+                        @{{ page }}
+                    </button>
+                    <button v-else :key="page" class="btn" :class="{ 'selected': page === equipos.current_page }" @click="goToPage(page)">
+                        @{{ page }}
+                    </button>
+                </template>
+
+                <button class="btn" style="border: none;" :class="{ 'disabled': !equipos.next_page_url }" @click="nextPage">&gt;&gt;</button>
+            </div>
+
         </div>
     </section>
 
@@ -104,7 +128,16 @@
     let vueAdminEquipos = new Vue({
         el: '#vueAdminEquipos',
         data: {
-            equipos: [],
+            equipos: {
+                data: [],
+                current_page: 1,
+                prev_page_url: null,
+                next_page_url: null,
+                last_page: 1,
+                from: 1,
+                to: 1,
+                total: 0
+            },
             tipos: [],
             searchTerm: '',
             equipoSeleccionado: {},
@@ -118,7 +151,8 @@
                 color: '',
                 subtipo_id: '',
                 link_ficha_tecnica: '',
-            }
+            },
+            totalPages: 0,
         },
         created() {
             this.getTiposEquipos();
@@ -126,12 +160,45 @@
         },
         computed: {
             filteredEquipos() {
-                return this.equipos.filter(equipo =>
+                return this.equipos.data.filter(equipo =>
                     equipo.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
                     equipo.marca.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
                     equipo.modelo.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
                     equipo.patente.toLowerCase().includes(this.searchTerm.toLowerCase())
                 );
+            },
+            pageNumbers() {
+                const pages = [];
+                const currentPage = this.equipos.current_page;
+                const totalPages = this.equipos.last_page;
+
+                // Define el rango de páginas alrededor de la página actual
+                const range = 2;
+
+                // Mostrar la primera página
+                if (totalPages > 1) {
+                    pages.push(1);
+                }
+
+                // Mostrar las páginas alrededor de la página actual
+                for (let i = Math.max(2, currentPage - range); i <= Math.min(totalPages - 1, currentPage + range); i++) {
+                    pages.push(i);
+                }
+
+                // Agregar puntos suspensivos si hay un salto en las páginas
+                if (currentPage - range > 2) {
+                    pages.splice(1, 0, '...');
+                }
+                if (currentPage + range < totalPages - 1) {
+                    pages.splice(pages.length - 1, 0, '...');
+                }
+
+                // Mostrar la última página
+                if (totalPages > 1 && !pages.includes(totalPages)) {
+                    pages.push(totalPages);
+                }
+
+                return [...new Set(pages)]; // Eliminar duplicados
             }
         },
         methods: {
@@ -144,8 +211,8 @@
                         console.error('Error al obtener categorías:', error);
                     });
             },
-            getEquipos() {
-                axios.get('/getEquipos', {
+            getEquipos(page = 1) {
+                axios.get(`/getEquiposPerPage?page=${page}`, {
                         params: {
                             subcategorias: this.subcategoriasSeleccionadas
                         }
@@ -165,7 +232,6 @@
                     .then(response => {
                         console.log('Respuesta del servidor:', response.data);
                         //$("#addEditEquipo").modal('hide'); 
-
                     })
                     .catch(error => {
                         // Manejar el error
@@ -179,7 +245,7 @@
 
                 logo.onload = () => {
                     console.log("Logo loaded successfully");
-                    var url = 'https://tbl.transportesbulnes.cl/presentacionEquipo?id='+equipoId;
+                    var url = 'https://tbl.transportesbulnes.cl/presentacionEquipo?id=' + equipoId;
                     var colorQr = '#060737';
 
                     // Limpia el contenedor del QR antes de generar uno nuevo
@@ -228,14 +294,62 @@
                     console.error("Error loading logo");
                 };
             },
-            closeShowQR(){
+            closeShowQR() {
                 $("#showQR").modal('hide');
+            },
+            nextPage() {
+                if (this.equipos.next_page_url) {
+                    this.getEquipos(this.equipos.current_page + 1);
+                }
+            },
+            prevPage() {
+                if (this.equipos.prev_page_url) {
+                    this.getEquipos(this.equipos.current_page - 1);
+                }
+            },
+            goToPage(page) {
+                if (page >= 1 && page <= this.equipos.last_page) {
+                    this.getEquipos(page);
+                }
             }
-
-
-
         }
     });
 </script>
 
+
+<style>
+    .text-center {
+        text-align: center;
+    }
+
+    .btn {
+        border: 1px solid #060737;
+        background-color: #fff;
+        color: #060737;
+        margin: 0 2px;
+        padding: 12px 12px;
+        cursor: pointer;
+    }
+
+    .btn.selected {
+        background-color: #060737;
+        color: #fff;
+    }
+
+    .btn.disabled {
+        background-color: #e9ecef;
+        color: #6c757d;
+        cursor: not-allowed;
+    }
+
+    .btn:hover {
+        background-color: #060636;
+        color: #fff;
+    }
+
+    .paginate {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 @endsection

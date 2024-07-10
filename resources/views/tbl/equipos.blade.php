@@ -80,15 +80,15 @@
   @include('tbl.include.trabaja_con_nosotros')
 
   @include('tbl.modals.cotizaEquipo')
+  @include('tbl.include.footer')
 </div>
-
-@include('tbl.include.footer')
 
 
 <script>
   let equipos = new Vue({
     el: '#vueEquipos',
     data: {
+      total: 0,
       equipos: [],
       tipos: [],
       subcategoriasSeleccionadas: [],
@@ -112,6 +112,7 @@
     created() {
       this.getTiposEquipos();
       this.getEquipos();
+      this.getVisitas();
     },
     mounted() {
       this.updateElements();
@@ -203,7 +204,19 @@
         this.cotiza.correo = '';
         this.cotiza.comentarios = '';
         this.cotiza.equipo = {};
-      }
+      },
+      getVisitas() {
+        axios.get('/cantidadVisitas')
+          .then(response => {
+            this.total = response.data.cantidad;
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.error('Error al obtener productos:', error);
+          });
+        
+      },
+
 
     }
   });

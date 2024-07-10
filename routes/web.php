@@ -132,6 +132,7 @@ Route::post('/guardarCotizacion',[WebtblController::class, 'guardarCotizacion'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/adminEquipos', [IntranetTblController::class, 'adminEquipos'])->name('adminEquipos');
+    Route::get('/getEquiposPerPage',[IntranetTblController::class, 'getEquiposPerPage'])->name('getEquiposPerPage');
     Route::post('/agregarTipoEquipo', [IntranetTblController::class, 'agregarTipoEquipo']);
     Route::post('/agregarEquipo', [IntranetTblController::class, 'agregarEquipo']);
     Route::get('/adminCotizaciones', [IntranetTblController::class, 'adminCotizaciones'])->name('adminCotizaciones');

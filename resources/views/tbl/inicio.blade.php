@@ -166,7 +166,7 @@
         <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
         <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Venta de combustible y arriendo de camiones de combustible</div>
         
-        <div class="title" @click="showSlide(7)" :class="{ active: currentServices === 7 }">Arriendos nuestros equipos</div>
+        <div class="title" @click="showSlide(7)" :class="{ active: currentServices === 7 }">Arriendos de nuestros equipos</div>
       </div>
       <div class="indicators">
         <span class="indicator" @click="showSlide(0)" :class="{ active: currentServices === 0 }"></span>
@@ -250,17 +250,22 @@
 
           <div class="map-container">
 
-            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3195.5492720083016!2d-73.02737554902022!3d-36.781378900926164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDQ2JzUzLjAiUyA3M8KwMDEnMjEuMCJX!5e0!3m2!1ses!2scl!4v1719166888531!5m2!1ses!2scl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3195.5492720083016!2d-73.02737554902022!3d-36.781378900926164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDQ2JzUzLjAiUyA3M8KwMDEnMjEuMCJX!5e0!3m2!1ses!2scl!4v1719166888531!5m2!1ses!2scl" 
+              width="600" 
+              height="450" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy"></iframe>
 
           </div>
 
         </div>
         <div class="col-md-3 social-media ">
           <h3>Encuentranos en:</h3>
-          <a href="https://www.facebook.com/L%C3%ADneas-de-C%C3%B3digo-SPA-334915964097846" target="_blank"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.facebook.com/people/TBL-Transportes-Bulnes/61561526563987/" target="_blank"><i class="bi bi-facebook"></i></a>
           <!--<a href="https://twitter.com/aeurus/" target="_blank"><i class="bi bi-twitter"></i></a>-->
-          <a href="https://www.instagram.com/lineasdecodigocl/" target="_blank"><i class="bi bi-instagram"></i></a>
-          <a href="https://www.linkedin.com/company/79925476/admin/" target="_blank"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.instagram.com/tbl_transportesbulnes/" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/tbl-transportes-bulnes" target="_blank"><i class="bi bi-linkedin"></i></a>
           <h3 class="mt-3">Contáctenos</h3>
           <ul>
             <li><a href="tel:+56978565544">+569 78565544</a></li>
@@ -325,7 +330,7 @@
         },
         {
           image: 'img/tbl/services/arriendo_equipos.png',
-          alt: 'Arriendos nuestros equipos',
+          alt: 'Arriendos de nuestros equipos',
           url: '/equipos'
         }
       ],
