@@ -137,6 +137,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/agregarEquipo', [IntranetTblController::class, 'agregarEquipo']);
     Route::get('/adminCotizaciones', [IntranetTblController::class, 'adminCotizaciones'])->name('adminCotizaciones');
     Route::get('/getCotizaciones', [IntranetTblController::class, 'getCotizaciones'])->name('getCotizaciones');
+    Route::post('/activarEquipo', [IntranetTblController::class, 'activarEquipo'])->name('activarEquipo');
 });
 
 

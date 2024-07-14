@@ -160,7 +160,10 @@ class WebtblController extends Controller
 
             //$productos = Productos::where('cantidad', '>', 0)->get();
         } else {
-            $equipos = Equipo::whereIn('subtipo_id', $subcategorias)->get();
+            $equipos = Equipo::whereIn('subtipo_id', $subcategorias)
+            ->where('active', 1)
+            ->get();
+
         }
 
         return response()->json(['message' => 'equipos disponibles', 'equipos' => $equipos]);

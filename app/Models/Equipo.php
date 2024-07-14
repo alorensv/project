@@ -38,11 +38,12 @@ class Equipo extends Model
 
     public static function fullEquipos()
     {
-        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img,
+        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img, c.active,
                   t.nombre as nombreTipo, st.nombre as nombreSubtipo
                   FROM equipos c
                   JOIN tipos_equipo t ON c.tipo_id = t.id
                   JOIN subtipos_equipo st ON c.subtipo_id = st.id
+                  WHERE c.active = 1
                   ORDER BY c.tipo_id asc";
 
         $selectData = DB::select($query);
@@ -57,7 +58,7 @@ class Equipo extends Model
         $perPage = (int) $perPage;
         
         // Consulta base
-        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img,
+        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img, c.active, 
                 t.nombre as nombreTipo, st.nombre as nombreSubtipo
                 FROM equipos c
                 JOIN tipos_equipo t ON c.tipo_id = t.id

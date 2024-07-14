@@ -9,10 +9,28 @@
       <div class="modal-body">
         <form @submit.prevent="agregarEquipo">
           @csrf
+
+
           <div class="form-group">
-            <label for="nombre">Equipo</label>
-            <input type="text" class="form-control" v-model="equipo.nombre" id="nombre" required>
+            <label for="tipo_id">Tipo Equipo</label>
+            <select class="form-control" v-model="equipo.tipo_id" id="tipo_id" @change="actualizarSubcategorias" required>
+                <option value="" disabled>Selecciona un tipo de equipo</option>
+                <option v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
+                    @{{ tipo.nombre }}
+                </option>
+            </select>
           </div>
+
+          <div class="form-group">
+            <label for="subtipo_id">Subtipo de Equipo</label>
+            <select class="form-control" v-model="equipo.subtipo_id" id="subtipo_id" required>
+              <option value="" disabled>Selecciona un subtipo de equipo</option>
+              <option v-for="subtipo in subtipos" :key="subtipo.id" :value="subtipo.id">
+                @{{ subtipo.nombre }}
+              </option>
+            </select>
+          </div>  
+
 
           <div class="form-group">
             <label for="anio">Año</label>
@@ -47,15 +65,7 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="tipo_id">Tipo Equipo</label>
-            <select class="form-control" v-model="equipo.tipo_id" id="tipo_id" required>
-                <option value="" disabled>Selecciona un tipo de equipo</option>
-                <option v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
-                    @{{ tipo.nombre }}
-                </option>
-            </select>
-        </div>
+        
 
         <!-- <label for="tipo_id" class="font-weight-bold mt-2">Agregar Tipo</label>
           <button type="button" class="btn btn-link" @click="mostrarFormularioTipo = true">Agregar Nuevo Tipo</button>
@@ -72,17 +82,19 @@
               </form>
           </div> -->
 
-
-
-          <div class="form-group">
-            <label for="subtipo_id">Subtipo ID</label>
-            <input type="text" class="form-control" v-model="equipo.subtipo_id" id="subtipo_id" required>
-          </div>
-
           <div class="form-group">
             <label for="link_ficha_tecnica">Link Ficha Técnica</label>
-            <input type="url" class="form-control" v-model="equipo.link_ficha_tecnica" id="link_ficha_tecnica" required>
+            <input type="url" class="form-control" v-model="equipo.link_ficha_tecnica" id="link_ficha_tecnica">
           </div>
+
+
+          <!-- <div class="form-group">
+            <label for="file_upload" class="d-flex align-items-center">
+              <span class="material-icons me-2">upload</span>
+              Subir Archivo
+            </label>
+            <input type="file" class="form-control" id="file_upload" @change="handleFileUpload">
+          </div> -->
 
           <!-- <div class="form-group">
             <label for="img">Imagen</label>

@@ -64,7 +64,6 @@ class IntranetTblController extends Controller
     public function agregarEquipo(Request $request)
     {
 
-
         // Validación de los datos de entrada
         $request->validate([
             'tipo_id' => 'required|integer',
@@ -98,7 +97,16 @@ class IntranetTblController extends Controller
     }
     
     
-
+    public function activarEquipo(Request $request){
+        $equipo = Equipo::find($request->id);
+        if ($equipo) {
+            $equipo->active = !$equipo->active;
+            $equipo->save();
+            return response()->json(['success' => true, 'message' => 'Estado del equipo actualizado correctamente.']);
+        }
+        return response()->json(['success' => false, 'message' => 'Equipo no encontrado.']);
+    
+    }
 
   
 }

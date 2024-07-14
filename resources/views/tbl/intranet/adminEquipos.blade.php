@@ -56,13 +56,11 @@
                         <td>@{{ equipo.color }}</td>
                         <td>@{{ equipo.nombreSubtipo }}</td>
                         <td class="text-center align-middle">
-                            <template v-if="equipo.link_ficha_tecnica">
-                                <a :href="equipo.link_ficha_tecnica" target="_blank" title="Descargar ficha técnica">
-                                    <span class="badge badge-success">Activo</span>
-                                </a>
+                            <template v-if="equipo.active">
+                                <span class="badge badge-success"  @click="confirmAction(equipo, 'habilitar', true)">Activo</span>
                             </template>
                             <template v-else>
-                                <span class="badge badge-success">Activo</span>
+                                <span class="badge badge-danger"  @click="confirmAction(equipo, 'habilitar', true)">Inactivo</span>
                                 <!-- <span class="badge badge-danger">Inactivo</span> -->
                             </template>
 
@@ -119,6 +117,7 @@
 
     @include('tbl.intranet.modals.addEditEquipo')
     @include('tbl.intranet.modals.showQR')
+    @include('tbl.intranet.modals.confirmarAccion')  
 </div>
 <!-- Material Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -139,6 +138,7 @@
                 total: 0
             },
             tipos: [],
+            subtipos: [],
             searchTerm: '',
             equipoSeleccionado: {},
             equipo: {
@@ -151,8 +151,10 @@
                 color: '',
                 subtipo_id: '',
                 link_ficha_tecnica: '',
+                active: '',
             },
             totalPages: 0,
+            action: '',
         },
         created() {
             this.getTiposEquipos();
@@ -231,7 +233,8 @@
                 axios.post('/agregarEquipo', this.equipo)
                     .then(response => {
                         console.log('Respuesta del servidor:', response.data);
-                        //$("#addEditEquipo").modal('hide'); 
+                        $("#addEditEquipo").modal('hide'); 
+                        this.getEquipos();
                     })
                     .catch(error => {
                         // Manejar el error
@@ -311,7 +314,40 @@
                 if (page >= 1 && page <= this.equipos.last_page) {
                     this.getEquipos(page);
                 }
+            },
+            habilitarEquipo(id){
+                axios.post('/activarEquipo', { id: id })
+                    .then(response => {
+                        console.log('Respuesta del servidor:', response.data);
+                        $("#confirmAction").modal('hide');
+                        this.getEquipos();
+                    })
+                    .catch(error => {
+                        // Manejar el error
+                        console.error('Hubo un error al enviar el formulario', error);
+                    });
+            },
+            confirmAction(equipo, action, confirmar){
+                this.action = action; 
+                if(this.action == 'habilitar'){
+                    this.equipoSeleccionado = equipo; 
+                    if(confirmar){
+                        $("#confirmAction").modal('show');
+                    }else{
+                        this.habilitarEquipo(this.equipoSeleccionado.id)
+                    }
+                }
+            },
+            formatearNombreEquipo(nombre) {
+                return nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+            },
+            actualizarSubcategorias(){
+                const tipoSeleccionado = this.tipos.find(tipo => tipo.id === this.equipo.tipo_id);
+                this.equipo.nombre = this.formatearNombreEquipo(tipoSeleccionado.nombre);
+                this.subtipos = tipoSeleccionado ? tipoSeleccionado.caracteristicas : [];
+                this.equipo.subtipo_id = '';
             }
+
         }
     });
 </script>
