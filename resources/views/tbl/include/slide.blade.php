@@ -27,10 +27,42 @@
             </div>
 
             <div class="form-group">
-              <label for="fecha">Fecha posible del servicio</label>
-              <input type="date" v-model="cotizacion.fecha_servicio" id="fecha" name="fecha" class="form-control" placeholder="Fecha posible del servicio">
+              <label for="fecha_servicio">Fecha posible del servicio</label>
+              <input type="date" v-model="cotizacion.fecha_servicio" id="fecha_servicio" min="{{ date('Y-m-d') }}" name="fecha_servicio" class="form-control" placeholder="Fecha posible del servicio">
             </div>
 
+          </div>
+
+          <div class="row pl-3 pr-3">
+            <div class="col-12">
+              <label for="Dimensiones"><strong>Dimensiones</strong></label>
+            </div>
+          </div>
+          <div class="row pl-3 pr-3">            
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="largo">Largo</label>
+                <input type="text" v-model="cotizacion.largo" id="largo" class="form-control" placeholder="Largo">
+              </div>
+            </div>
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="ancho">Ancho</label>
+                <input type="text" v-model="cotizacion.ancho" id="ancho" class="form-control" placeholder="Ancho">
+              </div>
+            </div>
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="alto">Alto</label>
+                <input type="text" v-model="cotizacion.alto" id="alto" class="form-control" placeholder="Alto">
+              </div>
+            </div>
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="peso">Peso</label>
+                <input type="number" v-model="cotizacion.peso" id="peso" class="form-control" placeholder="Peso">
+              </div>
+            </div>
           </div>
 
           <div class="col-6">
@@ -81,7 +113,7 @@
             <div class="titleServices2Celular">
               <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServicesPhone">
                 <span>Nuestros servicios</span>
-                <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
+                <i style="color: white; font-size: 30px!important; margin-left: 15px;" class="material-icons">arrow_forward</i>
               </a>
             </div>
           </div>
@@ -138,6 +170,10 @@
         origen: '',
         destino: '',
         comentarios: '',
+        largo: '',
+        ancho: '',
+        alto: '',
+        peso: '',
       },
       currentSlide: 0,
       carouselItems: [
@@ -240,13 +276,17 @@
           });
       },
       limpiarCotizacion() {
-        this.cotizacion.nombre = '';
-        this.cotizacion.email = '';
-        this.cotizacion.telefono = '';
+        this.cotizacion.nombre    = '';
+        this.cotizacion.email     = '';
+        this.cotizacion.telefono  = '';
         this.cotizacion.fecha_servicio = '';
-        this.cotizacion.origen = '';
-        this.cotizacion.destino = '';
+        this.cotizacion.origen    = '';
+        this.cotizacion.destino   = '';
         this.cotizacion.comentarios = '';
+        this.cotizacion.largo     = '';
+        this.cotizacion.ancho     = '';
+        this.cotizacion.alto      = '';
+        this.cotizacion.peso      = '';
       }
     }
   });

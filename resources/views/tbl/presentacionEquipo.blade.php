@@ -3,12 +3,24 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Transportes Bulnes</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Transportes Bulnes') }}</title>
+
+    <!-- Incluir Vue.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <!-- Scripts -->
+    <script src="{{ asset('assets/js/app.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('assets/js/consultas.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -29,17 +41,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <!--owl carousel-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/owlcarousel/assets/owl.theme.default.min.css') }}">
+    <script src="{{ asset('assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/owlcarousel/owl.carousel.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <style>
-
         @keyframes slideInFromLeft {
             0% {
                 transform: translateX(-100%);
                 opacity: 0;
             }
+
             100% {
                 transform: translateX(0);
                 opacity: 1;
@@ -51,6 +69,7 @@
                 transform: scale(0.5);
                 opacity: 0;
             }
+
             100% {
                 transform: scale(1);
                 opacity: 1;
@@ -58,14 +77,14 @@
         }
 
         .text-center {
-            text-align: center; /* Asegura que el contenido esté centrado horizontalmente */
+            text-align: center;
+            /* Asegura que el contenido esté centrado horizontalmente */
         }
 
         .text-center img {
-            display: inline-block; /* Asegura que la imagen se comporte como un elemento en línea para el centrado */
+            display: inline-block;
+            /* Asegura que la imagen se comporte como un elemento en línea para el centrado */
         }
-
-
 
         .animated-section {
             animation: slideInFromLeft 0.5s ease-out forwards;
@@ -81,23 +100,34 @@
             background-color: #060737;
             font-family: "Urbanist", sans-serif;
             font-style: normal;
-            overflow-x: hidden; /* Para ocultar cualquier desbordamiento horizontal */
+            overflow-x: hidden;
+            /* Para ocultar cualquier desbordamiento horizontal */
         }
+
         .centered-div {
             width: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.7); /* Borde blanco difuminado */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* Sombra blanca difuminada */
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            /* Borde blanco difuminado */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            /* Sombra blanca difuminada */
         }
+
         .headerTJ {
             background-color: #060737;
             max-height: 280px;
             min-height: 240px;
+            display: flex;
+            justify-content: center;
+            /* Centra el contenido horizontalmente */
+            align-items: center;
+            /* Centra el contenido verticalmente */
         }
+
         .topTJ {
-            position: absolute;
             width: 355px;
             padding: 2%;
         }
+
         .fotoPerfil {
             right: 0;
             left: 56%;
@@ -105,32 +135,35 @@
             width: 213px;
             margin-top: 128px;
         }
+
         .personalData {
             background-color: white;
-            max-height: 630px!important;
+            max-height: 630px !important;
             color: #060737;
         }
+
         .datos {
             position: relative;
             margin-top: 15px;
             text-align: right;
             right: 0;
         }
+
         .telefono {
             background-color: #10ab4d;
             max-height: 315px;
             color: white;
         }
+
         .telefono p {
             font-size: 22px;
-            margin-bottom: 0.3rem!important;
+            margin-bottom: 0.3rem !important;
             color: white;
         }
 
         .telefono a {
             color: white;
         }
-
 
         .principal {
             font-weight: 600;
@@ -149,13 +182,16 @@
             text-decoration: none;
             background-color: transparent;
         }
+
         .iconTJ {
             font-size: 33px;
             padding-left: 25px;
         }
+
         .bigIcon {
             font-size: 55px;
         }
+
         .correo {
             background-color: #060737;
             max-height: 315px;
@@ -168,9 +204,10 @@
             text-decoration: none;
             background-color: transparent;
         }
+
         .correo p {
             font-size: 22px;
-            margin-bottom: 0.3rem!important;
+            margin-bottom: 0.3rem !important;
         }
 
         .correo a:hover {
@@ -182,181 +219,194 @@
 
         .descargarPresentacion {
             background-color: white;
-            max-height: 315px;
             color: #060737;
         }
+
         .descargarPresentacion p {
             font-size: 22px;
-            margin-bottom: 0.3rem!important;
+            margin-bottom: 0.3rem !important;
         }
 
         .personalData p {
-                margin-top: 0;
-                margin-bottom: 0.3rem;
-            }
-
-
-            
-
+            margin-top: 0;
+            margin-bottom: 0.3rem;
+        }
 
         @media (max-width: 990px) {
             body {
-                padding-top: 0rem!important;
+                padding-top: 0rem !important;
             }
-            .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+
+            .container,
+            .container-fluid,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl {
                 width: 100%;
                 padding-right: 0px;
                 padding-left: 0px;
-                margin: 0; /* Eliminar márgenes */
+                margin: 0;
+                /* Eliminar márgenes */
             }
+
             .centered-div {
-                width: 100%!important;
+                width: 100% !important;
                 border: none;
                 box-shadow: none;
             }
+
             .fotoPerfil {
                 left: 58% !important;
                 position: relative !important;
                 width: 175px !important;
                 margin-top: 164px !important;
             }
+
             .topTJ {
-                position: absolute !important;
                 width: 325px !important;
                 padding: 7% !important;
             }
+
             .personalData {
-                max-height: 420px!important;
+                max-height: 480px !important;
             }
 
             .iconTJ {
                 font-size: 33px;
-                padding-left: 15px!important;
+                padding-left: 15px !important;
             }
 
-            .marginPhone{
+            .marginPhone {
                 margin-left: -20px;
             }
 
-            
         }
 
         @media (max-width: 480px) {
             body {
-                padding-top: 0rem!important;
+                padding-top: 0rem !important;
             }
-            .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+
+            .container,
+            .container-fluid,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl {
                 width: 100%;
                 padding-right: 0px;
                 padding-left: 0px;
-                margin: 0; /* Eliminar márgenes */
+                margin: 0;
+                /* Eliminar márgenes */
             }
+
             .centered-div {
-                width: 100%!important;
+                width: 100% !important;
                 border: none;
                 box-shadow: none;
             }
+
             .fotoPerfil {
                 left: 48% !important;
                 position: relative !important;
                 width: 175px !important;
                 margin-top: 164px !important;
             }
+
             .topTJ {
-                position: absolute !important;
                 width: 298px !important;
-                padding: 7% !important;
-                left: 78px;
+                padding: 11% !important;
             }
+
             .personalData {
-                max-height: 630px!important;
+                max-height: 480px !important;
             }
+
             .iconTJ {
                 font-size: 33px;
-                padding-left: 0px!important;
+                padding-left: 15px !important;
             }
+
             .marginPhone {
-                margin-left: 5px;
-                margin-top: 18px;
+                margin-left: -20px;
             }
-            
         }
-
     </style>
-
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="presentacionEquipo">
         <div class="row justify-content-center mb-5">
             <div class="centered-div">
-                <section class="headerTJ p-3 ">
+                <section class="headerTJ p-3 pt-5 pb-5">
                     <div class="row">
                         <div class="topTJ text-center">
                             <img class="card-img-top" src="/img/tbl/logo2.png">
                         </div>
-                        <div class="text-center fotoPerfil animated-section">
-                            <img class="card-img-top rounded-circle" src="{{ $img }}">
-                        </div>
+
                     </div>
                 </section>
+
+                @if($img)
+                <section style="display: flex;justify-content: center;align-items: center;">
+                    <div class="w-100">
+                        <img class="w-100" src="{{ $img }}">
+                    </div>
+                </section>
+                @endif
 
                 <section class="personalData p-5">
                     <div class="datos animated-section">
                         <h3 style="font-size: 45px;"><strong>{{ $nombre }}</strong></h3>
                         <h3 class="pb-3">{{ $marca }} {{ $modelo }}</h3>
-                        <h3><strong>Patente:</strong> {{ $patente }}</h3>
+                        <h3><strong>Patente:</strong> {{ $patente }}-{{ $num_verificador }}</h3>
                         <h3><strong>Año:</strong> {{ $anio }}</h3>
                         <hr>
                         <h4>Revisón técnica: <span class="material-icons" style="font-size: 35px; color: green;vertical-align: middle;">check</span></h4>
                         <h4>Permiso de circulación: <span class="material-icons" style="font-size: 35px; color: green;vertical-align: middle;">check</span></h4>
                         <h4>Seguro obligatorio: <span class="material-icons" style="font-size: 35px; color: green;vertical-align: middle;">check</span></h4>
-                        <h4>Seguro vehicular: <span class="material-icons" style="font-size: 35px; color: green;vertical-align: middle;">check</span></h4>
-                        <hr class="pb-3">
-                        <h4><strong>Conductor asignado:</strong></h4>
-                        <h4>Alejandro Lorens</h4>
+                        <h4>Seguro propio : <span class="material-icons" style="font-size: 35px; color: green;vertical-align: middle;">check</span></h4>
                     </div>
                 </section>
 
+  
+
                 <section class="correo p-5">
-                    <a target="_blank" href="">
-                    <div class="row animated-section">
-                        <div class="col-3 py-3">
-                            <span class="material-icons" style="font-size:40px;">info</span>
+                    <a href="{{ $link_ficha_tecnica }}" target="_blank">
+                        <div class="row">
+                            <div class="col-3 py-3 animated-section">
+                                <span class="material-icons" style="font-size:40px;">info</span>
+                            </div>
+                            <div class="col-9 marginPhone animated-section py-3">
+                                <p class="principal">Ficha técnica</p>
+                            </div>
                         </div>
-                        <div class="col-9 marginPhone animated-section">
-                            <a href="{{ $link_ficha_tecnica }}">
-                            <p class="principal">Ficha técnica</p>
-                            </a>                            
-                        </div>
-                    </div>
                     </a>
                 </section>
 
-                <section class="telefono p-5">
-                    <a target="_blank" >
-                    <div class="row">
-                        <div class="col-3 py-3 animated-section">
-                            <span class="material-icons" style="font-size:40px;">description</span>
 
+                <section class="telefono p-5">
+                    <a target="_blank">
+                        <div class="row">
+                            <div class="col-3 py-3 animated-section">
+                                <span class="material-icons" style="font-size:40px;">description</span>
+                            </div>
+                            <div class="col-9 marginPhone animated-section py-3" @click="accesoPrivado">
+                                <p class="principal">Documentación</p>
+                            </div>
                         </div>
-                        <div class="col-9 marginPhone animated-section">
-                            <a href="{{ $link_ficha_tecnica }}">
-                            <p class="principal">Revisión técnica</p>
-                            </a>
-                        </div>
-                    </div>
                     </a>
                 </section>
 
                 <section class="descargarPresentacion p-5 ">
                     <a href="https://transportesbulnes.cl/PRESENTACION_TBL.pdf">
-                    <div class="text-center animated-section">
-                        <p class="principal">¡Revisa nuestros trabajos y trabajemos juntos!</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="material-icons bigIcon">cloud_download</i>
-                    </div>
+                        <div class="text-center animated-section">
+                            <p class="principal">¡Revisa nuestros trabajos y trabajemos juntos!</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="material-icons bigIcon">cloud_download</i>
+                        </div>
                     </a>
                     <div class="row justify-content-center">
                         <img class="card-img-top" src="/img/tbl/logo_tbl.png" style="width: 75%;">
@@ -364,7 +414,88 @@
                 </section>
             </div>
         </div>
+
+        
+        <div class="modal fade" id="loginIntranet" tabindex="-1" aria-labelledby="loginIntranetLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="loginIntranetLabel">¡Acceso con autorización!</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-5">
+                    <form @submit.prevent="submitLogin">
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico:</label>
+                            <input type="email" class="form-control" id="correo" v-model="correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="clave">Contraseña:</label>
+                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">
+                        </div>
+
+                        <div class="col-12 text-right">
+                            <button type="submit" class="w-100 btn btn-primary">Ver documentación</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    </div>
+
+
+    
+
+    <script>
+        new Vue({
+            el: '#presentacionEquipo',
+            data: {
+                'full_documentation':  '<?= isset($full_documentation) ? $full_documentation : null ?>', 
+                correo: '',
+                clave: '',
+                password_confirmation: '',
+            },
+            created() {},
+            methods: {
+                accesoPrivado() {
+                    $("#loginIntranet").modal('show');
+                },
+                loginEquipos() {
+                    alert("ahora soi")
+                },
+                _submitLogin() {
+                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    var claveEncriptada = this.clave;
+                    var remember = 'false';
+
+                    axios.post('/login', {
+                            _token: csrfToken,
+                            email: this.correo,
+                            password: claveEncriptada,
+                            remember: remember,
+                        })
+                        .then(response => {
+
+                            var baseUri = window.location.origin;
+                            var fullLink = baseUri + '' + this.full_documentation;
+                            window.open(fullLink, '_blank');
+
+                        })
+                        .catch(error => {
+                            console.error('Error al enviar el formulario:', error);
+                        });
+                },
+                submitLogin() {
+                    this._submitLogin();
+                },
+            }
+        });
+    </script>
+
 </body>
 
 </html>

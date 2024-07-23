@@ -37,25 +37,10 @@
     <div class="services_gallery-container">
       <div class="services_gallery-inner">
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid">
+          <img src="/img/tbl/services/rescate_equipo.png" class="img-fluid">
         </div>
         <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_2.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
-        </div>
-        <div class="services_gallery-item">
-          <img src="/img/tbl/services/sobredimensionado_3.png" class="img-fluid">
+          <img src="/img/tbl/services/rescate_0.png" class="img-fluid">
         </div>
         <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
       </div>

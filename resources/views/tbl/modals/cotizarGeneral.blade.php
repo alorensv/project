@@ -32,8 +32,8 @@
           </div>
 
           <div class="form-group">
-              <label for="origen">Fecha posible del servicio</label>
-              <input type="date" v-model="cotizaGeneral.fecha_servicio" id="origen" name="origen" class="form-control">
+              <label for="fecha_servicio">Fecha posible del servicio</label>
+              <input type="date" v-model="cotizaGeneral.fecha_servicio" min="{{ date('Y-m-d') }}" id="fecha_servicio" name="fecha_servicio" class="form-control">
             </div>
 
           <div class="row">
@@ -52,6 +52,39 @@
             </div>
           </div>
           </div>
+
+          <div class="row">
+            <div class="col-12">
+              <label for="Dimensiones"><strong>Dimensiones</strong></label>
+            </div>
+          </div>
+          <div class="row">            
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="largo">Largo</label>
+                <input type="text" v-model="cotizaGeneral.largo" id="largo" class="form-control" placeholder="Largo">
+              </div>
+            </div>
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="ancho">Ancho</label>
+                <input type="text" v-model="cotizaGeneral.ancho" id="ancho" class="form-control" placeholder="Ancho">
+              </div>
+            </div>
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="alto">Alto</label>
+                <input type="text" v-model="cotizaGeneral.alto" id="alto" class="form-control" placeholder="Alto">
+              </div>
+            </div>
+            <div class="col-3 col3Padding">
+              <div class="form-group">
+                <label for="peso">Peso</label>
+                <input type="number" v-model="cotizaGeneral.peso" id="peso" class="form-control" placeholder="Peso">
+              </div>
+            </div>
+          </div>
+
 
           <div class="form-group">
             <label for="comentarios">Mensaje:</label>

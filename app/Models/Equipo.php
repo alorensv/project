@@ -20,9 +20,11 @@ class Equipo extends Model
         'marca',
         'modelo',
         'patente',
+        'num_verificador',
         'color',
         'subtipo_id',
         'link_ficha_tecnica',
+        'full_documentation',
         'img'
     ];
 
@@ -38,7 +40,8 @@ class Equipo extends Model
 
     public static function fullEquipos()
     {
-        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img, c.active,
+        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, 
+                    c.link_ficha_tecnica, c.img, c.active, c.full_documentation, c.num_verificador,
                   t.nombre as nombreTipo, st.nombre as nombreSubtipo
                   FROM equipos c
                   JOIN tipos_equipo t ON c.tipo_id = t.id
@@ -58,7 +61,7 @@ class Equipo extends Model
         $perPage = (int) $perPage;
         
         // Consulta base
-        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img, c.active, 
+        $query = "SELECT c.id, c.tipo_id, c.nombre, c.anio, c.marca, c.modelo, c.patente, c.color, c.subtipo_id, c.link_ficha_tecnica, c.img, c.active, c.num_verificador, c.full_documentation,
                 t.nombre as nombreTipo, st.nombre as nombreSubtipo
                 FROM equipos c
                 JOIN tipos_equipo t ON c.tipo_id = t.id

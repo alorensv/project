@@ -6,6 +6,9 @@ use App\Models\Cotizacion;
 use App\Models\Equipo;
 use App\Models\TiposEquipo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class IntranetTblController extends Controller
 {
@@ -60,41 +63,119 @@ class IntranetTblController extends Controller
         return response()->json(['tipo' => $tipo], 201);
     }
 
-    // IntranetTblController.php
     public function agregarEquipo(Request $request)
     {
-
         // Validación de los datos de entrada
         $request->validate([
             'tipo_id' => 'required|integer',
             'nombre' => 'required|string|max:255',
-            'anio' => 'required|integer|min:1900|max:'.date('Y'),
+            'anio' => 'required|integer|min:1900|max:' . date('Y'),
             'marca' => 'required|string|max:255',
             'modelo' => 'required|string|max:255',
             'patente' => 'required|string|max:255',
-            'color' => 'required|string|max:7', // Color en formato hexadecimal (#rrggbb)
-            'subtipo_id' => 'nullable|integer',
-            'link_ficha_tecnica' => 'nullable|url',
-            'img' => 'nullable|url' // Cambia a 'image' si esperas una imagen cargada en lugar de una URL
+            'num_verificador' => 'nullable|string|max:2',
+            'color' => 'required|string|max:255', // Asegúrate de que el formato sea correcto
+            'img' => 'nullable|file',
+            'link_ficha_tecnica' => 'nullable|file' ,
+            'full_documentation' => 'nullable|file' ,
         ]);
+
+        //dd($request->input('num_verificador'));
     
-        // Crear el nuevo equipo
-        $equipo = Equipo::create([
-            'tipo_id' => $request->input('tipo_id'),
-            'nombre' => $request->input('nombre'),
-            'anio' => $request->input('anio'),
-            'marca' => $request->input('marca'),
-            'modelo' => $request->input('modelo'),
-            'patente' => $request->input('patente'),
-            'color' => $request->input('color'),
-            'subtipo_id' => $request->input('subtipo_id'),
-            'link_ficha_tecnica' => $request->input('link_ficha_tecnica'),
-            'img' => $request->input('img'),
-        ]);
+        if ($request->has('id')) {
+            // Actualizar el equipo existente
+            $equipo = Equipo::find($request->input('id'));
+            if ($equipo) {
+                $equipo->update([
+                    'tipo_id' => $request->input('tipo_id'),
+                    'nombre' => $request->input('nombre'),
+                    'anio' => $request->input('anio'),
+                    'marca' => $request->input('marca'),
+                    'modelo' => $request->input('modelo'),
+                    'patente' => $request->input('patente'),
+                    'num_verificador' => $request->input('num_verificador'),
+                    'color' => $request->input('color'),
+                    'subtipo_id' => $request->input('subtipo_id'),
+                ]);
+            } else {
+                // Manejar el caso cuando el equipo no es encontrado
+                return response()->json(['error' => 'Equipo no encontrado'], 404);
+            }
+        } else {
+            // Crear el nuevo equipo
+            $equipo = Equipo::create([
+                'tipo_id' => $request->input('tipo_id'),
+                'nombre' => $request->input('nombre'),
+                'anio' => $request->input('anio'),
+                'marca' => $request->input('marca'),
+                'modelo' => $request->input('modelo'),
+                'patente' => $request->input('patente'),
+                'num_verificador' => $request->input('num_verificador'),
+                'color' => $request->input('color'),
+                'subtipo_id' => $request->input('subtipo_id'),
+            ]);
+        }
     
-        // Responder con el equipo creado
-        return response()->json(['equipo' => $request->all()], 201);
+        // Manejar la subida del archivo
+        if ($request->hasFile('link_ficha_tecnica')) {
+            $file = $request->file('link_ficha_tecnica');
+            $directory = public_path('/img/tbl/' . $equipo->id); 
+    
+            // Crear la carpeta si no existe
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+    
+            // Almacenar el archivo en la carpeta
+            $filePath = $directory . '/' . $file->getClientOriginalName();
+            $file->move($directory, $file->getClientOriginalName());
+            $equipo->link_ficha_tecnica = '/img/tbl/' . $equipo->id . '/' . $file->getClientOriginalName();
+            $equipo->save();
+        }
+        
+        // Manejar la subida del archivo
+        if ($request->hasFile('full_documentation')) {
+            $file = $request->file('full_documentation');
+            $directory = public_path('/private/tbl/documentation/' . $equipo->id); 
+    
+            // Crear la carpeta si no existe
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+    
+            // Almacenar el archivo en la carpeta
+            $filePath = $directory . '/' . $file->getClientOriginalName();
+            $file->move($directory, $file->getClientOriginalName());
+            $equipo->full_documentation = '/private/tbl/documentation/' . $equipo->id . '/' . $file->getClientOriginalName();
+            $equipo->save();
+        }
+
+        // Manejar la subida del archivo
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $directory = public_path('/img/tbl/' . $equipo->id); 
+    
+            // Crear la carpeta si no existe
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+    
+            // Almacenar el archivo en la carpeta
+            $filePath = $directory . '/' . $file->getClientOriginalName();
+            $file->move($directory, $file->getClientOriginalName());
+            $equipo->img = '/img/tbl/' . $equipo->id . '/' . $file->getClientOriginalName();
+            $equipo->save();
+        }
+        
+    
+        // Responder con el equipo creado o actualizado
+        return response()->json(['equipo' => $equipo], 201);
     }
+    
+    
+    
+    
+
     
     
     public function activarEquipo(Request $request){

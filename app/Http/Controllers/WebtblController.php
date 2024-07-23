@@ -273,6 +273,10 @@ class WebtblController extends Controller
             'fecha_termino' => 'nullable|date|max:255',
             'origen' => 'nullable|string|max:255',
             'destino' => 'nullable|string|max:255',
+            'largo' => 'nullable|string|max:255',
+            'ancho' => 'nullable|string|max:255',
+            'alto' => 'nullable|string|max:255',
+            'peso' => 'nullable|string|max:255',
             'equipo.id' => 'nullable|integer|exists:equipos,id',
             'servicioId' => 'nullable|integer|exists:cotizaciones,id',
             'comentarios' => 'required|string',
@@ -293,13 +297,17 @@ class WebtblController extends Controller
 
         $cotizacion = Cotizacion::create([
             'contact_id' => $contact->id,
-            'nombre' => $validatedData['nombre'],
-            'email' => $email,
-            'telefono' => $validatedData['telefono'],
+            'nombre'    => $validatedData['nombre'],
+            'email'     => $email,
+            'telefono'  => $validatedData['telefono'],
             'fecha_servicio' => $validatedData['fecha_servicio'],
             'fecha_termino' => $validatedData['fecha_termino'] ?? null,
-            'origen' => $validatedData['origen'],
-            'destino' => $validatedData['destino'] ?? null,
+            'origen'    => $validatedData['origen'],
+            'destino'   => $validatedData['destino'] ?? null,
+            'largo'     => $validatedData['largo'] ?? null,
+            'ancho'     => $validatedData['ancho'] ?? null,
+            'alto'      => $validatedData['alto'] ?? null,
+            'peso'      => $validatedData['peso'] ?? null,
             'equipo_id' => $validatedData['equipo']['id'] ?? null,
             'servicio_id' => $validatedData['servicioId'] ?? null,
             'comentarios' => $validatedData['comentarios'],
@@ -307,11 +315,19 @@ class WebtblController extends Controller
 
         if ($cotizacion) {
             // Enviar el correo
-            Mail::to(['alorensv@gmail.com', 'eduardo@empresasbulnes.com', 'elias@empresasbulnes.com', 'friedel@empresasbulnes.com'])->send(new NuevaCotizacion($cotizacion));
+            try {
+                // Enviar el correo
+                Mail::to(['alorensv@gmail.com', 'eduardo@empresasbulnes.com', 'elias@empresasbulnes.com', 'friedel@empresasbulnes.com'])->send(new NuevaCotizacion($cotizacion));
+                return response()->json(['status' => 'ok', 'message' => 'Correo enviado correctamente', 'cotizacion' => $cotizacion], 200);
+            } catch (\Exception $e) {
+                return response()->json(['status' => 'error', 'message' => 'Error al enviar el correo: ' . $e->getMessage(), 'cotizacion' => $cotizacion], 500);
+            }
+        }else{
+            return response()->json(['status' => 'error', 'cotizacion' => $cotizacion], 200);
         }
 
         // Retornar respuesta en formato JSON
-        return response()->json(['status' => 'ok'], 200);
+        
     }
 
     public function cantidadVisitas(){

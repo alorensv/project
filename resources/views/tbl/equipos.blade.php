@@ -43,7 +43,13 @@
                   <div class="card-header pt-4">
                     <h5 class="card-title">@{{ equipo.nombre }}</h5>
                   </div>
-                  <img v-if="equipo.img" class="card-img-top" :src="equipo.img" alt="Imagen del equipo">
+                  <img 
+                    v-bind:src="equipo.img ? equipo.img : '/img/tbl/default.png'" 
+                    alt="Imagen del equipo" 
+                    class="card-img-top" 
+                    style="min-height: 300px;max-height: 300px; object-fit: cover;"
+                  >
+
                   <div class="card-body">
 
                     <div class="row">

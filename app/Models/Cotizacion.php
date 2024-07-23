@@ -22,6 +22,10 @@ class Cotizacion extends Model
         'fecha_termino',
         'origen',
         'destino',
+        'largo',
+        'alto',
+        'ancho',
+        'peso',
         'equipo_id',
         'servicio_id',
         'comentarios',
@@ -46,6 +50,7 @@ class Cotizacion extends Model
     public static function fullCotizaciones($page, $perPage)
     {
         $query = "SELECT c.id, c.nombre, c.email, c.telefono, c.fecha_servicio, c.fecha_termino, c.origen, c.destino, c.comentarios,
+                c.largo, c.alto, c.ancho, c.peso,
                 c.equipo_id, e.nombre as nombreEquipo, e.patente as patente, e.marca as marcaEquipo, e.modelo as modeloEquipo, s.nombre as nombreServicio, c.created_at
                 FROM cotizaciones c
                 LEFT JOIN equipos e ON c.equipo_id = e.id

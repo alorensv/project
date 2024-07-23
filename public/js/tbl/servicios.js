@@ -15,6 +15,10 @@ let serviciosVue = new Vue({
         comentarios: '',
         servicioId: '',
         servicioSeleccionado: '',
+        largo: '',
+        ancho: '',
+        alto: '',
+        peso: '',
       },
     },
     mounted() {
@@ -90,6 +94,10 @@ let serviciosVue = new Vue({
         this.cotizaServ.origen = '';
         this.cotizaServ.destino = '';
         this.cotizaServ.comentarios = '';
+        this.cotizaServ.largo = '';
+        this.cotizaServ.ancho = '';
+        this.cotizaServ.alto = '';
+        this.cotizaServ.peso = '';
       },
       getVisitas() {
         axios.get('/cantidadVisitas')

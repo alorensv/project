@@ -86,6 +86,34 @@
         </tr>
     @endif
 
+    @if($cotizacion->largo)
+    <tr style="background-color: #f6f6f6;color:#000">
+        <td style="padding: 8px;">Largo</td>
+        <td style="padding: 8px;">{{ $cotizacion->largo }}</td>
+    </tr>
+    @endif
+
+    @if($cotizacion->ancho)
+    <tr style="color:#000">
+        <td style="padding: 8px;">Ancho</td>
+        <td style="padding: 8px;">{{ $cotizacion->ancho }}</td>
+    </tr>
+    @endif
+
+    @if($cotizacion->alto)
+    <tr style="background-color: #f6f6f6;color:#000">
+        <td style="padding: 8px;">Alto</td>
+        <td style="padding: 8px;">{{ $cotizacion->alto }}</td>
+    </tr>
+    @endif
+
+    @if($cotizacion->peso)
+    <tr style="color:#000">
+        <td style="padding: 8px;">Peso</td>
+        <td style="padding: 8px;">{{ $cotizacion->peso }}</td>
+    </tr>
+    @endif
+
     <tr style="background-color: #f6f6f6;color:#000">
         <td style="padding: 8px;">Comentarios</td>
         <td style="padding: 8px;">{{ $cotizacion->comentarios }}</td>

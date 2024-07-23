@@ -91,7 +91,7 @@
 
         <li>
           <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/rescate_0.png" class="img-fluid" alt="Transporte sobre dimensionado">
+            <img src="/img/tbl/services/rescate_equipo.png" class="img-fluid" alt="Transporte sobre dimensionado">
             <div class="card-body text-center">
               <h5 class="card-title"><strong>Transporte y rescate equipos siniestrados</strong></h5>
               <a href="/rescate_equipos_siniestrados" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
@@ -309,7 +309,7 @@
           url: '/transporte_equipos_forestales'
         },
         {
-          image: 'img/tbl/services/rescate_0.png',
+          image: 'img/tbl/services/rescate_equipo.png',
           alt: 'Transporte y rescate equipos siniestrados',
           url: '/rescate_equipos_siniestrados'
         },
@@ -344,6 +344,10 @@
         origen: '',
         destino: '',
         comentarios: '',
+        largo: '',
+        ancho: '',
+        alto: '',
+        peso: '',
       },
     },
     created() {
@@ -490,13 +494,17 @@
           });
       },
       limpiarCotizacionGeneral() {
-        this.cotizaGeneral.nombre = '';
-        this.cotizaGeneral.email = '';
-        this.cotizaGeneral.telefono = '';
+        this.cotizaGeneral.nombre       = '';
+        this.cotizaGeneral.email        = '';
+        this.cotizaGeneral.telefono     = '';
         this.cotizaGeneral.fecha_servicio = '';
-        this.cotizaGeneral.origen = '';
-        this.cotizaGeneral.destino = '';
-        this.cotizaGeneral.comentarios = '';
+        this.cotizaGeneral.origen       = '';
+        this.cotizaGeneral.destino      = '';
+        this.cotizaGeneral.comentarios  = '';
+        this.cotizaGeneral.largo        = '';
+        this.cotizaGeneral.ancho        = '';
+        this.cotizaGeneral.alto         = '';
+        this.cotizaGeneral.peso  = '';
       }
 
 

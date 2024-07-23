@@ -121,6 +121,10 @@
                     <p><strong>Fecha término:</strong> @{{ formatDate(selectedCotizacion.fecha_termino) }}</p>
                     <p><strong>Origen:</strong> @{{ selectedCotizacion.origen }}</p>
                     <p><strong>Destino:</strong> @{{ selectedCotizacion.destino }}</p>
+                    <p><strong>Largo:</strong> @{{ selectedCotizacion.largo }}</p>
+                    <p><strong>Ancho:</strong> @{{ selectedCotizacion.ancho }}</p>
+                    <p><strong>Alto:</strong> @{{ selectedCotizacion.alto }}</p>
+                    <p><strong>Peso:</strong> @{{ selectedCotizacion.peso }}</p>
                     <p><strong>Cliente:</strong> @{{ selectedCotizacion.nombre }}</p>
                     <p><strong>Email:</strong> @{{ selectedCotizacion.email }}</p>
                     <p><strong>Teléfono:</strong> @{{ selectedCotizacion.telefono }}</p>

@@ -43,6 +43,10 @@
           <div class="services_gallery-item">
             <img src="/img/tbl/services/equipo_forestal_1.png" class="img-fluid">
           </div>
+
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/transporte_maquinaria_7.png" class="img-fluid">
+          </div>
           <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
         </div>
       </div>

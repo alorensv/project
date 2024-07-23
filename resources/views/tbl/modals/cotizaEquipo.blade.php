@@ -39,15 +39,15 @@
           <div class="row">
           <div class="col-6">
             <div class="form-group">
-              <label for="origen">Fecha de arriendo</label>
-              <input type="date" v-model="cotiza.fecha_servicio" id="origen" name="origen" class="form-control">
+              <label for="fecha_servicio">Fecha de arriendo</label>
+              <input type="date" v-model="cotiza.fecha_servicio" id="fecha_servicio" min="{{ date('Y-m-d') }}" name="fecha_servicio" class="form-control">
             </div>
           </div>
 
           <div class="col-6">
             <div class="form-group">
               <label for="destino">Fecha de devolución</label>
-              <input type="date" v-model="cotiza.fecha_termino" id="fecha_termino" name="fecha_termino" class="form-control" >
+              <input type="date" v-model="cotiza.fecha_termino" id="fecha_termino" min="{{ date('Y-m-d') }}" name="fecha_termino" class="form-control" >
             </div>
           </div>
           </div>

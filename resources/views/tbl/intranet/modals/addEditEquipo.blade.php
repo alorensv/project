@@ -3,8 +3,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addEditEquipoLabel">Agregar/Editar Equipo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="addEditEquipoLabel">
+            @{{ equipo.id ? 'Editar Equipo' : 'Agregar Equipo' }}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
       </div>
       <div class="modal-body">
         <form @submit.prevent="agregarEquipo">
@@ -14,22 +18,23 @@
           <div class="form-group">
             <label for="tipo_id">Tipo Equipo</label>
             <select class="form-control" v-model="equipo.tipo_id" id="tipo_id" @change="actualizarSubcategorias" required>
-                <option value="" disabled>Selecciona un tipo de equipo</option>
-                <option v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
-                    @{{ tipo.nombre }}
-                </option>
+              <option value="" disabled>Selecciona un tipo de equipo</option>
+              <option v-for="tipo in tipos" :key="tipo.id" :value="tipo.id">
+                @{{ tipo.nombre }}
+              </option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="subtipo_id">Subtipo de Equipo</label>
+            
             <select class="form-control" v-model="equipo.subtipo_id" id="subtipo_id" required>
               <option value="" disabled>Selecciona un subtipo de equipo</option>
               <option v-for="subtipo in subtipos" :key="subtipo.id" :value="subtipo.id">
                 @{{ subtipo.nombre }}
               </option>
             </select>
-          </div>  
+          </div>
 
 
           <div class="form-group">
@@ -53,21 +58,27 @@
           </div>
 
           <div class="form-group">
+            <label for="num_verificador">Número verificador</label>
+            <input type="text" class="form-control" v-model="equipo.num_verificador" id="num_verificador" required>
+          </div>
+
+          <div class="form-group">
             <label for="color">Color</label>
             <select class="form-control" v-model="equipo.color" id="color" required>
-                <option value="" disabled>Selecciona un color</option>
-                <option value="#fff" style="background-color: #fff; color: #000;">Blanco</option>
-                <option value="#000" style="background-color: #000; color: #fff;">Negro</option>
-                <option value="#ff0000" style="background-color: #ff0000; color: #fff;">Rojo</option>
-                <option value="#00ff00" style="background-color: #00ff00; color: #000;">Verde</option>
-                <option value="#0000ff" style="background-color: #0000ff; color: #fff;">Azul</option>
-                <!-- Agrega más colores si es necesario -->
+              <option value="" disabled>Selecciona un color</option>
+              <option value="NEGRO">NEGRO</option>
+              <option value="BLANCO">BLANCO</option>
+              <option value="AZUL">AZUL</option>
+              <option value="VERDE">VERDE</option>
+              <option value="ROJO">ROJO</option>
+              <option value="PLATEADO">PLATEADO</option>
+              <!-- Agrega más colores si es necesario -->
             </select>
-        </div>
+          </div>
 
-        
 
-        <!-- <label for="tipo_id" class="font-weight-bold mt-2">Agregar Tipo</label>
+
+          <!-- <label for="tipo_id" class="font-weight-bold mt-2">Agregar Tipo</label>
           <button type="button" class="btn btn-link" @click="mostrarFormularioTipo = true">Agregar Nuevo Tipo</button>
           
           Formulario para agregar tipo
@@ -83,25 +94,50 @@
           </div> -->
 
           <div class="form-group">
-            <label for="link_ficha_tecnica">Link Ficha Técnica</label>
-            <input type="url" class="form-control" v-model="equipo.link_ficha_tecnica" id="link_ficha_tecnica">
+          <label for="color">Imagen</label>
+            <label for="img" class="custom-file-title d-flex align-items-center">
+             
+              <div class="row w-100">
+                <div class="col-6 pt-1">Imagen</div>
+                <div class="col-6 text-right pt-2"><span class="material-icons me-2">upload</span></div>
+              </div>
+            </label>
+            <input type="file" class="form-control custom-file-input" id="img" @change="handleFileUpload($event,'imagen')">
           </div>
 
-
-          <!-- <div class="form-group">
-            <label for="file_upload" class="d-flex align-items-center">
-              <span class="material-icons me-2">upload</span>
-              Subir Archivo
+          <div class="form-group">
+          <label for="color">Ficha Técnica</label>
+            <label for="link_ficha_tecnica" class="custom-file-title d-flex align-items-center">
+             
+              <div class="row w-100">
+                <div class="col-6 pt-1">Ficha Técnica</div>
+                <div class="col-6 text-right pt-2"><span class="material-icons me-2">upload</span></div>
+              </div>
             </label>
-            <input type="file" class="form-control" id="file_upload" @change="handleFileUpload">
-          </div> -->
+            <input type="file" class="form-control custom-file-input" id="link_ficha_tecnica" @change="handleFileUpload($event,'ficha')">
+          </div>
 
-          <!-- <div class="form-group">
-            <label for="img">Imagen</label>
-            <input type="file" class="form-control" @change="handleFileUpload" id="img">
-          </div> -->
+          <div class="form-group">
+          <label for="color">Dccumentación completa</label>
+            <label for="full_documentation" class="custom-file-title d-flex align-items-center">
+              <div class="row w-100">
+                <div class="col-6 pt-1">Documentación</div>
+                <div class="col-6 text-right pt-2"><span class="material-icons me-2">upload</span></div>
+              </div>
+            </label>
+            <input type="file" class="form-control custom-file-input" id="full_documentation" @change="handleFileUpload($event,'docu')">
+          </div>
 
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <ul v-if="uploadedFile">
+            <li>
+              @{{ uploadedFile.name }} <button @click="removeFile">x</button>
+            </li>
+          </ul>
+
+
+          <button type="submit" class="btn btn-primary">
+            @{{ equipo.id ? 'Actualizar' : 'Guardar' }}
+          </button>
         </form>
       </div>
     </div>
