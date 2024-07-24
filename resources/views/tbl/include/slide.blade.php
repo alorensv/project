@@ -13,7 +13,8 @@
             <!-- Aquí puedes colocar tu formulario de contacto -->
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input type="text" class="form-control" v-model="cotizacion.nombre" placeholder="Acá tu nombre" maxlength="255" name="cotizacion.nombre" id="nombre">
+              <input type="text" class="form-control" v-model="cotizacion.nombre" placeholder="Acá tu nombre" maxlength="255" name="cotizacion.nombre" id="nombre" required>
+              <span v-if="errors.nombre">@{{ errors.nombre[0] }}</span>
             </div>
 
             <div class="form-group">
@@ -23,7 +24,8 @@
 
             <div class="form-group">
               <label for="email">Correo</label>
-              <input type="email" class="form-control" v-model="cotizacion.email" placeholder="Acá tu correo" maxlength="255" name="cotizacion.email" id="email">
+              <input type="email" class="form-control" v-model="cotizacion.email" placeholder="Acá tu correo" maxlength="255" name="cotizacion.email" id="email" required>
+              <span v-if="errors.email">@{{ errors.email[0] }}</span>
             </div>
 
             <div class="form-group">
@@ -82,7 +84,8 @@
           <div class="col-12">
             <div class="form-group">
               <label for="comentarios">Mensaje:</label>
-              <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizacion.comentarios" id="comentarios" name="cotizacion.comentarios" maxlength="255" rows="4"></textarea>
+              <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizacion.comentarios" id="comentarios" name="cotizacion.comentarios" maxlength="255" rows="4" required></textarea>
+              <span v-if="errors.comentarios">@{{ errors.comentarios[0] }}</span>
             </div>
             <button type="submit" class="w-100 btn btn-primary">Enviar</button>
           </div>
@@ -192,7 +195,8 @@
         alt: 'Third slide',
         title: 'Servicio de Izajes'
       }],
-      intervalId: null
+      intervalId: null,
+      errors: {}
     },
     created() {
       this.showSlide(0); // Muestra la primera diapositiva
@@ -271,9 +275,31 @@
 
           })
           .catch(error => {
-            // Manejar el error
-            console.error('Hubo un error al enviar el formulario', error);
+            if (error.response && error.response.status === 422) {
+                // Capturar los errores de validación
+                this.errors = this.translateErrors(error.response.data.errors);
+            } else {
+                console.error('Hubo un error al enviar el formulario', error);
+            }
           });
+      },
+      translateErrors(errors) {
+          const translatedErrors = {};
+          for (const [field, messages] of Object.entries(errors)) {
+              translatedErrors[field] = messages.map(message => {
+                  switch (message) {
+                      case 'The nombre field is required.':
+                          return 'El campo nombre es obligatorio.';
+                      case 'The email field is required.':
+                          return 'El campo email es obligatorio.';
+                      case 'The comentarios field is required.':
+                          return 'El campo comentarios es obligatorio.';
+                      default:
+                          return message; // Para cualquier otro mensaje de error que no esté traducido
+                  }
+              });
+          }
+          return translatedErrors;
       },
       limpiarCotizacion() {
         this.cotizacion.nombre    = '';

@@ -479,13 +479,9 @@
                             remember: remember,
                         })
                         .then(response => {
-                            if (response.data.success) {
-                                var baseUri = window.location.origin;
-                                var fullLink = baseUri + '' + this.full_documentation;
-                                window.open(fullLink, '_blank');
-                            } else {
-                                alert(response.data.message);
-                            }
+                            var baseUri = window.location.origin;
+                            var fullLink = baseUri + '' + this.full_documentation;
+                            window.open(fullLink, '_blank');
                         })
                         .catch(error => {
                             alert("Usuario sin permisos");

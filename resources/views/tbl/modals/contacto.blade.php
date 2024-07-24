@@ -13,7 +13,7 @@
           <!-- Formulario de contacto -->
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" v-model="contacto.nombre" placeholder="Acá tu nombre" required maxlength="255" id="nombre">
+            <input type="text" class="form-control" v-model="contacto.nombre" placeholder="Acá tu nombre" required maxlength="255" id="nombre" required>
           </div>
           <div class="form-group">
             <label for="telefono">Teléfono</label>
@@ -21,11 +21,11 @@
           </div>
           <div class="form-group">
             <label for="correo">Correo</label>
-            <input type="email" class="form-control" v-model="contacto.correo" placeholder="Acá tu correo" required maxlength="255" id="correo">
+            <input type="email" class="form-control" v-model="contacto.correo" placeholder="Acá tu correo" required maxlength="255" id="correo" required>
           </div>
           <div class="form-group">
             <label for="comentarios">Mensaje:</label>
-            <textarea class="form-control" v-model="contacto.comentarios" placeholder="Haznos saber tus dudas o consultas" required maxlength="255" rows="4" id="comentarios"></textarea>
+            <textarea class="form-control" v-model="contacto.comentarios" placeholder="Haznos saber tus dudas o consultas" required maxlength="255" rows="4" id="comentarios" required></textarea>
           </div>
           <button type="submit" class="w-100 btn btn-primary">Enviar</button>
         </form>

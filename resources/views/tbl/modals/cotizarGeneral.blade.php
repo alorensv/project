@@ -18,7 +18,7 @@
           
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" v-model="cotizaGeneral.nombre" placeholder="Acá tu nombre" v-validate="{required: true, max: 255}" maxlength="255" name="cotizaGeneral.nombre" id="nombre">
+            <input type="text" class="form-control" v-model="cotizaGeneral.nombre" placeholder="Acá tu nombre" v-validate="{required: true, max: 255}" maxlength="255" name="cotizaGeneral.nombre" id="nombre" required>
           </div>
 
           <div class="form-group">
@@ -28,7 +28,7 @@
 
           <div class="form-group">
             <label for="correo">Correo</label>
-            <input type="email" class="form-control" v-model="cotizaGeneral.email" placeholder="Acá tu correo" v-validate="{required: true, max: 255}" maxlength="255" name="cotizaGeneral.email" id="email">
+            <input type="email" class="form-control" v-model="cotizaGeneral.email" placeholder="Acá tu correo" v-validate="{required: true, max: 255}" maxlength="255" name="cotizaGeneral.email" id="email" required>
           </div>
 
           <div class="form-group">
@@ -88,7 +88,7 @@
 
           <div class="form-group">
             <label for="comentarios">Mensaje:</label>
-            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizaGeneral.comentarios" id="comentarios" name="cotizaGeneral.comentarios" v-validate="{required: true, max: 255}" rows="4"></textarea>
+            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizaGeneral.comentarios" id="comentarios" name="cotizaGeneral.comentarios" v-validate="{required: true, max: 255}" rows="4" required></textarea>
           </div>          
 
           <button type="submit" class="w-100 btn btn-primary">Enviar</button>

@@ -16,7 +16,7 @@
           </div>
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" v-model="cotizaServ.nombre" placeholder="Acá tu nombre" maxlength="255" id="nombre">
+            <input type="text" class="form-control" v-model="cotizaServ.nombre" placeholder="Acá tu nombre" maxlength="255" id="nombre" required>
           </div>
           <div class="form-group">
             <label for="telefono">Teléfono</label>
@@ -24,7 +24,7 @@
           </div>
           <div class="form-group">
             <label for="email">Correo</label>
-            <input type="email" class="form-control" v-model="cotizaServ.email" placeholder="Acá tu correo" maxlength="255" id="email">
+            <input type="email" class="form-control" v-model="cotizaServ.email" placeholder="Acá tu correo" maxlength="255" id="email" required>
           </div>
           <div class="form-group">
             <label for="fecha_servicio">Fecha posible del servicio</label>
@@ -77,7 +77,7 @@
           </div>
           <div class="form-group">
             <label for="comentarios">Mensaje:</label>
-            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizaServ.comentarios" id="comentarios" rows="4"></textarea>
+            <textarea class="form-control" placeholder="Haznos saber tus dudas o consultas" v-model="cotizaServ.comentarios" id="comentarios" rows="4" required></textarea>
           </div>
           <button type="submit" class="w-100 btn btn-primary">Enviar</button>
         </form>
