@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cotizacion;
+use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\TiposEquipo;
 use Illuminate\Http\Request;
@@ -27,13 +28,17 @@ class IntranetTblController extends Controller
         return view('tbl.intranet.adminEquipos');
     }
 
+    public function adminEmpleados(){
+        return view('tbl.intranet.adminEmpleados');
+    }
+
     public function adminCotizaciones(){
         return view('tbl.intranet.adminCotizaciones');
     }
 
     public function getCotizaciones(Request $request)
     {
-        $page = $request->get('page', 1);
+        $page = $request->get('page', 1);        
         $perPage = 10;
 
         $cotizaciones = Cotizacion::fullCotizaciones($page, $perPage);
@@ -42,10 +47,12 @@ class IntranetTblController extends Controller
 
     public function getEquiposPerPage(Request $request)
     {
-        $page = $request->get('page', 1);
+        $page   = $request->get('page', 1);
+        $search = $request->get('search', '');
         $perPage = 10;
+        
 
-        $equipos = Equipo::fullEquiposPerPage($page, $perPage);
+        $equipos = Equipo::fullEquiposPerPage($page, $perPage, null, $search);
         return response()->json(['message' => 'equipos disponibles', 'equipos' => $equipos]);
     }
 
@@ -170,13 +177,7 @@ class IntranetTblController extends Controller
     
         // Responder con el equipo creado o actualizado
         return response()->json(['equipo' => $equipo], 201);
-    }
-    
-    
-    
-    
-
-    
+    } 
     
     public function activarEquipo(Request $request){
         $equipo = Equipo::find($request->id);
@@ -185,8 +186,21 @@ class IntranetTblController extends Controller
             $equipo->save();
             return response()->json(['success' => true, 'message' => 'Estado del equipo actualizado correctamente.']);
         }
-        return response()->json(['success' => false, 'message' => 'Equipo no encontrado.']);
-    
+        return response()->json(['success' => false, 'message' => 'Equipo no encontrado.']);    
+    }
+
+
+    //empleados
+
+    public function getEmpleadosPerPage(Request $request)
+    {
+        $page   = $request->get('page', 1);
+        $search = $request->get('search', '');
+        $perPage = 10;
+        
+
+        $empleados = Empleado::fullEmpleadosPerPage($page, $perPage, $search);
+        return response()->json(['message' => 'empleados disponibles', 'empleados' => $empleados]);
     }
 
   

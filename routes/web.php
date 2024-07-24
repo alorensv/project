@@ -10,6 +10,7 @@ use App\Http\Controllers\TransbankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\WebtblController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::get('/contacto', function () {
 Route::post('/enviarEmail', [WebController::class, 'store'])->name('enviarEmail');
 
 Auth::routes();
+
+Route::post('/autoriza', [App\Http\Controllers\Auth\LoginController::class, 'autoriza'])->name('autoriza');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -138,6 +142,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/adminCotizaciones', [IntranetTblController::class, 'adminCotizaciones'])->name('adminCotizaciones');
     Route::get('/getCotizaciones', [IntranetTblController::class, 'getCotizaciones'])->name('getCotizaciones');
     Route::post('/activarEquipo', [IntranetTblController::class, 'activarEquipo'])->name('activarEquipo');
+
+    //empleados
+    Route::get('/adminEmpleados', [IntranetTblController::class, 'adminEmpleados'])->name('adminEmpleados');
+    Route::get('/getEmpleadosPerPage',[IntranetTblController::class, 'getEmpleadosPerPage'])->name('getEmpleadosPerPage');
 });
 
 

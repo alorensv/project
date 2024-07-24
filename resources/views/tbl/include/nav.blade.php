@@ -77,6 +77,10 @@
                         <li class="nav-item pl-2 pr-3 pt-1">
                             <a class="nav-link {{request()->routeIs('adminCotizaciones') ? 'active' : ''}}" href="{{ route('adminCotizaciones') }}">{{ __('Cotizaciones') }}</a>
                         </li>
+
+                        <li class="nav-item pl-2 pr-3 pt-1">
+                            <a class="nav-link {{request()->routeIs('adminEmpleados') ? 'active' : ''}}" href="{{ route('adminEmpleados') }}">{{ __('Empleados') }}</a>
+                        </li>
                             
                         @endguest
                     </ul>

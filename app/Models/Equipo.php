@@ -54,7 +54,7 @@ class Equipo extends Model
         return $selectData;
     }
 
-    public static function fullEquiposPerPage($page, $perPage, $subtipo = null)
+    public static function fullEquiposPerPage($page, $perPage, $subtipo = null, $search = null)
     {
         // Asegúrate de que $page y $perPage sean enteros
         $page = (int) $page;
@@ -65,7 +65,7 @@ class Equipo extends Model
                 t.nombre as nombreTipo, st.nombre as nombreSubtipo
                 FROM equipos c
                 JOIN tipos_equipo t ON c.tipo_id = t.id
-                JOIN subtipos_equipo st ON c.subtipo_id = st.id";
+                JOIN subtipos_equipo st ON c.subtipo_id = st.id WHERE 1=1 ";
         
         // Parámetros de la consulta
         $params = [];
@@ -73,11 +73,17 @@ class Equipo extends Model
         // Condición para el filtro opcional
         if (is_array($subtipo) && !empty($subtipo)) {
             $placeholders = implode(',', array_fill(0, count($subtipo), '?'));
-            $query .= " WHERE c.subtipo_id IN ($placeholders)";
+            $query .= "AND  c.subtipo_id IN ($placeholders)";
             $params = $subtipo;
         } elseif (!empty($subtipo)) {
-            $query .= " WHERE c.subtipo_id = ?";
+            $query .= "AND  c.subtipo_id = ?";
             $params[] = $subtipo;
+        }
+
+        if (!empty($search)) {
+            $query .= "AND (c.nombre LIKE ? OR c.marca LIKE ? OR c.modelo LIKE ? OR c.patente LIKE ? OR c.anio LIKE ?) ";
+            $searchTerm = "%{$search}%";
+            $params = array_merge($params, [$searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm]);
         }
         
         // Ordenar los resultados

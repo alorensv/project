@@ -472,20 +472,23 @@
                     var claveEncriptada = this.clave;
                     var remember = 'false';
 
-                    axios.post('/login', {
+                    axios.post('/autoriza', {
                             _token: csrfToken,
                             email: this.correo,
                             password: claveEncriptada,
                             remember: remember,
                         })
                         .then(response => {
-
-                            var baseUri = window.location.origin;
-                            var fullLink = baseUri + '' + this.full_documentation;
-                            window.open(fullLink, '_blank');
-
+                            if (response.data.success) {
+                                var baseUri = window.location.origin;
+                                var fullLink = baseUri + '' + this.full_documentation;
+                                window.open(fullLink, '_blank');
+                            } else {
+                                alert(response.data.message);
+                            }
                         })
                         .catch(error => {
+                            alert("Usuario sin permisos");
                             console.error('Error al enviar el formulario:', error);
                         });
                 },

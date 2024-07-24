@@ -33,6 +33,7 @@
             <table id="equiposTable" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Equipo</th>
                         <th>Año</th>
                         <th>Marca</th>
@@ -49,7 +50,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="equipo in filteredEquipos" :key="equipo.id">
+                    <tr v-for="equipo in equipos.data" :key="equipo.id">
+                        <td>@{{ equipo.id }}</td>
                         <td>@{{ equipo.nombreTipo }}</td>
                         <td>@{{ equipo.anio }}</td>
                         <td>@{{ equipo.marca }}</td>
@@ -174,19 +176,16 @@
             full_documentation: null,
             imagen: null,
         },
+        watch: {
+            searchTerm() {
+                this.searchEquipos();
+            }
+        },
         created() {
             this.getTiposEquipos();
             this.getEquipos();
         },
         computed: {
-            filteredEquipos() {
-                return this.equipos.data.filter(equipo =>
-                    equipo.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                    equipo.marca.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                    equipo.modelo.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                    equipo.patente.toLowerCase().includes(this.searchTerm.toLowerCase())
-                );
-            },
             pageNumbers() {
                 const pages = [];
                 const currentPage = this.equipos.current_page;
@@ -232,8 +231,10 @@
                     });
             },
             getEquipos(page = 1) {
-                axios.get(`/getEquiposPerPage?page=${page}`, {
+                axios.get(`/getEquiposPerPage`, {
                         params: {
+                            page: page,
+                            search: this.searchTerm, // Agrega el término de búsqueda aquí
                             subcategorias: this.subcategoriasSeleccionadas
                         }
                     })
@@ -244,6 +245,9 @@
                     .catch(error => {
                         console.error('Error al obtener productos:', error);
                     });
+            },
+            searchEquipos() {
+                this.getEquipos(1); // Reinicia la búsqueda desde la primera página
             },
             addFormEquipo() {
                 this.equipo = {
