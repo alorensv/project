@@ -99,8 +99,33 @@
     <ol class="carousel-indicators">
       <li v-for="(item, index) in carouselItems" :key="index" :data-slide-to="index" :class="{ active: index === currentSlide }" @click="showSlide(index)"></li>
     </ol>
-    <div class="carousel-inner">
+    <div class="carousel-inner large-screen">
       <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
+        <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
+        <div class="row titleCarousel">
+          <div class="container d-flex">
+            <div class="titleServices1">
+              <h1 class="text-center">@{{ item.title }}</h1>
+            </div>
+            <div class="titleServices2">
+              <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
+                <span>Nuestros servicios</span>
+                <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
+              </a>
+            </div>
+            <div class="titleServices2Celular">
+              <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServicesPhone">
+                <span>Nuestros servicios</span>
+                <i style="color: white; font-size: 30px!important; margin-left: 15px;" class="material-icons">arrow_forward</i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-inner small-screen" style="display: none;">
+      <div v-for="(item, index) in carouselItemsCel" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
         <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
         <div class="row titleCarousel">
           <div class="container d-flex">
@@ -192,6 +217,22 @@
       },      
       {
         image: 'img/tbl/services/izaje.png',
+        alt: 'Third slide',
+        title: 'Servicio de Izajes'
+      }],
+      carouselItemsCel: [
+      {
+        image: 'img/tbl/traslado_equipos_cel.png',
+        alt: 'Third slide',
+        title: 'Transporte de maquinaria'
+      },
+      {
+        image: 'img/tbl/transporte_a_todo_chile_cel.png',
+        alt: 'Third slide',
+        title: 'Transporte sobre dimensionado'
+      },      
+      {
+        image: 'img/tbl/izaje_cel.png',
         alt: 'Third slide',
         title: 'Servicio de Izajes'
       }],

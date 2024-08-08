@@ -39,7 +39,7 @@
       <div class="services_gallery-container">
         <div class="services_gallery-inner">
           <div class="services_gallery-item">
-            <img src="/img/tbl/services/carga_especial_1.png" class="img-fluid">
+            <img src="/img/tbl/services/carga_especial_8.png" class="img-fluid">
           </div>
           <div class="services_gallery-item">
             <img src="/img/tbl/services/carga_especial_2.png" class="img-fluid">

@@ -68,7 +68,7 @@
                         <a :href="equipo.link_ficha_tecnica" target="_blank" class="w-100 btn btn-outline-success">Descargar ficha técnica</a>
                       </div>
 
-                      <div class="col-12 d-flex align-items-center pt-3">
+                      <div class="col-12 d-flex align-items-center pt-3" v-if="equipo.tipo_id != 5">
                         <button class="w-100 btn btn-primary" @click="seleccionarEquipo(equipo)" data-toggle="modal" data-target="#arriendoEquipo">Cotizar</button>
                       </div>
                     </div>

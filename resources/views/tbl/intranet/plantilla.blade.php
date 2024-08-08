@@ -58,6 +58,10 @@
         <img src="{{ asset('/img/tbl/logo2.png') }}">
     </div>
 
+    <div id="loading" style="visibility: hidden;">
+        <div class="spinner"></div>
+    </div>
+
     <div id="app">
         @include('tbl.include.nav')
 

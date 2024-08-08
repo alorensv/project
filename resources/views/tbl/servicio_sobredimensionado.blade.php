@@ -35,8 +35,13 @@
       <div class="services_gallery-container">
         <div class="services_gallery-inner">
           <div class="services_gallery-item"><img src="/img/tbl/services/sobre_dimensionado_1.png" class="img-fluid"></div>
-          <div class="services_gallery-item"><img src="/img/tbl/services/sobre_dimensionado_2.png" class="img-fluid"></div>
           <div class="services_gallery-item"><img src="/img/tbl/services/sobre_dimensionado_3.png" class="img-fluid"></div>
+          <div class="services_gallery-item"><img src="/img/tbl/services/sobredimensionado_0V2.png" class="img-fluid"></div>
+          
+          <div class="services_gallery-item"><img src="/img/tbl/services/sobredimensionado_3V2.png" class="img-fluid"></div>
+          <div class="services_gallery-item"><img src="/img/tbl/services/sobredimensionado_1V2.png" class="img-fluid"></div>
+          
+          <div class="services_gallery-item"><img src="/img/tbl/services/sobre_dimensionado_2.png" class="img-fluid"></div>
           <div class="services_gallery-item"><img src="/img/tbl/services/sobre_dimensionado_4.png" class="img-fluid"></div>
         </div>
       </div>

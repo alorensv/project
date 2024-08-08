@@ -19,9 +19,8 @@
             <p>
               Entendemos la complejidad y los desafíos asociados con el movimiento de maquinaria y equipos utilizados en la industria forestal.
             </p>
-            <p>
-              Transporte de maquinaria como retroexcavadoras, minicargadores, grúa horquilla, y vehículos livianos.
-            </p>
+            <p>Transporte de maquinaria como excavadoras, skidders, chipeadoras, cargadores frontales, cabezales, etc.</p>
+
             <p class="pt-3">
               <a href="#" class="btn btn-secondary d-flex align-items-center" style="width: 155px;" data-toggle="modal" @click="seleccionarServicio(3,'Transporte de equipos forestales')" data-target="#cotizarServicio">Quiero cotizar </a>
             </p>

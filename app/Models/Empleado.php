@@ -16,41 +16,46 @@ class Empleado extends Model
     protected $fillable = [
         'rut',
         'nombres',
+        'apellidos',
+        'telefono',
+        'email',
+        'status',
+        'cargo_id',
+        'img',
+        'direccion',
     ];
 
     public static function fullEmpleadosPerPage($page, $perPage, $search = null)
     {
-        // Asegúrate de que $page y $perPage sean enteros
         $page = (int) $page;
         $perPage = (int) $perPage;
-        
-        // Consulta base
-        $query = "SELECT c.id, c.rut, c.nombres
-                FROM empleados c WHERE 1=1 ";
-        
-        // Parámetros de la consulta
+
+        $query = "SELECT c.*
+            FROM empleados c WHERE 1=1 ";
+
         $params = [];
-        
+
         if (!empty($search)) {
             $query .= "AND (c.nombres LIKE ? OR c.rut LIKE ? ) ";
             $searchTerm = "%{$search}%";
             $params = array_merge($params, [$searchTerm, $searchTerm]);
         }
-        
-        // Ordenar los resultados
+
         $query .= " ORDER BY c.nombres ASC";
-        
-        // Ejecutar la consulta con parámetros opcionales
+
         $selectData = collect(DB::select($query, $params));
-        
-        // Paginación manual
-        $offset = ($page - 1) * $perPage; // Corregido para ser calculado correctamente
+
+        $offset = ($page - 1) * $perPage;
         $itemsForCurrentPage = $selectData->slice($offset, $perPage)->values();
-        
+
+        $itemsForCurrentPage->transform(function ($empleado) {
+            $empleado->img_url = url('empleados/photo/' . $empleado->rut);
+            return $empleado;
+        });
+
         return new LengthAwarePaginator($itemsForCurrentPage, $selectData->count(), $perPage, $page, [
             'path' => request()->url(),
             'query' => request()->query(),
         ]);
     }
-
 }

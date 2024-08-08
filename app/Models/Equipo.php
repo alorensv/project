@@ -47,7 +47,7 @@ class Equipo extends Model
                   JOIN tipos_equipo t ON c.tipo_id = t.id
                   JOIN subtipos_equipo st ON c.subtipo_id = st.id
                   WHERE c.active = 1
-                  ORDER BY c.tipo_id asc";
+                  ORDER BY c.tipo_id asc, c.anio desc";
 
         $selectData = DB::select($query);
 
@@ -87,7 +87,7 @@ class Equipo extends Model
         }
         
         // Ordenar los resultados
-        $query .= " ORDER BY c.tipo_id ASC";
+        $query .= " ORDER BY c.tipo_id ASC, id asc";
         
         // Ejecutar la consulta con parámetros opcionales
         $selectData = collect(DB::select($query, $params));
@@ -95,6 +95,11 @@ class Equipo extends Model
         // Paginación manual
         $offset = ($page - 1) * $perPage; // Corregido para ser calculado correctamente
         $itemsForCurrentPage = $selectData->slice($offset, $perPage)->values();
+
+        $itemsForCurrentPage->transform(function ($equipo) {
+            $equipo->doc_url = url('equipos/documentation/' . $equipo->id);
+            return $equipo;
+        });
         
         return new LengthAwarePaginator($itemsForCurrentPage, $selectData->count(), $perPage, $page, [
             'path' => request()->url(),

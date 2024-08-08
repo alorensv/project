@@ -26,10 +26,9 @@
             <p><br></p>
             <div class="ceroR">
               <p>
-                Constituida como empresa el año 2011, actualmente contamos con más de <strong>11 años de antiguedad y experiencia en el mercado.</strong> Nos especializamos en el traslado de carga sobredimensionada como maquinarias, equipos, contenedores y carga en general por todo Chile.
+                Constituida como empresa el año 2011, actualmente contamos con más de <strong>más de una década de experiencia en el mercado.</strong> Nos especializamos en el traslado de carga sobredimensionada como maquinarias, equipos, contenedores y carga en general por todo Chile.
               </p>
-              <p>
-                Disponemos de profesionales calificados y operadores certificados con experiencia para entregar servicios de calidad, cumpliendo con los estándares de seguridad y puntualidad.
+              <p>Contamos con conductores y operadores calificados y certificados para entregar servicios de calidad, cumpliendo los estándares de seguridad y puntualidad.
               </p>
               <p>
                 <a href="/transportes_bulnes" class="btn btn-primary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>

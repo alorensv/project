@@ -71,6 +71,10 @@
                         @else
 
                         <li class="nav-item pl-2 pr-3 pt-1">
+                            <a class="nav-link {{request()->routeIs('home') ? 'active' : ''}}" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+                        </li>
+
+                        <li class="nav-item pl-2 pr-3 pt-1">
                             <a class="nav-link {{request()->routeIs('adminEquipos') ? 'active' : ''}}" href="{{ route('adminEquipos') }}">{{ __('Equipos') }}</a>
                         </li>
 

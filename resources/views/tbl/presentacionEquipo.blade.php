@@ -392,7 +392,7 @@
                             <div class="col-3 py-3 animated-section">
                                 <span class="material-icons" style="font-size:40px;">description</span>
                             </div>
-                            <div class="col-9 marginPhone animated-section py-3" @click="accesoPrivado">
+                            <div class="col-9 marginPhone animated-section py-3" @click="accesoPrivado()">
                                 <p class="principal">Documentación</p>
                             </div>
                         </div>
@@ -428,11 +428,7 @@
                 <div class="modal-body p-5">
                     <form @submit.prevent="submitLogin">
                         <div class="form-group">
-                            <label for="correo">Correo Electrónico:</label>
-                            <input type="email" class="form-control" id="correo" v-model="correo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="clave">Contraseña:</label>
+                            <label for="clave">Token:</label>
                             <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">
                         </div>
 
@@ -454,10 +450,10 @@
         new Vue({
             el: '#presentacionEquipo',
             data: {
-                'full_documentation':  '<?= isset($full_documentation) ? $full_documentation : null ?>', 
                 correo: '',
                 clave: '',
-                password_confirmation: '',
+                equipoId:  '<?= isset($id) ? $id : null ?>', 
+                baseUrl: window.location.origin
             },
             created() {},
             methods: {
@@ -468,20 +464,20 @@
                     alert("ahora soi")
                 },
                 _submitLogin() {
-                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                     var claveEncriptada = this.clave;
-                    var remember = 'false';
-
-                    axios.post('/autoriza', {
-                            _token: csrfToken,
-                            email: this.correo,
-                            password: claveEncriptada,
-                            remember: remember,
+                    var equipoId = this.equipoId; // Obtener el ID del equipo
+                    
+                    axios.post('/tokens/validate', {
+                            token: claveEncriptada,
+                            module_id: 1,
                         })
                         .then(response => {
-                            var baseUri = window.location.origin;
-                            var fullLink = baseUri + '' + this.full_documentation;
-                            window.open(fullLink, '_blank');
+                            if (response.data.success == true) {
+                                var redirectUrl = `${this.baseUrl}/equipos/documentation/${equipoId}?token=${encodeURIComponent(claveEncriptada)}/as23823k/j238we3321`; // Construir la URL con el token
+                                window.open(redirectUrl, '_blank');
+                            } else {
+                                alert(response.data.message);
+                            }
                         })
                         .catch(error => {
                             alert("Usuario sin permisos");

@@ -16,7 +16,7 @@
           </h2>
           <p><br></p>
           <p>
-          Ofrecemos soluciones de transporte para maquinaria pesada y voluminosa. Nos encargamos del traslado de todo tipo de equipos industriales y de construcción, asegurando un servicio seguro, puntual y adaptado a tus necesidades. 
+          Ofrecemos soluciones de transporte para maquinaria pesada y con sobre dimensión. Nos encargamos del traslado de todo tipo de equipos industriales y de construcción, asegurando un servicio seguro, puntual y adaptado a tus necesidades. 
           </p>
           <p>
           Con nuestra flota y personal capacitado, garantizamos la protección y entrega eficiente de tu maquinaria. ¡Confía en nosotros para mover tus equipos con la máxima seguridad y profesionalismo!

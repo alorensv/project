@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Compras;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -29,6 +30,8 @@ class HomeController extends Controller
 
         if($web == 'tbl'){
             return view('tbl.intranet.home');
+        }elseif($web == 'seguros'){
+            return view('seguros.web.inicio');
         }
 
         return view('home');
@@ -46,4 +49,6 @@ class HomeController extends Controller
         ->get();
         return response()->json($misCompras);
     }
+
+    
 }

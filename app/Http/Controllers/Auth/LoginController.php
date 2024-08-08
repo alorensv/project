@@ -40,24 +40,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function autoriza(Request $request)
-    {
-        // Validar los datos de entrada
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-
-        // Obtener las credenciales del request
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // Autenticación exitosa
-            return response()->json(['success' => true]);
-        } else {
-            // Autenticación fallida
-            return response()->json(['success' => false, 'message' => 'Usuario sin permisos'], 401);
-        }
-    }
-
 }

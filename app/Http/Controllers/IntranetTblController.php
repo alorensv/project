@@ -139,23 +139,21 @@ class IntranetTblController extends Controller
             $equipo->link_ficha_tecnica = '/img/tbl/' . $equipo->id . '/' . $file->getClientOriginalName();
             $equipo->save();
         }
-        
-        // Manejar la subida del archivo
+
         if ($request->hasFile('full_documentation')) {
             $file = $request->file('full_documentation');
-            $directory = public_path('/private/tbl/documentation/' . $equipo->id); 
-    
+            $directory = storage_path('app/private/tbl/documentation/equipos/' . $equipo->id); 
+        
             // Crear la carpeta si no existe
             if (!file_exists($directory)) {
                 mkdir($directory, 0755, true);
-            }
-    
-            // Almacenar el archivo en la carpeta
-            $filePath = $directory . '/' . $file->getClientOriginalName();
+            }        
+
             $file->move($directory, $file->getClientOriginalName());
-            $equipo->full_documentation = '/private/tbl/documentation/' . $equipo->id . '/' . $file->getClientOriginalName();
+            $equipo->full_documentation = 'private/tbl/documentation/equipos/' . $equipo->id . '/' . $file->getClientOriginalName();
             $equipo->save();
         }
+
 
         // Manejar la subida del archivo
         if ($request->hasFile('img')) {
@@ -201,6 +199,76 @@ class IntranetTblController extends Controller
 
         $empleados = Empleado::fullEmpleadosPerPage($page, $perPage, $search);
         return response()->json(['message' => 'empleados disponibles', 'empleados' => $empleados]);
+    }
+
+    public function agregarEmpleado(Request $request)
+    {
+        // Validación de los datos de entrada
+        $request->validate([
+            'rut' => 'required|string|max:15',
+            'nombres' => 'required|string|max:255',
+            'img' => 'nullable|file',
+        ]);
+
+        //dd($request->input('num_verificador'));
+    
+        if ($request->has('id')) {
+            // Actualizar el empleado existente
+            $empleado = Empleado::find($request->input('id'));
+            if ($empleado) {
+                $empleado->update([
+                    'rut' => $request->input('rut'),
+                    'nombres' => $request->input('nombres'),
+                    'status' => 'activo',
+                    'cargo_id' => 1,
+                ]);
+            } else {
+                // Manejar el caso cuando el empleado no es encontrado
+                return response()->json(['error' => 'empleado no encontrado'], 404);
+            }
+        } else {
+            // Crear el nuevo empleado
+            $empleado = Empleado::create([
+                'rut' => $request->input('rut'),
+                'nombres' => $request->input('nombres'),
+                'apellidos' => $request->input('apellidos'),
+                'telefono' => $request->input('telefono'),
+                'email' => $request->input('email'),
+                'status' => 'activo',
+                'cargo_id' => 1,
+            ]);
+        }
+
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $directory = storage_path('app/private/tbl/documentation/empleados/' . $empleado->rut); 
+        
+            // Crear la carpeta si no existe
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+        
+            // Almacenar el archivo en la carpeta con el nombre del RUT
+            $filePath = $directory . '/' . $empleado->rut . '.' . $file->getClientOriginalExtension();
+            $file->move($directory, $empleado->rut . '.' . $file->getClientOriginalExtension());
+            $empleado->img = 'private/tbl/documentation/empleados/' . $empleado->rut . '/' . $empleado->rut . '.' . $file->getClientOriginalExtension();
+            $empleado->save();
+        }
+        // Responder con el equipo creado o actualizado
+        return response()->json(['empleado' => $empleado], 201);
+    } 
+
+
+    public function autoriza(Request $request)
+    {
+       $token = $request->password; 
+        if ($token == 'tbl123456tbl') {
+            // Autenticación exitosa
+            return response()->json(['success' => true]);
+        } else {
+            // Autenticación fallida
+            return response()->json(['success' => false, 'message' => 'Usuario sin permisos'], 401);
+        }
     }
 
   

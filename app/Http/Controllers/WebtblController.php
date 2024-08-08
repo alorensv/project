@@ -111,45 +111,6 @@ class WebtblController extends Controller
 
     public function getEquipos(Request $request){
 
-        /* $response = [
-            "message" => "equipos disponibles",
-            "equipos" => [
-                [
-                    "id" => 1,
-                    "nombre" => 'TRACTOS',
-                    "marca" => 'VOLVO',
-                    "modelo" => '2654 LS',
-                    "descripcion" => 'descripcion',
-                    "imagen" => '/img/tbl/equipos/tracto.png',
-                ],
-                [
-                    "id" => 2,
-                    "nombre" => 'TRACTOS',
-                    "marca" => 'MERCEDES BENZ',
-                    "modelo" => 'FH',
-                    "descripcion" => 'descripcion',
-                    "imagen" => '/img/tbl/equipos/tracto.png',
-                ],
-                [
-                    "id" => 3,
-                    "nombre" => 'TRACTOS',
-                    "marca" => 'MERCEDES BENZ',
-                    "modelo" => 'FH13',
-                    "descripcion" => 'descripcion',
-                    "imagen" => '/img/tbl/equipos/tracto.png',
-                ],
-                [
-                    "id" => 4,
-                    "nombre" => 'CAMAS BAJAS',
-                    "marca" => 'TREMAC',
-                    "modelo" => 'PT18 0007',
-                    "descripcion" => 'descripcion',
-                    "imagen" => '/img/tbl/equipos/cama_baja.png',
-                ],
-            ],
-        ]; */
-
-
         // Obtener subcategorias del request
         $subcategorias = $request->input('subcategorias');
 

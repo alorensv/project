@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AccessTokenController;
 use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntranetTblController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\QrManagerController;
+use App\Http\Controllers\SegurosController;
 use App\Http\Controllers\TransbankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
@@ -50,9 +52,6 @@ Route::get('/contacto', function () {
 Route::post('/enviarEmail', [WebController::class, 'store'])->name('enviarEmail');
 
 Auth::routes();
-
-Route::post('/autoriza', [App\Http\Controllers\Auth\LoginController::class, 'autoriza'])->name('autoriza');
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -142,10 +141,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/adminCotizaciones', [IntranetTblController::class, 'adminCotizaciones'])->name('adminCotizaciones');
     Route::get('/getCotizaciones', [IntranetTblController::class, 'getCotizaciones'])->name('getCotizaciones');
     Route::post('/activarEquipo', [IntranetTblController::class, 'activarEquipo'])->name('activarEquipo');
+    
 
     //empleados
     Route::get('/adminEmpleados', [IntranetTblController::class, 'adminEmpleados'])->name('adminEmpleados');
     Route::get('/getEmpleadosPerPage',[IntranetTblController::class, 'getEmpleadosPerPage'])->name('getEmpleadosPerPage');
+    Route::post('/agregarEmpleado', [IntranetTblController::class, 'agregarEmpleado']);
+    
 });
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/tokens/create', [AccessTokenController::class, 'createToken']);           
+});
+
+
+Route::post('/autoriza', [App\Http\Controllers\IntranetTblController::class, 'autoriza'])->name('autoriza');
+Route::post('/tokens/validate', [AccessTokenController::class, 'validateToken']); 
+Route::get('empleados/photo/{rut}', [WebController::class, 'showElement']);
+Route::get('equipos/documentation/{id}', [WebController::class, 'showDocumentation']);
+
+
+/* SEGUROS NCS */
+
+Route::get('/seguros', [SegurosController::class, 'index'])->name('seguros');

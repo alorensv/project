@@ -34,8 +34,12 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th></th>
                         <th>Rut</th>
-                        <th>Nombre</th>                       
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
                         <th>QR</th>
                         <th>Acciones</th>
                     </tr>
@@ -43,9 +47,16 @@
                 <tbody>
                     <tr v-for="empleado in empleados.data" :key="empleado.id">
                         <td>@{{ empleado.id }}</td>
-                        <td>@{{ empleado.rut }}</td>
-                        <td>@{{ empleado.nombres }}</td>
-                        <td class="cursorPointer" @click="showOrGenerateQR(empleado)">
+                        <td>
+                            <img v-if="empleado.img_url" img :src="empleado.img_url" alt="" style="max-width: 75px;border-radius: 25px;">
+                            <img v-else src="/img/iconos/user.png" alt="Imagen por defecto" style="max-width: 75px; border-radius: 25px;">
+                        </td>
+                        <td style="vertical-align: middle;">@{{ empleado.rut }}</td>
+                        <td style="vertical-align: middle;">@{{ empleado.nombres }}</td>
+                        <td style="vertical-align: middle;">@{{ empleado.apellidos }}</td>
+                        <td style="vertical-align: middle;">@{{ empleado.telefono }}</td>
+                        <td style="vertical-align: middle;">@{{ empleado.email }}</td>
+                        <td class="cursorPointer" @click="showOrGenerateQR(empleado)" style="vertical-align: middle;">
                             <div>
                                 <i class="material-icons">qr_code_2</i>
                             </div>
@@ -83,6 +94,7 @@
         </div>
     </section>
 
+    @include('tbl.intranet.modals.addEditEmpleado')
     @include('tbl.intranet.modals.showQR')
     @include('tbl.intranet.modals.confirmarAccion')
 </div>
@@ -162,7 +174,7 @@
                 axios.get(`/getEmpleadosPerPage`, {
                         params: {
                             page: page,
-                            search: this.searchTerm, 
+                            search: this.searchTerm,
                         }
                     })
                     .then(response => {
@@ -179,20 +191,17 @@
             addFormEmpleado() {
                 this.empleado = {
                     rut: '',
-                    nombre: '',
-                    apellido: '',
+                    nombres: '',
+                    apellidos: ''
                 };
                 this.uploadedFile = null;
-                $("#addEditEquipo").modal('show');
+                $("#addEditEmpleado").modal('show');
             },
-            editEquipo(empleado) {
-                console.log(empleado)
+            editEmpleado(empleado) {
                 this.empleado = {
                     ...empleado
                 };
-                console.log(empleado)
-
-                $("#addEditEquipo").modal('show');
+                $("#addEditEmpleado").modal('show');
             },
             showOrGenerateQR(empleado) {
                 let empleadoId = empleado.id;
@@ -298,33 +307,52 @@
             },
             handleFileUpload(event, type) {
 
-                if(type == 'imagen'){
-                    this.imagen = event.target.files[0];
-                }
-
-                if(type == 'ficha'){
+                if (type == 'img') {
                     this.uploadedFile = event.target.files[0];
                 }
-                
-                if(type == 'docu'){
-                    this.full_documentation = event.target.files[0];
-                }
-                
+
             },
             removeFile(type) {
-                if('ficha'){
+                if ('img') {
                     this.uploadedFile = null;
-                }               
-
-                if('docu'){
-                    this.full_documentation = null;
-                }
-
-                if('imagen'){
-                    this.imagen = null;
                 }
                 this.$refs.fileInput.value = null; // Reset the file input
-            }
+            },
+            agregarEmpleado() {
+
+                const formData = new FormData();
+                Object.keys(this.empleado).forEach(key => {
+                    formData.append(key, this.empleado[key]);
+                });
+
+                if (this.uploadedFile) {
+                    formData.append('img', this.uploadedFile);
+                } else {
+                    formData.delete('img'); // Eliminar la clave si existe
+                    formData.append('img', ''); // Añadirla vacía
+                }
+
+                const url = '/agregarEmpleado'; // Usa la misma ruta para ambas operaciones
+                const method = 'post'; // Método HTTP POST
+
+                axios({
+                        method,
+                        url,
+                        data: formData,
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(response => {
+                        console.log('Respuesta del servidor:', response.data);
+                        $("#addEditEmpleado").modal('hide');
+                        this.getEmpleados();
+                        this.removeFile();
+                    })
+                    .catch(error => {
+                        console.error('Hubo un error al enviar el formulario', error);
+                    });
+            },
 
 
         },

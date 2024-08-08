@@ -44,7 +44,7 @@
                         <th>Estado</th>
                         <th>Ficha</th>
                         <th>Doc</th>
-                        <th>Imagen</th>                        
+                        <th>Imagen</th>
                         <th>QR</th>
                         <th>Acciones</th>
                     </tr>
@@ -78,8 +78,8 @@
                         </td>
                         <td class="text-center align-middle">
                             <template v-if="equipo.full_documentation">
-                                <a :href="equipo.full_documentation" target="_blank" title="Descargar documentación completa">
-                                    <i class="material-icons">download</i>
+                                <a :href="equipo.doc_url" target="_blank" title="Descargar documentación completa">
+                                    <i class="material-icons">description</i>
                                 </a>
                             </template>
                         </td>
@@ -98,6 +98,7 @@
                         </td>
                         <td class="text-center align-middle"> <!-- Nueva celda para editar -->
                             <i class="material-icons cursorPointer" @click="editEquipo(equipo)">edit</i>
+                            <a :href="'/presentacionEquipo?id=' + equipo.id" target="_blank" rel="noopener noreferrer"><i class="material-icons cursorPointer">arrow_forward</i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -221,6 +222,14 @@
             }
         },
         methods: {
+            toggleLoading(show) {
+                const loading = document.getElementById('loading');
+                if (show) {
+                    loading.style.visibility = 'visible';
+                } else {
+                    loading.style.visibility = 'hidden';
+                }
+            },
             getTiposEquipos() {
                 axios.get('/tiposEquipos')
                     .then(response => {
@@ -247,7 +256,9 @@
                     });
             },
             searchEquipos() {
+                this.toggleLoading(true);
                 this.getEquipos(1); // Reinicia la búsqueda desde la primera página
+                this.toggleLoading(false);
             },
             addFormEquipo() {
                 this.equipo = {
@@ -268,10 +279,7 @@
                 this.uploadedFile = null;
                 $("#addEditEquipo").modal('show');
             },
-            editEquipo(equipo) {
-
-
-
+            editEquipo(equipo) {                
                 console.log(equipo)
                 this.equipo = {
                     ...equipo
@@ -360,6 +368,7 @@
                 }
             },
             habilitarEquipo(id) {
+                this.toggleLoading(true);
                 axios.post('/activarEquipo', {
                         id: id
                     })
@@ -367,6 +376,7 @@
                         console.log('Respuesta del servidor:', response.data);
                         $("#confirmAction").modal('hide');
                         this.getEquipos();
+                        this.toggleLoading(false);
                     })
                     .catch(error => {
                         // Manejar el error
@@ -399,40 +409,40 @@
                 this.subtipos = tipoSeleccionado ? tipoSeleccionado.caracteristicas : [];
             },
             agregarEquipo() {
-
+                this.toggleLoading(true);
                 const formData = new FormData();
-                    Object.keys(this.equipo).forEach(key => {
-                        formData.append(key, this.equipo[key]);
-                    });
+                Object.keys(this.equipo).forEach(key => {
+                    formData.append(key, this.equipo[key]);
+                });
 
-                    /* const formDataObj = {};
-                    formData.forEach((value, key) => {
-                        formDataObj[key] = value;
-                    });
-                    // Pausar ejecución y depurar formData
-                    console.log('Contenido de formData:', formDataObj);
-                    debugger; */
+                /* const formDataObj = {};
+                formData.forEach((value, key) => {
+                    formDataObj[key] = value;
+                });
+                // Pausar ejecución y depurar formData
+                console.log('Contenido de formData:', formDataObj);
+                debugger; */
 
-                    if (this.imagen) {
-                        formData.append('img', this.imagen);
-                    }else{
-                        formData.delete('img'); // Eliminar la clave si existe
-                        formData.append('img', ''); // Añadirla vacía
-                    }
+                if (this.imagen) {
+                    formData.append('img', this.imagen);
+                } else {
+                    formData.delete('img'); // Eliminar la clave si existe
+                    formData.append('img', ''); // Añadirla vacía
+                }
 
-                    if (this.uploadedFile) {
-                        formData.append('link_ficha_tecnica', this.uploadedFile);
-                    }else{
-                        formData.delete('link_ficha_tecnica'); // Eliminar la clave si existe
-                        formData.append('link_ficha_tecnica', ''); // Añadirla vacía
-                    }
+                if (this.uploadedFile) {
+                    formData.append('link_ficha_tecnica', this.uploadedFile);
+                } else {
+                    formData.delete('link_ficha_tecnica'); // Eliminar la clave si existe
+                    formData.append('link_ficha_tecnica', ''); // Añadirla vacía
+                }
 
-                    if(this.full_documentation){
-                        formData.append('full_documentation', this.full_documentation);
-                    }else{
-                        formData.delete('full_documentation'); // Eliminar la clave si existe
-                        formData.append('full_documentation', ''); // Añadirla vacía
-                    }
+                if (this.full_documentation) {
+                    formData.append('full_documentation', this.full_documentation);
+                } else {
+                    formData.delete('full_documentation'); // Eliminar la clave si existe
+                    formData.append('full_documentation', ''); // Añadirla vacía
+                }
 
                 const url = '/agregarEquipo'; // Usa la misma ruta para ambas operaciones
                 const method = 'post'; // Método HTTP POST
@@ -450,40 +460,35 @@
                         $("#addEditEquipo").modal('hide');
                         this.getEquipos();
                         this.removeFile();
+                        this.toggleLoading(false);
                     })
                     .catch(error => {
                         console.error('Hubo un error al enviar el formulario', error);
                     });
             },
             handleFileUpload(event, type) {
-
-                if(type == 'imagen'){
-                    this.imagen = event.target.files[0];
+                const file = event.target.files[0];
+                if (type === 'img') {
+                    this.imagen = file;
+                } else if (type === 'ficha') {
+                    this.uploadedFile = file;
+                } else if (type === 'docu') {
+                    this.full_documentation = file;
                 }
-
-                if(type == 'ficha'){
-                    this.uploadedFile = event.target.files[0];
-                }
-                
-                if(type == 'docu'){
-                    this.full_documentation = event.target.files[0];
-                }
-                
+                console.log('File uploaded:', file); // Agregar para depuración
             },
             removeFile(type) {
-                if('ficha'){
+                if (type === 'img') {
+                    this.$refs.imgInput.value = '';
+                    this.imagen = null;
+                } else if (type === 'ficha') {
+                    this.$refs.fichaInput.value = '';
                     this.uploadedFile = null;
-                }               
-
-                if('docu'){
+                } else if (type === 'docu') {
+                    this.$refs.docuInput.value = '';
                     this.full_documentation = null;
                 }
-
-                if('imagen'){
-                    this.imagen = null;
-                }
-                this.$refs.fileInput.value = null; // Reset the file input
-            }
+            },
 
 
         },
