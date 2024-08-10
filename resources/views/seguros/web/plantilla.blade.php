@@ -55,7 +55,7 @@
 <body>
     <!-- Preloader -->
     <div id="preloader">
-        <img src="{{ asset('/img/tbl/logo2.png') }}">
+        <img src="https://segurosncs.cl/img/logo-footer.png">
     </div>
 
     <div id="app">

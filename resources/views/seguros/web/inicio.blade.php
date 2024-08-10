@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="px-5 ms-xl-4 mt-2 centerAll">
-                    <button class="btn btn-primary  d-flex align-items-center" style="background-color: #495ab4;" @click="verMas()">
+                    <button class="btn btn-primary  d-flex align-items-center" style="background-color: #495ab4;" @click="go('corredora')">
                         Ver más
                     </button>
                 </div>
@@ -98,8 +98,8 @@
                 <div class="contenedorPadre">
                     <!-- Otros elementos aquí -->
                     <div class="redes-container">
-                        <img src="/img/seguros/instagram.png" alt="" style="width: 40px;">
-                        <img src="/img/seguros/facebook.png" alt="" style="width: 40px;">
+                        <img src="/img/seguros/instagram.png" class="p-1" alt="" style="width: 40px;">
+                        <img src="/img/seguros/facebook.png" class="p-1" alt="" style="width: 40px;">
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
 
                     <div class="row pt-3 pb-4">
                         <div class="col-4">
-                            <div class="seguro-container">
+                            <div class="seguro-container" @click="go('vehiculo')">
                                 <div class="seguro-icon" style="background-color: #495ab4;">
                                     <span class="material-icons">directions_car</span>
                                 </div>
@@ -207,7 +207,7 @@
 </section>
 
 @include('seguros.web.modals.corredora_seguros')
-
+@include('seguros.web.modals.cotizar')
 </div>
 
 
@@ -220,7 +220,6 @@
         watch: {
         },
         created() {
-            alert("hola")
         },
         computed: {
         },
@@ -239,6 +238,16 @@
             guardarCotizacion(){
 
             },
+            go(type){
+                if(type == 'vehiculo'){
+                    window.location.href = '/seguro-vehicular';
+                }
+
+                if(type == 'corredora'){
+                    window.location.href = '/corredora-seguros';
+                }
+                
+            }
         },
 
     });

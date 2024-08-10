@@ -11,5 +11,6 @@ class SegurosController extends Controller
     {
         return view('seguros.web.inicio');
     }
+    
 
 }

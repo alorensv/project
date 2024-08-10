@@ -1,8 +1,8 @@
-<div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+<div class="modal fade" id="cotizaModal" tabindex="-1" aria-labelledby="cotizaModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="contactModalLabel">¡Contáctanos y hablemos!</h4>
+        <h4 class="modal-title" id="cotizaModalLabel">¡Contáctanos y hablemos!</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

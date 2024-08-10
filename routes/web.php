@@ -57,7 +57,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 /** MARKET DIVISION */
-Route::get('/', [MarketController::class, 'show'])->name('inicio');
+//Route::get('/', [MarketController::class, 'show'])->name('inicio');
 //Route::get('/market', [MarketController::class, 'show'])->name('market');
 Route::get('/getProductos', [MarketController::class, 'getProductos']); 
 Route::get('/getCategorias', [MarketController::class, 'getCategorias']); 
@@ -103,7 +103,7 @@ Route::get('/view', [QrManagerController::class, 'view'])->name('view');
 
 
 /* TRANSPORTES BULNES */
-Route::get('/', [WebtblController::class, 'index'])->name('inicio');
+//Route::get('/', [WebtblController::class, 'index'])->name('inicio');
 Route::get('/servicio_sobredimensionado', [WebtblController::class, 'servicio_sobredimensionado'])->name('servicio_sobredimensionado');
 Route::get('/servicio_cargas_especiales', [WebtblController::class, 'servicio_cargas_especiales'])->name('servicio_cargas_especiales');
 Route::get('/transporte_equipos_forestales', [WebtblController::class, 'transporte_equipos_forestales'])->name('transporte_equipos_forestales');
@@ -163,5 +163,13 @@ Route::get('equipos/documentation/{id}', [WebController::class, 'showDocumentati
 
 
 /* SEGUROS NCS */
-
+Route::get('/', [SegurosController::class, 'index'])->name('seguros');
 Route::get('/seguros', [SegurosController::class, 'index'])->name('seguros');
+
+Route::get('/seguro-vehicular', function () {
+    return view('seguros/web/seguroVehicular');
+});
+
+Route::get('/corredora-seguros', function () {
+    return view('seguros/web/corredoraSeguros');
+});
