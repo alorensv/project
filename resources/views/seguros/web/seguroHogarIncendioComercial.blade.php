@@ -19,21 +19,27 @@
                         </div>
                     </div>
 
+
                     <div class="mt-2 paddingCel">
                         <div class="row">
                             <div class="col-12">
                                 <section>
-                                    <h5 class="pb-3">Seguro de vehículo y flota</h5>
-                                    <p>
-                                        El seguro vehicular protege los daños que puedan ser ocasionados a tu vehículo en caso de volcamiento o colisión accidental, y en caso de que el vehículo sufra daños siendo trasladado (grúa) por un servicio de transporte permitido por la autoridad competente.
-                                    </p>
-                                    <h5>Tipos de Seguros de vehículos:</h5>
-                                    <ul>
-                                        <li>✓ Full Cobertura</li>
-                                        <li>✓ Pérdida total + Responsabilidad Civil</li>
-                                        <li>✓ Solo Responsabilidad Civil</li>
-                                        <li>✓ Colectivos (vehículos comerciales)</li>
-                                    </ul>
+                                    <h5 class="pb-3">Seguro de hogar e incendio comercial</h5>
+                                    <div class="faq-item">
+                                        <h5>¿Puedo contratar un seguro hogar si mi vivienda se encuentra hipotecada?</h5>
+                                        <p>Sí. Tu póliza de seguro quedará en beneficio a la institución bancaria, en caso de siniestro, en el % que le corresponda.</p>
+                                    </div>
+
+                                    <div class="faq-item">
+                                        <h5>¿Por qué contratar el seguro hogar con cobertura de incendio + sismo?</h5>
+                                        <p>Porque en caso de Terremoto, y su casa es siniestrada por un Incendio (ya sea por cortes de cables de electricidad, o por el mismo movimiento telúrico u otros), la compañía no estará obligada a indemnizar al asegurado; bajo exclusión “Incendio provocado por sismo”.</p>
+                                    </div>
+
+                                    <div class="faq-item">
+                                        <h5>¿Qué monto asegurado es el que se debe informar a la compañía para una eventual indemnización?</h5>
+                                        <p>El monto a informar es el valor de la edificación del inmueble según sus características de construcción (material sólido-concreto-albañilería-mixto-ligero-madera). Este valor no debe considerar el terreno, por tanto el monto asegurado no es el valor comercial, ni la tasación fiscal.</p>
+                                    </div>
+
 
 
                                     @include('seguros.web.include.contacto')
@@ -45,7 +51,6 @@
                     </div>
 
                     @include('seguros.web.include.redes')
-
 
                 </div>
                 <div class="web col-sm-7 px-0 pl-5  d-sm-block bg-seguros-web">
@@ -59,8 +64,7 @@
                             </p>
                             <p>Ten a mano los siguientes datos:</p>
                             <ul>
-                                <li>✓ Rut del propietario</li>
-                                <li>✓ Marca, modelo y año del/los vehículos</li>
+                                <li>✓ </li>
                             </ul>
                             @include('seguros.web.include.formWsp')
 
@@ -81,8 +85,7 @@
                             </p>
                             <p>Ten a mano los siguientes datos:</p>
                             <ul>
-                                <li>✓ Rut del propietario</li>
-                                <li>✓ Marca, modelo y año del/los vehículos</li>
+                                <li>✓ </li>
                             </ul>
                             @include('seguros.web.include.formWsp')
 

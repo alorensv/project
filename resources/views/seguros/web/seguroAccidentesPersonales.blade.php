@@ -19,18 +19,24 @@
                         </div>
                     </div>
 
-
                     <div class="mt-2 paddingCel">
                         <div class="row">
                             <div class="col-12">
                                 <section>
-                                    <div class="pt-0 text-center">
-                                        <img src="/img/seguros/perfil.png" class="img-fluid rounded-circle mb-4" alt="Descripción de la imagen" style="max-width: 180px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);">
-                                        <h4 class="mt-3">Natalia Caballero</h4>
-                                        <h5>Corredora de seguros, CMF</h5>
-                                        <h5>Administradora pública, Universidad de Concepción</h5>
+                                    <div class="insurance-info">
+                                        <h5 class="pb-3">Seguro de accidentes personales</h5>
 
+                                        <p><strong>¿Qué cubre?</strong></p>
+                                        <p>Este seguro otorga una indemnización al asegurado a consecuencia de las lesiones producidas por un accidente.</p>
 
+                                        <p><strong>Requisitos mínimos para el seguro de Accidentes Personales:</strong></p>
+
+                                        <ul>
+                                            <li>✓ Para personas mayores de 18 años, hasta 70 años de edad.</li>
+                                            <li>✓ Dentro y fuera del territorio chileno, con exclusión de países con conflictos bélicos.</li>
+                                            <li>✓ Sólo rige siempre y cuando los asegurados realicen su gestión de trabajo, con las medidas de seguridad implementadas para cada tipo de actividad.</li>
+                                            <li>✓ En caso de siniestro se deberá demostrar la relación laboral entre la persona afectada y la empresa o institución contratante (Contrato laboral).</li>
+                                        </ul>
                                     </div>
 
                                     @include('seguros.web.include.contacto')
@@ -40,7 +46,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     @include('seguros.web.include.redes')
 
@@ -52,14 +57,15 @@
 
                         <div class="modal-body p-5" style="color: white;font-weight: 600;">
 
-                            <p>👋 ¡Hola! Soy Natalia Caballero Pérez, corredora de propiedades miembro de la Comisión para el Mercado Financiero (CMF) con más de 7 años de experiencia en el rubro.</p>
-                            <p>
-                                Me especializo en ofrecer un servicio integral y gratuito de asesoramiento, con un enfoque particular en seguros generales y de vehículos.
+                            <p>👋 ¡Hola! ¿buscas un seguro de vehículo o flota?, cuentame tu nombre y hablemos por Whatsapp para encontrar la mejor
+                                opción de seguros.
                             </p>
-                            <p>
-                                Mi objetivo es ayudarte a tomar las mejores decisiones para tu inversión, con la tranquilidad de estar en manos expertas.
-                            </p>
+                            <p>Ten a mano los siguientes datos:</p>
+                            <ul>
+                                <li>✓ Rut</li>
+                            </ul>
                             @include('seguros.web.include.formWsp')
+
                         </div>
 
                     </div>
@@ -72,14 +78,15 @@
 
                         <div class="modal-body" style="color: white;font-weight: 600;">
 
-                            <p>👋 ¡Hola! Soy Natalia Caballero Pérez, corredora de propiedades miembro de la Comisión para el Mercado Financiero (CMF) con más de 7 años de experiencia en el rubro.</p>
-                            <p>
-                                Me especializo en ofrecer un servicio integral y gratuito de asesoramiento, con un enfoque particular en seguros generales y de vehículos.
+                            <p>👋 ¡Hola! ¿buscas un seguro de vehículo o flota?, cuentame tu nombre y hablemos por Whatsapp para encontrar la mejor
+                                opción de seguros.
                             </p>
-                            <p>
-                                Mi objetivo es ayudarte a tomar las mejores decisiones para tu inversión, con la tranquilidad de estar en manos expertas.
-                            </p>
+                            <p>Ten a mano los siguientes datos:</p>
+                            <ul>
+                                <li>✓ Rut</li>
+                            </ul>
                             @include('seguros.web.include.formWsp')
+
                         </div>
 
                     </div>
@@ -97,4 +104,5 @@
 
 
 <script src="{{ asset('js/seguros/scriptJs.js') }}"></script>
+
 @endsection

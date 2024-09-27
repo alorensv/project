@@ -473,7 +473,7 @@
                         })
                         .then(response => {
                             if (response.data.success == true) {
-                                var redirectUrl = `${this.baseUrl}/equipos/documentation/${equipoId}?token=${encodeURIComponent(claveEncriptada)}/as23823k/j238we3321`; // Construir la URL con el token
+                                var redirectUrl = `${this.baseUrl}/equipos/documentation/${equipoId}?token=${encodeURIComponent(claveEncriptada)}`; // Construir la URL con el token
                                 window.open(redirectUrl, '_blank');
                             } else {
                                 alert(response.data.message);

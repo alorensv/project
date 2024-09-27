@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntranetTblController;
+use App\Http\Controllers\LexWebController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\QrManagerController;
 use App\Http\Controllers\SegurosController;
@@ -103,7 +104,7 @@ Route::get('/view', [QrManagerController::class, 'view'])->name('view');
 
 
 /* TRANSPORTES BULNES */
-//Route::get('/', [WebtblController::class, 'index'])->name('inicio');
+/* Route::get('/', [WebtblController::class, 'index'])->name('inicio'); */
 Route::get('/servicio_sobredimensionado', [WebtblController::class, 'servicio_sobredimensionado'])->name('servicio_sobredimensionado');
 Route::get('/servicio_cargas_especiales', [WebtblController::class, 'servicio_cargas_especiales'])->name('servicio_cargas_especiales');
 Route::get('/transporte_equipos_forestales', [WebtblController::class, 'transporte_equipos_forestales'])->name('transporte_equipos_forestales');
@@ -163,13 +164,54 @@ Route::get('equipos/documentation/{id}', [WebController::class, 'showDocumentati
 
 
 /* SEGUROS NCS */
-Route::get('/', [SegurosController::class, 'index'])->name('seguros');
+//Route::get('/', [SegurosController::class, 'index'])->name('seguros');
 Route::get('/seguros', [SegurosController::class, 'index'])->name('seguros');
 
 Route::get('/seguro-vehicular', function () {
     return view('seguros/web/seguroVehicular');
 });
 
+Route::get('/seguro-hogar', function () {
+    return view('seguros/web/seguroHogarIncendioComercial');
+});
+
+
+Route::get('/seguro-responsabilidad-civil', function () {
+    return view('seguros/web/seguroResponsabilidadCivil');
+});
+
+Route::get('/seguro-todo-riesgo-construccion', function () {
+    return view('seguros/web/seguroTodoRiesgoConstruccion');
+});
+
+Route::get('/seguro-garantia', function () {
+    return view('seguros/web/seguroGarantia');
+});
+
+Route::get('/seguro-transporte-terrestre', function () {
+    return view('seguros/web/seguroTransporteTerrestre');
+});
+
+Route::get('/seguro-rc', function () {
+    return view('seguros/web/seguroRC');
+});
+
+Route::get('/seguro-ingenieria', function () {
+    return view('seguros/web/seguroIngenieria');
+});
+
+Route::get('/seguro-accidentes-personales', function () {
+    return view('seguros/web/seguroAccidentesPersonales');
+});
+
 Route::get('/corredora-seguros', function () {
     return view('seguros/web/corredoraSeguros');
 });
+
+
+
+/* LEX **/
+
+
+Route::get('/', [LexWebController::class, 'index'])->name('inicio');
+Route::get('/redactar', [LexWebController::class, 'redactar'])->name('redactar');

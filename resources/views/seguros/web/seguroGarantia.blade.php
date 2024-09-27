@@ -24,14 +24,20 @@
                         <div class="row">
                             <div class="col-12">
                                 <section>
-                                    <div class="pt-0 text-center">
-                                        <img src="/img/seguros/perfil.png" class="img-fluid rounded-circle mb-4" alt="Descripción de la imagen" style="max-width: 180px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);">
-                                        <h4 class="mt-3">Natalia Caballero</h4>
-                                        <h5>Corredora de seguros, CMF</h5>
-                                        <h5>Administradora pública, Universidad de Concepción</h5>
+                                    <div class="insurance-info">
+                                    <h5 class="pb-3">Seguro de garantía</h5>
+                                        <p>Las pólizas de garantía, tal como su nombre indica, garantizan que se cumplan las condiciones y cláusulas que tiene un contrato entre dos partes.</p>
+                                        <p>La póliza de garantía, a diferencia de la boleta bancaria, al ser contratada no queda registrada en los sistemas bancarios, por tanto, no afectará a los antecedentes crediticios o financieros del cliente.</p>
 
-
+                                        <ul>
+                                            <li>✓ Póliza Seriedad de la Oferta → Licitaciones.</li>
+                                            <li>✓ Póliza Fiel Cumplimiento de contrato → Asegura que un contrato entre dos partes se ejecute tal como indica en plazo y condiciones.</li>
+                                            <li>✓ Póliza Correcto Uso de Anticipos → Garantiza que los dineros sean utilizados tal como lo indica el contrato.</li>
+                                            <li>✓ Póliza Correcta Ejecución de la Obra → Para trabajos de construcción.</li>
+                                        </ul>
                                     </div>
+
+
 
                                     @include('seguros.web.include.contacto')
 
@@ -40,7 +46,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     @include('seguros.web.include.redes')
 
@@ -52,14 +57,15 @@
 
                         <div class="modal-body p-5" style="color: white;font-weight: 600;">
 
-                            <p>👋 ¡Hola! Soy Natalia Caballero Pérez, corredora de propiedades miembro de la Comisión para el Mercado Financiero (CMF) con más de 7 años de experiencia en el rubro.</p>
-                            <p>
-                                Me especializo en ofrecer un servicio integral y gratuito de asesoramiento, con un enfoque particular en seguros generales y de vehículos.
+                            <p>👋 ¡Hola! ¿buscas un seguro de vehículo o flota?, cuentame tu nombre y hablemos por Whatsapp para encontrar la mejor
+                                opción de seguros.
                             </p>
-                            <p>
-                                Mi objetivo es ayudarte a tomar las mejores decisiones para tu inversión, con la tranquilidad de estar en manos expertas.
-                            </p>
+                            <p>Ten a mano los siguientes datos:</p>
+                            <ul>
+                                <li>✓ Rut</li>
+                            </ul>
                             @include('seguros.web.include.formWsp')
+
                         </div>
 
                     </div>
@@ -72,14 +78,15 @@
 
                         <div class="modal-body" style="color: white;font-weight: 600;">
 
-                            <p>👋 ¡Hola! Soy Natalia Caballero Pérez, corredora de propiedades miembro de la Comisión para el Mercado Financiero (CMF) con más de 7 años de experiencia en el rubro.</p>
-                            <p>
-                                Me especializo en ofrecer un servicio integral y gratuito de asesoramiento, con un enfoque particular en seguros generales y de vehículos.
+                            <p>👋 ¡Hola! ¿buscas un seguro de vehículo o flota?, cuentame tu nombre y hablemos por Whatsapp para encontrar la mejor
+                                opción de seguros.
                             </p>
-                            <p>
-                                Mi objetivo es ayudarte a tomar las mejores decisiones para tu inversión, con la tranquilidad de estar en manos expertas.
-                            </p>
+                            <p>Ten a mano los siguientes datos:</p>
+                            <ul>
+                                <li>✓ Rut</li>
+                            </ul>
                             @include('seguros.web.include.formWsp')
+
                         </div>
 
                     </div>
@@ -97,4 +104,5 @@
 
 
 <script src="{{ asset('js/seguros/scriptJs.js') }}"></script>
+
 @endsection

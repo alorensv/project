@@ -59,6 +59,24 @@
           <div class="services_gallery-item">
             <img src="/img/tbl/services/carga_especial_7.png" class="img-fluid">
           </div>
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/carga_especial_10.png" class="img-fluid">
+          </div>
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/carga_especial_11.png" class="img-fluid">
+          </div>
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/carga_especial_12.png" class="img-fluid">
+          </div>
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/carga_especial_13.png" class="img-fluid">
+          </div>
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/carga_especial_14.png" class="img-fluid">
+          </div>
+          <div class="services_gallery-item">
+            <img src="/img/tbl/services/carga_especial_15.png" class="img-fluid">
+          </div>
           <!-- Agrega más columnas según la cantidad de imágenes que tengas -->
         </div>
       </div>

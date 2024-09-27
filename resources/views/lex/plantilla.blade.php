@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="img/seguros/fav.png" />
+    <link rel="icon" type="image/png" href="img/logo.png" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Seguros NCS</title>
+    <title>{{ config('app.name', 'Lex') }}</title>
 
     <!-- Incluir Vue.js desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -32,9 +32,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Styles -->
-    <link href="{{ asset('assets/css/seguros/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/seguros/carousel.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/seguros/style_seguros.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/lex/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/lex/carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/lex/style_lex.css') }}" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,10 +55,15 @@
 <body>
     <!-- Preloader -->
     <div id="preloader">
-        <img src="https://segurosncs.cl/img/logo-footer.png">
+        <img src="{{ asset('/img/tbl/logo2.png') }}">
     </div>
 
     <div id="app">
+        @include('tbl.include.nav')
+
+        <div>
+            @yield('slide')
+        </div>
         <main>
             @yield('content')
         </main>
