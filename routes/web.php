@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntranetTblController;
 use App\Http\Controllers\LexWebController;
 use App\Http\Controllers\MarketController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\QrManagerController;
 use App\Http\Controllers\SegurosController;
 use App\Http\Controllers\TransbankController;
@@ -215,3 +216,8 @@ Route::get('/corredora-seguros', function () {
 
 Route::get('/', [LexWebController::class, 'index'])->name('inicio');
 Route::get('/redactar', [LexWebController::class, 'redactar'])->name('redactar');
+Route::post('/generate-pdf', [PDFController::class, 'generatePDF']);
+Route::get('/carroCompras', [LexWebController::class, 'carroCompras'])->name('carroCompras');
+Route::post('/guardarRedaccion', [LexWebController::class, 'guardarRedaccion']);
+Route::get('/getRedaccionesPorPagar', [LexWebController::class, 'getRedaccionesPorPagar']);
+Route::get('/lexPagar', [TransbankController::class, 'lexPagar'])->name('lexPagar');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CompraProductos;
 use App\Models\Compras;
+use App\Models\LexCompra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,41 @@ class TransbankController extends Controller
 
         $buy_order = $order->id;
         $session_id = $order->user_id;
+        $return_url = url('/getResult');
+        $type = "sandbox";
+        $data = '{
+                    "buy_order": "' . $buy_order . '",
+                    "session_id": "' . $session_id . '",
+                    "amount": ' . $order->monto . ',
+                    "return_url": "' . $return_url . '"
+                }';
+        $method = 'POST';
+        $endpoint = '/rswebpaytransaction/api/webpay/v1.0/transactions';
+
+        $response = $this->get_ws($data, $method, $type, $endpoint);
+        $url_tbk = $response->url;
+        $token = $response->token;
+
+        return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);      
+    }
+
+    public function lexPagar()
+    {        
+        $user_id = auth()->check() ? auth()->id() : null;
+        if (!$user_id) {
+
+            if (!session()->has('guest_id')) {
+                $guest_id = uniqid('guest_', true); // O cualquier identificador único que quieras usar
+                session(['guest_id' => $guest_id]);
+            }
+            
+            $guest_id = session('guest_id');
+        }
+        
+        $order = LexCompra::saveCompras($user_id, $guest_id);
+
+        $buy_order = $order->id;
+        $session_id = (!empty($order->user_id))? $order->user_id : $order->guest_id;
         $return_url = url('/getResult');
         $type = "sandbox";
         $data = '{
