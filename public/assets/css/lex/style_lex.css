@@ -1,4 +1,55 @@
 /* LEX */
+
+.btn-lex-secondary {
+    color: #fff;
+    background-color: #FB3F5C;
+    border-color: #FB3F5C;
+    -webkit-transition: ease-out 0.7s;
+    -moz-transition: ease-out 0.7s;
+    transition: ease-out 0.7s;
+}
+
+.btn-lex-secondary:hover {
+    color: #FB3F5C;
+    background-color: #fff;
+    border-color: #fff;
+    border-color: #FB3F5C;
+    /* Color del borde al hacer hover */
+    transition: all 0.3s ease;
+    /* Transición suave */
+    box-shadow: inset 400px 0 0 0 #fff;
+}
+
+.btn-lex-secondary:focus,
+.btn-lex-secondary.focus {
+    color: #FB3F5C;
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
+}
+
+.btn-lex-secondary.disabled,
+.btn-lex-secondary:disabled {
+    color: #fff;
+    background-color: #ee6076;
+    border-color: #ee6076;
+}
+
+.btn-lex-secondary:not(:disabled):not(.disabled):active,
+.btn-lex-secondaryy:not(:disabled):not(.disabled).active,
+.show>.btn-lex-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: #ee6076;
+    border-color: #ee6076;
+}
+
+.btn-lex-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-lex-secondary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-lex-secondary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(133, 142, 150, 0.5);
+}
+
+
 .redactarRelleno {
     display: inline-block;
     min-width: 35px; /* Establece el ancho mínimo deseado */
@@ -7,6 +58,12 @@
 
 .redactarRelleno.highlight {
     background-color: yellow;
+}
+
+.btn-link {
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
 }
 
 .superSpinner::before {
@@ -443,7 +500,7 @@ tr:hover{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #060737;
+    background-color: #fff;
     /* Fondo de color #060737 */
 }
 
@@ -494,12 +551,12 @@ tr:hover{
 .titleCarousel {
     position: absolute;
     background-color: #0607379e;
-    padding: 28px;
-    width: 101%;
+    padding: 10px;
+    width: 40%;
     color: #ffffff;
 
     /* border-radius: 40px; */
-    top: 40%;
+    top: 10%;
     animation: transformTitleCarousel 2s ease-in-out forwards;
 
 }
@@ -531,7 +588,7 @@ tr:hover{
 
 @keyframes transformTitleCarousel {
     to {
-        padding: 58px 28px;
+        padding: 28px 18px;
         top: 2%;
     }
 }
@@ -1595,7 +1652,7 @@ footer .social-media ul li a {
 
 .margenCarusel {
     padding-bottom: 0px !important;
-    margin-top: 3%;
+    margin-top: 0%;
 }
 
 .estiloCotiza {
@@ -1647,6 +1704,16 @@ footer .social-media ul li a {
 
 @media (min-width: 1700px) {
 
+    .logoWeb{
+        position: absolute;
+        width: 130px;
+        margin-top: -30px;
+    }
+
+    .padding-title-presentation-large{
+        padding: 150px 34px 23px 36px;
+    }
+
     h2,
     .h2 {
         top: 18% !important;
@@ -1657,13 +1724,13 @@ footer .social-media ul li a {
     }
 
     #preloader img {
-        width: 45% !important;
+        width: 15% !important;
         /* Ajusta el tamaño de la imagen según sea necesario */
         height: auto;
     }
 
     .carousel-item {
-        height: 53rem !important;
+        height: 100% !important;
     }
 
     .div_cotiza {
@@ -1673,6 +1740,12 @@ footer .social-media ul li a {
 
 
 @media (min-width: 1200px) {
+
+    .logoWeb{
+        position: absolute;
+        width: 130px;
+        margin-top: -30px;
+    }
 
     h2,
     .h2 {
@@ -1756,7 +1829,7 @@ footer .social-media ul li a {
     }
 
     .titleCarousel {
-        width: 104% !important;
+        width: 40% !important;
     }
 
     .titleCarousel .d-flex {

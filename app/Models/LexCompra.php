@@ -32,8 +32,10 @@ class LexCompra extends Model
         return $this->belongsTo(User::class);
     }
 
+
     public static function saveCompras($userId, $guestId){
 
+        $servicios = LexCompraServicio::getServiciosPendientesPorPagar();
         $amount = 1111;
         
         $order = new LexCompra();
@@ -44,6 +46,18 @@ class LexCompra extends Model
         $order->monto = $amount;
         $order->estado = LexCompra::ESTADO_COTIZANDO;
         if($order->save()){     
+
+            $servicios = LexCompraServicio::getServiciosPendientesPorPagar();
+
+            foreach ($servicios as $serv) {
+
+                $servPagando = new LexCompraServicio();
+                $servPagando->lex_compra_id= $order->id; 
+                $servPagando->lex_user_redacta_documento_id= $serv->id; 
+                $servPagando->cantidad = 1; 
+                $servPagando->monto = 1111;
+                $servPagando->save();
+            }
             
         }
 

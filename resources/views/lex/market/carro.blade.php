@@ -7,9 +7,10 @@
 <section class="white-division pt-5 pb-2" style="margin-top: 20px;">
 
     <div class="container">
-        @include('market.modals.loginRegister')
-        @include('market.modals.register')
-        @include('market.modals.login')
+        @include('lex.modals.loginRegister')
+        @include('lex.modals.register')
+        @include('lex.modals.login')
+        @include('lex.modals.showDocument')
 
         <div class="row bg-white market-body ">
             <div class="col-8">
@@ -30,7 +31,12 @@
 
                                         <div class="card-body">
                                             <div class="row">
-                                                Cantidad de firmantes: 1
+                                                <div class="col-6">Cantidad de firmantes: 1</div>
+                                                <div class="col-6">
+                                                    <button class="btn btn-primary mt-2" @click="verPDF(item.ruta)">
+                                                        Ver PDF
+                                                    </button>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">Total</div>
@@ -170,7 +176,8 @@
             password_confirmation: '',
             nombre_contacto: '',
             fono_contacto: '',
-            total: ''
+            total: '',
+            pdfURL: '',
         },
         mounted() {
             this.listarCarrito();
@@ -343,7 +350,26 @@
             },
             pagarWebpay() {
                 location.href = 'lexPagar';
-            }
+            },
+            verPDF(ruta) {
+                axios.get(`/getPDFUrl`, {
+                    params: {
+                        ruta: ruta
+                    }
+                })
+                .then((response) => {
+                    console.log(response.data); // Asegúrate de que está recibiendo correctamente la URL
+                    this.pdfURL = response.data;
+                    $('#verPDFModal').modal('show');
+                })
+                .catch((error) => {
+                    console.error('Error al obtener la URL del PDF:', error);
+                });
+            },
+
+            
+            async continuarInvitado() {
+            },
 
         }
     });

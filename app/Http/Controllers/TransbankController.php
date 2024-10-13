@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CompraProductos;
 use App\Models\Compras;
 use App\Models\LexCompra;
+use App\Models\LexCompraServicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,7 +63,7 @@ class TransbankController extends Controller
                     "return_url": "' . $return_url . '"
                 }';
         $method = 'POST';
-        $endpoint = '/rswebpaytransaction/api/webpay/v1.0/transactions';
+        $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions';
 
         $response = $this->get_ws($data, $method, $type, $endpoint);
         $url_tbk = $response->url;
@@ -73,32 +74,32 @@ class TransbankController extends Controller
 
     public function getResult()
     {
-        if (!isset($_POST["token_ws"])) die;
+        if (!isset($_GET["token_ws"])) die;
         /** Token de la transacción */
-        $token = filter_input(INPUT_POST, 'token_ws');
+        $token = filter_input(INPUT_GET, 'token_ws');
         $request = array(
-            "token" => filter_input(INPUT_POST, 'token_ws')
+            "token" => filter_input(INPUT_GET, 'token_ws')
         );
         $data = '';
         $method = 'PUT';
         $type = 'sandbox';
-        $endpoint = '/rswebpaytransaction/api/webpay/v1.0/transactions/' . $token;
+        $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions/' . $token;
         $response = $this->get_ws($data, $method, $type, $endpoint);
 
        
         /** detalles de la compra */
         if(isset($response->buy_order)){
             Auth::loginUsingId($response->session_id);
-            $compra = Compras::find($response->buy_order);
-            $compra->estado = Compras::ESTADO_PAGADO; 
+            $compra = LexCompra::find($response->buy_order);
+            $compra->estado = LexCompra::ESTADO_PAGADO; 
             if($compra->save()){
-                $order = Compras::updateCompraTransbank($response);
-                $detalleCompra = CompraProductos::where('compra_id', $compra->id)->get();
+                //$order = Compras::updateCompraTransbank($response);
+                $detallesCompra = LexCompraServicio::getServiciosPagadosById($compra->id);
             }
         }
         
 
-        return view('market/getResult', ['response' => $response, 'compra' => (isset($compra))? $compra:null, 'detalleCompra' => (isset($detalleCompra))? $detalleCompra: null]);
+        return view('lex/market/getResult', ['response' => $response, 'compra' => (isset($compra))? $compra:null, 'detallesCompra' => (isset($detallesCompra))? $detallesCompra: null]);
     }
 
     public function getStatus()
@@ -121,7 +122,7 @@ class TransbankController extends Controller
         $data = '';
         $method = 'GET';
         $type = 'sandbox';
-        $endpoint = '/rswebpaytransaction/api/webpay/v1.0/transactions/' . $token;
+        $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions/' . $token;
 
         $response = $this->get_ws($data, $method, $type, $endpoint);
 
@@ -154,7 +155,7 @@ class TransbankController extends Controller
                         }';
         $method = 'POST';
         $type = 'sandbox';
-        $endpoint = '/rswebpaytransaction/api/webpay/v1.0/transactions/' . $token . '/refunds';
+        $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions/' . $token . '/refunds';
 
         $response = $this->get_ws($data, $method, $type, $endpoint);
 
@@ -178,7 +179,7 @@ class TransbankController extends Controller
         if ($type == 'live') {
             $TbkApiKeyId = '597055555532';
             $TbkApiKeySecret = '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C';
-            $url = "https://webpay3g.transbank.cl" . $endpoint; //Live
+            $url = "https://webpay3g.transbank.cll" . $endpoint; //Live
         } else {
             $TbkApiKeyId = '597055555532';
             $TbkApiKeySecret = '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C';
@@ -203,7 +204,6 @@ class TransbankController extends Controller
         ));
 
         $response = curl_exec($curl);
-
         curl_close($curl);
         //echo $response;
         return json_decode($response);

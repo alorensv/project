@@ -11,7 +11,7 @@ class LexDocumento extends Model
 
     protected $table = 'lex_documentos';
 
-    protected $fillable = ['nombre', 'descripcion', 'imagen', 'estado','lex_categoria_id'];
+    protected $fillable = ['nombre', 'descripcion', 'default_text', 'imagen', 'estado','lex_categoria_id'];
 
     public function user()
     {

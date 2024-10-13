@@ -1,13 +1,34 @@
-@extends('tiny.tinyTemplate')
+@extends('lex.plantilla')
 
 @section('content')
 <style>
+.containerPagoExitoso {
+    width: 50%; 
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+}
 
+.card-header h5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+    font-size: 40px;
+}
+
+.success-message .material-icons {
+    margin-right: 10px;
+}
 </style>
 
-<section class="white-division pt-5 pb-2" style="margin-top: 20px;">
+<section class="white-division pt-5 pb-2" style="margin-top: 30px;">
 
-<div class="container">
+<div class="container containerPagoExitoso">
 <?php //echo "<pre>"; print_r($compra->direccion->region);  die; ?>
 
 <div class="row bg-white market-body ">
@@ -15,9 +36,20 @@
         <div class="row pb-3">
             <div class="col-12">
                 <div id="accordionCarrito">
-                    <div class="card">
+                    
 
                     <?php if(isset($response->status) && $response->status == 'AUTHORIZED'): ?>
+
+                        
+
+                        <!-- Pago exitoso con icono -->
+                        <div class="success-message text-center">
+                            <span class="material-icons">check_circle</span>
+                            <span>Pago exitoso</span>
+                        </div>
+
+                        
+                        <div class="card">
 
                         <div class="card-header" id="headingCart">
                             <h5 class="mb-0">                                
@@ -27,7 +59,7 @@
                             </h5>
                         </div>
 
-                        <div id="collapseCart" class="collapse show" aria-labelledby="headingCart" data-parent="#accordionCarrito">
+                        <div id="collapseCart" class="collapse" aria-labelledby="headingCart" data-parent="#accordionCarrito">
                             <div class="card-body">
                                 <table class="table">
                                     <tr><th>Identificador de pago</th><td>{{$response->buy_order}}</td></tr>
@@ -41,7 +73,11 @@
                             </div>
                         </div>
 
+                        </div>
+
                     <?php elseif(isset($compra)): ?>
+
+                        <div class="card">
 
                         <div class="card-header" id="headingCart">
                             <h5 class="mb-0">                                
@@ -64,12 +100,11 @@
                                 </table>
                             </div>
                         </div>
-                            
+                        </div> 
                         
                     <?php else: ?>
                         <h1>error</h1>
                     <?php endif; ?>
-                    </div>
                 </div>
             </div>
 
@@ -88,48 +123,28 @@
                             </h5>
                         </div>
 
-                        <div id="collapseCart" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div id="collapseCart" class="collapse show" aria-labelledby="headingCart" data-parent="#accordionCarrito">
                             <div class="card-body">
+
                                 <table class="table">
                                     <tr>
-                                        <th>Producto</th>
+                                        <th>Servicio</th>
                                         <th>Cantidad</th>
                                         <th>Costo</th>
+                                        <th></th>
                                     </tr>                                    
-                                    @foreach($detalleCompra as $detalle)
+                                    @foreach($detallesCompra as $detalle)
                                     <tr>
-                                      <td>{{$detalle->producto->nombre}}</td>
+                                      <td>Firma avanzada {{$detalle->nombreDoc}}</td>
                                       <td>{{$detalle->cantidad}}</td>
                                       <td>${{ number_format($detalle->monto, 0, ',', '.') }}</td>
+                                      <td><button class="btn btn-primary">Firmar</button></td>
                                     </tr>
                                     @endforeach
                                     
                                 </table>
-
-                                <table class="table">
-                                    <tr>
-                                        <th colspan="4">Datos de entrega</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Región</th>
-                                        <th>Comuna</th>
-                                        <th>Dirección</th>
-                                        <th>Código postal</th>
-                                        <th>Nombre contacto</th>
-                                        <th>Teléfono contacto</th>
-                                    </tr>
-                                    <tr>
-                                        <td>{{$compra->direccion->region}}</td>
-                                        <td>{{$compra->direccion->comuna}}</td>
-                                        <td>{{$compra->direccion->direccion}}</td>
-                                        <td>{{$compra->direccion->codigo_postal}}</td>
-                                        <td>{{$compra->direccion->nombre_contacto}}</td>
-                                        <td>{{$compra->direccion->fono_contacto}}</td>
-                                    </tr>
-                                </table>
                             </div>
                         </div>
-
                         
                     </div>
                 </div>
@@ -144,6 +159,5 @@
 
 
 </section>
-@include('tiny.footer')
 
 @endsection

@@ -91,7 +91,6 @@ Route::post('/agregarProducto', [AdminMarketController::class, 'agregarProducto'
 
 Route::get('/pagar', [TransbankController::class, 'pagar'])->name('pagar');
 Route::get('/enviarPago', [TransbankController::class, 'enviarPago'])->name('enviarPago');
-Route::post('/getResult', [TransbankController::class, 'getResult'])->name('getResult');
 Route::post('/getStatus', [TransbankController::class, 'getStatus'])->name('getStatus');
 Route::post('/refund', [TransbankController::class, 'refund'])->name('refund');  
 Route::post('/detail', [TransbankController::class, 'detail'])->name('detail');  
@@ -221,3 +220,6 @@ Route::get('/carroCompras', [LexWebController::class, 'carroCompras'])->name('ca
 Route::post('/guardarRedaccion', [LexWebController::class, 'guardarRedaccion']);
 Route::get('/getRedaccionesPorPagar', [LexWebController::class, 'getRedaccionesPorPagar']);
 Route::get('/lexPagar', [TransbankController::class, 'lexPagar'])->name('lexPagar');
+Route::get('/getResult', [TransbankController::class, 'getResult'])->name('getResult');
+Route::get('/getPDFUrl', [LexWebController::class, 'getPDFUrl'])->name('getPDFUrl');
+

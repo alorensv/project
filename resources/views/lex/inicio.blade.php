@@ -1,192 +1,100 @@
-@extends('tbl.plantilla')
-
-@section('slide')
-@include('tbl.include.slide')
-@endsection
+@extends('lex.plantilla')
 
 @section('content')
 
 <div id="vueInicio">
 
-  <div id="buttonCotizarCelular" class="col-12 text-center pt-3">
-    <button class="w-100 btn btn-primary" data-toggle="modal" data-target="#cotizarGeneral">Cotizar</button>
-    @include('tbl.modals.cotizarGeneral')
-  </div>
-
-
-
   <section class="welcome">
     <div>
       <div class="container section-phone-padding">
-        <div class="row py-5">
-          <div class="col-lg-6 pt16 pb16 ">
+        <div class="row">
+          <div class="col-lg-6 padding-title-presentation-large">
+            <h4>Seguro, online y con validez legal </h4>
             <h2 class="escribiendo ">
-              Lex
+            Crea y firma documentos legales
             </h2>
+            <p>Crea documentos que no requieren de redacción de abogado ni de cumplir con solemnidades especiales, ya que puede ser extendido por las partes firmantes del documento</p>
             <p><br></p>
-            <div class="ceroR">
-              <p>
-                <a href="/transportes_bulnes" class="btn btn-primary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
-              </p>
-            </div>
-
+            <p>
+              <a href="/transportes_bulnes" class="btn btn-lex-secondary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
+            </p>
           </div>
           <div class="col-6">
 
+            <div id="myCarousel" class="carousel slide margenCarusel" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li v-for="(item, index) in carouselItems" :key="index" :data-slide-to="index" :class="{ active: index === currentSlide }" @click="showSlide(index)"></li>
+              </ol>
+              <div class="carousel-inner large-screen">
+                <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
+                  <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
+                  <div class="row titleCarousel">
+                    <div class="container d-flex">
+                      <div class="titleServices1">
+                        <h1 class="text-center">@{{ item.title }}</h1>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="carousel-inner small-screen" style="display: none;">
+                <div v-for="(item, index) in carouselItemsCel" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
+                  <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
+                  <div class="row titleCarousel">
+                    <div class="container d-flex">
+                      <div class="titleServices1">
+                        <h1 class="text-center">@{{ item.title }}</h1>
+                      </div>
+                      <div class="titleServices2">
+                        <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
+                          <span>Nuestros servicios</span>
+                          <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
+                        </a>
+                      </div>
+                      <div class="titleServices2Celular">
+                        <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServicesPhone">
+                          <span>Nuestros servicios</span>
+                          <i style="color: white; font-size: 30px!important; margin-left: 15px;" class="material-icons">arrow_forward</i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev" @click.prevent="prevSlide">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next" @click.prevent="nextSlide">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+
+
           </div>
         </div>
       </div>
     </div>
-    <div class="bgRuta">
+    <div class="carrusel">
+
+    <div class="owl-carousel owl-theme">
+      <div class="item" v-for="(card, index) in cards" :key="index">
+        <!-- El contenido de tu card va aquí -->
+        <img :src="card.image" alt="Card image">
+        <h4>@{{ card.title }}</h4>
+        <p>@{{ card.description }}</p>
+      </div>
+    </div>
+
+
 
     </div>
   </section>
 
-  <section id="traslados_celular" class="traslados_celular">
-
-    <div class="container section-phone-padding">
-      <h2 class="escribiendo ceroR animate pt-5 text-center" style="color: white;">
-        ¡Conoce nuestros servicios!
-      </h2>
-    </div>
-
-
-    <div class="swiffy-slider">
-      <ul class="slider-container">
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/sobredimensionado_1.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Transporte sobre dimensionado</strong></h5>
-              <a href="/servicio_sobredimensionado" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/carga_especial_0.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Transporte de cargas especiales</strong></h5>
-              <a href="/servicio_cargas_especiales" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/maquinaria_forestal_0.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Transporte de equipos forestales</strong></h5>
-              <a href="/transporte_equipos_forestales" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/rescate_equipo.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Transporte y rescate equipos siniestrados</strong></h5>
-              <a href="/rescate_equipos_siniestrados" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/maquinaria_menor.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Transporte de maquinaria</strong></h5>
-              <a href="/transporte_maquinaria" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/izaje.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Servicios de Izaje</strong></h5>
-              <a href="/servicios_izajes" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li> 
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/arriendo_equipos.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Venta de combustible y arriendo de camiones de combustible</strong></h5>
-              <a href="/equipos" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="card" style="max-width: 100%;height: auto;">
-            <img src="/img/tbl/services/arriendo_equipos.png" class="img-fluid" alt="Transporte sobre dimensionado">
-            <div class="card-body text-center">
-              <h5 class="card-title"><strong>Arriendos de nuestros equipos</strong></h5>
-              <a href="/equipos" class="btn btn-primary">¡Conoce más sobre este servicio!</a>
-            </div>
-          </div>
-        </li>
-
-
-      </ul>
-
-      <button type="button" class="slider-nav"></button>
-      <button type="button" class="slider-nav slider-nav-next"></button>
-
-      <div class="slider-indicators">
-        <button class="active"></button>
-        <button></button>
-        <button></button>
-      </div>
-    </div>
-
-  </section>
-
-
-  <section id="traslados" class="traslados">
-    <div class="carousel">
-      <div class="titles">
-        <div class="title" @click="showSlide(0)" :class="{ active: currentServices === 0 }"><strong>Transporte sobre dimensionado</strong></div>
-        <div class="title" @click="showSlide(1)" :class="{ active: currentServices === 1 }"><strong>Transporte de cargas especiales</strong></div>
-        <div class="title" @click="showSlide(2)" :class="{ active: currentServices === 2 }">Transporte de equipos forestales</div>
-        <div class="title" @click="showSlide(3)" :class="{ active: currentServices === 3 }">Transporte y rescate equipos siniestrados</div>
-        <div class="title" @click="showSlide(4)" :class="{ active: currentServices === 4 }">Transporte de maquinaria</div>
-        <div class="title" @click="showSlide(5)" :class="{ active: currentServices === 5 }">Servicios de Izaje</div>
-        <div class="title" @click="showSlide(6)" :class="{ active: currentServices === 6 }">Venta de combustible y arriendo de camiones de combustible</div>
-        
-        <div class="title" @click="showSlide(7)" :class="{ active: currentServices === 7 }">Arriendos de nuestros equipos</div>
-      </div>
-      <div class="indicators">
-        <span class="indicator" @click="showSlide(0)" :class="{ active: currentServices === 0 }"></span>
-        <span class="indicator" @click="showSlide(1)" :class="{ active: currentServices === 1 }"></span>
-        <span class="indicator" @click="showSlide(2)" :class="{ active: currentServices === 2 }"></span>
-        <span class="indicator" @click="showSlide(3)" :class="{ active: currentServices === 3 }"></span>
-        <span class="indicator" @click="showSlide(4)" :class="{ active: currentServices === 4 }"></span>
-        <span class="indicator" @click="showSlide(5)" :class="{ active: currentServices === 5 }"></span>
-        <span class="indicator" @click="showSlide(6)" :class="{ active: currentServices === 6 }"></span>
-        <span class="indicator" @click="showSlide(7)" :class="{ active: currentServices === 7 }"></span>
-      </div>
-      <div class="photos">
-        <div class="photo" v-for="(item, index) in servicesItems" :key="index" :class="{ active: currentServices === index }">
-          <div style="position: absolute;left: 30%;top: 80%;width: 350px;">
-            <a :href="item.url" class="w-100 btn btn-primary btn-lg">
-              <h5 style="padding-top: 10px;">¡Conoce más sobre este servicio!</h5>
-            </a>
-          </div>
-          <img :src="item.image" :alt="item.alt">
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="indicadores py-5 bgIndicadores">
+  <!-- <section class="indicadores py-5 bgIndicadores">
     <div class="container">
       <div class="indicators-container">
         <div class="indicator" id="indicator-accidentes">
@@ -215,61 +123,11 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
 
-  @include('tbl.include.trabaja_con_nosotros')
+  @include('lex.include.footer')
 
-  <footer id="footerVue" style="background-color: white!important;">
-    <div class="container section-phone-padding">
-      <div class="row ">
-        <div class="col-md-4 logo-footer ">
-          <h3 class="">Cantidad de visitas: @{{parseInt(total).toLocaleString('es-CL')}}</h3>
-          <a class="d-flex align-items-center custom-link" target="_blank" href="https://www.meteochile.gob.cl/PortalDMC-web/index.xhtml"><span class="material-icons icon">cloud</span>
-            <h3 class="mt-2 ml-2"> Consultar el clima</h3>
-          </a>
-          <a class="d-flex align-items-center custom-link" target="_blank" href="https://www.bcentral.cl/web/banco-central"><span class="material-icons icon">trending_up</span>
-            <h3 class="mt-2 ml-2"> Consultar indicadores económicos</h3>
-          </a>
-          <a class="d-flex align-items-center custom-link" target="_blank" href="https://sitios.cl/servicios/distancias.htm"><span class="material-icons icon">place</span>
-            <h3 class="mt-2 ml-2"> Calcular distancias</h3>
-          </a>
-        </div>
-        <div class="col-md-5 menu-footer  ">
-          <h3>¡Visítanos!</h3>
-          <ul>
-            <li><a href="{{route('web')}}">Lautaro 740, Concepción, Región del Bío Bío, CHILE</a></li>
-            <li><a href="{{route('desarrollo')}}">Patio Aparcamiento: Camino a Penco, Concepción</a></li>
-          </ul>
-
-          <div class="map-container">
-
-            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3195.5492720083016!2d-73.02737554902022!3d-36.781378900926164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDQ2JzUzLjAiUyA3M8KwMDEnMjEuMCJX!5e0!3m2!1ses!2scl!4v1719166888531!5m2!1ses!2scl" 
-              width="600" 
-              height="450" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy"></iframe>
-
-          </div>
-
-        </div>
-        <div class="col-md-3 social-media ">
-          <h3>Encuentranos en:</h3>
-          <a href="https://www.facebook.com/people/TBL-Transportes-Bulnes/61561526563987/" target="_blank"><i class="bi bi-facebook"></i></a>
-          <!--<a href="https://twitter.com/aeurus/" target="_blank"><i class="bi bi-twitter"></i></a>-->
-          <a href="https://www.instagram.com/tbl_transportesbulnes/" target="_blank"><i class="bi bi-instagram"></i></a>
-          <a href="https://www.linkedin.com/company/tbl-transportes-bulnes" target="_blank"><i class="bi bi-linkedin"></i></a>
-          <h3 class="mt-3">Contáctenos</h3>
-          <ul>
-            <li><a href="tel:+56978565544">+569 78565544</a></li>
-            <li><a href="mailto:eduardo@empresasbulnes.com">eduardo@empresasbulnes.com</a></li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </footer>
 
   <div id="lineas" style="font-family: 'Roboto', sans-serif;font-size: 14px;background-color: #333;">
     <a href="https://www.lineasdecodigo.cl/" title="Diseño Web - Posicionamiento Web - Sistema Web">
@@ -284,223 +142,95 @@
     el: '#vueInicio',
     data: {
       animationTriggered: {},
-      elements: [],
-      currentServices: 0,
-      currentTraslados: 0,
-      servicesItems: [{
-          image: 'img/tbl/services/sobredimensionado_0.png',
-          alt: 'Transporte sobre dimensionado y sobre contenedores',
-          url: '/servicio_sobredimensionado'
+      currentSlide: 0,
+      carouselItems: [
+        {
+          image: 'img/lex/bg1.png',
+          alt: 'Documento privado con firma avanzada',
+          title: 'Paso 1'
         },
         {
-          image: 'img/tbl/services/carga_especial_0.png',
-          alt: 'Transporte de cargas especiales',
-          url: '/servicio_cargas_especiales'
-        },
+          image: 'img/lex/bg1.png',
+          alt: 'Pago online',
+          title: 'Paso 2'
+        },      
         {
-          image: 'img/tbl/services/maquinaria_forestal_0.png',
-          alt: 'Transporte de equipos forestales',
-          url: '/transporte_equipos_forestales'
-        },
-        {
-          image: 'img/tbl/services/rescate_equipo.png',
-          alt: 'Transporte y rescate equipos siniestrados',
-          url: '/rescate_equipos_siniestrados'
-        },
-        {
-          image: 'img/tbl/services/maquinaria_menor.png',
-          alt: 'Transporte de maquinaria',
-          url: '/transporte_maquinaria'
-        },
-        {
-          image: 'img/tbl/services/izaje.png',
-          alt: 'Servicios de Izaje',
-          url: '/servicios_izajes'
-        },
-        {
-          image: 'img/tbl/services/arriendo_combustible.png',
-          alt: 'Venta de combustible y arriendo de camiones de combustible',
-          url: '/venta_combustible'
-        },
-        {
-          image: 'img/tbl/services/arriendo_equipos.png',
-          alt: 'Arriendos de nuestros equipos',
-          url: '/equipos'
+          image: 'img/lex/bg1.png',
+          alt: 'Firmar con clave única',
+          title: 'Paso 3'
         }
       ],
+      carouselItemsCel: [
+        {
+          image: 'img/lex/bg1.png',
+          alt: 'Third slide',
+          title: 'Paso 1'
+        },
+        {
+          image: 'img/lex/bg1.png',
+          alt: 'Third slide',
+          title: 'Paso 2'
+        },      
+        {
+          image: 'img/lex/bg1.png',
+          alt: 'Third slide',
+          title: 'Paso 3'
+        }
+      ],
+      cards: [
+        { image: 'img/lex/doc.png', title: 'Card 1', description: 'Descripción de la card 1' },
+        { image: 'img/lex/doc.png', title: 'Card 2', description: 'Descripción de la card 2' },
+        { image: 'img/lex/doc.png', title: 'Card 3', description: 'Descripción de la card 3' },
+        { image: 'img/lex/doc.png', title: 'Card 4', description: 'Descripción de la card 4' },
+        { image: 'img/lex/doc.png', title: 'Card 5', description: 'Descripción de la card 5' },
+        { image: 'img/lex/doc.png', title: 'Card 6', description: 'Descripción de la card 6' },
+        { image: 'img/lex/doc.png', title: 'Card 7', description: 'Descripción de la card 7' },
+        { image: 'img/lex/doc.png', title: 'Card 8', description: 'Descripción de la card 8' },
+        { image: 'img/lex/doc.png', title: 'Card 9', description: 'Descripción de la card 9' },
+        { image: 'img/lex/doc.png', title: 'Card 10', description: 'Descripción de la card 10' }
+      ],
       intervalId: null,
-      total: 0,
-      cotizaGeneral: {
-        nombre: '',
-        email: '',
-        telefono: '',
-        fecha_servicio: '',
-        origen: '',
-        destino: '',
-        comentarios: '',
-        largo: '',
-        ancho: '',
-        alto: '',
-        peso: '',
-      },
     },
     created() {
-      this.guardarVisita();
+      this.showSlide(0); // Muestra la primera diapositiva
+      this.intervalId = setInterval(() => {
+        this.nextSlide();
+      }, 7000); // Cambia cada 2 segundos (2000 ms)
     },
     mounted() {
-      this.updateElements();
-      this.showSlide(0);
-      window.addEventListener('scroll', this.handleScroll);
-      this.animateNumbers();
-      this.getVisitas();
+      $('.owl-carousel').owlCarousel({
+        items: 4, // Mostrar 4 cards inicialmente
+        loop: false, // Si no deseas un carrusel en bucle
+        margin: 20, // Margen entre los elementos
+        nav: true, // Habilitar la navegación
+        dots: false, // Desactivar los puntos de paginación
+        navText : [
+          '<span class="material-icons-outlined">arrow_back_ios</span>',
+          '<span class="material-icons-outlined">arrow_forward_ios</span>'
+        ],
+        responsive: {
+          0: {
+            items: 1 // Mostrar 1 card en pantallas pequeñas
+          },
+          600: {
+            items: 2 // Mostrar 2 cards en pantallas medianas
+          },
+          1000: {
+            items: 4 // Mostrar 4 cards en pantallas grandes
+          }
+        }
+      });
     },
     methods: {
-      showAlert(index) {
-        console.log('Mostrando alerta para el índice:', index);
-        alert('Hola'); // Muestra un alert con el mensaje 'Hola'
-      },
       showSlide(index) {
-        // Detener el intervalo para no cambiar la diapositiva automáticamente mientras el usuario interactúa
-        clearInterval(this.intervalId);
-
-        // Ocultar la diapositiva actual y quitar la clase activa de los indicadores y títulos
-        const photos = document.querySelectorAll('.photo');
-        const indicators = document.querySelectorAll('.indicator');
-        const titles = document.querySelectorAll('.title');
-
-        photos[this.currentServices].classList.remove('active');
-        indicators[this.currentServices].classList.remove('active');
-        titles[this.currentServices].classList.remove('active');
-
-        // Mostrar la nueva diapositiva y añadir la clase activa a los indicadores y títulos correspondientes
-        photos[index].classList.add('active');
-        indicators[index].classList.add('active');
-        titles[index].classList.add('active');
-
-        // Actualizar el índice de la diapositiva actual
-        this.currentServices = index;
-
-        // Reiniciar el intervalo para cambiar la diapositiva automáticamente después de 2 segundos
-        this.intervalId = setInterval(() => {
-          const nextSlide = (this.currentServices + 1) % this.servicesItems.length;
-          this.showSlide(nextSlide);
-        }, 3000);
+        this.currentSlide = index;
       },
-      updateElements() {
-        this.elements = document.querySelectorAll('.ceroR');
-        this.elements.forEach(element => {
-          this.checkAnimation(element);
-        });
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.carouselItems.length;
       },
-      checkAnimation(element) {
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        if (rect.top <= windowHeight && rect.bottom >= 0) {
-          if (!this.animationTriggered[element]) {
-            element.classList.add('animate');
-            this.animationTriggered[element] = true;
-          }
-        } else {
-          this.animationTriggered[element] = false;
-          element.classList.remove('animate');
-        }
+      prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.carouselItems.length) % this.carouselItems.length;
       },
-      handleScroll() {
-        this.elements.forEach(element => {
-          this.checkAnimation(element);
-        });
-
-        const indicadoresSection = document.querySelector('.indicadores');
-        if (this.isElementInViewport(indicadoresSection)) {
-          this.animateNumbers();
-        }
-      },
-      animateNumbers() {
-        const indicators = document.querySelectorAll('.value-container .value');
-        indicators.forEach(indicator => {
-          const start = parseInt(indicator.getAttribute('data-start'), 10);
-          const end = parseInt(indicator.getAttribute('data-end'), 10);
-          this.countUp(indicator, start, end, 2000);
-        });
-      },
-      countUp(element, start, end, duration) {
-        let startTime = null;
-
-        function animation(currentTime) {
-          if (startTime === null) startTime = currentTime;
-          const progress = currentTime - startTime;
-          const current = Math.min(start + (progress / duration) * (end - start), end);
-          element.textContent = Math.floor(current);
-          if (current < end) {
-            requestAnimationFrame(animation);
-          }
-        }
-
-        requestAnimationFrame(animation);
-      },
-      isElementInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-      },
-      getVisitas() {
-        axios.get('/cantidadVisitas')
-          .then(response => {
-            this.total = response.data.cantidad;
-            console.log(response.data)
-          })
-          .catch(error => {
-            console.error('Error al obtener productos:', error);
-          });
-
-      },
-      guardarVisita() {
-
-        axios.post('/guardarVisita')
-          .then(response => {
-            console.log(response.data.message)
-          })
-          .catch(error => {
-            console.error('Error al obtener productos:', error);
-          });
-      },
-      guardarCotizacionGeneral() {
-        axios.post('/guardarCotizacion', this.cotizaGeneral)
-          .then(response => {
-            $("#cotizarGeneral").modal('hide');
-            // Manejar la respuesta exitosa
-            if (response.data.status === 'ok') {
-              $("#successContact").modal('show');
-              setTimeout(() => {
-                $("#successContact").modal('hide');
-              }, 4000);
-            }
-            this.limpiarCotizacionGeneral();
-
-          })
-          .catch(error => {
-            // Manejar el error
-            console.error('Hubo un error al enviar el formulario', error);
-          });
-      },
-      limpiarCotizacionGeneral() {
-        this.cotizaGeneral.nombre       = '';
-        this.cotizaGeneral.email        = '';
-        this.cotizaGeneral.telefono     = '';
-        this.cotizaGeneral.fecha_servicio = '';
-        this.cotizaGeneral.origen       = '';
-        this.cotizaGeneral.destino      = '';
-        this.cotizaGeneral.comentarios  = '';
-        this.cotizaGeneral.largo        = '';
-        this.cotizaGeneral.ancho        = '';
-        this.cotizaGeneral.alto         = '';
-        this.cotizaGeneral.peso  = '';
-      }
-
 
 
     }

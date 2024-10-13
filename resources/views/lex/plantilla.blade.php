@@ -55,15 +55,11 @@
 <body>
     <!-- Preloader -->
     <div id="preloader">
-        <img src="{{ asset('/img/tbl/logo2.png') }}">
+        <img src="{{ asset('/img/lex/logo.png') }}">
     </div>
 
     <div id="app">
-        @include('tbl.include.nav')
-
-        <div>
-            @yield('slide')
-        </div>
+        @include('lex.include.nav')
         <main>
             @yield('content')
         </main>
