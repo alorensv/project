@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\eCert;
+use App\Models\LexCategoria;
 use App\Models\LexDocumento;
 use App\Models\LexFirmanteRedaccionDocumento;
 use App\Models\LexInputsDocumento;
@@ -13,21 +14,24 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use PDF;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 
 class LexWebController extends Controller
 {
     
     public function index()
     {
-        return view('lex.inicio');
+        $categoriasDocumentos = LexCategoria::categoriasDocumentos();
+        return view('lex.inicio', ['categoriasDocumentos' => $categoriasDocumentos]);
     }
 
-    public function redactar() {
-        $inputs = LexInputsDocumento::where('documento_id', 1)
+    public function redactar($id) {
+        $inputs = LexInputsDocumento::where('documento_id', $id)
                             ->orderBy('orden', 'asc')
                             ->get();
 
-        $documento = LexDocumento::find(1);  
+        $documento = LexDocumento::find($id);  
 
         //dd($inputs);
         return view('lex.redactar', ['inputs' => $inputs, 'documento' => $documento]);
@@ -61,19 +65,7 @@ class LexWebController extends Controller
                 session(['guest_id' => $guest_id]);
             }
             $guest_id = session('guest_id');
-        }
-
-        // Obtener los inputs
-        $inputs = [
-            'nombre' => $request->input('nombre'),
-            'rut' => $request->input('rut'),
-            'comuna' => $request->input('comuna'),
-            'region' => $request->input('region'),
-            'direccion' => $request->input('direccion')
-        ];
-
-        // Preparar la redacción como JSON
-        $redaccion = json_encode($inputs);
+        }        
 
         $defaultText = LexDocumento::find($request->input('documento_id'))->default_text;
 
@@ -81,14 +73,20 @@ class LexWebController extends Controller
         $inputs = LexInputsDocumento::where('documento_id', $request->input('documento_id'))
                         ->orderBy('orden', 'asc')
                         ->get();
-
+        
+        
         // Crear un array con los valores de los inputs
         $inputValues = [];
+        $rutDeclarante = '';
         foreach ($inputs as $input) {
             // Asignar los valores de los inputs desde el request o un valor por defecto
+            if( $input->name == 'rut'){
+                $rutDeclarante = $request->input($input->name);
+            }
             $inputValues[$input->name] = $request->input($input->name) ?? 'espaciosRelleno';
         }
-
+        $redaccion = json_encode($inputValues);
+        
         // Crear las variables de búsqueda y reemplazo para el HTML
         $search = [];
         $replace = [];
@@ -102,11 +100,13 @@ class LexWebController extends Controller
 
         // Reemplazar las variables en el HTML predeterminado
         $htmlFinal = str_replace($search, $replace, $defaultText);
+        
         $firmantes = $request->input('firmantes', []);
 
         // Generar el bloque HTML de firmantes
         $firmasHtml = '<div class="firmas-container" style="display: flex; flex-wrap: wrap;">';
         foreach ($firmantes as $firmante) {
+            if($firmante['rut'] == $rutDeclarante) continue;
             $firmasHtml .= '
                 <div id="firmas" class="col-6 mb-3" style="text-align: center; margin-right: 20px;">
                     <p>
@@ -120,7 +120,7 @@ class LexWebController extends Controller
 
         // Concatenar el HTML de firmantes al final del contenido del documento
         $htmlFinal .= $firmasHtml;
-
+        
 
         // Generar el contenido del PDF
         $pdf = FacadePdf::loadHTML($htmlFinal);
@@ -137,8 +137,7 @@ class LexWebController extends Controller
         $filename = 'documento_' . time() . '.pdf';
 
         // Guardar el PDF en la ruta privada
-        $pdf->save($directory . '/' . $filename);
-
+        $pdf->save($directory . '/' . $filename);  
         // Guardar la ruta relativa en la base de datos
         $ruta = 'private/lex/documentos/' . ($user_id ?? $guest_id) . '/' . $filename;
 
@@ -175,7 +174,7 @@ class LexWebController extends Controller
                 'apellidos' => $firmante['apellido'] ?? '', // Suponiendo que tienes apellido
                 'correo' => $firmante['correo'],
                 'dni' => $firmante['rut'], // Usando 'rut' como 'dni'
-                'estado' => 1 // Asignar el estado adecuado
+                'estado' => 0 // Asignar el estado adecuado
             ]);
         }
 
@@ -210,5 +209,28 @@ class LexWebController extends Controller
 
         return response()->json($temporaryUrl);
     }
+
+    public function lexregiones()
+    {
+        $rutaArchivo = resource_path('data/regiones.json');
+        $regiones = json_decode(File::get($rutaArchivo), true);
+
+        return $regiones;
+    }
+
+    public function lexcomunas($region)
+    {
+        $response = Http::get("https://apis.digital.gob.cl/dpa/regiones/{$region}/comunas");
+
+        return $response->json();
+    }
+
+    public function lexcategorias($id = null)
+    {
+        $categoria = LexCategoria::categoriasDocumentos();
+
+        return response()->json(['message' => 'request', 'categoria' => $categoria]);
+    }
+
 
 }

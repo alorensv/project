@@ -15,15 +15,64 @@
 
                 <div v-for="(input, index) in inputs" :key="index" class="mb-3">
                   <label :for="input.name" class="form-label">@{{ input.label }}</label>
-                  <input :type="input.field_type" :id="input.name" v-model="input.value"
+
+                  <!-- Condicional para textarea -->
+                  <textarea v-if="input.field_type === 'textarea'"
+                    :id="input.name"
+                    v-model="input.value"
                     :placeholder="input.placeholder"
                     :class="{'is-invalid': errors[input.name]}"
                     @focus="focusField(input.name)"
-                    @blur="blurField(input.name)" class="form-control">
+                    @blur="blurField(input.name)"
+                    class="form-control">
+                  </textarea>
+
+                  <!-- Select de región -->
+                  <select v-else-if="input.field_type === 'select' && input.name === 'region_domicilio'"
+                    :id="input.name"
+                    v-model="input.value"
+                    :class="{'is-invalid': errors[input.name]}"
+                    @focus="focusField(input.name)"
+                    @blur="blurField(input.name)" 
+                    @change="fetchComunas(input.value)"                   
+                    class="form-control">
+                    <option disabled value selected>
+                      @{{ input.placeholder || 'Seleccione una región' }} <!-- Muestra el placeholder o un texto por defecto -->
+                    </option>
+                    <option  v-for="region in regiones" :key="region.id" :value="region.nombre">@{{ region.nombre }}</option>
+                  </select>
+
+                  <!-- Select de comuna -->
+                  <select v-else-if="input.field_type === 'select' && input.name === 'comuna_domicilio'"
+                    :id="input.name"
+                    v-model="input.value"
+                    :placeholder="input.placeholder"
+                    :class="{'is-invalid': errors[input.name]}"
+                    @focus="focusField(input.name)"
+                    @blur="blurField(input.name)"                  
+                    class="form-control">
+                    <option disabled value selected>
+                      @{{ input.placeholder || 'Seleccione una comuna' }} <!-- Muestra el placeholder o un texto por defecto -->
+                    </option>
+                    <option v-for="comuna in comunas" :key="comuna.id" :value="comuna.nombre">@{{ comuna.nombre }}</option>
+                  </select>
+
+                  <!-- Condicional para otros tipos de input -->
+                  <input v-else
+                    :type="input.field_type"
+                    :id="input.name"
+                    v-model="input.value"
+                    :placeholder="input.placeholder"
+                    :class="{'is-invalid': errors[input.name]}"
+                    @focus="focusField(input.name)"
+                    @blur="blurField(input.name)"
+                    class="form-control">
+
                   <div v-if="errors[input.name]" class="invalid-feedback">
                     @{{ errors[input.name] }}
                   </div>
                 </div>
+
 
 
                 <div class="card">
@@ -91,7 +140,8 @@
         <!-- Columna de productos (Cuadro de Declaración Jurada) -->
         <div class="col-md-8">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="    box-shadow: rgba(49, 49, 34, 0.3) 0px -1em 3em inset, white 0px 0px 0px 2px, rgb(255 255 255 / 60%) 0.3em 0.3em 1em;
+}">
               <div>
                 {!! $documento->default_text !!}
 
@@ -152,22 +202,8 @@
     data: {
       inputs: JSON.parse(document.getElementById('vueRedaccion').getAttribute('data-inputs')),
       formData: {},
-      firma: '', // Firma seleccionada
-      nombre: '',
-      rut: '',
-      comuna: '',
-      region: '',
-      direccion: '',
-      fecha: new Date().toLocaleDateString('es-CL'),
       espaciosRelleno: '____________________________',
-      isFocused: {
-        nombre: false,
-        rut: false,
-        region: false,
-        comuna: false,
-        direccion: false,
-        date:false,
-      },
+      isFocused: {},
       firmantes: [],
       mostrarFormularioFirmante: false, // Controlar el formulario para agregar firmantes
       nuevoFirmante: {
@@ -179,6 +215,23 @@
       pdfUrl: '',
       errors: {},
       generalError: '',
+      regiones: [], // Guardar las regiones obtenidas del servidor
+      comunas: [], // Guardar las comunas correspondientes a la región seleccionada
+      selectedRegion: null // Variable para la región seleccionada
+    },
+    mounted() {
+
+      this.inputs = this.inputs.map(input => ({
+        ...input, // Mantener todas las propiedades existentes
+        value: "" // Agregar la nueva propiedad 'value' con un valor vacío
+      }));
+
+      // Inicializa isFocused con los campos de inputs
+      this.inputs.forEach(input => {
+        this.$set(this.isFocused, input.name, false); // Cada campo se inicia como false
+      });
+
+      this.fetchRegiones();
     },
     methods: {
       toggleFiltros() {
@@ -188,9 +241,49 @@
         const input = this.inputs.find(input => input.name === fieldName);
         return input ? input.value : null; // Si existe, retorna el valor, de lo contrario null
       },
+      async fetchRegiones() {
+        try {
+          axios.get('/lexregiones')
+            .then((response) => {
+
+              this.regiones = response.data;
+              console.log(this.regiones)
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        } catch (error) {
+          console.error('Error al obtener las regiones:', error);
+        }
+      },
+      async handleRegionChange(regionNombre) {
+        
+        const regionSeleccionada = this.regiones.find(region => region.nombre === regionNombre);
+        if (regionSeleccionada) {
+          alert(regionSeleccionada)
+          this.fetchComunas(regionSeleccionada.id); // Llama a fetchComunas con el id de la región seleccionada
+        }
+      },
+      async fetchComunas(regionInput) {
+        if (!regionInput) {
+          return;
+        }
+        console.log(JSON.stringify(this.regiones));
+        const regionSeleccionada = this.regiones.find(region => region.nombre === regionInput);
+        regionId = regionSeleccionada.codigo; 
+        if(regionId){
+          try {
+            const response = await axios.get(`/lexcomunas/${regionId}`);
+            this.comunas = response.data;
+          } catch (error) {
+            console.error('Error al obtener las comunas:', error);
+          }
+        }        
+      },
       focusField(field) {
         this.isFocused[field] = true;
       },
+
       blurField(field) {
         this.isFocused[field] = false;
       },
@@ -267,10 +360,15 @@
           });
 
           // Agregar otros datos como documento_id al formData
-              formData['documento_id'] = 1;
+          formData['documento_id'] = 1;
 
           // Crear el array de firmantes, comenzando por el firmante principal
           formData['firmantes'] = [
+            {
+              nombre: this.getInputValue('nombre'),
+              rut: this.getInputValue('rut'),
+              correo: this.getInputValue('correo')
+            },
             ...this.firmantes // Incluir los firmantes adicionales
           ];
 

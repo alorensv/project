@@ -1,4 +1,129 @@
 /* LEX */
+/* pago */
+
+.containerPagoExitoso {
+    width: 50%; 
+    margin: 0 auto; /* Centra el contenido horizontalmente */
+}
+
+.card-header h5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: green;
+    font-size: 40px;
+}
+
+.success-message .material-icons {
+    margin-right: 10px;
+}
+
+/* como funciona */
+
+.bgInfo {
+    background-color: #060737;
+    padding: 40px 0;
+  }
+
+  .bgInfo .text-primary {
+    color: #fff!important;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .bgInfo .divider {
+    width: 50px;
+    height: 4px;
+    background-color: #fff;
+    margin: 0 auto 30px;
+  }
+
+  .bgInfo .step h4 {
+    color: white;
+  }
+  
+  .steps-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .step {
+    width: 30%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step .circle {
+    background-color: #FB3F5C;
+    color: white;
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+  }
+
+  .step .icon {
+    font-size: 50px;
+    color: #fff;
+    margin-bottom: 10px;    
+  }
+
+  .step .material-icons:hover {
+    font-size: 51px !important;
+    color: rgb(102, 100, 100) !important;
+    }
+
+  .step h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    
+  }
+
+  .line {
+    position: absolute;
+    top: 25px;
+    left: 15%;
+    right: 15%;
+    height: 4px;
+    background-color: #FB3F5C;
+    z-index: 0;
+  }
+
+  .final-text {
+    font-size: 1.4rem;
+    margin-top: 50px;
+    color: #fff;
+    font-weight: bolder;
+  }
+
+  @media (max-width: 768px) {
+    .steps-container {
+      flex-direction: column;
+    }
+    
+    .line {
+      display: none;
+    }
+
+    .step {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
 
 .btn-lex-secondary {
     color: #fff;
@@ -49,11 +174,38 @@
     box-shadow: 0 0 0 0.2rem rgba(133, 142, 150, 0.5);
 }
 
+/*carrusel lex*/
+.owl-prev, .owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .owl-prev {
+    left: -40px;
+  }
+  
+  .owl-next {
+    right: -40px;
+  }
+  
+  .owl-prev:hover, .owl-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  
+  /*documento*/
 
 .redactarRelleno {
     display: inline-block;
     min-width: 35px; /* Establece el ancho mínimo deseado */
-    white-space: nowrap; /* Evita que el contenido haga saltos de línea */
+    /*white-space: nowrap;  Evita que el contenido haga saltos de línea */
+    white-space: pre-wrap;
 }
 
 .redactarRelleno.highlight {
@@ -550,13 +702,12 @@ tr:hover{
 
 .titleCarousel {
     position: absolute;
-    background-color: #0607379e;
     padding: 10px;
-    width: 40%;
-    color: #ffffff;
+    width: 80%;
+    color: #060737;
 
     /* border-radius: 40px; */
-    top: 10%;
+    top: 5%;
     animation: transformTitleCarousel 2s ease-in-out forwards;
 
 }
@@ -1706,8 +1857,8 @@ footer .social-media ul li a {
 
     .logoWeb{
         position: absolute;
-        width: 130px;
-        margin-top: -30px;
+        width: 195px;
+        margin-top: -22px;
     }
 
     .padding-title-presentation-large{
@@ -1743,8 +1894,16 @@ footer .social-media ul li a {
 
     .logoWeb{
         position: absolute;
-        width: 130px;
-        margin-top: -30px;
+        width: 195px;
+        margin-top: -22px;
+    }
+
+    .carousel-item {
+        height: 100%!important;
+    }
+
+    .padding-title-presentation-large{
+        padding: 80px 34px 100px 36px;
     }
 
     h2,
@@ -1829,7 +1988,7 @@ footer .social-media ul li a {
     }
 
     .titleCarousel {
-        width: 40% !important;
+        width: 80% !important;
     }
 
     .titleCarousel .d-flex {

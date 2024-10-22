@@ -11,9 +11,13 @@ class UserRedactaDocumento extends Model
 {
     use HasFactory;
 
+    const ESTADO_PROCESO_BORRADOR = 0; 
+    const ESTADO_PROCESO_PENDIENTE_FIRMA   = 0; 
+    const ESTADO_PROCESO_FIRMADO = 0; 
+
     protected $table = 'lex_user_redacta_documento';
 
-    protected $fillable = ['user_id', 'documento_id', 'institucion_id', 'redaccion','estado', 'ruta', 'guest_id'];
+    protected $fillable = ['user_id', 'documento_id', 'institucion_id', 'redaccion','estado', 'ruta', 'guest_id','base64', 'final_base64'  ];
 
     public function user()
     {

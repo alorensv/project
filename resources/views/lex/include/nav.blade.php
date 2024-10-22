@@ -3,7 +3,7 @@
         <div class="col-md-3 bg-light py-1">
 
             <a class="navbar-brand" href="{{ route('inicio') }}">
-                <img src="/img/lex/logo.png" class="mx-auto d-block img-fluid logoWeb">
+                <img src="/img/lex/logov2.png" class="mx-auto d-block img-fluid logoWeb">
             </a>
         </div>
 
@@ -33,8 +33,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item {{request()->routeIs('servicio_sobredimensionado') ? 'active' : ''}}" href="{{ route('redactar') }}">{{ __('Redactar') }}
-                                </a>
+                            <a class="dropdown-item {{ request()->is('redactar/1') ? 'active' : '' }}" href="{{ url('redactar/1') }}">
+                                {{ __('Redactar') }}
+                            </a>
+
 
                                 <!-- <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
                                 </a>
@@ -71,19 +73,7 @@
                         @else
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('home') ? 'active' : ''}}" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
-                        </li>
-
-                        <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('adminEquipos') ? 'active' : ''}}" href="{{ route('adminEquipos') }}">{{ __('Equipos') }}</a>
-                        </li>
-
-                        <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('adminCotizaciones') ? 'active' : ''}}" href="{{ route('adminCotizaciones') }}">{{ __('Cotizaciones') }}</a>
-                        </li>
-
-                        <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('adminEmpleados') ? 'active' : ''}}" href="{{ route('adminEmpleados') }}">{{ __('Empleados') }}</a>
+                            <a class="nav-link {{request()->routeIs('home') ? 'active' : ''}}" href="{{ route('home') }}">{{ __('Documentos') }}</a>
                         </li>
                             
                         @endguest

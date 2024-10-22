@@ -40,16 +40,15 @@ class TransbankController extends Controller
     public function lexPagar()
     {        
         $user_id = auth()->check() ? auth()->id() : null;
-        if (!$user_id) {
+        $guest_id = null; 
 
+        if (is_null($user_id)) {
             if (!session()->has('guest_id')) {
                 $guest_id = uniqid('guest_', true); // O cualquier identificador único que quieras usar
                 session(['guest_id' => $guest_id]);
-            }
-            
+            }            
             $guest_id = session('guest_id');
-        }
-        
+        }        
         $order = LexCompra::saveCompras($user_id, $guest_id);
 
         $buy_order = $order->id;

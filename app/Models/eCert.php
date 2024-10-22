@@ -11,8 +11,7 @@ class eCert extends Model
 
     //prueba
     private $_UserName = 'USUAPI_772934246';
-    private $_Password = 'cqYMCd1t5scUc2pp';
-
+    private $_Password = '7dTG3y6tCgj29eZ4t';
     //productiva
     //private $_UserName = 'USUAPI_772934246';
     //private $_Password = '3341Swap';
@@ -26,31 +25,17 @@ class eCert extends Model
 
 
     private $_UrlCallback = "https://www.swap-lex.cl/docu/callback.php"; // 
-    public $_UrlWebHook = "https://www.swap-lex.cl/docu/recibe_sendmail.php";
+    public $_UrlWebHook = "https://web.segurosncs.cl/recibeDocumento";
     private $_RutUsuario = '17342911-8'; //15170621-5
     public $_Nombre = 'Alejandro Guillermo';
     public $_ApellidoPaterno = 'Lorens';
     public $_ApellidoMaterno = 'Villa';
     private $_Email = 'alorensv@gmail.com';
-    private $_RutEmpresa = "17342911-8";
-    private $_CantidadDoctos = 1;
-    private $_CaducaEnHoras = 0;
-    private $_TipoFirma = 3;//FAO
-    private $_CorreoEnvioDocumentoFirmado = 'alorensv@gmail.com';
-
-/*     private $_UrlCallback = "https://www.swap-lex.cl/docu/callback.php"; // 
-    public $_UrlWebHook = "https://www.swap-lex.cl/docu/recibe_sendmail.php";
-    private $_RutUsuario = '15170621-5'; //15170621-5
-    public $_Nombre = 'Hugo Andrés';
-    public $_ApellidoPaterno = 'Fuentes';
-    public $_ApellidoMaterno = 'Flores';
-    private $_Email = 'hugfuentes@gmail.com';
     private $_RutEmpresa = "77293424-6";
     private $_CantidadDoctos = 1;
     private $_CaducaEnHoras = 0;
     private $_TipoFirma = 3;//FAO
-    private $_CorreoEnvioDocumentoFirmado = 'hfuentes@ubiobio.cl'; */
-
+    private $_CorreoEnvioDocumentoFirmado = 'alorensv@gmail.com';
 
     private $_NombreDocumento = 'Documento.pdf';
     private $_RequiereCustodia = false;
@@ -65,10 +50,37 @@ class eCert extends Model
 
     function __construct($orden, $tipo){
         
-        $this->setOrden($orden, $tipo);
-        $this->Authenticate();
-        
+        //$this->setOrden($orden, $tipo);
+        $this->Authenticate();        
         //$this->_documento=new Documentos();        
+    }
+
+    public function Authenticate(){
+        //test
+        $this->_url = 'https://certificacion.ecertchile.cl/PortalEmpresas/API/ApiGestor/Login/Authenticate'; 
+        //productiva
+        //$this->_url = 'https://portalempresa.ecertchile.cl/API/ApiGestor/Login/Authenticate'; 
+
+        $data = [
+            'UserName' => $this->_UserName,
+            'Password' => $this->_Password
+        ];
+        $obj = $this->myCurl($data, "Authenticate");
+        if(!is_null($obj)){
+            if($obj->Exito == true){
+                $this->_Token = $obj->ObjetoGenerico->Token;
+                return $obj;
+            }
+        }
+        return $obj;        
+    }
+
+    function setUrlCallback($url){
+        $this->_UrlCallback = $url;
+    }
+
+    function set_UrlWebHook($url){
+        $this->_UrlWebHook = $url;
     }
 
     function setCorreos($correos){
@@ -104,9 +116,7 @@ class eCert extends Model
     }
 
     function setPosicionFirmaX($x){
-
         $this->_PosicionFirmaX = $x;
-
     }
 
     function setPosicionFirmaPagina ($v) {
@@ -134,10 +144,7 @@ class eCert extends Model
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($jsonData)
             ]);
-        endif;
-
-        
-        //respuesta
+        endif;        
         $response = curl_exec($ch); 
 
         //recupera
@@ -147,9 +154,9 @@ class eCert extends Model
             exit;
         } else {
             // Procesar la respuesta
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Código de estado HTTP
+            /* $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Código de estado HTTP
             echo "<br><br>$call:Código de respuesta: $httpCode\n";
-            echo "<br>Respuesta ($call): $response\n";
+            echo "<br>Respuesta ($call): $response\n"; */
 
             //echo "<br><br>" . print_r(json_encode($data), true);
 
@@ -158,63 +165,27 @@ class eCert extends Model
 
         //cierra
         curl_close($ch);
-
         //decode respuesta
         $decode = json_decode($response);
-
-
         //echo "<br><br>";
         //echo print_r($decode, true);
         //echo "<br><br>";
 
         if (isset($decode->UrlLoginECert)) {
             $this->_UrlLoginECert = $decode->UrlLoginECert;
-        }
-        
+        }        
         if (isset($decode->DocumentoId)) {
             $this->_DocumentoId = $decode->DocumentoId;
         }
-
         return $decode;
-
-
     }
-
-    function Authenticate(){
-        
-        //echo "<br>//Autenticate <br> ";
-        //pruebas
-        $this->_url = 'https://certificacion.ecertchile.cl/PortalEmpresas/API/ApiGestor/Login/Authenticate'; 
-
-        //productiva
-        //$this->_url = 'https://portalempresa.ecertchile.cl/API/ApiGestor/Login/Authenticate'; 
-
-        $data = [
-            'UserName' => $this->_UserName,
-            'Password' => $this->_Password
-        ];
-
-        //recupera objeto
-        $obj = $this->myCurl($data, "Authenticate");
-
-        return $obj;
-        
-        //guarda token
-        $this->_Token = $obj->ObjetoGenerico->Token;
-
-        //echo "<br>//FIN Autenticate <br> ";
-
-    }
-
 
     function setRutUsuario($rut){
         $this->_RutUsuario = $rut;
     }
 
     function setNombreCompleto($nombre_completo){
-
-        //echo $nombre_completo;
-        
+        //echo $nombre_completo;        
         //quitar espacio 
         for ($i = 1; $i <= 10; $i++) {
             $nombre_completo = str_replace('  ', ' ', $nombre_completo);
@@ -233,10 +204,8 @@ class eCert extends Model
     }
 
     function Preinscripcion(){
-
-
-        $this->_url = 'https://portalempresa.ecertchile.cl/API/ApiGestor/integracion/Preinscripcion';
-
+        //$this->_url = 'https://portalempresa.ecertchile.cl/API/ApiGestor/integracion/Preinscripcion';
+        $this->_url = 'https://certificacion.ecertchile.cl/PortalEmpresas/API/ApiGestor/Integracion/PreInscripcion'; 
 
         $data = [
             "RutUsuario" => $this->_RutUsuario,
@@ -252,21 +221,16 @@ class eCert extends Model
             "TipoFirma" => $this->_TipoFirma, //FAO  --> 
             "CorreoEnvioDocumentoFirmado" => $this->_CorreoEnvioDocumentoFirmado
         ];
-
-        
-        //curl
         $obj = $this->myCurl($data, "Preinscripcion");
-
-        
-
+        //dd($obj);
         $this->_IdUsuarioECert = $obj->IdUsuarioECert;
 
     }
 
     function SubirDocumento(){
 
-
-        $this->_url = 'https://portalempresa.ecertchile.cl/API/ApiGestor/integracion/SubirDocumento';
+        $this->_url = 'https://certificacion.ecertchile.cl/PortalEmpresas/API/ApiGestor/integracion/SubirDocumento';
+        //$this->_url = 'https://portalempresa.ecertchile.cl/API/ApiGestor/integracion/SubirDocumento';
 
 
         $data = [
@@ -299,7 +263,7 @@ class eCert extends Model
 
 
         //guarda el documento en la base 
-        $this->_documento->insertarDocumento($this->_orden, $this->_DocumentoId);
+        //$this->_documento->insertarDocumento($this->_orden, $this->_DocumentoId);
 
        
         return $obj->DocumentoId;

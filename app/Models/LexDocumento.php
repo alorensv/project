@@ -17,5 +17,10 @@ class LexDocumento extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function categoria()
+    {
+        return $this->belongsTo(LexCategoria::class, 'lex_categoria_id');
+    }
     
 }

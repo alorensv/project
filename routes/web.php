@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccessTokenController;
 use App\Http\Controllers\AdminMarketController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FirmarController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IntranetTblController;
 use App\Http\Controllers\LexWebController;
@@ -55,7 +56,7 @@ Route::post('/enviarEmail', [WebController::class, 'store'])->name('enviarEmail'
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 /** MARKET DIVISION */
@@ -214,7 +215,7 @@ Route::get('/corredora-seguros', function () {
 
 
 Route::get('/', [LexWebController::class, 'index'])->name('inicio');
-Route::get('/redactar', [LexWebController::class, 'redactar'])->name('redactar');
+Route::get('/redactar/{id}', [LexWebController::class, 'redactar'])->name('redactar');
 Route::post('/generate-pdf', [PDFController::class, 'generatePDF']);
 Route::get('/carroCompras', [LexWebController::class, 'carroCompras'])->name('carroCompras');
 Route::post('/guardarRedaccion', [LexWebController::class, 'guardarRedaccion']);
@@ -222,4 +223,16 @@ Route::get('/getRedaccionesPorPagar', [LexWebController::class, 'getRedaccionesP
 Route::get('/lexPagar', [TransbankController::class, 'lexPagar'])->name('lexPagar');
 Route::get('/getResult', [TransbankController::class, 'getResult'])->name('getResult');
 Route::get('/getPDFUrl', [LexWebController::class, 'getPDFUrl'])->name('getPDFUrl');
+Route::get('/lexregiones', [LexWebController::class, 'lexregiones'])->name('lexregiones');
+Route::get('/lexcomunas/{region}', [LexWebController::class, 'lexcomunas'])->name('lexcomunas');
+Route::get('/lexcategorias', [LexWebController::class, 'lexcategorias'])->name('lexcategorias');
 
+/*INTRANET*/
+Route::get('/home', [FirmarController::class, 'index'])->name('home');
+Route::get('/getDocumentosPendientesPagadoPerPage',[FirmarController::class, 'getDocumentosPendientesPagadoPerPage'])->name('getDocumentosPendientesPagadoPerPage');
+
+/* FIRMAS */
+
+Route::post('/auth', [FirmarController::class, 'auth'])->name('auth');
+Route::get('/callback', [FirmarController::class, 'callback'])->name('callback');
+Route::post('/recibeDocumento', [FirmarController::class, 'recibeDocumento'])->name('recibeDocumento');

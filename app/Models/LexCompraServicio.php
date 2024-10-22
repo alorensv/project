@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class LexCompraServicio extends Model
@@ -53,7 +54,7 @@ class LexCompraServicio extends Model
 
     public static function getServiciosPagadosById($compraId){
         $query = "
-            SELECT doc.nombre AS nombreDoc, cs.cantidad, cs.monto FROM lex_compra_servicios cs
+            SELECT urd.id as idRedaccion, doc.nombre AS nombreDoc, cs.cantidad, cs.monto FROM lex_compra_servicios cs
 				INNER JOIN lex_user_redacta_documento urd ON urd.id = cs.lex_user_redacta_documento_id
 				INNER JOIN lex_documentos doc ON doc.id = urd.documento_id
 				WHERE cs.lex_compra_id = $compraId ";
@@ -63,5 +64,58 @@ class LexCompraServicio extends Model
         $serviciosPagados = collect(DB::select($query, $params));
         return $serviciosPagados;
     }
+
+    public static function docsPendientesPagadosPerPage($page, $perPage, $search = null)
+    {
+        $page = (int) $page;
+        $perPage = (int) $perPage;
+
+        $query = "SELECT compra.id as idCompra, 
+        compra.monto AS monto,
+        compra.fecha_transaccion AS fechaCompra,
+        urd.id as idRedaccion, 
+        doc.nombre AS nombreDoc, 
+        cs.monto,
+        (SELECT COUNT(*) 
+            FROM lex_firmantes_redaccion_documento firm_p 
+        WHERE firm_p.lex_redaccion_id = urd.id 
+        AND firm_p.estado = 0) AS firmasPendientes,
+        (SELECT COUNT(*) 
+        FROM lex_firmantes_redaccion_documento firm_o 
+        WHERE firm_o.lex_redaccion_id = urd.id 
+        AND firm_o.estado = 1) AS firmasOk,
+        urd.ruta
+        FROM lex_compras compra
+        INNER JOIN lex_compra_servicios cs ON compra.id = cs.lex_compra_id
+        INNER JOIN lex_user_redacta_documento urd ON urd.id = cs.lex_user_redacta_documento_id
+        INNER JOIN lex_documentos doc ON doc.id = urd.documento_id
+        WHERE compra.estado = 2 ";
+
+        $params = [];
+
+        if (!empty($search)) {
+            $query .= "AND (doc.nombre LIKE ? OR c.rut LIKE ? ) ";
+            $searchTerm = "%{$search}%";
+            $params = array_merge($params, [$searchTerm, $searchTerm]);
+        }
+
+        $query .= " ORDER BY compra.id ASC";
+
+        $selectData = collect(DB::select($query, $params));
+
+        $offset = ($page - 1) * $perPage;
+        $itemsForCurrentPage = $selectData->slice($offset, $perPage)->values();
+
+        /* $itemsForCurrentPage->transform(function ($empleado) {
+            $empleado->img_url = url('empleados/photo/' . $empleado->rut);
+            return $empleado;
+        }); */
+
+        return new LengthAwarePaginator($itemsForCurrentPage, $selectData->count(), $perPage, $page, [
+            'path' => request()->url(),
+            'query' => request()->query(),
+        ]);
+    }
+
 
 }

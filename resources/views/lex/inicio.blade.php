@@ -11,12 +11,13 @@
           <div class="col-lg-6 padding-title-presentation-large">
             <h4>Seguro, online y con validez legal </h4>
             <h2 class="escribiendo ">
-            Crea y firma documentos legales
+              ¿Necesitas un documento legal con firma avanzada en minutos?
             </h2>
             <p>Crea documentos que no requieren de redacción de abogado ni de cumplir con solemnidades especiales, ya que puede ser extendido por las partes firmantes del documento</p>
+            <p>Podrás encontrar <strong>declaraciones, contratos, cartas poder y muchos más documentos</strong>.</p>
             <p><br></p>
             <p>
-              <a href="/transportes_bulnes" class="btn btn-lex-secondary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
+              <a href="/#" class="btn btn-lex-secondary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
             </p>
           </div>
           <div class="col-6">
@@ -78,61 +79,95 @@
         </div>
       </div>
     </div>
-    <div class="carrusel">
+    <div class="bgInfo">
+      <div class="container">
+        <div class="pt-4 pb-5 text-center">
+          <h2 class="text-primary">¿Cómo funciona?</h2>
+          <hr class="divider">
 
-    <div class="owl-carousel owl-theme">
-      <div class="item" v-for="(card, index) in cards" :key="index">
-        <!-- El contenido de tu card va aquí -->
-        <img :src="card.image" alt="Card image">
-        <h4>@{{ card.title }}</h4>
-        <p>@{{ card.description }}</p>
+          <div class="steps-container">
+            <!-- Paso 1 -->
+            <div class="step">
+              <div class="circle">1</div>
+              <span class="material-icons icon">description</span>
+              <h4>Elige y completa tu documento</h4>
+            </div>
+
+            <!-- Línea que conecta los pasos -->
+            <div class="line"></div>
+
+            <!-- Paso 2 -->
+            <div class="step">
+              <div class="circle">2</div>
+              <span class="material-icons icon">group_add</span>
+              <h4>Añade los firmantes</h4>
+            </div>
+
+            <!-- Línea que conecta los pasos -->
+            <div class="line"></div>
+
+            <!-- Paso 2 -->
+            <div class="step">
+              <div class="circle">3</div>
+              <span class="material-icons icon">credit_card</span>
+              <h4>Realiza el pago con Transbank</h4>
+            </div>
+
+            <!-- Línea que conecta los pasos -->
+            <div class="line"></div>
+
+            <!-- Paso 3 -->
+            <div class="step">
+              <div class="circle">4</div>
+              <span class="material-icons icon">edit_note</span>
+              <h4>Firma tu documento online</h4>
+            </div>
+          </div>
+
+          <p class="final-text">¡Todo listo para descargar y usar!</p>
+        </div>
       </div>
     </div>
 
+    <div class="container py-5">
 
+      <div class="mb-5">
+
+        <div>
+          <h4><i class="material-icons" style="vertical-align: middle;">double_arrow</i>Declaraciones</h4>
+        </div>
+        <div class="owl-carousel owl-theme">
+
+          @foreach($categoriasDocumentos as $categoriaDocumento)
+
+          <div class="item">
+            <div class="card" style="width: 18rem;">
+              <img src="/img/lex/docFirma.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ $categoriaDocumento->documento }}</h5>
+                <a href="{{ url('redactar/' . $categoriaDocumento->id_documento) }}" class="btn btn-primary">Iniciar</a>
+              </div>
+            </div>
+          </div>
+
+          @endforeach
+
+        </div>
+      </div>
 
     </div>
+
+
+
+
+
+
   </section>
-
-  <!-- <section class="indicadores py-5 bgIndicadores">
-    <div class="container">
-      <div class="indicators-container">
-        <div class="indicator" id="indicator-accidentes">
-          <div class="value-container" data-start="0" data-end="0">0</div>
-          <div class="title">Accidentes</div>
-        </div>
-        <div class="indicator" id="indicator-km">
-          <div class="value-container">
-            <span>+</span>
-            <div class="value" data-start="0" data-end="3">3</div><span> Millones</span>
-          </div>
-          <div class="title">de km recorridos</div>
-        </div>
-        <div class="indicator" id="indicator-clientes">
-          <div class="value-container">
-            <span>+</span>
-            <div class="value" data-start="0" data-end="790">790</div>
-          </div>
-          <div class="title">Clientes satisfechos</div>
-        </div>
-        <div class="indicator" id="indicator-compromiso">
-          <div class="value-container">
-            <div class="value" data-start="0" data-end="100">100</div><span>%</span>
-          </div>
-          <div class="title">Compromiso con nuestros clientes</div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
 
   @include('lex.include.footer')
 
 
-  <div id="lineas" style="font-family: 'Roboto', sans-serif;font-size: 14px;background-color: #333;">
-    <a href="https://www.lineasdecodigo.cl/" title="Diseño Web - Posicionamiento Web - Sistema Web">
-      <img width="142" height="22" src="img/logo.png" alt="Diseño Web - Posicionamiento Web - Sistema Web"></a>
-  </div>
 
 
 </div>
@@ -143,8 +178,7 @@
     data: {
       animationTriggered: {},
       currentSlide: 0,
-      carouselItems: [
-        {
+      carouselItems: [{
           image: 'img/lex/bg1.png',
           alt: 'Documento privado con firma avanzada',
           title: 'Paso 1'
@@ -153,15 +187,14 @@
           image: 'img/lex/bg1.png',
           alt: 'Pago online',
           title: 'Paso 2'
-        },      
+        },
         {
           image: 'img/lex/bg1.png',
           alt: 'Firmar con clave única',
           title: 'Paso 3'
         }
       ],
-      carouselItemsCel: [
-        {
+      carouselItemsCel: [{
           image: 'img/lex/bg1.png',
           alt: 'Third slide',
           title: 'Paso 1'
@@ -170,24 +203,12 @@
           image: 'img/lex/bg1.png',
           alt: 'Third slide',
           title: 'Paso 2'
-        },      
+        },
         {
           image: 'img/lex/bg1.png',
           alt: 'Third slide',
           title: 'Paso 3'
         }
-      ],
-      cards: [
-        { image: 'img/lex/doc.png', title: 'Card 1', description: 'Descripción de la card 1' },
-        { image: 'img/lex/doc.png', title: 'Card 2', description: 'Descripción de la card 2' },
-        { image: 'img/lex/doc.png', title: 'Card 3', description: 'Descripción de la card 3' },
-        { image: 'img/lex/doc.png', title: 'Card 4', description: 'Descripción de la card 4' },
-        { image: 'img/lex/doc.png', title: 'Card 5', description: 'Descripción de la card 5' },
-        { image: 'img/lex/doc.png', title: 'Card 6', description: 'Descripción de la card 6' },
-        { image: 'img/lex/doc.png', title: 'Card 7', description: 'Descripción de la card 7' },
-        { image: 'img/lex/doc.png', title: 'Card 8', description: 'Descripción de la card 8' },
-        { image: 'img/lex/doc.png', title: 'Card 9', description: 'Descripción de la card 9' },
-        { image: 'img/lex/doc.png', title: 'Card 10', description: 'Descripción de la card 10' }
       ],
       intervalId: null,
     },
@@ -202,11 +223,11 @@
         items: 4, // Mostrar 4 cards inicialmente
         loop: false, // Si no deseas un carrusel en bucle
         margin: 20, // Margen entre los elementos
-        nav: true, // Habilitar la navegación
+        nav: true, // Habilitar la navegación con flechas
         dots: false, // Desactivar los puntos de paginación
-        navText : [
-          '<span class="material-icons-outlined">arrow_back_ios</span>',
-          '<span class="material-icons-outlined">arrow_forward_ios</span>'
+        navText: [
+          '<span class="material-icons" style="font-size: 24px;">arrow_back_ios</span>',
+          '<span class="material-icons" style="font-size: 24px;">arrow_forward_ios</span>'
         ],
         responsive: {
           0: {
@@ -231,8 +252,6 @@
       prevSlide() {
         this.currentSlide = (this.currentSlide - 1 + this.carouselItems.length) % this.carouselItems.length;
       },
-
-
     }
   });
 </script>
