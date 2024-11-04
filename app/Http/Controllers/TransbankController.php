@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotificarFirma;
 use App\Models\CompraProductos;
 use App\Models\Compras;
 use App\Models\LexCompra;
 use App\Models\LexCompraServicio;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class TransbankController extends Controller
 {
@@ -84,21 +87,39 @@ class TransbankController extends Controller
         $type = 'sandbox';
         $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions/' . $token;
         $response = $this->get_ws($data, $method, $type, $endpoint);
-
-       
         /** detalles de la compra */
         if(isset($response->buy_order)){
-            Auth::loginUsingId($response->session_id);
+            $auth = Auth::loginUsingId($response->session_id);
             $compra = LexCompra::find($response->buy_order);
             $compra->estado = LexCompra::ESTADO_PAGADO; 
+            $compra->ultimos_num_tarjeta = $response->card_detail->card_number;
+            $compra->fecha_transaccion = Carbon::parse($response->transaction_date)->format('Y-m-d H:i:s'); 
+            $compra->codigo_auth = $response->authorization_code; 
+            $compra->codigo_tipo_transaccion = $response->payment_type_code; 
+            $compra->num_cuotas = $response->installments_number;
+           
+            //$compra->response_code = ;
             if($compra->save()){
                 //$order = Compras::updateCompraTransbank($response);
                 $detallesCompra = LexCompraServicio::getServiciosPagadosById($compra->id);
             }
         }
+
+        $firmante = "alorensv@gmail.com";
+        $firmaDocumento = "hola";
+        $send = Mail::to([$firmante])->send(new NotificarFirma($firmaDocumento));
         
 
-        return view('lex/market/getResult', ['response' => $response, 'compra' => (isset($compra))? $compra:null, 'detallesCompra' => (isset($detallesCompra))? $detallesCompra: null]);
+        if (!$auth) {
+            return view('lex/market/getResult', [
+                'response' => $response,
+                'compra' => $compra ?? null,
+                'detallesCompra' => $detallesCompra ?? null
+            ]);
+        } else {
+            return redirect()->route('home');
+        }
+        
     }
 
     public function getStatus()

@@ -30,18 +30,17 @@
                                         </div>
 
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-6">Cantidad de firmantes: 1</div>
-                                                <div class="col-6">
-                                                    <button class="btn btn-primary mt-2" @click="verPDF(item.ruta)">
+
+                                            <table class="table table-striped" style="width:100%">
+                                                <tr>
+                                                    <th>Cantidad de firmantes <span class="badge badge-primary fontBadge"> @{{item.firmantes}}</span></th>
+                                                    <td><button class="btn btn-primary mt-2" @click="verPDF(item.ruta)">
                                                         Ver PDF
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6">Total</div>
-                                                <div class="col-6">@{{item.precioDoc}}</div>
-                                            </div>
+                                                    </button></td>
+                                                    <th>Total</th>
+                                                    <td>@{{item.precioDoc}}</td>
+                                                </tr>
+                                            </table>
 
                                         </div>
                                     </div>

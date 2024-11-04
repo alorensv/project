@@ -2,15 +2,134 @@
 
 @section('content')
 
+<style>
+  @keyframes showTopText {
+    0% {
+      transform: translate3d(0, 100%, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(0, 50%, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes showBottomText {
+    0% {
+      transform: translate3d(0, -100%, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animated-title {
+    line-height: normal;
+    color: #222;
+    height: 134vmin;
+    left: 70%;
+    position: absolute;
+    top: 21%;
+    transform: translate(-64%, -54%);
+    width: 72vmin;
+  }
+
+  .animated-title>div {
+    height: 49.6%;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+  }
+
+  .animated-title>div div {
+    font-size: 2.6vmin;
+    padding: 3.4vmin 0;
+    position: absolute;
+  }
+
+  .animated-title>div div span {
+    display: block;
+  }
+
+  .animated-title>div.text-top {
+    border-bottom: 0.5vmin solid #ee6076;
+    top: 0;
+  }
+
+  .animated-title>div.text-top div {
+    animation: showTopText 1s forwards;
+    animation-delay: 0.5s;
+    bottom: 0;
+    transform: translate(0, 100%);
+  }
+
+  .animated-title>div.text-top div span:first-child {
+    color: #767676;
+  }
+
+  .animated-title>div.text-bottom {
+    bottom: 0;
+  }
+
+  .animated-title>div.text-bottom div {
+    animation: showBottomText 0.5s forwards;
+    animation-delay: 1.75s;
+    top: 0;
+    transform: translate(0, -100%);
+  }
+
+  .animated-title {
+    z-index: 10;
+  }
+
+  .animated-title p {
+    font-size: 19px !important;
+  }
+
+  .titleOne h4 {
+    animation-duration: 3s;
+    animation-name: slidein;
+  }
+
+  .titlePrincipal h2 {
+    animation-duration: 2s;
+    animation-name: slidein;
+  }
+
+  .titlePrincipal p {
+    animation-duration: 2s;
+    animation-name: slidein;
+  }
+
+  @keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 100%;
+    }
+
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+  
+
+</style>
+
 <div id="vueInicio">
 
   <section class="welcome">
     <div>
       <div class="container section-phone-padding">
         <div class="row">
-          <div class="col-lg-6 padding-title-presentation-large">
+          <div class="col-lg-6 padding-title-presentation-large titleOne titlePrincipal">
             <h4>Seguro, online y con validez legal </h4>
-            <h2 class="escribiendo ">
+            <h2>
               ¿Necesitas un documento legal con firma avanzada en minutos?
             </h2>
             <p>Crea documentos que no requieren de redacción de abogado ni de cumplir con solemnidades especiales, ya que puede ser extendido por las partes firmantes del documento</p>
@@ -22,58 +141,36 @@
           </div>
           <div class="col-6">
 
-            <div id="myCarousel" class="carousel slide margenCarusel" data-ride="carousel">
-              <ol class="carousel-indicators">
-                <li v-for="(item, index) in carouselItems" :key="index" :data-slide-to="index" :class="{ active: index === currentSlide }" @click="showSlide(index)"></li>
-              </ol>
-              <div class="carousel-inner large-screen">
-                <div v-for="(item, index) in carouselItems" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
-                  <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
-                  <div class="row titleCarousel">
-                    <div class="container d-flex">
-                      <div class="titleServices1">
-                        <h1 class="text-center">@{{ item.title }}</h1>
+            <div id="banner-carousel" class="owl-carousel owl-theme">
+
+              <div v-for="(item, index) in carouselItems" :key="index">
+
+                <div class="item">
+                  <div>
+                    <div class="animated-title">
+                      <div class="text-top">
+                        <div style="margin-bottom: -10px;">
+                          <span>@{{ item.title }}</span>
+
+                        </div>
+                      </div>
+                      <div class="text-bottom pt-1">
+                        <span>
+                          <p>@{{ item.sub1 }}</p>
+                        </span>
+                        <div>
+                          <p>@{{ item.sub2 }}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                </div>
-              </div>
-              <div class="carousel-inner small-screen" style="display: none;">
-                <div v-for="(item, index) in carouselItemsCel" :key="index" :class="['carousel-item', { active: index === currentSlide }]">
-                  <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
-                  <div class="row titleCarousel">
-                    <div class="container d-flex">
-                      <div class="titleServices1">
-                        <h1 class="text-center">@{{ item.title }}</h1>
-                      </div>
-                      <div class="titleServices2">
-                        <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServices">
-                          <span>Nuestros servicios</span>
-                          <i style="color: white; font-size: 30px!important; margin-left: 48px;" class="material-icons">arrow_forward</i>
-                        </a>
-                      </div>
-                      <div class="titleServices2Celular">
-                        <a class="btn btn-lg btn-primary buttonServices" href="#" role="button" @click.prevent="goToServicesPhone">
-                          <span>Nuestros servicios</span>
-                          <i style="color: white; font-size: 30px!important; margin-left: 15px;" class="material-icons">arrow_forward</i>
-                        </a>
-                      </div>
-                    </div>
+                    <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
                   </div>
-
                 </div>
+
               </div>
-              <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev" @click.prevent="prevSlide">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next" @click.prevent="nextSlide">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+
             </div>
-
 
           </div>
         </div>
@@ -84,7 +181,6 @@
         <div class="pt-4 pb-5 text-center">
           <h2 class="text-primary">¿Cómo funciona?</h2>
           <hr class="divider">
-
           <div class="steps-container">
             <!-- Paso 1 -->
             <div class="step">
@@ -106,7 +202,7 @@
             <!-- Línea que conecta los pasos -->
             <div class="line"></div>
 
-            <!-- Paso 2 -->
+            <!-- Paso 3 -->
             <div class="step">
               <div class="circle">3</div>
               <span class="material-icons icon">credit_card</span>
@@ -116,7 +212,7 @@
             <!-- Línea que conecta los pasos -->
             <div class="line"></div>
 
-            <!-- Paso 3 -->
+            <!-- Paso 4 -->
             <div class="step">
               <div class="circle">4</div>
               <span class="material-icons icon">edit_note</span>
@@ -133,7 +229,7 @@
 
       <div class="mb-5">
 
-        <div>
+        <div class="pb-4">
           <h4><i class="material-icons" style="vertical-align: middle;">double_arrow</i>Declaraciones</h4>
         </div>
         <div class="owl-carousel owl-theme">
@@ -181,18 +277,20 @@
       carouselItems: [{
           image: 'img/lex/bg1.png',
           alt: 'Documento privado con firma avanzada',
-          title: 'Paso 1'
+          title: 'Paso 1',
+          sub1: 'Selecciona y completa los datos del documento',
+          sub2: 'Agrega a los FIRMANTES que participarán.'
         },
         {
           image: 'img/lex/bg1.png',
-          alt: 'Pago online',
-          title: 'Paso 2'
+          alt: 'Documento privado con firma avanzada',
+          title: 'Paso 2',
+          sub1: 'Paga segur@ con Transbank',
+          sub2: 'TODOS los documentos y firmas que necesites.'
         },
-        {
-          image: 'img/lex/bg1.png',
-          alt: 'Firmar con clave única',
-          title: 'Paso 3'
-        }
+        /* 
+                { image: 'img/lex/bg1.png', alt: 'Pago online', title: 'Paso 2' },
+                { image: 'img/lex/bg1.png', alt: 'Firmar con clave única', title: 'Paso 3' } */
       ],
       carouselItemsCel: [{
           image: 'img/lex/bg1.png',
@@ -213,36 +311,20 @@
       intervalId: null,
     },
     created() {
-      this.showSlide(0); // Muestra la primera diapositiva
-      this.intervalId = setInterval(() => {
-        this.nextSlide();
-      }, 7000); // Cambia cada 2 segundos (2000 ms)
+      this.startAutoSlide();
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalId);
     },
     mounted() {
-      $('.owl-carousel').owlCarousel({
-        items: 4, // Mostrar 4 cards inicialmente
-        loop: false, // Si no deseas un carrusel en bucle
-        margin: 20, // Margen entre los elementos
-        nav: true, // Habilitar la navegación con flechas
-        dots: false, // Desactivar los puntos de paginación
-        navText: [
-          '<span class="material-icons" style="font-size: 24px;">arrow_back_ios</span>',
-          '<span class="material-icons" style="font-size: 24px;">arrow_forward_ios</span>'
-        ],
-        responsive: {
-          0: {
-            items: 1 // Mostrar 1 card en pantallas pequeñas
-          },
-          600: {
-            items: 2 // Mostrar 2 cards en pantallas medianas
-          },
-          1000: {
-            items: 4 // Mostrar 4 cards en pantallas grandes
-          }
-        }
-      });
+      this.carruselBanner();
+      this.carruselDocumentos();
+      this.initStepAnimation();
     },
     methods: {
+      startAutoSlide() {
+        this.intervalId = setInterval(this.nextSlide, 9000);
+      },
       showSlide(index) {
         this.currentSlide = index;
       },
@@ -252,6 +334,74 @@
       prevSlide() {
         this.currentSlide = (this.currentSlide - 1 + this.carouselItems.length) % this.carouselItems.length;
       },
+      carruselDocumentos() {
+        $('.owl-carousel').owlCarousel({
+          items: 4, // Mostrar 4 cards inicialmente
+          loop: false, // Si no deseas un carrusel en bucle
+          margin: 20, // Margen entre los elementos
+          nav: true, // Habilitar la navegación con flechas
+          dots: false, // Desactivar los puntos de paginación
+          navText: [
+            '<span class="material-icons" style="font-size: 24px;">arrow_back_ios</span>',
+            '<span class="material-icons" style="font-size: 24px;">arrow_forward_ios</span>'
+          ],
+          responsive: {
+            0: {
+              items: 1 // Mostrar 1 card en pantallas pequeñas
+            },
+            600: {
+              items: 2 // Mostrar 2 cards en pantallas medianas
+            },
+            1000: {
+              items: 4 // Mostrar 4 cards en pantallas grandes
+            }
+          }
+        });
+      },
+      carruselBanner() {
+        $('#banner-carousel').owlCarousel({
+          items: 1, // Mostrar 4 cards inicialmente
+          loop: true, // Si no deseas un carrusel en bucle
+          margin: 20, // Margen entre los elementos
+          nav: true, // Habilitar la navegación con flechas
+          dots: false, // Desactivar los puntos de paginación
+          autoplay: true,
+          autoplayTimeout: 5000,
+          autoplayHoverPause: true,
+        });
+      },
+      initStepAnimation() {
+        const steps = document.querySelectorAll('.step');
+        const observer = new IntersectionObserver((entries) => {
+          let delay = 0;
+          let visibleCount = 0; // Contador para llevar un seguimiento de los pasos visibles
+
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              // Mostrar inmediatamente el primer elemento
+              setTimeout(() => {
+                  entry.target.classList.add('visible');
+                  visibleCount++; // Contar este paso como visible
+                  // Verificar si todos los pasos han sido visibles
+                  if (visibleCount === steps.length) {
+                    document.querySelector('.final-text').style.fontSize = '34px'; // Aumentar el tamaño del texto
+                  }
+                }, delay);
+                delay += 200; 
+            } else {
+              entry.target.classList.remove('visible');
+              document.querySelector('.final-text').style.fontSize = '1.4rem'; 
+            }
+          });
+        }, { threshold: 1 });
+
+        steps.forEach(step => observer.observe(step));
+      }
+
+
+
+
+
     }
   });
 </script>

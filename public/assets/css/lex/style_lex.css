@@ -1,5 +1,54 @@
 /* LEX */
+
+.previsualizacionDocumento{
+    padding-right: 60px;
+    text-align: justify;
+    font-size: 20px;
+    max-height: 488px;
+    overflow-y: scroll;
+}
+
+/* loading */
+
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Asegura que el loader esté sobre todo */
+  }
+  
+  .loader::before {
+    content: "";
+    width: 70px;
+    height: 70px;
+    border: 14px solid #060737;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .fontBadge{
+    font-size: large !important;
+  }
+  
 /* pago */
+
+.titleFormDoc{
+    color: #060737;
+    text-decoration-line: underline;
+}
 
 .containerPagoExitoso {
     width: 50%; 
@@ -57,11 +106,22 @@
   }
 
   .step {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.1s ease, transform 0.1s ease;
     width: 30%;
     text-align: center;
     position: relative;
     z-index: 1;
   }
+
+
+
+  .step.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
 
   .step .circle {
     background-color: #FB3F5C;
@@ -104,6 +164,7 @@
   }
 
   .final-text {
+    transition: font-size 1.5s ease;
     font-size: 1.4rem;
     margin-top: 50px;
     color: #fff;
@@ -249,8 +310,36 @@
 
 
 /* INTRANET */
+
+.user-icon {
+    width: 40px; /* Ajusta el tamaño del círculo */
+    height: 40px; /* Ajusta el tamaño del círculo */
+    background-color: lightgray; /* Color de fondo del círculo */
+    border-radius: 50%; /* Hace que el div sea un círculo */
+    display: flex;
+    justify-content: center; /* Centra el icono horizontalmente */
+    align-items: center; /* Centra el icono verticalmente */
+}
+
+.user-icon .material-icons {
+    font-size: 20px; /* Tamaño del icono */
+    color: white; /* Color del icono */
+}
+
 .table-bordered th, .table-bordered td {
     border: 0px solid #dee2e6; 
+}
+
+.divTablas{
+    padding: 20px;
+    background-color: #f7f7f7;
+    box-shadow: 0 0px 13px 0 rgba(0, 0, 0, 0.1);
+}
+
+.divTablasSuccess{
+    padding: 20px;
+    background-color: #e8ffea;
+    box-shadow: 0 0px 13px 0 rgba(0, 0, 0, 0.1);
 }
 
 .cursorPointer {
@@ -421,9 +510,8 @@ tr:hover{
 }
 
 .filtrosDiv{
-    background-color: #fafafa;
-    padding: 29px 24px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa; */
+    box-shadow: 0 0 38px rgb(0 0 0 / 25%);
 }
 
 

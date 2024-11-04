@@ -39,9 +39,9 @@ class eCert extends Model
 
     private $_NombreDocumento = 'Documento.pdf';
     private $_RequiereCustodia = false;
-    private $_PosicionFirmaX = 200;
-    private $_PosicionFirmaY = 600;
-    private $_PosicionFirmaPagina = 1;
+    private $_PosicionFirmaX = 0;
+    private $_PosicionFirmaY = 0;
+    private $_PosicionFirmaPagina = 0;
     public $_DocumentoBase64; 
 
     public $_UrlLoginECert;
@@ -87,19 +87,6 @@ class eCert extends Model
         $this->_CorreoEnvioDocumentoFirmado = $correos;
     }   
 
-    function setNombreDocumento($docto){
-        $this->_NombreDocumento = $docto;
-    }
-
-    function setPDF($pdf){
-        $this->_DocumentoBase64 = $pdf;
-    }
-  
-    function setOrden($orden, $tipo){
-        $this->_orden = $orden;
-        $this->_UrlCallback .= '?tipo=' . $tipo . '&orden=' . $orden;
-    }
-
     function getToken(){
         return $this->_Token;
     }
@@ -109,6 +96,26 @@ class eCert extends Model
 
     function getDocumentoId(){
         return $this->_DocumentoId;
+    }
+
+    function setRutUsuario($rut){
+        $this->_RutUsuario = $rut;
+    }
+
+    function set_Email($correo){
+        $this->_Email = $correo; 
+    }
+
+    function set_Nombre($nombre){
+        $this->_Nombre = $nombre;
+    }
+
+    function set_ApellidoPaterno($apellido){
+        $this->_ApellidoPaterno = $apellido;
+    }
+
+    function set_ApellidoMaterno($apellido){
+        $this->_ApellidoMaterno = $apellido;
     }
 
     function setPosicionFirmaY($y){
@@ -122,6 +129,20 @@ class eCert extends Model
     function setPosicionFirmaPagina ($v) {
         $this->_PosicionFirmaPagina = $v;
     }
+
+    function setNombreDocumento($docto){
+        $this->_NombreDocumento = $docto;
+    }
+
+    function setPDF($pdf){
+        $this->_DocumentoBase64 = $pdf;
+    }
+  
+    function setOrden($orden, $tipo){
+        $this->_orden = $orden;
+        $this->_UrlCallback .= '?tipo=' . $tipo . '&orden=' . $orden;
+    }
+
 
     function myCurl($data=array(), $call=''){
 
@@ -167,9 +188,6 @@ class eCert extends Model
         curl_close($ch);
         //decode respuesta
         $decode = json_decode($response);
-        //echo "<br><br>";
-        //echo print_r($decode, true);
-        //echo "<br><br>";
 
         if (isset($decode->UrlLoginECert)) {
             $this->_UrlLoginECert = $decode->UrlLoginECert;
@@ -180,9 +198,7 @@ class eCert extends Model
         return $decode;
     }
 
-    function setRutUsuario($rut){
-        $this->_RutUsuario = $rut;
-    }
+    
 
     function setNombreCompleto($nombre_completo){
         //echo $nombre_completo;        
@@ -246,21 +262,11 @@ class eCert extends Model
                 "Ubicacion: 12341341, 1234123421" //?
             ],
             "DocumentoBase64" => $this->_DocumentoBase64 
-
             
         ];
-
-        
-        //echo "<br><br>";
-        //echo print_r($data, true);
-        //echo "<br><br>";
-        //echo "SubirDocumento: ";
-
         //curl
         $obj = $this->myCurl($data, "SubirDocumento");
         $this->_DocumentoId = $obj->DocumentoId;
-
-
 
         //guarda el documento en la base 
         //$this->_documento->insertarDocumento($this->_orden, $this->_DocumentoId);

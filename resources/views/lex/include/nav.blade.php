@@ -22,7 +22,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
+                       
                         <li class="nav-item px-2 pt-1">
                             <a class="nav-link {{request()->routeIs('inicio') ? 'active' : ''}}" href="{{ route('inicio') }}">{{ __('Inicio') }}</a>
                         </li>
@@ -70,6 +70,8 @@
                             <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="{{ route('transportes_bulnes') }}">{{ __('Ayuda') }}</a>
                         </li>
 
+                        @guest
+                        
                         @else
 
                         <li class="nav-item pl-2 pr-3 pt-1">

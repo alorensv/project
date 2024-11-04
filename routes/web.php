@@ -228,7 +228,7 @@ Route::get('/lexcomunas/{region}', [LexWebController::class, 'lexcomunas'])->nam
 Route::get('/lexcategorias', [LexWebController::class, 'lexcategorias'])->name('lexcategorias');
 
 /*INTRANET*/
-Route::get('/home', [FirmarController::class, 'index'])->name('home');
+Route::middleware('auth')->get('/home', [FirmarController::class, 'index'])->name('home');
 Route::get('/getDocumentosPendientesPagadoPerPage',[FirmarController::class, 'getDocumentosPendientesPagadoPerPage'])->name('getDocumentosPendientesPagadoPerPage');
 
 /* FIRMAS */
@@ -236,3 +236,5 @@ Route::get('/getDocumentosPendientesPagadoPerPage',[FirmarController::class, 'ge
 Route::post('/auth', [FirmarController::class, 'auth'])->name('auth');
 Route::get('/callback', [FirmarController::class, 'callback'])->name('callback');
 Route::post('/recibeDocumento', [FirmarController::class, 'recibeDocumento'])->name('recibeDocumento');
+Route::get('/documento/descargar/{idRedaccion}', [LexWebController::class, 'buscarDocumento']);
+Route::get('/enviarCorreo', [FirmarController::class, 'enviarCorreo'])->name('enviarCorreo');

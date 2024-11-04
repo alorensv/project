@@ -39,10 +39,14 @@ class UserRedactaDocumento extends Model
         $page = (int) $page;
         $perPage = (int) $perPage;
 
-        $query = "SELECT r.*, doc.nombre as nombreDoc, doc.precio as precioDoc
+        $query = "SELECT r.*, doc.nombre as nombreDoc, doc.precio as precioDoc,
+            (SELECT COUNT(*) 
+            FROM lex_firmantes_redaccion_documento firm_p 
+            WHERE firm_p.lex_redaccion_id = r.id) AS firmantes
             FROM lex_user_redacta_documento r
             INNER JOIN lex_documentos doc on doc.id = r.documento_id
-            WHERE 1=1 ";
+            LEFT JOIN lex_compra_servicios ser on ser.lex_user_redacta_documento_id = r.id
+            WHERE ser.id is null ";
 
         $params = [];
 

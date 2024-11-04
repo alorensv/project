@@ -75,7 +75,6 @@ class LexCompraServicio extends Model
         compra.fecha_transaccion AS fechaCompra,
         urd.id as idRedaccion, 
         doc.nombre AS nombreDoc, 
-        cs.monto,
         (SELECT COUNT(*) 
             FROM lex_firmantes_redaccion_documento firm_p 
         WHERE firm_p.lex_redaccion_id = urd.id 
@@ -83,7 +82,7 @@ class LexCompraServicio extends Model
         (SELECT COUNT(*) 
         FROM lex_firmantes_redaccion_documento firm_o 
         WHERE firm_o.lex_redaccion_id = urd.id 
-        AND firm_o.estado = 1) AS firmasOk,
+        AND firm_o.estado = 2) AS firmasOk,
         urd.ruta
         FROM lex_compras compra
         INNER JOIN lex_compra_servicios cs ON compra.id = cs.lex_compra_id
