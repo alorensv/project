@@ -70,7 +70,8 @@ class LexDocumento extends Model
             $firmantesHtml .= ', ' 
             . htmlspecialchars($firmante['nombre']) 
             . ' R.U.N. ' . htmlspecialchars($firmante['rut']) 
-            . ' con domicilio para estos efectos en '; // . htmlspecialchars($firmante['direccion'])
+            . ' con domicilio para estos efectos en '.htmlspecialchars($firmante['domicilio']).' de la comuna de'
+            . htmlspecialchars($firmante['comuna']).', '.htmlspecialchars($firmante['region']); // . htmlspecialchars($firmante['direccion'])
 
             $firmasHtml .= '
                 <div id="firmas" class="col-6 mb-3" style="text-align: center; margin-right: 20px;font-size: 20px;">

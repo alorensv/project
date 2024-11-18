@@ -2,13 +2,13 @@
 
 @section('content')
 <div id="vueFirmas">
-    <section class="white-division pt-5 pb-2" style="margin-top: 30px;">
+    <section class="white-division pt-5 pb-2" style="min-height: 94vh;">
 
         <div class="container containerPagoExitoso">
             <?php //echo "<pre>"; print_r($compra->direccion->region);  die; 
             ?>
 
-            <div class="row bg-white market-body ">
+            <div class="row bg-white market-body pt-4 ">
                 <div class="col-12 pt-4 pl-4">
                     <div class="row pb-3">
                         <div class="col-12">
@@ -18,7 +18,11 @@
                                     <!-- Pago exitoso con icono -->
                                     <div class="success-message text-center">
                                         <span class="material-icons">check_circle</span>
-                                        <span>Pago exitoso</span>
+                                        <span class="pb-2">Pago exitoso</span>
+                                        
+                                    </div>
+                                    <div class="text-center">
+                                    <p>Se han enviado los correos solicitando las firmas a los participantes.<br> Te sugerimos registrarte en plataforma para realizar el siguimientos de tus firmas.</p>
                                     </div>
                                     <div class="card">
                                         <div class="card-header" id="headingCart">
@@ -145,7 +149,7 @@
                                                     <td>{{$detalle->idRedaccion}} Firma avanzada {{$detalle->nombreDoc}}</td>
                                                     <td>{{$detalle->cantidad}}</td>
                                                     <td>${{ number_format($detalle->monto, 0, ',', '.') }}</td>
-                                                    <td><button class="btn btn-primary" @click="firmardocumento({{ $detalle->idRedaccion }})">Firmar</button></td>
+                                                    <td><span class="badge badge-success" >Notificación enviada</span></td>
                                                 </tr>
                                                 @endforeach
 

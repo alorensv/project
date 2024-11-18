@@ -21,7 +21,7 @@ class NotificarFirma extends Mailable
 
     public function __construct($firmaDocumento)
     {
-        //$this->firmaDocumento = $firmaDocumento;
+        $this->firmaDocumento = $firmaDocumento;
     }
 
     /**
@@ -32,9 +32,10 @@ class NotificarFirma extends Mailable
     public function build()
     {
         return $this->view('emails.notificarFirma')
-            ->subject('Noitificación: haz recibido una solicitud de firma de documento');
-            /* ->with([
+            ->subject('Notificación: haz recibido una invitación para firmar un documento electrónicamente')
+            ->with([
                 'firmaDocumento' => $this->firmaDocumento,
-            ]); */
+            ]);
     }
+
 }

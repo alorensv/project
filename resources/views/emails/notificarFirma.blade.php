@@ -17,25 +17,36 @@
 
 <tbody><tr>
 <td style="box-sizing:border-box;font-family: 'Urbanist', sans-serif;max-width:100vw;padding:32px">
-<h1 style="box-sizing:border-box;font-family: 'Urbanist', sans-serif;color:#3d4852;font-size:18px;font-weight:bold;margin-top:0;text-align:left">Notificación de firma avanzada.</h1><div><div class="adm"><div id="q_14" class="ajR h4"><div class="ajT"></div></div></div><div class="h5">
-    <p>¡Hola Alejandro Lorens Villa, somos Chao Notaria!</p>
-    <p>Te queremos contar que te ha invitado Dalia Astrid a firmar un documento con firma eléctronica avanzada.</p>
-    <p>El documento a firmar es "Declaración jurada general"</p>
-    <p>Si la invitación no corresponde por favor indicar mediante el siguiente link <a href="">aviso de invitación no deseada</a> </p>
-    <p>Para realizar tu firma accede mediante el siguiente link</p>
+<h1 style="box-sizing: border-box; font-family: 'Urbanist', sans-serif; color: #3d4852; font-size: 18px; font-weight: bold; margin-top: 0; text-align: left">
+    Notificación de firma avanzada.
+</h1>
+<div>
+    <p>¡Hola {{ $firmaDocumento->nombres }} {{ $firmaDocumento->apellido_paterno }}, somos Chao Notaria!</p>
+    @if(isset($firmaDocumento->redaccion->user->name) && !empty($firmaDocumento->redaccion->user->name))  
+        <p>{{ $firmaDocumento->redaccion->user->name }} te ha invitado a firmar un documento con firma electrónica avanzada.</p>
+    @else
+        <p>Te han invitado a firmar un documento con firma electrónica avanzada.</p>
+    @endif
+    <p>El documento a firmar es "{{ $firmaDocumento->redaccion->documento->nombre }}"</p>
+    <p>Si la invitación no corresponde, por favor indica mediante el siguiente enlace: <a href="">aviso de invitación no deseada</a>.</p>
+    <p>Para realizar tu firma, accede mediante el siguiente enlace:</p>
 
-    <tr style="background-color: #f6f6f6;color:#000">
-        <td style="padding: 8px;background-color: #060737;color: white;font-size: 16px;font-weight: 900;text-align: center;">Firmar documento</td>
-        
-    </tr>
-    <tr style="color:#000;text-align: center;">
-        <td style="padding: 8px;font-size: 16px;font-weight: 900;text-align: center;">Código del documento es: 112831</td>
-       
-    </tr>
+    <table style="width: 100%; margin-top: 20px;">
+        <tr style="background-color: #f6f6f6; color: #000;">
+            <td style="padding: 8px; background-color: #060737; color: white; font-size: 16px; font-weight: 900; text-align: center;">
+                <a href="http://127.0.0.1:8000/firmarDocumento/{{ $firmaDocumento->token }}" style="color: white; text-decoration: none;">Firmar documento</a>
+            </td>
+        </tr>
+        <tr style="color: #000; text-align: center;">
+            <td style="padding: 8px; font-size: 16px; font-weight: 900;">
+                Código del documento: {{ $firmaDocumento->redaccion->id }}
+            </td>
+        </tr>
+    </table>
 
-    
     <p><a href=""></a></p>
-    <h4>Te sugerimos iniciar sesión para que puedar realizar el seguimiento del documento firmado y tener siempre disponible la información.</h4>
+    <h4>Te sugerimos iniciar sesión para realizar el seguimiento del documento firmado y tener siempre disponible la información.</h4>
+
 
 <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif;">
 

@@ -10,7 +10,6 @@
         @include('lex.modals.loginRegister')
         @include('lex.modals.register')
         @include('lex.modals.login')
-        @include('lex.modals.showDocument')
 
         <div class="row bg-white market-body ">
             <div class="col-8">

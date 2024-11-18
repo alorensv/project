@@ -230,7 +230,7 @@
       <div class="mb-5">
 
         <div class="pb-4">
-          <h4><i class="material-icons" style="vertical-align: middle;">double_arrow</i>Declaraciones</h4>
+          <h4><i class="material-icons" style="vertical-align: middle;">double_arrow</i>Documentos disponibles</h4>
         </div>
         <div class="owl-carousel owl-theme">
 

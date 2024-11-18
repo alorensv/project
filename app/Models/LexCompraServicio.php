@@ -69,7 +69,7 @@ class LexCompraServicio extends Model
     {
         $page = (int) $page;
         $perPage = (int) $perPage;
-
+        $dni = auth()->user()->dni;
         $query = "SELECT compra.id as idCompra, 
         compra.monto AS monto,
         compra.fecha_transaccion AS fechaCompra,
@@ -83,7 +83,12 @@ class LexCompraServicio extends Model
         FROM lex_firmantes_redaccion_documento firm_o 
         WHERE firm_o.lex_redaccion_id = urd.id 
         AND firm_o.estado = 2) AS firmasOk,
-        urd.ruta
+        (SELECT COUNT(*) 
+        FROM lex_firmantes_redaccion_documento firm_o 
+        WHERE firm_o.lex_redaccion_id = urd.id 
+        AND firm_o.estado = 0 AND firm_o.dni = '$dni' ) AS pormi,
+        urd.base64, 
+        urd.final_base64
         FROM lex_compras compra
         INNER JOIN lex_compra_servicios cs ON compra.id = cs.lex_compra_id
         INNER JOIN lex_user_redacta_documento urd ON urd.id = cs.lex_user_redacta_documento_id

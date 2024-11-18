@@ -26,9 +26,10 @@ class UserRedactaDocumento extends Model
 
     public function documento()
     {
-        return $this->belongsTo(LexDocumento::class);
+        return $this->belongsTo(LexDocumento::class, 'documento_id');
     }
 
+    
     public function institucion()
     {
         return $this->belongsTo(LexInstitucion::class);

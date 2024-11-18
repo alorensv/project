@@ -19,6 +19,12 @@
                             <label for="correo">Correo Electrónico:</label>
                             <input type="email" class="form-control" id="correo" v-model="correo" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="dni">DNI:</label>
+                            <input type="text" class="form-control" id="dni" v-model="dni" required>
+                        </div>
+
                         <div class="form-group">
                             <label for="clave">Contraseña:</label>
                             <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">

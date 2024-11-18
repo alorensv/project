@@ -7,6 +7,7 @@ use App\Models\CompraProductos;
 use App\Models\Compras;
 use App\Models\LexCompra;
 use App\Models\LexCompraServicio;
+use App\Models\LexFirmanteRedaccionDocumento;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class TransbankController extends Controller
     //
 
     public function pagar()
-    {        
+    {
         $order = Compras::saveCompras(Auth::id());
 
         $buy_order = $order->id;
@@ -37,25 +38,25 @@ class TransbankController extends Controller
         $url_tbk = $response->url;
         $token = $response->token;
 
-        return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);      
+        return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);
     }
 
     public function lexPagar()
-    {        
+    {
         $user_id = auth()->check() ? auth()->id() : null;
-        $guest_id = null; 
+        $guest_id = null;
 
         if (is_null($user_id)) {
             if (!session()->has('guest_id')) {
                 $guest_id = uniqid('guest_', true); // O cualquier identificador único que quieras usar
                 session(['guest_id' => $guest_id]);
-            }            
+            }
             $guest_id = session('guest_id');
-        }        
+        }
         $order = LexCompra::saveCompras($user_id, $guest_id);
 
         $buy_order = $order->id;
-        $session_id = (!empty($order->user_id))? $order->user_id : $order->guest_id;
+        $session_id = (!empty($order->user_id)) ? $order->user_id : $order->guest_id;
         $return_url = url('/getResult');
         $type = "sandbox";
         $data = '{
@@ -71,7 +72,7 @@ class TransbankController extends Controller
         $url_tbk = $response->url;
         $token = $response->token;
 
-        return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);      
+        return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);
     }
 
     public function getResult()
@@ -88,27 +89,53 @@ class TransbankController extends Controller
         $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions/' . $token;
         $response = $this->get_ws($data, $method, $type, $endpoint);
         /** detalles de la compra */
-        if(isset($response->buy_order)){
+        if (isset($response->buy_order)) {
             $auth = Auth::loginUsingId($response->session_id);
             $compra = LexCompra::find($response->buy_order);
-            $compra->estado = LexCompra::ESTADO_PAGADO; 
+            $compra->estado = LexCompra::ESTADO_PAGADO;
             $compra->ultimos_num_tarjeta = $response->card_detail->card_number;
-            $compra->fecha_transaccion = Carbon::parse($response->transaction_date)->format('Y-m-d H:i:s'); 
-            $compra->codigo_auth = $response->authorization_code; 
-            $compra->codigo_tipo_transaccion = $response->payment_type_code; 
+            $compra->fecha_transaccion = Carbon::parse($response->transaction_date)->format('Y-m-d H:i:s');
+            $compra->codigo_auth = $response->authorization_code;
+            $compra->codigo_tipo_transaccion = $response->payment_type_code;
             $compra->num_cuotas = $response->installments_number;
-           
+
             //$compra->response_code = ;
-            if($compra->save()){
+            if ($compra->save()) {
                 //$order = Compras::updateCompraTransbank($response);
                 $detallesCompra = LexCompraServicio::getServiciosPagadosById($compra->id);
+                foreach ($detallesCompra as $redaccion) {
+
+
+                    $firmantesDoc = LexFirmanteRedaccionDocumento::where('lex_redaccion_id', $redaccion->idRedaccion)->get();
+
+                    $respuestas = [];
+                    foreach ($firmantesDoc as $firmaDocumento) {
+                        $token = bin2hex(random_bytes(30)); // Genera un token de 60 caracteres
+                        $expiration = now()->addDays(5); // Establece la expiración en 5 días a partir de ahora
+                        $duration = $expiration->diffInMinutes(now()); // Calcula la duración en minutos
+
+                        $firmaDocumento->token = hash('sha256', $token);
+                        $firmaDocumento->expires_at = $expiration;
+
+                        if ($firmaDocumento->save()) {
+
+                            $send = Mail::to([$firmaDocumento->correo, 'alorensv@gmail.com'])->send(new NotificarFirma($firmaDocumento));
+                            if ($send) {
+                                $respuestas[] = ['status' => 'ok', 'datos' => $firmaDocumento];
+                            } else {
+                                $respuestas[] = [
+                                    'status' => 'error',
+                                    'message' => 'No se pudo enviar el correo a ' . $firmaDocumento->correo,
+                                    'error' => $send
+                                ];
+                            }
+                        } else {
+                            $respuestas[] = ['status' => 'error', 'message' => 'No se pudo guardar el token firmante ' . $firmaDocumento->id];
+                        }
+                    }//fin token y envio de correo a firmantes
+                }
             }
         }
-
-        $firmante = "alorensv@gmail.com";
-        $firmaDocumento = "hola";
-        $send = Mail::to([$firmante])->send(new NotificarFirma($firmaDocumento));
-        
 
         if (!$auth) {
             return view('lex/market/getResult', [
@@ -119,7 +146,6 @@ class TransbankController extends Controller
         } else {
             return redirect()->route('home');
         }
-        
     }
 
     public function getStatus()

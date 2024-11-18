@@ -73,6 +73,8 @@ class LexWebController extends Controller
         $htmlFinal = LexDocumento::formatearDocumento($request);
         // Generar el contenido del PDF
         $pdf = FacadePdf::loadHTML($htmlFinal[0]);
+        $pdfContent = $pdf->output(); // Contenido binario del PDF
+        $pdfBase64 = base64_encode($pdfContent); // Convertir a base64
         // Crear la ruta personalizada donde se guardará el archivo (ruta privada)
         $directory = storage_path('app/private/lex/documentos/' . ($user_id ?? $guest_id));
         // Crear la carpeta si no existe
@@ -94,7 +96,8 @@ class LexWebController extends Controller
                     'redaccion' => $htmlFinal[1], // Guardar los inputs como JSON
                     'estado' => 1,
                     'ruta' => $ruta,
-                    'redaccion_final' => $htmlFinal[0] // Guardar el HTML final con inputs
+                    'redaccion_final' => $htmlFinal[0],
+                    'base64' => $pdfBase64,
                 ]);
             }
         } else {
@@ -107,6 +110,7 @@ class LexWebController extends Controller
                 'estado' => 1,
                 'ruta' => $ruta,
                 'redaccion_final' => $htmlFinal[0],
+                'base64' => $pdfBase64,
             ]);
         }
 
@@ -172,12 +176,12 @@ class LexWebController extends Controller
         $documento = UserRedactaDocumento::find($idRedaccion);
 
         // Validar que el documento exista
-        if (!$documento || !$documento->base64) {
+        if (!$documento || !$documento->final_base64) {
             return response()->json(['error' => 'Documento no encontrado o no disponible para descarga'], 404);
         }
 
         // Decodificar base64 a binario
-        $fileContent = base64_decode($documento->base64);
+        $fileContent = base64_decode($documento->final_base64);
 
         // Crear una respuesta para la descarga del archivo
         return response($fileContent)

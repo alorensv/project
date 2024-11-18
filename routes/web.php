@@ -230,11 +230,14 @@ Route::get('/lexcategorias', [LexWebController::class, 'lexcategorias'])->name('
 /*INTRANET*/
 Route::middleware('auth')->get('/home', [FirmarController::class, 'index'])->name('home');
 Route::get('/getDocumentosPendientesPagadoPerPage',[FirmarController::class, 'getDocumentosPendientesPagadoPerPage'])->name('getDocumentosPendientesPagadoPerPage');
+Route::middleware('auth')->get('/firmantesPendientes/{idRedaccion}', [FirmarController::class, 'firmantesPendientes'])->name('firmantesPendientes');
 
 /* FIRMAS */
 
-Route::post('/auth', [FirmarController::class, 'auth'])->name('auth');
-Route::get('/callback', [FirmarController::class, 'callback'])->name('callback');
+Route::get('/firmarDocumento/{token}', [FirmarController::class, 'firmarDocumento'])->name('firmarDocumento');
+Route::post('/autorizaFirma', [FirmarController::class, 'autorizaFirma'])->name('autorizaFirma');
 Route::post('/recibeDocumento', [FirmarController::class, 'recibeDocumento'])->name('recibeDocumento');
 Route::get('/documento/descargar/{idRedaccion}', [LexWebController::class, 'buscarDocumento']);
-Route::get('/enviarCorreo', [FirmarController::class, 'enviarCorreo'])->name('enviarCorreo');
+Route::get('/enviarCorreo/{idRedaccion}', [FirmarController::class, 'enviarCorreo'])->name('enviarCorreo');
+
+Route::get('/callback/{token}', [FirmarController::class, 'callback'])->name('callback');

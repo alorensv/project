@@ -17,97 +17,103 @@ class FirmarController extends Controller
 {
     //
 
-    public function index(){
+    public function index()
+    {
         return view('lex/firmas/home');
     }
 
-    public function auth(Request $request)
+    public function autorizaFirma(Request $request)
     {
         // Recibir el idRedaccion desde la solicitud
         $idRedaccion = $request->input('idRedaccion');
 
         $user_id = auth()->check() ? auth()->id() : null;
-        $token = null;
+        $idFirmante = null;
 
         if ($user_id) {
             $dniUsuario = User::where('id', $user_id)->value('dni');
+            $return_url = url('/home');
             //$dniUsuario = '17.060.325-7';
             $firmante = LexFirmanteRedaccionDocumento::buscarPorDni($dniUsuario, $idRedaccion);
-        }else{
-            $token = $request->input('token');
-        } 
+        } else {
+            $idFirmante = $request->input('idFirmante');
+            $firmante = LexFirmanteRedaccionDocumento::find($idFirmante);
+            $dniUsuario = $firmante->dni;
+            $return_url = url('/callback/' . $firmante->token);
+        }
 
-        if(empty($firmante )) return response()->json(['error' => 'Firmante no encontrado'], 404); 
-
-        // Buscar el documento en la tabla 'UserRedactaDocumento' por el idRedaccion
+        if (empty($firmante)) return response()->json(['error' => 'Firmante no encontrado'], 404);
         $userRedactaDoc = UserRedactaDocumento::find($idRedaccion);
 
-        if($userRedactaDoc) {
-            $ruta = $userRedactaDoc->ruta;
+        if ($userRedactaDoc) {
+            $envioBase64 = $userRedactaDoc->base64;
 
-            if ($ruta && Storage::exists($ruta)) {
-                // Leer el contenido del archivo desde storage
-                $pdf_content = Storage::get($ruta);
+            $authCert = new eCert($orden = 1, $tipo = 1);
 
-                // Convertir el contenido del archivo PDF a base64
-                $pdf_base64 = base64_encode($pdf_content);
-                // Crear la instancia de eCert y pasar el pdf_base64 si es necesario
-                $authCert = new eCert($orden = 1, $tipo = 1);
+            if (!is_null($authCert)) {
+                $authCert->setUrlCallback($return_url);
 
-                if (!is_null($authCert)) {
-                    // Configurar la URL de retorno
-                    $return_url = url('/home');
-                    $authCert->setUrlCallback($return_url);
-
-                    /* $UrlWebHook = url('/recibeDocumento');
+                /* $UrlWebHook = url('/recibeDocumento');
                     $authCert->set_UrlWebHook($UrlWebHook); */
-                    
-                    //$authCert->setRutUsuario($dniUsuario);
-                    $authCert->set_Email($firmante->correo); 
-                    $authCert->set_Nombre(trim($firmante->nombres));
-                    $authCert->set_ApellidoPaterno(trim($firmante->apellido_paterno));
-                    $authCert->set_ApellidoMaterno(trim($firmante->apellido_materno));
-                    $authCert->setPosicionFirmaY($firmante->posicion_firma_y);
-                    $authCert->setPosicionFirmaX($firmante->posicion_firma_x);
-                    $authCert->setPosicionFirmaPagina($firmante->posicion_firma_pagina);
 
-                    $authCert->setNombreDocumento("documento_test2.pdf");
-                    $authCert->setPDF($pdf_base64);
-                    $authCert->Preinscripcion();
-                    
-                    $urlRedirect = $authCert->_UrlLoginECert;                    
-	                $authCert->SubirDocumento();
+                $authCert->setRutUsuario($dniUsuario);
+                $authCert->set_Email(trim($firmante->correo));
+                $authCert->set_Nombre(trim($firmante->nombres));
+                $authCert->set_ApellidoPaterno(trim($firmante->apellido_paterno));
+                $authCert->set_ApellidoMaterno(trim($firmante->apellido_materno));
+                $authCert->setPosicionFirmaY($firmante->posicion_firma_y);
+                $authCert->setPosicionFirmaX($firmante->posicion_firma_x);
+                $authCert->setPosicionFirmaPagina($firmante->posicion_firma_pagina);
 
-                    // Obtener la ruta del archivo almacenado
-                    $firmante = LexFirmanteRedaccionDocumento::iniciarProcesoFirma($dniUsuario, $userRedactaDoc->id, $authCert, $pdf_base64);
-                    // Retornar el certificado junto con el PDF en base64
-                    return response()->json([
-                        'urlRedirect' => $urlRedirect,
-                        'return_url' => $return_url
-                    ]);
-                }
-            } else {
-                return response()->json(['error' => 'Archivo no encontrado'], 404);
+                $authCert->setNombreDocumento("documento_test3.pdf");
+                $authCert->setPDF($envioBase64);
+                $authCert->Preinscripcion();
+
+                $urlRedirect = $authCert->_UrlLoginECert;
+                $authCert->SubirDocumento();
+
+                // Obtener la ruta del archivo almacenado
+                $firmante = LexFirmanteRedaccionDocumento::iniciarProcesoFirma($dniUsuario, $userRedactaDoc->id, $authCert, $envioBase64);
+                // Retornar el certificado junto con el PDF en base64
+                return response()->json([
+                    'urlRedirect' => $urlRedirect,
+                    'return_url' => $return_url
+                ]);
             }
         } else {
             return response()->json(['error' => 'Documento no encontrado'], 404);
         }
     }
 
-    public function callback(){
-        return view('lex/firmas/callback');
+    public function callback($token)
+    {
+
+        $firmaDocumento = LexFirmanteRedaccionDocumento::where('token', $token)->first();
+        $redaccion = UserRedactaDocumento::where('id', $firmaDocumento->lex_redaccion_id)->first();
+
+        if (is_null($firmaDocumento)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No se pudo encontrar firmante con token asociado',
+                'error' => 404
+            ], 404);
+        }
+
+        $base64PDF = $redaccion->base64; // Esta función obtiene el PDF en Base64
+
+        return view('lex/firmas/callback', compact('base64PDF', 'firmaDocumento', 'redaccion'));
     }
 
     public function recibeDocumento()
     {
-         // Obtener el JSON del body
+        // Obtener el JSON del body
         $json = file_get_contents('php://input');
         $objeto = json_decode($json);
         // Verificar si el JSON fue recibido
         if ($objeto) {
-            $firmante = LexFirmanteRedaccionDocumento::finalizarProcesoFirma($objeto); 
+            $firmante = LexFirmanteRedaccionDocumento::finalizarProcesoFirma($objeto);
         }
-        
+
         return response()->json(['message' => 'firmantes actualizado', '$firmante' => $firmante]);
     }
 
@@ -116,19 +122,54 @@ class FirmarController extends Controller
         $page   = $request->get('page', 1);
         $search = $request->get('search', '');
         $perPage = 10;
-        
+
 
         $documentos = LexCompraServicio::docsPendientesPagadosPerPage($page, $perPage, $search);
         return response()->json(['message' => 'documentos disponibles', 'documentos' => $documentos]);
     }
 
-    public function enviarCorreo(){
-        echo "gola";
+    public function firmantesPendientes($idRedaccion)
+    {
+        $firmantes = LexFirmanteRedaccionDocumento::getFirmantesPendientes($idRedaccion);
+        return response()->json(['message' => 'firmantes pendientes', 'firmantes' => $firmantes]);
+    }
 
-        $firmaDocumento = "hola";
+    public function enviarCorreo($idFirmante)
+    {
+        $firmaDocumento = LexFirmanteRedaccionDocumento::find($idFirmante);
+        if (!$firmaDocumento) {
+            return response()->json(['status' => 'error', 'message' => 'Firmante no encontrado'], 404);
+        }
 
-        Mail::to(['alorensv@gmail.com'])->send(new NotificarFirma($firmaDocumento));
-        return response()->json(['status' => 'ok'], 200);
+        $token = bin2hex(random_bytes(30)); // Genera un token de 60 caracteres
 
+        $expiration = now()->addDays(5); // Establece la expiración en 5 días a partir de ahora
+        $duration = $expiration->diffInMinutes(now()); // Calcula la duración en minutos
+
+
+        $firmaDocumento->token = hash('sha256', $token);
+        $firmaDocumento->expires_at = $expiration;
+        if ($firmaDocumento->save()) {
+            Mail::to([$firmaDocumento->correo, 'alorensv@gmail.com'])->send(new NotificarFirma($firmaDocumento));
+            return response()->json(['status' => 'ok', 'datos' => $firmaDocumento], 200);
+        }
+    }
+
+    public function firmarDocumento($token)
+    {
+        $firmaDocumento = LexFirmanteRedaccionDocumento::where('token', $token)->first();
+        $redaccion = UserRedactaDocumento::where('id', $firmaDocumento->lex_redaccion_id)->first();
+
+        if (is_null($firmaDocumento)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No se pudo encontrar firmante con token asociado',
+                'error' => 404
+            ], 404);
+        }
+
+        $base64PDF = $redaccion->base64; // Esta función obtiene el PDF en Base64
+
+        return view('lex.firmas.firmarDocumento', compact('base64PDF', 'firmaDocumento', 'redaccion'));
     }
 }

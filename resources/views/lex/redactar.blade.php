@@ -9,185 +9,24 @@
 
   <section class="white-division pt-2 pb-2">
     <div class="container">
-      <div class="row market-body mt-5 pt-5">
+
+      <div class="pt-4 mt-2" style="background-color: #FB3F5C;color: white;padding: 20px;padding-bottom: 10px;">
+        Sección de avisos
+      </div>
+
+      <div class="row market-body mt-1 pt-1">
         <!-- Columna de categorías (Panel de Inputs) -->
         <div class="col-md-4">
           <div class="filtrosDiv">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title titleFormDoc">Datos generales</h4>
-
-                <div v-for="(input, index) in inputs" :key="index" class="mb-3">
-
-                  <h4 class="card-title titleFormDoc pt-2 pb-2" v-if="input.name === 'nombre'">Declarante(s)</h4>
-                  <h4 class="card-title titleFormDoc pt-2 pb-2" v-if="input.name === 'declaracion'">Declaración</h4>
-                  <label :for="input.name" class="form-label">@{{ input.label }}</label>
-
-                  <!-- Condicional para textarea -->
-                  <textarea v-if="input.field_type === 'textarea'"
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-                  </textarea>
-
-                  <!-- Select de región -->
-                  <select v-else-if="input.field_type === 'select' && ( input.name === 'region' || input.name === 'region_domicilio' )"
-                    :id="input.name"
-                    v-model="input.value"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    @change="fetchComunas(input.value)"
-                    class="form-control">
-                    <option disabled value selected>
-                      @{{ input.placeholder || 'Seleccione una región' }} <!-- Muestra el placeholder o un texto por defecto -->
-                    </option>
-                    <option v-for="region in regiones" :key="region.id" :value="region.nombre">@{{ region.nombre }}</option>
-                  </select>
-
-                  <!-- Select de comuna -->
-                  <select v-else-if="input.field_type === 'select' && ( input.name === 'comuna' || input.name === 'comuna_domicilio' ) "
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-                    <option disabled value selected>
-                      @{{ input.placeholder || 'Seleccione una comuna' }} <!-- Muestra el placeholder o un texto por defecto -->
-                    </option>
-                    <option v-for="comuna in comunas" :key="comuna.id" :value="comuna.nombre">@{{ comuna.nombre }}</option>
-                  </select>
-
-
-                  <!-- Select de estado civil -->
-                  <select v-else-if="input.field_type === 'select' && input.name === 'estado_civil'  "
-                    :id="input.name"
-                    v-model="input.value"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-                    <option value="Soltero" selected>Soltero</option>
-                    <option value="Casado">Casado</option>
-                    <option value="Divorciado/a">Divorciado/a</option>
-                  </select>
-
-                  <!-- text rut -->
-                  <input 
-                    v-else-if="input.name === 'rut'"
-                    :type="input.field_type"
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    @input="completeRut(input.name, input.value)"
-                    class="form-control"
-                  />
-
-
-
-                  <!-- Condicional para otros tipos de input -->
-                  <input v-else
-                    :type="input.field_type"
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-
-                  <div v-if="errors[input.name]" class="invalid-feedback">
-                    @{{ errors[input.name] }}
-                  </div>
-
-
-                </div>
-
-                <div class="mb-3">
-                  <button class="btn btn-primary w-100" @click="mostrarFormularioFirmante = !mostrarFormularioFirmante" style="display: inline-flex;align-items: center;justify-content: center;">
-                    Agregar Firmante <span class="material-icons icon pl-2 pr-3">group_add</span> (+$5.000)
-                  </button>
-
-                </div>
-
-                <div v-if="mostrarFormularioFirmante" class="mt-3">
-                  <div class="mb-3">
-                    <label for="nombreFirmante" class="form-label">Nombre</label>
-                    <input type="text" id="nombreFirmante" v-model="nuevoFirmante.nombre" class="form-control" placeholder="Nombre del firmante">
-                  </div>
-                  <div class="mb-3">
-                    <label for="apellidoPaternoFirmante" class="form-label">Apellido Paterno</label>
-                    <input type="text" id="apellidoPaternoFirmante" v-model="nuevoFirmante.apellido_paterno" class="form-control" placeholder="Apellido paterno del firmante">
-                  </div>
-                  <div class="mb-3">
-                    <label for="apellidoMaternoFirmante" class="form-label">Apellido Materno</label>
-                    <input type="text" id="apellidoMaternoFirmante" v-model="nuevoFirmante.apellido_materno" class="form-control" placeholder="Apellido materno del firmante">
-                  </div>
-                  <div class="mb-3">
-                    <label for="rutFirmante" class="form-label">RUT</label>
-                    <input type="text" id="rutFirmante" v-model="nuevoFirmante.rut" class="form-control" placeholder="RUT del firmante">
-                  </div>
-                  <div class="mb-3">
-                    <label for="correoFirmante" class="form-label">Correo</label>
-                    <input type="email" id="correoFirmante" v-model="nuevoFirmante.correo" class="form-control" placeholder="Correo del firmante">
-                  </div>
-                  <div class="mb-3">
-                    <button class="btn btn-success w-100" @click="agregarFirmante" style="display: inline-flex;align-items: center;justify-content: center;">Guardar Firmante
-                      <span class="material-icons icon pl-2">save_as</span>
-                    </button>
-                  </div>
-
-                </div>
-
-
-                <div class="card">
-                  <div class="card-header" id="headingCart">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCart" aria-expanded="true" aria-controls="collapseCart">
-                        Firmantes <i class="fas fa-chevron-down"></i>
-                      </button>
-                    </h5>
-                  </div>
-
-                  <div id="collapseCart" class="collapse" aria-labelledby="headingCart">
-                    <div class="card-body">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Firmantes</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <!-- Firmante 1 (predefinido) -->
-                          <tr>
-                            <td>@{{ getInputValue('nombre') }} @{{ getInputValue('apellido_paterno') }} @{{ getInputValue('apellido_materno') }}<br>@{{ getInputValue('rut') }}<br>@{{ getInputValue('correo') }}</td>
-                          </tr>
-
-                          <!-- Lista de otros firmantes -->
-                          <tr v-for="(firmante, index) in firmantes" :key="index">
-                            <td>@{{ firmante.nombre }} @{{ firmante.apellido_paterno }} @{{ firmante.apellido_materno }}<br>@{{ firmante.rut }}<br>@{{ firmante.correo }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div v-if="generalError" class="alert alert-danger mt-3">
-                  @{{ generalError }}
-                </div>
-
+                @if($documento->lex_categoria_id == 1)
+                @include('lex.forms.declaraciones')
+                @else
+                @include('lex.forms.poderes')
+                @endif
               </div>
+
             </div>
           </div>
         </div>
@@ -290,6 +129,7 @@
     el: '#vueRedaccion',
     data: {
       loader: false,
+      documentoId: <?php echo json_encode($documento->id); ?>,
       correo: '',
       clave: '',
       inputs: JSON.parse(document.getElementById('vueRedaccion').getAttribute('data-inputs')),
@@ -303,10 +143,12 @@
         apellido_paterno: '',
         apellido_materno: '',
         rut: '',
-        correo: ''
+        correo: '',
+        domicilio: '',
+        comuna: '',
+        region: '',
       },
       loading: false,
-      pdfUrl: '',
       errors: {},
       generalError: '',
       regiones: [], // Guardar las regiones obtenidas del servidor
@@ -328,9 +170,6 @@
       this.fetchRegiones();
     },
     methods: {
-      toggleFiltros() {
-        // Método para activar o desactivar filtros, si es necesario
-      },
       getInputValue(fieldName) {
         const input = this.inputs.find(input => input.name === fieldName);
         if (input) {
@@ -389,7 +228,6 @@
       completeRut(name, value) {
         // Encuentra el input correspondiente por nombre
         const input = this.inputs.find(input => input.name === name);
-
         // Si no encuentra el input, termina la función
         if (!input) return;
 
@@ -410,27 +248,6 @@
         // Actualiza el valor del input con el RUT formateado
         input.value = rut;
       },
-
-      async generatePDF() {
-        this.loading = true;
-
-        try {
-          // Hacer petición para generar PDF
-          let response = await axios.post('/generate-pdf', {
-            comuna: this.comuna,
-            // otros datos
-          });
-
-          this.pdfUrl = '/storage/lex/' + response.data.filename; // ruta del archivo generado
-          this.loading = false;
-
-          // Mostrar el modal con el PDF
-          $('#pdfModal').modal('show');
-        } catch (error) {
-          console.error('Error al generar el PDF:', error);
-          this.loading = false;
-        }
-      },
       agregarFirmante() {
         if (this.nuevoFirmante.nombre && this.nuevoFirmante.rut && this.nuevoFirmante.correo) {
           this.firmantes.push({
@@ -442,7 +259,7 @@
           if (firmantesContainer) {
             this.firmantes.forEach((firmante, index) => {
               let firmanteHTML = document.createElement('span');
-              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre + firmante.apellido_paterno + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' con domicilio para estos efectos en ';
+              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre +  ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' con domicilio para estos efectos en '+ firmante.domicilio + ' de la comuna de ' + firmante.comuna + ' ' + firmante.region + ', ';
               firmantesContainer.appendChild(firmanteHTML);
             });
           }
@@ -452,7 +269,10 @@
             apellido_paterno: '',
             apellido_materno: '',
             rut: '',
-            correo: ''
+            correo: '',
+            domicilio: '',
+            comuna: '',
+            region: '',
           }; // Limpiar el formulario
           this.mostrarFormularioFirmante = false; // Ocultar el formulario
         } else {
@@ -503,7 +323,6 @@
 
         return dv.toLowerCase() === dvCalculated.toLowerCase();
       },
-
       calcularDv(rut) {
         let M = 0,
           S = 1;
@@ -562,12 +381,12 @@
           .then(response => {
 
             infoResult = this.guardarRedaccion();
-            if(infoResult){
+            if (infoResult) {
               window.location.href = '/carroCompras';
-            }else{
+            } else {
               // mostrar un popup con el error al intentar guardar redacción
             }
-          
+
           })
           .catch(error => {
             console.error('Error al enviar el formulario:', error);
@@ -588,13 +407,18 @@
         });
 
         // Agregar otros datos como documento_id al formData
-        formData['documento_id'] = 1;
+        formData['documento_id'] = this.documentoId;
 
         // Crear el array de firmantes, comenzando por el firmante principal
         formData['firmantes'] = [{
             nombre: this.getInputValue('nombre'),
+            apellido_paterno: this.getInputValue('apellido_paterno'),
+            apellido_materno: this.getInputValue('apellido_materno'),
             rut: this.getInputValue('rut'),
-            correo: this.getInputValue('correo')
+            correo: this.getInputValue('correo'),
+            domicilio: this.getInputValue('direccion'),
+            comuna: this.getInputValue('comuna_domicilio'),
+            region: this.getInputValue('region_domicilio'),
           },
           ...this.firmantes // Incluir los firmantes adicionales
         ];
@@ -603,7 +427,7 @@
         let response = await axios.post('/guardarRedaccion', formData);
 
         //PENDING RETURN RESPONSE OK OR ERROR
-        
+
         console.log(response);
         this.loading = false;
         return true;
