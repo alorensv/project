@@ -25,6 +25,32 @@ class LexCompraServicio extends Model
         return $this->belongsTo(UserRedactaDocumento::class);
     }
 
+    public static function getComprasPendientes($selectItems){
+        $query = "SELECT *
+            FROM lex_user_redacta_documento
+            WHERE id in ()";
+
+        $params = [];
+
+        if(auth()->check()){
+            $user_id = auth()->id(); 
+            $query .= " AND user_id = $user_id";
+        }else{
+
+            if (!session()->has('guest_id')) {
+                $guest_id = uniqid('guest_', true); // O cualquier identificador único que quieras usar
+                session(['guest_id' => $guest_id]);
+            }
+
+            $guest_id = session('guest_id');
+
+            $query .= " AND guest_id = '$guest_id'";
+        }
+
+        $carrito = collect(DB::select($query, $params));
+        return $carrito;
+    }
+
     public static function getServiciosPendientesPorPagar(){
 
         $query = "SELECT *

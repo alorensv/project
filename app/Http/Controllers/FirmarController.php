@@ -134,6 +134,12 @@ class FirmarController extends Controller
         return response()->json(['message' => 'firmantes pendientes', 'firmantes' => $firmantes]);
     }
 
+    public function firmantes($idRedaccion)
+    {
+        $firmantes = LexFirmanteRedaccionDocumento::getFirmantes($idRedaccion);
+        return response()->json(['message' => 'firmantes', 'firmantes' => $firmantes]);
+    }
+
     public function enviarCorreo($idFirmante)
     {
         $firmaDocumento = LexFirmanteRedaccionDocumento::find($idFirmante);

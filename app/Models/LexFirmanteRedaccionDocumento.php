@@ -102,6 +102,11 @@ class LexFirmanteRedaccionDocumento extends Model
                     ->get();
     }
 
+    public static function getFirmantes($idRedaccion) {
+        return self::where('lex_redaccion_id', $idRedaccion)
+                    ->get();
+    }
+
     public static function getDatosParaNofiticar($idFirmante){
         $query = "SELECT frd.nombres, frd.apellido_paterno, frd.correo, 
             doc.nombre AS documento, u.`name` AS owner, urd.id AS codigo

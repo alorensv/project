@@ -123,6 +123,32 @@
             <label for="correoFirmante" class="form-label">Correo</label>
             <input type="email" id="correoFirmante" v-model="nuevoFirmante.correo" class="form-control" placeholder="Correo del firmante">
         </div>
+
+        <div class="mb-3">
+            <label for="domicilioFirmante" class="form-label">Domicilio</label>
+            <input type="text" id="domicilioFirmante" v-model="nuevoFirmante.domicilio" class="form-control" placeholder="Ej: Calle Arturo Prat 110, departamente 56b">
+        </div>
+        <div class="mb-3"> 
+            <label for="regionFirmante" class="form-label">Región</label>
+            <select id="regionFirmante" @change="fetchComunas($event.target.value)" class="form-control" v-model="nuevoFirmante.region">
+                <option disabled value selected>
+                    Seleccione una región
+                </option>
+                <option v-for="region in regiones" :key="region.id" :value="region.nombre" >
+                    @{{ region.nombre }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="comunaFirmante" class="form-label">Comuna</label>
+            <select id="comunaFirmante" class="form-control" v-model="nuevoFirmante.comuna">
+                <option disabled value selected>
+                    Seleccione una comuna
+                </option>
+                <option v-for="comuna in comunas" :key="comuna.id" :value="comuna.nombre">@{{ comuna.nombre }}</option>
+            </select>
+        </div>
+        
         <div class="mb-3">
             <button class="btn btn-success w-100" @click="agregarFirmante" style="display: inline-flex;align-items: center;justify-content: center;">Guardar Firmante
                 <span class="material-icons icon pl-2">save_as</span>
@@ -152,12 +178,24 @@
                     <tbody>
                         <!-- Firmante 1 (predefinido) -->
                         <tr>
-                            <td>@{{ getInputValue('nombre') }} @{{ getInputValue('apellido_paterno') }} @{{ getInputValue('apellido_materno') }}<br>@{{ getInputValue('rut') }}<br>@{{ getInputValue('correo') }}</td>
+                            <td>@{{ getInputValue('nombre') }} @{{ getInputValue('apellido_paterno') }} @{{ getInputValue('apellido_materno') }}
+                                <br>@{{ getInputValue('rut') }}
+                                <br>@{{ getInputValue('correo') }}
+                                <br>@{{ getInputValue('domicilio') }}
+                                <br>@{{ getInputValue('comuna') }}
+                                <br>@{{ getInputValue('region') }}
+                            </td>
                         </tr>
 
                         <!-- Lista de otros firmantes -->
                         <tr v-for="(firmante, index) in firmantes" :key="index">
-                            <td>@{{ firmante.nombre }} @{{ firmante.apellido_paterno }} @{{ firmante.apellido_materno }}<br>@{{ firmante.rut }}<br>@{{ firmante.correo }}</td>
+                            <td>@{{ firmante.nombre }} @{{ firmante.apellido_paterno }} @{{ firmante.apellido_materno }}
+                                <br>@{{ firmante.rut }}
+                                <br>@{{ firmante.correo }}
+                                <br>@{{ firmante.domicilio }}
+                                <br>@{{ firmante.comuna }}
+                                <br>@{{ firmante.region }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

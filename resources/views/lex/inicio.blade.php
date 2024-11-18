@@ -240,7 +240,7 @@
             <div class="card" style="width: 18rem;">
               <img src="/img/lex/docFirma.png" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">{{ $categoriaDocumento->documento }}</h5>
+                <h5 class="card-title" style="min-height: 64px;">{{ $categoriaDocumento->documento }}</h5>
                 <a href="{{ url('redactar/' . $categoriaDocumento->id_documento) }}" class="btn btn-primary">Iniciar</a>
               </div>
             </div>

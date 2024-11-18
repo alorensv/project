@@ -41,11 +41,12 @@ class TransbankController extends Controller
         return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);
     }
 
-    public function lexPagar()
+    public function lexPagar(Request $request)
     {
         $user_id = auth()->check() ? auth()->id() : null;
         $guest_id = null;
-
+        $selectedItems = $request->input('selectedItems');
+        
         if (is_null($user_id)) {
             if (!session()->has('guest_id')) {
                 $guest_id = uniqid('guest_', true); // O cualquier identificador único que quieras usar
@@ -53,7 +54,7 @@ class TransbankController extends Controller
             }
             $guest_id = session('guest_id');
         }
-        $order = LexCompra::saveCompras($user_id, $guest_id);
+        $order = LexCompra::saveCompras($user_id, $guest_id, $selectedItems);
 
         $buy_order = $order->id;
         $session_id = (!empty($order->user_id)) ? $order->user_id : $order->guest_id;
@@ -72,7 +73,9 @@ class TransbankController extends Controller
         $url_tbk = $response->url;
         $token = $response->token;
 
-        return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);
+        return response()->json(['message' => 'redireccion a transbank', 'url_tbk' => $url_tbk, 'token' => $token]);
+
+        //return view('market/pago', ['url_tbk' => $url_tbk, 'token' => $token]);
     }
 
     public function getResult()

@@ -220,7 +220,7 @@ Route::post('/generate-pdf', [PDFController::class, 'generatePDF']);
 Route::get('/carroCompras', [LexWebController::class, 'carroCompras'])->name('carroCompras');
 Route::post('/guardarRedaccion', [LexWebController::class, 'guardarRedaccion']);
 Route::get('/getRedaccionesPorPagar', [LexWebController::class, 'getRedaccionesPorPagar']);
-Route::get('/lexPagar', [TransbankController::class, 'lexPagar'])->name('lexPagar');
+Route::post('/lexPagar', [TransbankController::class, 'lexPagar'])->name('lexPagar');
 Route::get('/getResult', [TransbankController::class, 'getResult'])->name('getResult');
 Route::get('/getPDFUrl', [LexWebController::class, 'getPDFUrl'])->name('getPDFUrl');
 Route::get('/lexregiones', [LexWebController::class, 'lexregiones'])->name('lexregiones');
@@ -231,6 +231,8 @@ Route::get('/lexcategorias', [LexWebController::class, 'lexcategorias'])->name('
 Route::middleware('auth')->get('/home', [FirmarController::class, 'index'])->name('home');
 Route::get('/getDocumentosPendientesPagadoPerPage',[FirmarController::class, 'getDocumentosPendientesPagadoPerPage'])->name('getDocumentosPendientesPagadoPerPage');
 Route::middleware('auth')->get('/firmantesPendientes/{idRedaccion}', [FirmarController::class, 'firmantesPendientes'])->name('firmantesPendientes');
+
+Route::get('/firmantes/{idRedaccion}', [FirmarController::class, 'firmantes'])->name('firmantes');
 
 /* FIRMAS */
 

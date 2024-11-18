@@ -71,13 +71,6 @@
 
 <?php
 
-/**
- * @author     Cristian Cisternas.
- * @copyright  2021 Brouter SpA (https://www.brouter.cl)
- * @date       Agoust 2021
- * @license    GNU LGPL
- * @version    1.0.1
- */
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

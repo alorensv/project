@@ -123,7 +123,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="domicilioFirmante" class="form-label">Correo</label>
+            <label for="domicilioFirmante" class="form-label">Domicilio</label>
             <input type="text" id="domicilioFirmante" v-model="nuevoFirmante.domicilio" class="form-control" placeholder="Ej: Calle Arturo Prat 110, departamente 56b">
         </div>
         <div class="mb-3"> 

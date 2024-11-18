@@ -87,11 +87,32 @@
 }
 
 /* como funciona */
-
 .bgInfo {
-    background-color: #060737;
+    position: relative;
+    background-color: #060737ad;
     padding: 40px 0;
-  }
+}
+
+.bgInfo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(/img/lex/bg_intro.jpg); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px);  /* Efecto de difuminado */
+    z-index: -1;  /* Coloca la imagen detrás del contenido */
+}
+
+.bgInfo .content {
+    position: relative;
+    z-index: 1;  /* Asegura que el contenido sea visible por encima de la imagen difusa */
+}
+
 
   .bgInfo .text-primary {
     color: #fff!important;
