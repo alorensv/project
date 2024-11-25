@@ -15,7 +15,7 @@
     <section class="adminDiv">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-12">
+                <div class="col-md-12 pl-5 pr-5">
 
                     <div>
                         @if (session('status'))
@@ -24,12 +24,12 @@
                         </div>
                         @endif
 
-                        {{ __('Bienvenido ') }}{{ Auth::user()->name }}
-                        <?php print_r($csrfToken = csrf_token()); ?>
+                        <h5>{{ __('Bienvenido ') }}{{ Auth::user()->name }}</h5>
+                        <p>Acá podrás encontrar todos los documentos que creaste, documentos que requieren tu firma electrónica avanzada y todos aquellos documentos disponibles para descargar donde tu seas uno de los firmantes.</p>
                     </div>
                 </div>
             </div>
-            <div class="row py-5">
+            <div class="row py-3">
                 <div class="col-12">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" id="documentTabs" role="tablist">
@@ -55,18 +55,37 @@
                                             <th>ID</th>
                                             <th>Documento</th>
                                             <th>Fecha creación</th>
-                                            <th>Firmas pendientes</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th style="width: 30%;">Firmas pendientes</th>
+                                            <th style="width: 5%;"></th>
+                                            <th style="width: 5%;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="doc in documentosPendientes.data" :key="doc.idRedaccion">
                                             <td>@{{ doc.idRedaccion }}</td>
                                             <td>@{{ doc.nombreDoc }}</td>
-                                            <td>30/10/2024</td>
+                                            <td>@{{ doc.fecha_creacion }}</td>
                                             <td class="text-center align-middle">
-                                                <span class="badge badge-primary fontBadge" @click="verFirmantes(doc.idRedaccion)">@{{ doc.firmasPendientes }}</span>
+                                                <div class="d-flex">
+                                                    <div class="col-6">
+                                                    <div class="progress">
+                                                        <div
+                                                            class="progress-bar bg-advanced"
+                                                            role="progressbar"
+                                                            :style="{ width: progress + '%' }"
+                                                            :aria-valuenow="progress"
+                                                            aria-valuemin="0"
+                                                            aria-valuemax="100"
+                                                        >@{{ progress }}%</div>
+                                                    </div>
+
+                                                    
+                                                    
+                                                    </div>
+                                                    <div class="col-6">
+                                                    <span class="badge badge-primary fontBadge" @click="verFirmantes(doc.idRedaccion)">@{{ doc.firmasPendientes }}</span>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class="text-center align-middle">
                                                 <span v-if="doc.pormi > 0" class="badge badge-success" @click="firmardocumento(doc.idRedaccion)">Firmar</span>
@@ -114,8 +133,8 @@
                                         <tr v-for="doc in documentosFirmasCompletadas.data" :key="doc.idRedaccion">
                                             <td>@{{ doc.idRedaccion }}</td>
                                             <th>@{{ doc.nombreDoc }}</th>
-                                            <td>30/10/2024</td>
-                                            <td>30/10/2024</td>
+                                            <td>@{{ doc.fecha_creacion }}</td>
+                                            <td>@{{ doc.fecha_actualizacion }}</td>
                                             <td></td>
                                             <td class="text-center align-middle">
                                                 <span class="material-icons" @click="descargarDocumento(doc.idRedaccion)">download</span>
@@ -152,6 +171,7 @@
         el: '#vueHome',
         data: {
             loading: false,
+            progress: 45,
             documentosPendientes: {
                 data: [],
                 current_page: 1,
@@ -174,7 +194,7 @@
             },
             searchTerm: '',
             totalPages: 0,
-            documentoBase64: '',
+            documentoBase: '',
             firmantes: {},
         },
         watch: {
@@ -271,13 +291,22 @@
             },
             verDocumento(base64) {
                 this.loading = true;
-                this.documentoBase64 = `data:application/pdf;base64,${base64}`;
-                $('#verPDFModal').modal('show');
-                this.loading = false;
-
+                
+                // Cierra el modal si ya está abierto para reiniciar el contenido
+                $('#verPDFModal').modal('hide');
+                
+                // Asegúrate de esperar que se cierre completamente antes de continuar
+                setTimeout(() => {
+                    this.documentoBase = ""; // Limpia la variable para forzar la actualización
+                    this.$nextTick(() => {
+                        this.documentoBase = base64; // Asigna el nuevo valor
+                        $('#verPDFModal').modal('show'); // Muestra el modal
+                        this.loading = false; // Desactiva el indicador de carga
+                    });
+                }, 300); // Espera 300 ms antes de reabrir el modal
             },
             verFirmantes(idRedaccion) {
-                axios.get(`/firmantesPendientes/${idRedaccion}`, {}).then(response => {
+                axios.get(`/firmantes/${idRedaccion}`, {}).then(response => {
                     console.log(response);
                     this.firmantes = response.data.firmantes
                 }).catch(error => {
@@ -288,24 +317,20 @@
             },
             firmardocumento(idRedaccion) {
                 this.loading = true;
-                axios.post('/autorizaFirma', {
-                        idRedaccion: idRedaccion
-                    })
+                axios.get(`/getMiToken/${idRedaccion}`)
                     .then(response => {
-
-                        if (response.data.urlRedirect) {
-                            //console.log(JSON.stringify(response.data));
-                            //alert(JSON.stringify(response.data))
-                            window.location.href = response.data.urlRedirect;
+                        if (response.data.token) {
+                            let token = response.data.token; // Asignar el token recibido
+                            window.location.href = `/firmarDocumento/${token}`; // Redirección correcta
                         } else {
-                            // Si no hay URL, mostrar el error o un mensaje
-                            alert('No se pudo obtener la URL de redirección.');
+                            console.error('No se recibió un token válido:', response.data.message);
                         }
-
                     })
                     .catch(error => {
-                        // Manejar el error
-                        console.error('Hubo un error al enviar el formulario', error);
+                        console.error('Error al obtener el token:', error);
+                    })
+                    .finally(() => {
+                        this.loading = false; // Finalizar el estado de carga
                     });
             },
             descargarDocumento(idRedaccion) {

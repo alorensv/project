@@ -28,19 +28,25 @@ class FirmarController extends Controller
         $idRedaccion = $request->input('idRedaccion');
 
         $user_id = auth()->check() ? auth()->id() : null;
-        $idFirmante = null;
 
-        if ($user_id) {
+        $token = $request->input('token');
+        $firmante = LexFirmanteRedaccionDocumento::where('token', $token)->first();
+            
+        $dniUsuario = $firmante->dni;
+        $return_url = url('/callback/' . $firmante->token);
+
+        /* if (!is_null($user_id)) {
             $dniUsuario = User::where('id', $user_id)->value('dni');
             $return_url = url('/home');
             //$dniUsuario = '17.060.325-7';
             $firmante = LexFirmanteRedaccionDocumento::buscarPorDni($dniUsuario, $idRedaccion);
         } else {
-            $idFirmante = $request->input('idFirmante');
-            $firmante = LexFirmanteRedaccionDocumento::find($idFirmante);
+            $token = $request->input('token');
+            $firmante = LexFirmanteRedaccionDocumento::where('token', $token)->first();
+            
             $dniUsuario = $firmante->dni;
             $return_url = url('/callback/' . $firmante->token);
-        }
+        } */
 
         if (empty($firmante)) return response()->json(['error' => 'Firmante no encontrado'], 404);
         $userRedactaDoc = UserRedactaDocumento::find($idRedaccion);
@@ -137,7 +143,33 @@ class FirmarController extends Controller
     public function firmantes($idRedaccion)
     {
         $firmantes = LexFirmanteRedaccionDocumento::getFirmantes($idRedaccion);
+        
+        $firmantes = $firmantes->map(function ($firmante) {
+            $firmante->formatted_date = \Carbon\Carbon::parse($firmante->updated_at)->locale('es')->translatedFormat('d/m/Y');
+            return $firmante;
+        });
+
         return response()->json(['message' => 'firmantes', 'firmantes' => $firmantes]);
+    }
+
+    public function getMiToken($idRedaccion)
+    {
+        $user_id = auth()->check() ? auth()->id() : null;
+
+        if (is_null($user_id)) {
+            return response()->json(['message' => 'Imposible recuperar token sin iniciar sesión', 'token' => null], 401);
+        }
+
+        $dniUsuario = User::where('id', $user_id)->value('dni');
+        $firmante = LexFirmanteRedaccionDocumento::where('dni', $dniUsuario)
+                                                ->where('lex_redaccion_id', $idRedaccion)
+                                                ->first();
+
+        if (!$firmante) {
+            return response()->json(['message' => 'Firmante no encontrado', 'token' => null], 404);
+        }
+
+        return response()->json(['message' => 'Token del firmante disponible', 'token' => $firmante->token]);
     }
 
     public function enviarCorreo($idFirmante)
@@ -164,7 +196,6 @@ class FirmarController extends Controller
     public function firmarDocumento($token)
     {
         $firmaDocumento = LexFirmanteRedaccionDocumento::where('token', $token)->first();
-        $redaccion = UserRedactaDocumento::where('id', $firmaDocumento->lex_redaccion_id)->first();
 
         if (is_null($firmaDocumento)) {
             return response()->json([
@@ -173,6 +204,12 @@ class FirmarController extends Controller
                 'error' => 404
             ], 404);
         }
+
+        if($firmaDocumento->firmado == 1){
+            $return_url = url('/callback/' . $firmaDocumento->token);
+            return redirect()->route('callback', ['token' => $firmaDocumento->token]);
+        }
+        $redaccion = UserRedactaDocumento::where('id', $firmaDocumento->lex_redaccion_id)->first();
 
         $base64PDF = $redaccion->base64; // Esta función obtiene el PDF en Base64
 

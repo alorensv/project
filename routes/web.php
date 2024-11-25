@@ -231,6 +231,7 @@ Route::get('/lexcategorias', [LexWebController::class, 'lexcategorias'])->name('
 Route::middleware('auth')->get('/home', [FirmarController::class, 'index'])->name('home');
 Route::get('/getDocumentosPendientesPagadoPerPage',[FirmarController::class, 'getDocumentosPendientesPagadoPerPage'])->name('getDocumentosPendientesPagadoPerPage');
 Route::middleware('auth')->get('/firmantesPendientes/{idRedaccion}', [FirmarController::class, 'firmantesPendientes'])->name('firmantesPendientes');
+Route::middleware('auth')->get('/getMiToken/{idRedaccion}', [FirmarController::class, 'getMiToken'])->name('getMiToken');
 
 Route::get('/firmantes/{idRedaccion}', [FirmarController::class, 'firmantes'])->name('firmantes');
 

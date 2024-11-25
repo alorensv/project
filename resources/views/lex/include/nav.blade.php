@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
     <div class="container">
-        <div class="col-md-3 bg-light py-1">
+        <div class="col-md-2 bg-light py-1">
 
             <a class="navbar-brand" href="{{ route('inicio') }}">
-                <img src="/img/lex/logov2.png" class="mx-auto d-block img-fluid logoWeb">
+                <img src="/img/lex/logov3.png" class="mx-auto d-block img-fluid logoWeb">
             </a>
         </div>
 
-        <div class="col-lg-6 bg-light py-1">
+        <div class="col-lg-7 bg-light py-1">
             <div class="col-lg-12 bg-light py-1">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
 
                         <li class="nav-item dropdown px-2 pt-1">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ __('Documentos privados') }}
+                                {{ __('Lista de documentos privados') }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -63,11 +63,12 @@
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="{{ route('equipos') }}">{{ __('Asesoría') }}</a>
+                            <!-- <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="{{ route('equipos') }}">{{ __('Asesoría') }}</a> -->
+                            <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="#">{{ __('Asesoría') }}</a>
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="{{ route('transportes_bulnes') }}">{{ __('Ayuda') }}</a>
+                            <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="#">{{ __('Ayuda') }}</a>
                         </li>
 
                         @guest
@@ -75,7 +76,7 @@
                         @else
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('home') ? 'active' : ''}}" href="{{ route('home') }}">{{ __('Documentos') }}</a>
+                            <a class="nav-link {{request()->routeIs('home') ? 'active' : ''}}" href="{{ route('home') }}">{{ __('Gestor de documentos') }}</a>
                         </li>
                             
                         @endguest

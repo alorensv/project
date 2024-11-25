@@ -153,19 +153,34 @@
             </button>
         </div>
 
+        <div v-if="firmantesError" class="alert alert-danger mt-3">
+            @{{ firmantesError }}
+        </div>
+
     </div>
 
 
     <div class="card">
         <div class="card-header" id="headingCart">
             <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCart" aria-expanded="true" aria-controls="collapseCart">
+                <button 
+                    class="btn btn-link" 
+                    :class="{ collapsed: !isAccordionOpen }" 
+                    @click="toggleAccordion"
+                    aria-expanded="true" 
+                    data-target="#collapseCart" 
+                    aria-controls="collapseCart"
+                    >
                     Autorizados <i class="fas fa-chevron-down"></i>
                 </button>
             </h5>
         </div>
 
-        <div id="collapseCart" class="collapse" aria-labelledby="headingCart">
+        <div 
+            id="collapseCart" 
+            :class="{ collapse: true, show: isAccordionOpen }" 
+            aria-labelledby="headingCart"
+            >
             <div class="card-body">
                 <table class="table">
                     <thead>

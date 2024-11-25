@@ -27,7 +27,7 @@
     @else
         <p>Te han invitado a firmar un documento con firma electrónica avanzada.</p>
     @endif
-    <p>El documento a firmar es "{{ $firmaDocumento->redaccion->documento->nombre }}"</p>
+    <p>El documento a firmar es <strong>"{{ $firmaDocumento->redaccion->documento->nombre }}"</strong></p>
     <p>Si la invitación no corresponde, por favor indica mediante el siguiente enlace: <a href="">aviso de invitación no deseada</a>.</p>
     <p>Para realizar tu firma, accede mediante el siguiente enlace:</p>
 

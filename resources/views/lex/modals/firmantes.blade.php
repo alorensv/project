@@ -8,11 +8,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" >
-                <table class="table table-striped" style="width:100%">
+            <div class="modal-body">
+                <table class="table table-striped mt-3" style="width:100%">
                     <tr v-for="firmante in firmantes" :key="firmante.id">
-                        <td>
-                        <div class="user-icon mr-3">
+                        <td style="width: 10%;">
+                            <div class="user-icon">
                                 <span class="material-icons">person</span>
                             </div>
                         </td>
@@ -20,11 +20,25 @@
                             @{{firmante.nombres}} @{{firmante.apellido_paterno}} @{{firmante.apellido_materno}}
                         </td>
                         <td>
-                            <span class="badge badge-primary" @click="notificarFirmaPendiente(firmante.id)">Notificar</span>
+                            @{{firmante.correo}}
+                        </td>
+                        <td>
+                            <div v-if="firmante.estado == 0">
+                                <span class="badge badge-warning">Pendiente</span>
+                                <span class="badge badge-primary" @click="notificarFirmaPendiente(firmante.id)">Notificar</span>
+                            </div>
+                            <div v-else-if="firmante.estado == 3">
+                                <span class="badge badge-danger">Rechazado</span>
+                                <p style="font-size: 12px;">Rechazó el @{{ firmante.formatted_date }}</p>
+                            </div>
+                            <div v-else>
+                                <span class="badge badge-success">Firmado</span>
+                                <p style="font-size: 12px;">Firmó el @{{ firmante.formatted_date }}</p>
+                            </div>
                         </td>
                     </tr>
                 </table>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

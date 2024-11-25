@@ -112,14 +112,28 @@ class LexCompraServicio extends Model
         (SELECT COUNT(*) 
         FROM lex_firmantes_redaccion_documento firm_o 
         WHERE firm_o.lex_redaccion_id = urd.id 
+        AND firm_o.estado = 3) AS firmasRechazadas,
+        (SELECT COUNT(*) 
+        FROM lex_firmantes_redaccion_documento firm_o 
+        WHERE firm_o.lex_redaccion_id = urd.id 
         AND firm_o.estado = 0 AND firm_o.dni = '$dni' ) AS pormi,
         urd.base64, 
-        urd.final_base64
+        urd.final_base64,
+        DATE_FORMAT(urd.created_at, '%d-%m-%Y') AS fecha_creacion,
+        DATE_FORMAT(urd.updated_at, '%d-%m-%Y') AS fecha_actualizacion
         FROM lex_compras compra
         INNER JOIN lex_compra_servicios cs ON compra.id = cs.lex_compra_id
         INNER JOIN lex_user_redacta_documento urd ON urd.id = cs.lex_user_redacta_documento_id
         INNER JOIN lex_documentos doc ON doc.id = urd.documento_id
-        WHERE compra.estado = 2 ";
+        WHERE compra.estado = 2 AND (
+        urd.user_id = " . auth()->user()->id . " 
+        OR EXISTS (
+            SELECT 1 
+            FROM lex_firmantes_redaccion_documento b 
+            WHERE urd.id = b.lex_redaccion_id 
+            AND b.dni = '" . $dni . "'
+            )
+        )";
 
         $params = [];
 
@@ -130,6 +144,7 @@ class LexCompraServicio extends Model
         }
 
         $query .= " ORDER BY compra.id ASC";
+
 
         $selectData = collect(DB::select($query, $params));
 

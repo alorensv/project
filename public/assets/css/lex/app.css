@@ -6151,6 +6151,16 @@ button.bg-warning:focus {
   background-color: #ffe817 !important;
 }
 
+.bg-advanced {
+  background-color: #19a76f !important;
+}
+
+a.bg-advanced:hover, a.bg-advanced:focus,
+button.bg-advanced:hover,
+button.bg-advanced:focus {
+  background-color: #0dbd78 !important;
+}
+
 .bg-danger {
   background-color: #e3342f !important;
 }

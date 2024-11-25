@@ -68,9 +68,9 @@ class LexDocumento extends Model
 
             // Concatenar los firmantes al estilo de la lógica en JavaScript
             $firmantesHtml .= ', ' 
-            . htmlspecialchars($firmante['nombre']) 
-            . ' R.U.N. ' . htmlspecialchars($firmante['rut']) 
-            . ' con domicilio para estos efectos en '.htmlspecialchars($firmante['domicilio']).' de la comuna de'
+            . htmlspecialchars($firmante['nombre']). ' '.htmlspecialchars($firmante['apellido_paterno']). ' '.htmlspecialchars($firmante['apellido_materno']) 
+            . ' R.U.N. ' . htmlspecialchars($firmante['rut']).',' 
+            . ' con domicilio para estos efectos en '.htmlspecialchars($firmante['domicilio']).' de la comuna de '
             . htmlspecialchars($firmante['comuna']).', '.htmlspecialchars($firmante['region']); // . htmlspecialchars($firmante['direccion'])
 
             $firmasHtml .= '

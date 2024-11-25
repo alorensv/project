@@ -17,10 +17,10 @@
                             <div>
                                 <h3><span class="material-icons" style="width: 24px;">approval_delegation</span> Firma avanzada del documento</h3>
                                 @if(is_null($redaccion->final_base64))
-                                <p>Hola {{ $firmaDocumento->nombres }} {{ $firmaDocumento->apellido_paterno }}, aún hay firmantes pendientes sobre el documento "{{ $redaccion->documento->nombre }}".</p>
+                                <p>Hola {{ $firmaDocumento->nombres }} {{ $firmaDocumento->apellido_paterno }}, aún hay firmantes pendientes sobre el documento <strong>"{{ $redaccion->documento->nombre }}"</strong>.</p>
                                 <p>Te recomendamos registrarte en la plataforma para obtener más detalles.</p>
                                 @else
-                                <p>Hola {{ $firmaDocumento->nombres }} {{ $firmaDocumento->apellido_paterno }}, ya puedes descargar el documento "{{ $redaccion->documento->nombre }}".</p>
+                                <p>Hola {{ $firmaDocumento->nombres }} {{ $firmaDocumento->apellido_paterno }}, ya puedes descargar el documento <strong>"{{ $redaccion->documento->nombre }}"</strong>.</p>
                                 <div class="pt-3">
                                     <h5>
                                         <button class="btn btn-success" type="button" @click="descargarDocumento({{ $redaccion->id }})">

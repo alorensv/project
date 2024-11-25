@@ -62,19 +62,19 @@
                   <table>
                     <tr>
                       <th>Valor documento</th>
-                      <td>$9.999</td>
+                      <td>${{ number_format($documento->precio, 0, ',', '.') }}</td>
                     </tr>
                     <tr>
                       <th>Firma(s) adicional(es)</th>
-                      <td>$5.000</td>
+                      <td></td>
                     </tr>
                     <tr>
                       <th>Total</th>
-                      <th>$14.999</th>
+                      <td>${{ number_format($documento->precio, 0, ',', '.') }}</td>
                     </tr>
                   </table>
                   <div class="mt-3" style="float: right;">
-                    <button class="btn btn-success w-100" @click="validateContinue" style="display: inline-flex;align-items: center;justify-content: center;">
+                    <button class="btn btn-success w-100" @click="validateContinue" :authenticated="{{ Auth::check() ? 'true' : 'false' }}" style=" display: inline-flex;align-items: center;justify-content: center;">
                       Pagar <span class="material-icons icon pl-2">payments</span></button>
                   </div>
 
@@ -87,33 +87,6 @@
               </div>
             </div>
           </div>
-          <!-- Botón para generar PDF 
-          <button class="btn btn-primary" @click="generatePDF">Generar PDF</button>
-          -->
-
-
-          <!-- Spinner (loading) 
-          <div v-if="loading" class="spinner-border text-primary" role="status">
-            <span class="sr-only">Generando PDF...</span>
-          </div>-->
-
-          <!-- Modal para mostrar el PDF 
-          <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="pdfModalLabel">Documento PDF</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <iframe :src="pdfUrl" width="100%" height="600px"></iframe>
-                </div>
-              </div>
-            </div>
-
-          </div>-->
 
         </div>
       </div>
@@ -128,6 +101,10 @@
   let redact = new Vue({
     el: '#vueRedaccion',
     data: {
+      authenticated: {
+        type: Boolean,
+        default: false
+      },
       loader: false,
       documentoId: <?php echo json_encode($documento->id); ?>,
       correo: '',
@@ -136,6 +113,7 @@
       formData: {},
       espaciosRelleno: '_______________________',
       isFocused: {},
+      isAccordionOpen: false,
       firmantes: [],
       mostrarFormularioFirmante: false, // Controlar el formulario para agregar firmantes
       nuevoFirmante: {
@@ -151,6 +129,7 @@
       loading: false,
       errors: {},
       generalError: '',
+      firmantesError: '',
       regiones: [], // Guardar las regiones obtenidas del servidor
       comunas: [], // Guardar las comunas correspondientes a la región seleccionada
       selectedRegion: null // Variable para la región seleccionada
@@ -179,7 +158,8 @@
               weekday: 'long', // Ej: lunes
               day: 'numeric', // Ej: 1
               month: 'long', // Ej: enero
-              year: 'numeric' // Ej: 2023
+              year: 'numeric',
+              timeZone: 'America/Santiago'
             });
           }
           return input.value; // Si no es tipo date, devuelve el valor sin cambios
@@ -221,7 +201,6 @@
       focusField(field) {
         this.isFocused[field] = true;
       },
-
       blurField(field) {
         this.isFocused[field] = false;
       },
@@ -248,8 +227,22 @@
         // Actualiza el valor del input con el RUT formateado
         input.value = rut;
       },
+      toggleAccordion() {
+        this.isAccordionOpen = !this.isAccordionOpen;
+      },
       agregarFirmante() {
-        if (this.nuevoFirmante.nombre && this.nuevoFirmante.rut && this.nuevoFirmante.correo) {
+        if (this.nuevoFirmante.nombre && this.nuevoFirmante.rut && this.nuevoFirmante.correo && this.nuevoFirmante.domicilio && this.nuevoFirmante.comuna && this.nuevoFirmante.region) {
+         
+          if (!this.validarRut(this.nuevoFirmante.rut)) {
+            this.firmantesError = `El RUT ingresado es inválido.`;
+            return;
+          }
+
+          if (!this.validarCorreo(this.nuevoFirmante.correo)) {
+            this.firmantesError = `El correo ingresado no tiene un formato válido.`;
+            return;
+          }
+         
           this.firmantes.push({
             ...this.nuevoFirmante
           }); // Agregar nuevo firmante
@@ -259,7 +252,7 @@
           if (firmantesContainer) {
             this.firmantes.forEach((firmante, index) => {
               let firmanteHTML = document.createElement('span');
-              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre +  ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' con domicilio para estos efectos en '+ firmante.domicilio + ' de la comuna de ' + firmante.comuna + ' ' + firmante.region + ', ';
+              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' con domicilio para estos efectos en ' + firmante.domicilio + ' de la comuna de ' + firmante.comuna + ' ' + firmante.region + ', ';
               firmantesContainer.appendChild(firmanteHTML);
             });
           }
@@ -274,9 +267,11 @@
             comuna: '',
             region: '',
           }; // Limpiar el formulario
+          this.isAccordionOpen = true;
           this.mostrarFormularioFirmante = false; // Ocultar el formulario
         } else {
-          alert("Por favor, completa todos los campos del firmante.");
+          this.firmantesError = "Por favor, completa los campos requeridos para los firmantes.";
+          return;
         }
       },
       eliminarFirmante(index) {
@@ -307,8 +302,21 @@
           return;
         }
 
-        // Si todo está bien, mostrar el modal de login/register
-        $('#loginRegister').modal('show');
+        if (this.authenticated) {
+          this.loading = true;
+
+          try {
+            this.guardarRedaccion();
+            window.location.href = '/carroCompras';
+
+          } catch (error) {
+            console.error('Error al guardar la redacción:', error);
+            this.loading = false;
+          }
+        }else{
+          $('#loginRegister').modal('show');
+        }
+        
       },
       validarRut(rut) {
         // Limpiar el RUT de caracteres no numéricos
@@ -322,6 +330,10 @@
         const dvCalculated = this.calcularDv(rutNumber).toString(); // Asegurarse de que sea una cadena
 
         return dv.toLowerCase() === dvCalculated.toLowerCase();
+      },
+      validarCorreo(correo) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(correo);
       },
       calcularDv(rut) {
         let M = 0,

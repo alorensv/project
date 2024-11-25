@@ -169,7 +169,7 @@ class LexFirmanteRedaccionDocumento extends Model
             $firmante->firmado = $objeto->Firmado; 
             $firmante->razon_rechazo = $objeto->RazonRechazo; 
             $firmante->base64 =  $objeto->DoctoBase64;
-            $firmante->estado = LexFirmanteRedaccionDocumento::ESTADO_FIRMADO;
+            $firmante->estado = ($objeto->Firmado == 1)? LexFirmanteRedaccionDocumento::ESTADO_FIRMADO : LexFirmanteRedaccionDocumento::ESTADO_FIRMA_CANCELADA;
             if($firmante->save()){
                 $redaccion = UserRedactaDocumento::find($firmante->lex_redaccion_id);
                 $redaccion->base64 = $firmante->base64;

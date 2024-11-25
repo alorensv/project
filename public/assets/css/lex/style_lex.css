@@ -1,7 +1,18 @@
 /* LEX */
 
 
-
+.progress {
+    display: flex;
+    height: 1.3rem!important;
+    overflow: hidden;
+    line-height: 0;
+    font-size: 0.675rem;
+    background-color: #ffffff;
+    border-radius: 0.25rem;
+    border: 1px solid;
+    border-color: #acacac #acacac #acacac #acacac;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.15);
+}
 
 .previsualizacionDocumento{
     padding-right: 60px;
@@ -1980,7 +1991,7 @@ footer .social-media ul li a {
     .logoWeb{
         position: absolute;
         width: 195px;
-        margin-top: -22px;
+        margin-top: -14px;
     }
 
     .previsualizacionDocumento {
@@ -2021,7 +2032,7 @@ footer .social-media ul li a {
     .logoWeb{
         position: absolute;
         width: 195px;
-        margin-top: -22px;
+        margin-top: -14px;
     }
 
     .carousel-item {

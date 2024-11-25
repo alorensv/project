@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div v-if="confirmChecked" class="pt-3">
-                                <button class="btn btn-success" @click="firmardocumento({{ $redaccion->id }}, {{ $firmaDocumento->id }})">Firmar</button>
+                                <button class="btn btn-success" @click="firmardocumento({{ $redaccion->id }}, '{{ $firmaDocumento->token }}')">Firmar</button>
                             </div>
                             <div class="pt-3">
                                 <h5>
@@ -80,11 +80,11 @@
             confirmChecked: false, // Variable para el estado del checkbox
         },
         methods: {
-            firmardocumento(idRedaccion,idFirmante) {
+            firmardocumento(idRedaccion,token) {
                 this.loading = true;
                 axios.post('/autorizaFirma', {
                         idRedaccion: idRedaccion,
-                        idFirmante: idFirmante
+                        token: token
                     })
                     .then(response => {
 
