@@ -1,5 +1,7 @@
 /* LEX */
-
+#firmantesModal {
+    z-index: 1050; /* Z-index típico de Bootstrap */
+}
 
 .progress {
     display: flex;

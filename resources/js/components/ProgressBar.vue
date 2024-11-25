@@ -1,33 +1,16 @@
-// resources/js/components/ProgressBar.vue
 <template>
-    <div class="progress">
-        <div
-            class="progress-bar bg-advanced"
-            role="progressbar"
-            :style="{ width: progress + '%' }"
-            :aria-valuenow="progress"
-            aria-valuemin="0"
-            aria-valuemax="100"
-        >
-            {{ progress }}%
-        </div>
-    </div>
+  <div>
+    <h1>Vue está funcionando correctamente</h1>
+    <p>{{ message }}</p>
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        progress: {
-            type: Number,
-            required: true
-        }
-    }
+  data() {
+    return {
+      message: '¡Bienvenido a Vue!',
+    };
+  },
 };
 </script>
-
-<style scoped>
-/* Estilos específicos para la barra de progreso */
-.progress-bar {
-    transition: width 0.5s ease-in-out;
-}
-</style>

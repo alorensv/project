@@ -1,5 +1,5 @@
 <!-- Modal para visualizar el PDF -->
-<div class="modal fade" id="firmantesModal" tabindex="-1" role="dialog" aria-labelledby="firmantesModal" aria-hidden="true">
+<div id="firmantesModal" class="modal fade" tabindex="-1" role="dialog"> 
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #7e7e7e!important;color: #ffffff!important;">

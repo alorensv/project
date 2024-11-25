@@ -140,4 +140,4 @@
     </div>
 </nav>
 
-@include('tbl.modals.contacto')
+<contacto></contacto>
