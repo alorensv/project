@@ -56,30 +56,12 @@
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <img src="{{ asset('/img/lex/logov2.png') }}">
-    </div>
-
     <div id="app">
         @include('lex.include.nav')
         <main>
             @yield('content')
         </main>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                //const cotiza = document.getElementById('cotiza');
-                if (preloader) {
-                    preloader.style.display = 'none';
-                    //cotiza.style.display = 'block';
-                }
-            }, 800);
-        });
-    </script>
 </body>
 
 </html>

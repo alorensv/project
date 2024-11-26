@@ -23,7 +23,13 @@ class LexWebController extends Controller
     public function index()
     {
         $categoriasDocumentos = LexCategoria::categoriasDocumentos();
-        return view('lex.inicio', ['categoriasDocumentos' => $categoriasDocumentos]);
+        return view('lex.inicio');
+    }
+
+    public function categoriasDoc(){
+        $categoriasDocumentos = LexCategoria::categoriasDocumentos();
+        
+        return response()->json(['message' => 'documentos disponibles', 'categoriasDocumentos' => $categoriasDocumentos]);
     }
 
     public function redactar($id)

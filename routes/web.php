@@ -215,6 +215,7 @@ Route::get('/corredora-seguros', function () {
 
 
 Route::get('/', [LexWebController::class, 'index'])->name('inicio');
+Route::get('/categoriasDocumentos', [LexWebController::class, 'categoriasDocumentos'])->name('categoriasDocumentos');
 Route::get('/redactar/{id}', [LexWebController::class, 'redactar'])->name('redactar');
 Route::post('/generate-pdf', [PDFController::class, 'generatePDF']);
 Route::get('/carroCompras', [LexWebController::class, 'carroCompras'])->name('carroCompras');

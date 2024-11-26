@@ -1,9 +1,10 @@
 <template>
-  <div class="modal fade" id="firmantesModal" tabindex="-1" aria-labelledby="firmantesModalLabel" aria-hidden="true">
+  <div class="modal fade" id="firmantesModal" tabindex="-1" role="dialog" aria-labelledby="firmantesModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="firmantesModalLabel">Firmantes Pendientes</h5>
+          <!-- Asegúrate de que se llame a cerrarModal() al hacer clic en el botón -->
           <button type="button" class="btn-close" @click="cerrarModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -34,7 +35,8 @@
           </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="closeModal">Cerrar</button>
+          <!-- Aquí usamos el atributo de Bootstrap para cerrar el modal -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="cerrarModal">Cerrar</button>
         </div>
       </div>
     </div>
@@ -42,22 +44,72 @@
 </template>
 
 <script>
-import { Modal } from 'bootstrap';
+  import {
+    Modal
+  } from 'bootstrap';
 
-export default {
-  props: ['firmantes'],
-  methods: {
-    closeModal() {
-        $('#firmantesModal').modal('hide'); 
+  export default {
+    props: ['firmantes'],
+    data() {
+      return {
+        modal: null // Aquí almacenaremos la instancia del modal
+      };
+    },
+    emits: ["toggle-loader"],
+    methods: {
+      cerrarModal() {
+        if (this.modal) {
+          this.modal.hide(); // Cerrar el modal utilizando la instancia guardada
+        }
+      }
+    },
+    watch: {
+      // Observamos cualquier cambio en los firmantes para reactivar el modal cuando se abra
+      firmantes() {
+        this.inicializarModal();
+      }
+    },
+    mounted() {
+      // Inicializamos la instancia del modal solo una vez
+      this.inicializarModal();
+    },
+    beforeDestroy() {
+      // Asegúrate de destruir la instancia del modal cuando el componente se destruya
+      if (this.modal) {
+        this.modal.dispose();
+      }
+    },
+    methods: {
+      inicializarModal() {
+        const modalElement = document.getElementById('firmantesModal');
+
+        // Si la instancia de modal ya existe, la destruimos y la volvemos a crear
+        if (this.modal) {
+          this.modal.dispose();
+        }
+
+        // Creamos una nueva instancia de modal
+        this.modal = new Modal(modalElement);
+      },
+      abrirModal() {
+        this.modal.show();
+      },
+      cerrarModal() {
+        if (this.modal) {
+          this.modal.hide();
+        }
+      },
+      notificarFirmaPendiente(idFirmante) {
+        this.$emit("toggle-loader", true);
+        axios.get(`/enviarCorreo/${idFirmante}`, {}).then(response => {
+          alert(JSON.stringify(response.data.status));
+        }).catch(error => {
+          console.error('Error al enviar notificación:', error);
+        }).finally(() => {
+          this.$emit("toggle-loader", false);
+        });
+        //
+      },
     }
-  },
-};
+  };
 </script>
-
-
-
-<style scoped>
-.modal {
-    position: absolute!important;
-}
-</style>

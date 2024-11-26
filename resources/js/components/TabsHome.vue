@@ -1,6 +1,9 @@
 <template>
 
-<firmantes-modal :firmantes="firmantes"></firmantes-modal>
+    <firmantes-modal :firmantes="firmantes" @toggle-loader="handleToggleLoader" ></firmantes-modal>
+
+    <ver-documento-modal :documentoBase="documentoBase"></ver-documento-modal>
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="documentTabs" role="tablist">
         <li class="nav-item" role="presentation">
@@ -121,12 +124,15 @@
 </template>
 
 <script>
-import FirmantesModal from './FirmantesModal.vue';
+    import FirmantesModal from './FirmantesModal.vue';
+    import VerDocumentoModal from './VerDocumentoModal.vue';
+    import { Modal } from 'bootstrap';
 
-export default {
-  components: {
-    FirmantesModal,
-  },
+    export default {
+        components: {
+            FirmantesModal,
+            VerDocumentoModal,
+        },
         data() {
             return {
                 loading: false,
@@ -173,6 +179,7 @@ export default {
                 return this.generatePageNumbers(this.documentosFirmasCompletadas);
             }
         },
+        emits: ["toggle-loader"],
         methods: {
             generatePageNumbers(documentList) {
                 const pages = [];
@@ -224,6 +231,7 @@ export default {
                 this.getPendingDocs(page);
             },
             getPendingDocs(page = 1) {
+                this.$emit("toggle-loader", true);
                 axios.get(`/getDocumentosPendientesPagadoPerPage`, {
                         params: {
                             page: page,
@@ -240,14 +248,14 @@ export default {
                         // Ajustar la información de paginación para ambas listas
                         this.documentosPendientes.total = this.documentosPendientes.data.length;
                         this.documentosFirmasCompletadas.total = this.documentosFirmasCompletadas.data.length;
-                        this.loading = false;
+                        this.$emit("toggle-loader", false);
                     })
                     .catch(error => {
                         console.error('Error al obtener documentos:', error);
                     });
             },
             verFirmantes(idRedaccion) {
-                this.loading = true;
+                this.$emit("toggle-loader", true);
                 axios.get(`/firmantes/${idRedaccion}`, {}).then(response => {
                     console.log(response);
                     this.firmantes = response.data.firmantes
@@ -255,14 +263,19 @@ export default {
                     console.error('Error al consultar los firmantes pendientes:', error);
                 }).finally(() => {
                     this.$nextTick(() => {
-                        alert(JSON.stringify(this.firmantes));
-                        $('#firmantesModal').modal('show');
+                        this.$emit("toggle-loader", false);
+
+                        const modalElement = document.getElementById('firmantesModal');
+                        const modal = new Modal(modalElement); // Correcto para Bootstrap 5
+                        modal.show();
+
                     });
+
                 });
                 //$('#firmantesModal').modal('show');
             },
             firmardocumento(idRedaccion) {
-                this.loading = true;
+                this.$emit("toggle-loader", true);
                 axios.get(`/getMiToken/${idRedaccion}`)
                     .then(response => {
                         if (response.data.token) {
@@ -276,13 +289,11 @@ export default {
                         console.error('Error al obtener el token:', error);
                     })
                     .finally(() => {
-                        this.loading = false; // Finalizar el estado de carga
+                        this.$emit("toggle-loader", false);
                     });
             },
             verDocumento(base64) {
-                this.loading = true;
-
-                // Cierra el modal si ya está abierto para reiniciar el contenido
+                this.$emit("toggle-loader", true);
                 $('#verPDFModal').modal('hide');
 
                 // Asegúrate de esperar que se cierre completamente antes de continuar
@@ -291,11 +302,12 @@ export default {
                     this.$nextTick(() => {
                         this.documentoBase = base64; // Asigna el nuevo valor
                         $('#verPDFModal').modal('show'); // Muestra el modal
-                        this.loading = false; // Desactiva el indicador de carga
+                        this.$emit("toggle-loader", false);
                     });
                 }, 300); // Espera 300 ms antes de reabrir el modal
             },
             descargarDocumento(idRedaccion) {
+                this.$emit("toggle-loader", true);
                 axios.get(`/documento/descargar/${idRedaccion}`, {
                     responseType: 'blob' // Importante para obtener el archivo en formato binario
                 }).then(response => {
@@ -308,19 +320,15 @@ export default {
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
+                    this.$emit("toggle-loader", false);
                 }).catch(error => {
                     console.error('Error al descargar el documento:', error);
                     alert('No se pudo descargar el documento.');
                 });
-            },
-            notificarFirmaPendiente(idFirmante) {
-                axios.get(`/enviarCorreo/${idFirmante}`, {}).then(response => {
-                    alert(JSON.stringify(response.data.status));
-                }).catch(error => {
-                    console.error('Error al enviar notificación:', error);
-                });
-                //
-            }
+            },      
+            handleToggleLoader(isLoading) {
+                this.$emit("toggle-loader", isLoading);
+            }      
         },
     };
 </script>
