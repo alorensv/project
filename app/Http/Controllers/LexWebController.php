@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\eCert;
+use App\Models\EstadoCivil;
 use App\Models\LexCategoria;
 use App\Models\LexDocumento;
 use App\Models\LexFirmanteRedaccionDocumento;
 use App\Models\LexInputsDocumento;
+use App\Models\Nacionalidad;
 use App\Models\UserRedactaDocumento;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -23,7 +25,7 @@ class LexWebController extends Controller
     public function index()
     {
         $categoriasDocumentos = LexCategoria::categoriasDocumentos();
-        return view('lex.inicio');
+        return view('lex.inicio', ['categoriasDocumentos' => $categoriasDocumentos]);
     }
 
     public function categoriasDoc(){
@@ -175,6 +177,16 @@ class LexWebController extends Controller
         $categoria = LexCategoria::categoriasDocumentos();
 
         return response()->json(['message' => 'request', 'categoria' => $categoria]);
+    }
+
+    public function nacionalidades(){
+        $nacionalidades = Nacionalidad::all();
+        return response()->json(['message' => 'lista de nacionalidades', 'nacionalidades' => $nacionalidades]);
+    }
+
+    public function estados_civiles(){
+        $estados_civiles = EstadoCivil::all();
+        return response()->json(['message' => 'lista de estados civiles', 'estados_civiles' => $estados_civiles]);
     }
 
     public function buscarDocumento($idRedaccion)

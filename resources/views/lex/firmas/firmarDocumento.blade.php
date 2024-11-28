@@ -30,7 +30,7 @@
                             </div>
                             <div class="pt-3">
                                 <h5>
-                                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#requisitosAcordeon" aria-expanded="false" aria-controls="requisitosAcordeon">
+                                    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#requisitosAcordeon" aria-expanded="false" aria-controls="requisitosAcordeon">
                                         Requisitos para firmar
                                     </button>
                                 </h5>

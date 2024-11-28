@@ -5,6 +5,9 @@
 
 </style>
 <div id="carroVue">
+
+    <div v-bind:class="{ 'loader': loading }" v-cloak></div>
+
     <section class="white-division pt-5 pb-2" style="margin-top: 20px;min-height: 91vh;">
 
         <div class="container">
@@ -172,6 +175,7 @@
     let carroVue = new Vue({
         el: '#carroVue',
         data: {
+            loading: false,
             authenticated: {
                 type: Boolean,
                 default: false
@@ -202,16 +206,20 @@
         },
         methods: {
             verFirmantes(idRedaccion) {
+                this.loading = true;
                 axios.get(`/firmantes/${idRedaccion}`, {}).then(response => {
                     console.log(response);
                     this.firmantes = response.data.firmantes
                 }).catch(error => {
                     console.error('Error al consultar los firmantes:', error);
+                }).finally(() => {                        
+                    this.loading = false; 
+                    const modal = new bootstrap.Modal(document.getElementById('firmantesModal'));
+                    modal.show();
                 });
-
-                $('#firmantesModal').modal('show');
             },
             listarCarrito() {
+                this.loading = true;
                 axios.get('/getRedaccionesPorPagar')
                     .then((response) => {
 
@@ -221,7 +229,9 @@
                     })
                     .catch((error) => {
                         console.error(error);
-                    });
+                    }).finally(() => {                        
+                    this.loading = false; 
+                });
             },
             initializeSelectedItems() {
                 // Asegúrate de que selectedItems contenga referencias exactas de los objetos de cart
@@ -383,7 +393,7 @@
                     alert("Por favor, selecciona al menos un documento para pagar.");
                     return;
                 }
-
+                this.loading = true;
                 // Aquí envías los datos de los ítems seleccionados al backend
                 axios.post('/lexPagar', {
                     selectedItems: this.selectedItems
@@ -415,14 +425,29 @@
                 .catch(error => {
                     console.error('Error al procesar el pago:', error);
                     alert('Hubo un error al procesar el pago. Intenta nuevamente.');
+                }).finally(() => {                        
+                    this.loading = false; 
                 });
             },
             verPDF(base64) {
                 this.documentoBase = base64;
-                $('#verPDFModal').modal('show');
+                const modal = new bootstrap.Modal(document.getElementById('verPDFModal'));
+                modal.show();
             },
-
-
+            closeModal(id) {
+                const modalElement = document.getElementById(id);
+                if (modalElement) {
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    if (!modalInstance) {
+                        const newModalInstance = new bootstrap.Modal(modalElement);
+                        newModalInstance.hide();
+                    } else {
+                        modalInstance.hide();
+                    }
+                } else {
+                    console.error(`Modal con ID ${id} no encontrado.`);
+                }
+            },
             async continuarInvitado() {},
 
         }

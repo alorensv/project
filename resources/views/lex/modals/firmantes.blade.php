@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header" style="background-color: #7e7e7e!important;color: #ffffff!important;">
                 <h5 class="modal-title" id="firmantesModal">Firmantes pendientes</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal"  @click="closeModal('firmantesModal')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -22,6 +22,8 @@
                         <td>
                             @{{firmante.correo}}
                         </td>
+
+                        @if(Auth::check())
                         <td>
                             <div v-if="firmante.estado == 0">
                                 <span class="badge badge-warning">Pendiente</span>
@@ -36,12 +38,16 @@
                                 <p style="font-size: 12px;">Firmó el @{{ firmante.formatted_date }}</p>
                             </div>
                         </td>
+                        @endif
+
+
+                        
                     </tr>
                 </table>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" @click="closeModal('firmantesModal')">Cerrar</button>
             </div>
         </div>
     </div>

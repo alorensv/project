@@ -12,10 +12,11 @@
     <title>{{ config('app.name', 'Lex') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 
-<!--     <script src="{{ asset('assets/js/app.js') }}" defer></script>
-    <script type="text/javascript" src="{{ asset('assets/js/consultas.js') }}" defer></script> -->
+    
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -62,6 +63,8 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="{{ mix('js/app.js') }}" defer></script>
 </body>
 
 </html>

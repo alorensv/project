@@ -224,9 +224,12 @@ Route::get('/getRedaccionesPorPagar', [LexWebController::class, 'getRedaccionesP
 Route::post('/lexPagar', [TransbankController::class, 'lexPagar'])->name('lexPagar');
 Route::get('/getResult', [TransbankController::class, 'getResult'])->name('getResult');
 Route::get('/getPDFUrl', [LexWebController::class, 'getPDFUrl'])->name('getPDFUrl');
+
 Route::get('/lexregiones', [LexWebController::class, 'lexregiones'])->name('lexregiones');
 Route::get('/lexcomunas/{region}', [LexWebController::class, 'lexcomunas'])->name('lexcomunas');
 Route::get('/lexcategorias', [LexWebController::class, 'lexcategorias'])->name('lexcategorias');
+Route::get('/nacionalidades', [LexWebController::class, 'nacionalidades'])->name('nacionalidades');
+Route::get('/estados_civiles', [LexWebController::class, 'estados_civiles'])->name('estados_civiles');
 
 /*INTRANET*/
 Route::middleware('auth')->get('/home', [FirmarController::class, 'index'])->name('home');

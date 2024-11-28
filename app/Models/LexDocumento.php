@@ -24,8 +24,14 @@ class LexDocumento extends Model
     }
 
     public static function formatearDocumento($request){
-        $defaultText = LexDocumento::find($request->input('documento_id'))->default_text;
 
+        $firmantes = $request->input('firmantes', []);
+        $documento = LexDocumento::find($request->input('documento_id'));
+        if ($documento) {
+            $defaultText = count($firmantes) > 1 ? $documento->default_text_plural : $documento->default_text;
+        } else {
+            $defaultText = null; 
+        }
         // Obtener los inputs asociados al documento
         $inputs = LexInputsDocumento::where('documento_id', $request->input('documento_id'))
                         ->orderBy('orden', 'asc')
@@ -58,7 +64,7 @@ class LexDocumento extends Model
         // Reemplazar las variables en el HTML predeterminado
         $htmlFinal = str_replace($search, $replace, $defaultText);
         
-        $firmantes = $request->input('firmantes', []);
+        
 
         // Generar el bloque HTML de firmantes
         $firmantesHtml = '';
@@ -69,7 +75,10 @@ class LexDocumento extends Model
             // Concatenar los firmantes al estilo de la lógica en JavaScript
             $firmantesHtml .= ', ' 
             . htmlspecialchars($firmante['nombre']). ' '.htmlspecialchars($firmante['apellido_paterno']). ' '.htmlspecialchars($firmante['apellido_materno']) 
-            . ' R.U.N. ' . htmlspecialchars($firmante['rut']).',' 
+            . ' R.U.N. ' . htmlspecialchars($firmante['rut']).','
+            . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']).',' 
+            . ' estado civil' . htmlspecialchars($firmante['estado_civil']).','
+            . ' ' . htmlspecialchars($firmante['profesion_oficio']).','
             . ' con domicilio para estos efectos en '.htmlspecialchars($firmante['domicilio']).' de la comuna de '
             . htmlspecialchars($firmante['comuna']).', '.htmlspecialchars($firmante['region']); // . htmlspecialchars($firmante['direccion'])
 

@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="verPDFLabel">Previsualización del documento</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal"  @click="closeModal('verPDFModal')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -21,7 +21,7 @@
                 <p v-else>El documento no está disponible.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary"  @click="closeModal('verPDFModal')">Cerrar</button>
             </div>
         </div>
     </div>

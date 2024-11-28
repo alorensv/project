@@ -26,6 +26,7 @@
         "webpack-cli": "^5.1.4"
     },
     "dependencies": {
+        "@popperjs/core": "^2.11.8",
         "vue3-carousel": "^0.8.0"
     }
 }

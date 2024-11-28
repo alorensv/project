@@ -48,6 +48,19 @@
             <option v-for="comuna in comunas" :key="comuna.id" :value="comuna.nombre">@{{ comuna.nombre }}</option>
         </select>
 
+        <!-- Select de estado civil -->
+        <select v-else-if="input.field_type === 'select' && input.name === 'nacionalidad' "
+            :id="input.name"
+            v-model="input.value"
+            :class="{'is-invalid': errors[input.name]}"
+            @focus="focusField(input.name)"
+            @blur="blurField(input.name)"
+            class="form-control">
+            <option disabled value selected>
+                @{{ input.placeholder || 'Seleccione su nacionalidad' }} <!-- Muestra el placeholder o un texto por defecto -->
+            </option>
+            <option v-for="nacionalidad in nacionalidades" :key="nacionalidad.id" :value="nacionalidad.nombre">@{{ nacionalidad.nombre }}</option>
+        </select>
 
         <!-- Select de estado civil -->
         <select v-else-if="input.field_type === 'select' && ( input.name === 'estado_civil' || input.name === 'estadoCivilTestigoUno' ) "
@@ -57,9 +70,10 @@
             @focus="focusField(input.name)"
             @blur="blurField(input.name)"
             class="form-control">
-            <option value="Soltero" selected>Soltero</option>
-            <option value="Casado">Casado</option>
-            <option value="Divorciado/a">Divorciado/a</option>
+            <option disabled value selected>
+                @{{ input.placeholder || 'Seleccione su estado civil' }} <!-- Muestra el placeholder o un texto por defecto -->
+            </option>
+            <option v-for="estado_civil in estados_civiles" :key="estado_civil.id" :value="estado_civil.nombre">@{{ estado_civil.nombre }}</option>
         </select>
 
         <!-- text rut -->
@@ -72,7 +86,7 @@
             :class="{'is-invalid': errors[input.name]}"
             @focus="focusField(input.name)"
             @blur="blurField(input.name)"
-            @input="completeRut(input.name, input.value)"
+            @input="completeRut(input.name, input.value, 'input')"
             class="form-control" />
 
 
@@ -117,13 +131,34 @@
         </div>
         <div class="mb-3">
             <label for="rutFirmante" class="form-label">RUT</label>
-            <input type="text" id="rutFirmante" v-model="nuevoFirmante.rut" class="form-control" placeholder="RUT del firmante">
+            <input type="text" id="rutFirmante" @input="completeRut('rut', nuevoFirmante.rut, 'firmantes')" v-model="nuevoFirmante.rut" class="form-control" placeholder="RUT del firmante">
         </div>
         <div class="mb-3">
             <label for="correoFirmante" class="form-label">Correo</label>
             <input type="email" id="correoFirmante" v-model="nuevoFirmante.correo" class="form-control" placeholder="Correo del firmante">
         </div>
-
+        <div class="mb-3">
+            <label for="nacionalidadFirmante" class="form-label">Nacionalidad</label>
+            <select id="nacionalidadFirmante" v-model="nuevoFirmante.nacionalidad" class="form-control">
+                <option disabled value selected>
+                   Seleccione su nacionalidad
+                </option>
+                <option v-for="nacionalidad in nacionalidades" :key="nacionalidad.id" :value="nacionalidad.nombre">@{{ nacionalidad.nombre }}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="estadoCivilFirmante" class="form-label">Estado Civil</label>
+            <select id="estadoCivilFirmante" v-model="nuevoFirmante.estado_civil" class="form-control">
+                <option disabled value selected>
+                    @{{'Seleccione su estado civil' }} <!-- Muestra el placeholder o un texto por defecto -->
+                </option>
+                <option v-for="estado_civil in estados_civiles" :key="estado_civil.id" :value="estado_civil.nombre">@{{ estado_civil.nombre }}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="profesionOficioFirmante" class="form-label">Profesión u Oficio</label>
+            <input type="email" id="profesionOficioFirmante" v-model="nuevoFirmante.profesion_oficio" class="form-control" placeholder="Profesión u Oficio">
+        </div>
         <div class="mb-3">
             <label for="domicilioFirmante" class="form-label">Domicilio</label>
             <input type="text" id="domicilioFirmante" v-model="nuevoFirmante.domicilio" class="form-control" placeholder="Ej: Calle Arturo Prat 110, departamente 56b">
@@ -197,7 +232,10 @@
                             <td>@{{ getInputValue('nombre') }} @{{ getInputValue('apellido_paterno') }} @{{ getInputValue('apellido_materno') }}
                                 <br>@{{ getInputValue('rut') }}
                                 <br>@{{ getInputValue('correo') }}
-                                <br>@{{ getInputValue('domicilio') }}
+                                <br>@{{ getInputValue('nacionalidad') }}
+                                <br>@{{ getInputValue('estado_civil') }}
+                                <br>@{{ getInputValue('profesion_oficio') }}
+                                <br>@{{ getInputValue('direccion') }}
                                 <br>@{{ getInputValue('comuna') }}
                                 <br>@{{ getInputValue('region') }}
                             </td>
@@ -208,6 +246,9 @@
                             <td>@{{ firmante.nombre }} @{{ firmante.apellido_paterno }} @{{ firmante.apellido_materno }}
                                 <br>@{{ firmante.rut }}
                                 <br>@{{ firmante.correo }}
+                                <br>@{{ firmante.nacionalidad }}
+                                <br>@{{ firmante.estado_civil }}
+                                <br>@{{ firmante.profesion_oficio }}
                                 <br>@{{ firmante.domicilio }}
                                 <br>@{{ firmante.comuna }}
                                 <br>@{{ firmante.region }}
