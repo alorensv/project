@@ -55,7 +55,7 @@
                                             <th>ID</th>
                                             <th>Documento</th>
                                             <th>Fecha creación</th>
-                                            <th style="width: 30%;">Firmas pendientes</th>
+                                            <th style="width: 40%;">Firmas pendientes</th>
                                             <th style="width: 5%;"></th>
                                             <th style="width: 5%;"></th>
                                         </tr>
@@ -67,22 +67,25 @@
                                             <td>@{{ doc.fecha_creacion }}</td>
                                             <td class="text-center align-middle">
                                                 <div class="d-flex">
+                                                    <div class="col-1">
+                                                    <i v-if="doc.firmasRechazadas > 0" class="material-icons float-start" style="color: red;">warning</i>
+                                                    </div>
                                                     <div class="col-6">
                                                     <div class="progress">
                                                         <div
                                                             class="progress-bar bg-advanced"
                                                             role="progressbar"
-                                                            :style="{ width: progress + '%' }"
-                                                            :aria-valuenow="progress"
+                                                            :style="{ width: calcularProgreso(doc) + '%' }"
+                                                            :aria-valuenow="calcularProgreso(doc)"
                                                             aria-valuemin="0"
                                                             aria-valuemax="100"
-                                                        >@{{ progress }}%</div>
+                                                        >@{{ calcularProgreso(doc) }}%</div>
                                                     </div>
 
                                                     
                                                     
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-5">
                                                     <span class="badge badge-primary fontBadge" @click="verFirmantes(doc.idRedaccion)">@{{ doc.firmasPendientes }}</span>
                                                     </div>
                                                 </div>
@@ -193,6 +196,9 @@
                 to: 1,
                 total: 0
             },
+            documentosRechazadas: {
+                total: 0
+            },
             searchTerm: '',
             totalPages: 0,
             documentoBase: '',
@@ -274,16 +280,23 @@
 
                         // Dividir los documentos en dos listas: pendientes y completadas
                         this.documentosPendientes.data = documentos.filter(doc => doc.firmasPendientes > 0);
+                        this.documentosRechazadas.data = documentos.filter(doc => doc.firmasRechazadas > 0);
                         this.documentosFirmasCompletadas.data = documentos.filter(doc => doc.firmasPendientes === 0 && doc.firmasOk > 0);
 
                         // Ajustar la información de paginación para ambas listas
                         this.documentosPendientes.total = this.documentosPendientes.data.length;
+                        this.documentosRechazadas.total = this.documentosRechazadas.data.length;
                         this.documentosFirmasCompletadas.total = this.documentosFirmasCompletadas.data.length;
                         this.loading = false;
                     })
                     .catch(error => {
                         console.error('Error al obtener documentos:', error);
                     });
+            },
+            calcularProgreso(doc) {
+                const totalFirmas = doc.firmasOk +  doc.firmasPendientes + doc.firmasRechazadas || 1; // Evita divisiones por 0
+                const realizadas = totalFirmas - doc.firmasPendientes;
+                return Math.floor((realizadas / totalFirmas) * 100);
             },
             searchPendingDocs() {
                 this.toggleLoading(true);

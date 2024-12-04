@@ -438,9 +438,9 @@
 }
 
 .badge:hover{
-    font-size: 12px!important;
     cursor: pointer;
-    color: yellow!important;
+    color: rgb(255, 255, 255)!important;
+    background-color: #a7a7a785!important;
 }
 
 tr:hover{

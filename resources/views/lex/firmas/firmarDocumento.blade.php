@@ -25,14 +25,25 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div v-if="confirmChecked" class="pt-3">
-                                <button class="btn btn-success" @click="firmardocumento({{ $redaccion->id }}, '{{ $firmaDocumento->token }}')">Firmar</button>
+                                @if (empty($firmanteEnProceso))
+                                <button class="btn btn-success" @click="firmarDocumento({{ $redaccion->id }}, '{{ $firmaDocumento->token }}')">Firmar</button>
+                                @else
+                                <div  class="p-4 bg-warning">
+                                <i class="material-icons">warning</i>
+                                <span>Firma en curso: En estos momentos el documento está en proceso de firma por {{ $firmanteEnProceso->nombres }} {{ $firmanteEnProceso->apellido_paterno }} <br> Vuelve a intentarlo en unos minutos.</span>
+                                </div>
+                                
+                                @endif
                             </div>
+
+
                             <div class="pt-3">
                                 <h5>
-                                    <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#requisitosAcordeon" aria-expanded="false" aria-controls="requisitosAcordeon">
-                                        Requisitos para firmar
-                                    </button>
+                                    <span style="text-decoration: underline;cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#requisitosAcordeon" aria-expanded="false" aria-controls="requisitosAcordeon">
+                                    <i class="material-icons">keyboard_arrow_down</i>Requisitos para firmar
+                                    </span>
                                 </h5>
 
                                 <div id="requisitosAcordeon" class="collapse">
@@ -52,8 +63,10 @@
                         <div class="col-7">
                             <div style="display: flex;">
                                 <h4 class="w-50">Previsualización del documento </h4>
-                                <span class="success pr-3">Autor: Alejandro Lorens </span>
-                                <p style="text-align: right;">Fecha de creación: 06-11-2024 </p>
+                                @if (!empty($redaccion->user_id))
+                                <span class="success pr-3">Autor: {{ $redaccion->user->name }} </span>  
+                                @endif
+                                <p style="text-align: right;">Fecha de creación: {{ $redaccion->formatted_date_creacion }} </p>
                             </div>
                             <div style="width: 100%; height: 75vh; border: 1px solid #ccc;">
                                 <object
@@ -80,7 +93,7 @@
             confirmChecked: false, // Variable para el estado del checkbox
         },
         methods: {
-            firmardocumento(idRedaccion,token) {
+            firmardocumento(idRedaccion, token) {
                 this.loading = true;
                 axios.post('/autorizaFirma', {
                         idRedaccion: idRedaccion,

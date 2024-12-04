@@ -77,7 +77,7 @@ class LexDocumento extends Model
             . htmlspecialchars($firmante['nombre']). ' '.htmlspecialchars($firmante['apellido_paterno']). ' '.htmlspecialchars($firmante['apellido_materno']) 
             . ' R.U.N. ' . htmlspecialchars($firmante['rut']).','
             . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']).',' 
-            . ' estado civil' . htmlspecialchars($firmante['estado_civil']).','
+            . ' estado civil ' . htmlspecialchars($firmante['estado_civil']).','
             . ' ' . htmlspecialchars($firmante['profesion_oficio']).','
             . ' con domicilio para estos efectos en '.htmlspecialchars($firmante['domicilio']).' de la comuna de '
             . htmlspecialchars($firmante['comuna']).', '.htmlspecialchars($firmante['region']); // . htmlspecialchars($firmante['direccion'])

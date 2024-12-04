@@ -80,7 +80,7 @@ class TransbankController extends Controller
 
     public function getResult()
     {
-        if (!isset($_GET["token_ws"])) die;
+        if (!isset($_GET["token_ws"])) return redirect()->route('carroCompras');
         /** Token de la transacción */
         $token = filter_input(INPUT_GET, 'token_ws');
         $request = array(

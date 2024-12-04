@@ -172,17 +172,15 @@ class LexFirmanteRedaccionDocumento extends Model
             $firmante->estado = ($objeto->Firmado == 1)? LexFirmanteRedaccionDocumento::ESTADO_FIRMADO : LexFirmanteRedaccionDocumento::ESTADO_FIRMA_CANCELADA;
             if($firmante->save()){
                 $redaccion = UserRedactaDocumento::find($firmante->lex_redaccion_id);
-                $redaccion->base64 = $firmante->base64;
+                if($objeto->Firmado == 1) $redaccion->base64 = $firmante->base64;
 
                 $firmantesPendientes = self::countFirmantesPendientes($firmante->lex_redaccion_id);
-                if($firmantesPendientes == 0){
+                if($firmantesPendientes == 0 && $objeto->Firmado == 1){
                     $redaccion->final_base64 = $firmante->base64;
                 }
 
                 $redaccion->save();
-            }         
-            
-            
+            }           
 
             return $firmante;
         }

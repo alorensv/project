@@ -238,6 +238,7 @@ Route::middleware('auth')->get('/firmantesPendientes/{idRedaccion}', [FirmarCont
 Route::middleware('auth')->get('/getMiToken/{idRedaccion}', [FirmarController::class, 'getMiToken'])->name('getMiToken');
 
 Route::get('/firmantes/{idRedaccion}', [FirmarController::class, 'firmantes'])->name('firmantes');
+Route::get('/buscarFirmante/{dni}', [FirmarController::class, 'buscarFirmante'])->name('buscarFirmante');
 
 /* FIRMAS */
 

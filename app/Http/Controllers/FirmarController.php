@@ -152,6 +152,16 @@ class FirmarController extends Controller
         return response()->json(['message' => 'firmantes', 'firmantes' => $firmantes]);
     }
 
+    public function buscarFirmante($dni){
+        $rutLimpio = preg_replace('/\./', '', $dni);
+        
+        $firmante = LexFirmanteRedaccionDocumento::where('dni', $rutLimpio)
+        ->orderBy('id', 'desc')
+        ->first();
+
+        return response()->json(['firmante' => $firmante]);
+    }
+
     public function getMiToken($idRedaccion)
     {
         $user_id = auth()->check() ? auth()->id() : null;
@@ -210,9 +220,14 @@ class FirmarController extends Controller
             return redirect()->route('callback', ['token' => $firmaDocumento->token]);
         }
         $redaccion = UserRedactaDocumento::where('id', $firmaDocumento->lex_redaccion_id)->first();
+        $redaccion->formatted_date_creacion = \Carbon\Carbon::parse($redaccion->created_at)->locale('es')->translatedFormat('d/m/Y');
+
+        $firmanteEnProceso = LexFirmanteRedaccionDocumento::where('lex_redaccion_id', $redaccion->id)
+                                                    ->where('estado', 1)
+                                                    ->first();
 
         $base64PDF = $redaccion->base64; // Esta función obtiene el PDF en Base64
 
-        return view('lex.firmas.firmarDocumento', compact('base64PDF', 'firmaDocumento', 'redaccion'));
+        return view('lex.firmas.firmarDocumento', compact('base64PDF', 'firmaDocumento', 'redaccion', 'firmanteEnProceso'));
     }
 }

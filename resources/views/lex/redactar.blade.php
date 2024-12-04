@@ -7,44 +7,48 @@
   <div v-bind:class="{ 'loader': loading }" v-cloak></div>
 
 
-  <section class="white-division pt-2 pb-2">
+  <section class="pt-2 pb-2">
     <div class="container">
 
-      <div class="pt-4 mt-2" style="background-color: #FB3F5C;color: white;padding: 20px;padding-bottom: 10px;">
+      <!-- <div class="pt-4 mt-2" style="background-color: #FB3F5C;color: white;padding: 20px;padding-bottom: 10px;">
         Sección de avisos
+      </div> -->
+
+
+      <div class="alert alert-warning mt-3">
+        Completa el siguiente formulario con los campos requeridos
       </div>
+
+
 
       <div class="row market-body mt-1 pt-1">
         <!-- Columna de categorías (Panel de Inputs) -->
         <div class="col-md-4">
-          <div class="filtrosDiv">
-            <div class="card">
-              <div class="card-body">
-                @if($documento->lex_categoria_id == 1)
-                @include('lex.forms.declaraciones')
-                @else
-                @include('lex.forms.poderes')
-                @endif
-              </div>
+          <div>
 
-            </div>
+            @if($documento->lex_categoria_id == 1)
+            @include('lex.forms.declaraciones')
+            @else
+            @include('lex.forms.poderes')
+            @endif
+
           </div>
         </div>
 
         <!-- Columna de productos (Cuadro de Declaración Jurada) -->
         <div class="col-md-8 sticky-top" style="max-height: 401px;">
           <div class="card">
-            <div class="card-body previsualizacionDocumento" style="box-shadow: rgba(49, 49, 34, 0.3) 0px 0em 2em inset, white 0px 0px 0px 0px, rgba(255, 255, 255, 0.6) 0.3em 0.3em 0em;">
+            <div class="card-body previsualizacionDocumento" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
               <div>
 
-              <div>
+                <div>
                   <div v-if="firmantes.length === 0">
-                      {!! $documento->default_text !!}
+                    {!! $documento->default_text !!}
                   </div>
                   <div v-else>
-                      {!! $documento->default_text_plural !!}
+                    {!! $documento->default_text_plural !!}
                   </div>
-              </div>
+                </div>
 
 
                 <div class="firmas-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
@@ -66,7 +70,7 @@
               <div class="col-6">
 
               </div>
-              <div class="col-6">
+              <div class="col-lg-6">
                 <div class="card p-4" style="box-shadow: 10px 10px 15px -6px rgba(168,166,168,0.89);">
                   <table>
                     <tr>
@@ -119,6 +123,8 @@
       correo: '',
       clave: '',
       inputs: JSON.parse(document.getElementById('vueRedaccion').getAttribute('data-inputs')),
+      groupedInputs: {},
+      accordionState: {},
       formData: {},
       espaciosRelleno: '_______________________',
       isFocused: {},
@@ -150,6 +156,9 @@
     },
     mounted() {
 
+      this.groupInputs();
+      this.initializeAccordionState();
+
       this.inputs = this.inputs.map(input => ({
         ...input, // Mantener todas las propiedades existentes
         value: "" // Agregar la nueva propiedad 'value' con un valor vacío
@@ -160,26 +169,69 @@
         this.$set(this.isFocused, input.name, false); // Cada campo se inicia como false
       });
 
+
       this.fetchRegiones();
       this.fetchNacionalidades();
       this.fetchEstadosCiviles();
     },
     methods: {
+      groupInputs() {
+        this.groupedInputs = this.inputs.reduce((groups, input) => {
+          (groups[input.group] = groups[input.group] || []).push(input);
+          return groups;
+        }, {});
+      },
+      initializeAccordionState() {
+        this.accordionState = Object.keys(this.groupedInputs).reduce((state, group) => {
+          state[group] = false; // Por defecto, todos cerrados
+          return state;
+        }, {});
+      },
+
+      // Alterna el estado del acordeón
+      toggleAccordion(groupName) {
+        this.accordionState[groupName] = !this.accordionState[groupName];
+      },
+
+      // Verifica si todos los campos de un grupo están completos
+      isGroupComplete(group) {
+        // Verificar si todos los inputs dentro del grupo tienen un valor
+        return group.every(input => input.value && input.value.trim() !== '');
+      },
       getInputValue(fieldName) {
-        const input = this.inputs.find(input => input.name === fieldName);
-        if (input) {
-          if (input.field_type === 'date') {
-            const date = new Date(input.value); // Asegúrate de que `input.value` sea una fecha válida
-            return date.toLocaleDateString("es-ES", {
-              weekday: 'long', // Ej: lunes
-              day: 'numeric', // Ej: 1
-              month: 'long', // Ej: enero
-              year: 'numeric',
-              timeZone: 'America/Santiago'
-            });
+        // Recorre los grupos y sus inputs
+        for (const groupName in this.groupedInputs) {
+          const group = this.groupedInputs[groupName];
+
+          // Busca el input dentro de cada grupo
+          const input = group.find(input => input.name === fieldName);
+
+          if (input) {
+            // Si el tipo de campo es 'date', lo formateamos
+            if (input.field_type === 'date') {
+              const dateValue = new Date(input.value);
+
+              // Verifica si la fecha es válida
+              if (!isNaN(dateValue)) {
+                return dateValue.toLocaleDateString("es-ES", {
+                  weekday: 'long', // Ej: lunes
+                  day: 'numeric', // Ej: 1
+                  month: 'long', // Ej: enero
+                  year: 'numeric',
+                  timeZone: 'America/Santiago'
+                });
+              } else {
+                return 'Fecha no válida'; // Si la fecha no es válida, muestra un mensaje
+              }
+            }
+
+            // Si no es tipo 'date', retorna el valor del input
+            return input.value;
           }
-          return input.value; // Si no es tipo date, devuelve el valor sin cambios
         }
+
+        // Si no encuentra el input en ningún grupo, retorna una cadena vacía
+        return '';
       },
       async fetchRegiones() {
         try {
@@ -251,40 +303,87 @@
         this.isFocused[field] = false;
       },
       completeRut(name, value, type) {
+
+        if (!value && value !== '') {
+          return; // Si el valor es undefined o null, no hacemos nada y salimos
+        }
+
         let input;
         if (type === 'input') {
-            input = this.inputs.find(input => input.name === name);
-            if (!input) {
-                console.warn(`Input con nombre "${name}" no encontrado.`);
-                return; // Sal del método si no se encuentra el input
+          for (const groupName in this.groupedInputs) {
+            const group = this.groupedInputs[groupName];
+
+            // Buscar el input dentro del grupo
+            input = group.find(input => input.name === name);
+
+            if (input) {
+              break; // Si encontramos el input, salimos del loop
             }
+          }
+
+          if (!input) {
+            console.warn(`Input con nombre "${name}" no encontrado.`);
+            return; // Salir si no se encuentra el input
+          }
         }
 
         // Formatea el valor del RUT
         let rut = value.replace(/[^0-9kK]/g, ''); // Elimina caracteres no permitidos
         if (rut.length > 1) {
-            rut = rut.slice(0, -1) + '-' + rut.slice(-1); // Agrega el guion antes del dígito verificador
+          rut = rut.slice(0, -1) + '-' + rut.slice(-1); // Agrega el guion antes del dígito verificador
         }
         if (rut.length > 5) {
-            rut = rut.slice(0, -5) + '.' + rut.slice(-5); // Agrega el primer punto
+          rut = rut.slice(0, -5) + '.' + rut.slice(-5); // Agrega el primer punto
         }
         if (rut.length > 9) {
-            rut = rut.slice(0, -9) + '.' + rut.slice(-9); // Agrega el segundo punto
+          rut = rut.slice(0, -9) + '.' + rut.slice(-9); // Agrega el segundo punto
         }
 
         // Asigna el valor formateado según el tipo
         if (type === 'firmantes') {
-            this.nuevoFirmante.rut = rut;
+          this.nuevoFirmante.rut = rut;
         } else {
-            input.value = rut;
+          input.value = rut;
+
+          if (this.authenticated && rut.length > 10) {
+
+            axios.get(`/buscarFirmante/${rut}`, {}).then(response => {
+              if (response.data.firmante) {
+
+                this.assignValueToGroupedInput('profesion_oficio', response.data.firmante.profesion_oficio);
+                this.assignValueToGroupedInput('direccion', response.data.firmante.domicilio);
+                this.assignValueToGroupedInput('correo', response.data.firmante.correo);
+
+              }
+            }).catch(error => {
+              console.error('Error:', error);
+            });
+          }
         }
-    },
-      toggleAccordion() {
+      },
+      assignValueToGroupedInput(fieldName, value) {
+        for (const groupName in this.groupedInputs) {
+          const group = this.groupedInputs[groupName];
+
+          // Busca el input dentro del grupo
+          const input = group.find(input => input.name === fieldName);
+
+          if (input) {
+            input.value = value; // Asignar el valor al campo
+            return true; // Salir del método si se encuentra y asigna el valor
+          }
+        }
+
+        console.warn(`Input con nombre "${fieldName}" no encontrado.`);
+        return false; // Retorna falso si no encuentra el campo
+      },
+
+      toggleAccordionFirmantes() {
         this.isAccordionOpen = !this.isAccordionOpen;
       },
       agregarFirmante() {
         if (this.nuevoFirmante.nombre && this.nuevoFirmante.rut && this.nuevoFirmante.correo && this.nuevoFirmante.domicilio && this.nuevoFirmante.comuna && this.nuevoFirmante.region) {
-         
+
           if (!this.validarRut(this.nuevoFirmante.rut)) {
             this.firmantesError = `El RUT ingresado es inválido.`;
             return;
@@ -294,7 +393,7 @@
             this.firmantesError = `El correo ingresado no tiene un formato válido.`;
             return;
           }
-         
+
           this.firmantes.push({
             ...this.nuevoFirmante
           }); // Agregar nuevo firmante
@@ -304,7 +403,7 @@
           if (firmantesContainer) {
             this.firmantes.forEach((firmante, index) => {
               let firmanteHTML = document.createElement('span');
-              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + ', ' + firmante.profesion_oficio  + ', con domicilio para estos efectos en ' + firmante.domicilio + ' de la comuna de ' + firmante.comuna + ' ' + firmante.region + ', ';
+              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + ', ' + firmante.profesion_oficio + ', con domicilio para estos efectos en ' + firmante.domicilio + ' de la comuna de ' + firmante.comuna + ' ' + firmante.region + ', ';
               firmantesContainer.appendChild(firmanteHTML);
             });
           }
@@ -338,17 +437,16 @@
         this.generalError = '';
 
         // Validar campos requeridos recorriendo los inputs
-        this.inputs.forEach(input => {
-          if (input.required && !input.value) {
-            // Si el campo es requerido y está vacío, agregar un mensaje de error
-            this.errors[input.name] = `El campo ${input.label || input.name} es requerido.`;
-          }
+        Object.values(this.groupedInputs).forEach(group => {
+          group.forEach(input => {
+            if (input.required && !input.value) {
+              this.errors[input.name] = `El campo ${input.label || input.name} es requerido.`;
+            }
 
-          if (input.name == 'rut') {
-            if (!this.validarRut(input.value)) {
+            if (input.name === 'rut' && !this.validarRut(input.value)) {
               this.errors[input.name] = `El RUT ingresado es inválido.`;
             }
-          }
+          });
         });
 
         // Si hay errores, mostrar mensaje de error general
@@ -368,12 +466,15 @@
             console.error('Error al guardar la redacción:', error);
             this.loading = false;
           }
-        }else{
+        } else {
           $('#loginRegister').modal('show');
         }
-        
+
       },
       validarRut(rut) {
+        if (!rut) {
+          return false;
+        }
         // Limpiar el RUT de caracteres no numéricos
         const cleanedRut = rut.replace(/[^0-9kK]/g, '');
 
@@ -469,9 +570,14 @@
         let formData = {};
 
         // Recorremos los inputs y construimos el formData con sus valores
-        this.inputs.forEach(input => {
-          formData[input.name] = input.value; // Asignar el valor correspondiente
-        });
+        for (const groupName in this.groupedInputs) {
+          const group = this.groupedInputs[groupName];
+
+          // Recorremos los inputs de cada grupo y asignamos sus valores al formData
+          group.forEach(input => {
+            formData[input.name] = input.value; // Asignar el valor correspondiente
+          });
+        }
 
         // Agregar otros datos como documento_id al formData
         formData['documento_id'] = this.documentoId;
