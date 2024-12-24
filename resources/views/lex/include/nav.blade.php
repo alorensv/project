@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
     <div class="container">
-        <div class="col-md-2 bg-light py-1">
+        <div class="col-md-2 bg-light py-1 centerCel">
 
             <a class="navbar-brand" href="{{ route('inicio') }}">
                 <img src="/img/lex/logov3.png" class="mx-auto d-block img-fluid logoWeb">
@@ -9,9 +9,29 @@
 
         <div class="col-lg-7 bg-light py-1">
             <div class="col-lg-12 bg-light py-1">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <div class="d-flex">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                @if (request()->routeIs('redactar'))
+<!--                 <div class="d-flex ms-auto">
+                    
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="formulario-tab" href="#formulario">Formulario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="documento-tab" href="#documento">Documento</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pagar-tab" href="#pagar">Pagar</a>
+                        </li>
+                    </ul>
+                </div> -->
+                @endif
+
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -28,7 +48,7 @@
                         </li>
 
                         <li class="nav-item dropdown px-2 pt-1">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ __('Lista de documentos privados') }}
                             </a>
 
@@ -87,7 +107,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 bg-light py-1">
+        <div class="col-lg-3 bg-light py-1 displayNoneCel">
             <div class="bg-light py-1">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -105,7 +125,7 @@
                             </a>
                         </li>
                         <li class="nav-item pl-2">
-                            <a class="btn btn-primary  d-flex align-items-center" href="#" data-toggle="modal" data-target="#contactModal">
+                            <a class="btn btn-primary  d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
                                 Contáctenos
                             </a>
                         </li>
@@ -114,7 +134,7 @@
 
                         <li class="nav-item dropdown">
 
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
 
@@ -139,5 +159,3 @@
 
     </div>
 </nav>
-
-<contacto></contacto>

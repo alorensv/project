@@ -6,12 +6,12 @@
     <div v-bind:class="{ 'loader': loading }" v-cloak></div>
     <section class="white-division pt-5 pb-2">
         <div class="container">
-            <div class="row bg-white">
+            <div class="row celContainer bg-white">
                 <div class="col-12 pt-2">
                     <div class="row">
-                        <div class="col-5 p-5">
+                        <div class="col-md-5 p-5">
                             <div>
-                                <h3><span class="material-icons" style="width: 24px;">approval_delegation</span> Firmar documento</h3>
+                                <h3><span class="material-icons pb-3" style="width: 24px;">approval_delegation</span> Firmar documento</h3>
                                 <p>Hola {{ $firmaDocumento->nombres}} {{ $firmaDocumento->apellido_paterno}}, te han invitado a firmar el siguiente documento " {{ $redaccion->documento->nombre }} ".</p>
                                 <p>Lee cuidadosamente el documento y confirma para habilitar la firma.</p>
                             </div>
@@ -30,11 +30,11 @@
                                 @if (empty($firmanteEnProceso))
                                 <button class="btn btn-success" @click="firmarDocumento({{ $redaccion->id }}, '{{ $firmaDocumento->token }}')">Firmar</button>
                                 @else
-                                <div  class="p-4 bg-warning">
-                                <i class="material-icons">warning</i>
-                                <span>Firma en curso: En estos momentos el documento está en proceso de firma por {{ $firmanteEnProceso->nombres }} {{ $firmanteEnProceso->apellido_paterno }} <br> Vuelve a intentarlo en unos minutos.</span>
+                                <div class="p-4 bg-warning">
+                                    <i class="material-icons">warning</i>
+                                    <span>Firma en curso: En estos momentos el documento está en proceso de firma por {{ $firmanteEnProceso->nombres }} {{ $firmanteEnProceso->apellido_paterno }} <br> Vuelve a intentarlo en unos minutos.</span>
                                 </div>
-                                
+
                                 @endif
                             </div>
 
@@ -42,7 +42,7 @@
                             <div class="pt-3">
                                 <h5>
                                     <span style="text-decoration: underline;cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#requisitosAcordeon" aria-expanded="false" aria-controls="requisitosAcordeon">
-                                    <i class="material-icons">keyboard_arrow_down</i>Requisitos para firmar
+                                        <i class="material-icons">keyboard_arrow_down</i>Requisitos para firmar
                                     </span>
                                 </h5>
 
@@ -60,14 +60,24 @@
 
                         </div>
 
-                        <div class="col-7">
-                            <div style="display: flex;">
-                                <h4 class="w-50">Previsualización del documento </h4>
-                                @if (!empty($redaccion->user_id))
-                                <span class="success pr-3">Autor: {{ $redaccion->user->name }} </span>  
+                        <div class="col-md-7">
+
+                        <div class="row">
+                                <div class="col-md-5">
+                                <h4>Previsualización del documento </h4>
+                                </div>
+
+                                <div class="col-md-3">
+                                    @if (!empty($redaccion->user_id))
+                                <span class="success pr-3">Autor: {{ $redaccion->user->name }} </span>
                                 @endif
+                                </div>
+
+                                <div class="col-md-4">
                                 <p style="text-align: right;">Fecha de creación: {{ $redaccion->formatted_date_creacion }} </p>
+                                </div>
                             </div>
+
                             <div style="width: 100%; height: 75vh; border: 1px solid #ccc;">
                                 <object
                                     data="data:application/pdf;base64,{{ $base64PDF }}#toolbar=0"
@@ -75,6 +85,10 @@
                                     width="100%"
                                     height="100%"
                                     style="border: none;">
+                                    <p>
+                                        Tu navegador no puede mostrar el documento.
+                                        <a href="data:application/pdf;base64,{{ $base64PDF }}" download="documento.pdf">Descarga el PDF aquí</a>.
+                                    </p>
                                 </object>
                             </div>
                         </div>
@@ -93,7 +107,7 @@
             confirmChecked: false, // Variable para el estado del checkbox
         },
         methods: {
-            firmardocumento(idRedaccion, token) {
+            firmarDocumento(idRedaccion, token) {
                 this.loading = true;
                 axios.post('/autorizaFirma', {
                         idRedaccion: idRedaccion,

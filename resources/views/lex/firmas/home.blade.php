@@ -14,7 +14,7 @@
 
     <section class="adminDiv">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row celContainer justify-content-center">
                 <div class="col-md-12 pl-5 pr-5">
 
                     <div>
@@ -53,9 +53,9 @@
                                     <thead>
                                         <tr style="background-color: #737373;color: white;">
                                             <th>ID</th>
-                                            <th>Documento</th>
-                                            <th>Fecha creación</th>
-                                            <th style="width: 40%;">Firmas pendientes</th>
+                                            <th style="min-width: 190px;">Documento</th>
+                                            <th style="min-width: 107px;">Fecha creación</th>
+                                            <th style="width: 40%;min-width: 300px;">Firmas pendientes</th>
                                             <th style="width: 5%;"></th>
                                             <th style="width: 5%;"></th>
                                         </tr>

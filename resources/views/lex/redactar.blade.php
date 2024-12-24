@@ -1,7 +1,6 @@
 @extends('lex.plantilla')
 
 @section('content')
-
 <div id="vueRedaccion" data-inputs="{{ json_encode($inputs) }}">
 
   <div v-bind:class="{ 'loader': loading }" v-cloak></div>
@@ -18,6 +17,12 @@
       <div class="alert alert-warning mt-3">
         Completa el siguiente formulario con los campos requeridos
       </div>
+
+      <div v-if="generalError" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
+        <span>@{{ generalError }}</span>
+        <button type="button" class="btn-close" aria-label="Close" @click="closeError"></button>
+      </div>
+
 
 
 
@@ -37,11 +42,11 @@
 
         <!-- Columna de productos (Cuadro de Declaración Jurada) -->
         <div class="col-md-8 sticky-top" style="max-height: 401px;">
-          <div class="card">
+          <div class="card mt-3">
             <div class="card-body previsualizacionDocumento" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
               <div>
 
-                <div>
+                <div class="predocumento">
                   <div v-if="firmantes.length === 0">
                     {!! $documento->default_text !!}
                   </div>
@@ -87,7 +92,7 @@
                     </tr>
                   </table>
                   <div class="mt-3" style="float: right;">
-                    <button class="btn btn-success w-100" @click="validateContinue" :authenticated="{{ Auth::check() ? 'true' : 'false' }}" style=" display: inline-flex;align-items: center;justify-content: center;">
+                    <button class="btn btn-success w-100" @click="validateContinue" style=" display: inline-flex;align-items: center;justify-content: center;">
                       Pagar <span class="material-icons icon pl-2">payments</span></button>
                   </div>
 
@@ -108,18 +113,19 @@
   @include('lex.modals.loginRegister')
   @include('lex.modals.login')
   @include('lex.modals.register')
+  @include('lex.modals.autocomplete')
 </div>
 
 <script>
   let redact = new Vue({
     el: '#vueRedaccion',
     data: {
-      authenticated: {
-        type: Boolean,
-        default: false
-      },
+      authenticated: <?php echo json_encode(auth()->check()); ?>,
       loader: false,
       documentoId: <?php echo json_encode($documento->id); ?>,
+      cantidadFirmantes: <?php echo json_encode($documento->cantidad_firmantes); ?>,
+      nombre: '',
+      dni: '',
       correo: '',
       clave: '',
       inputs: JSON.parse(document.getElementById('vueRedaccion').getAttribute('data-inputs')),
@@ -143,6 +149,7 @@
         domicilio: '',
         comuna: '',
         region: '',
+        sexo: 'femenino',
       },
       loading: false,
       errors: {},
@@ -177,6 +184,11 @@
     methods: {
       groupInputs() {
         this.groupedInputs = this.inputs.reduce((groups, input) => {
+
+          if (input.field_type === 'radio' && input.name === 'sexo' && !input.value) {
+            input.value = "femenino";
+          }
+        
           (groups[input.group] = groups[input.group] || []).push(input);
           return groups;
         }, {});
@@ -210,20 +222,21 @@
             // Si el tipo de campo es 'date', lo formateamos
             if (input.field_type === 'date') {
               const dateValue = new Date(input.value);
+              dateValue.setMinutes(dateValue.getMinutes() + dateValue.getTimezoneOffset()); // Ajusta la zona horaria
 
               // Verifica si la fecha es válida
               if (!isNaN(dateValue)) {
                 return dateValue.toLocaleDateString("es-ES", {
-                  weekday: 'long', // Ej: lunes
-                  day: 'numeric', // Ej: 1
-                  month: 'long', // Ej: enero
-                  year: 'numeric',
-                  timeZone: 'America/Santiago'
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
                 });
               } else {
-                return 'Fecha no válida'; // Si la fecha no es válida, muestra un mensaje
+                return 'Fecha no válida';
               }
             }
+
 
             // Si no es tipo 'date', retorna el valor del input
             return input.value;
@@ -253,8 +266,16 @@
         if (!regionInput) {
           return;
         }
+        console.log("aca")
         console.log(JSON.stringify(this.regiones));
-        const regionSeleccionada = this.regiones.find(region => region.nombre === regionInput);
+        const regionSeleccionada = this.regiones.find(region =>
+          region.nombre.toLowerCase().trim() === regionInput.toLowerCase().trim()
+        );
+        if (!regionSeleccionada) {
+          console.error(`No se encontró una región con el nombre: "${regionInput}"`);
+          this.loading = false;
+          return;
+        }
         regionId = regionSeleccionada.codigo;
         if (regionId) {
           try {
@@ -266,33 +287,31 @@
           }
         }
       },
-      async fetchNacionalidades() {
-        try {
-          axios.get('/nacionalidades')
-            .then((response) => {
+      async fetchNacionalidades(sexo = 'femenino') {
 
-              this.nacionalidades = response.data.nacionalidades;
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+        try {
+        const response = await axios.get(`/nacionalidades`, {
+            params: { sexo }, // Enviar el género como parámetro
+          });
+          this.nacionalidades = response.data.nacionalidades; // Actualizar la lista
         } catch (error) {
           console.error('Error al obtener las nacionalidades:', error);
         }
-      },
-      async fetchEstadosCiviles() {
-        try {
-          axios.get('/estados_civiles')
-            .then((response) => {
 
-              this.estados_civiles = response.data.estados_civiles;
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+      },
+      async fetchEstadosCiviles(sexo = 'femenino') {
+        try {
+        const response = await axios.get(`/estados_civiles`, {
+            params: { sexo }, // Enviar el género como parámetro
+          });
+          this.estados_civiles = response.data.estados_civiles; // Actualizar la lista
         } catch (error) {
-          console.error('Error al obtener las estados civiles:', error);
+          console.error('Error al obtener los estados civiles:', error);
         }
+      },
+      async fetchInputs(sexo = 'femenino') {
+        this.fetchNacionalidades(sexo);
+        this.fetchEstadosCiviles(sexo);
       },
       focusField(field) {
         this.isFocused[field] = true;
@@ -347,12 +366,11 @@
 
           if (this.authenticated && rut.length > 10) {
 
+            console.log("Authenticated:", this.authenticated); // Verificar el valor
             axios.get(`/buscarFirmante/${rut}`, {}).then(response => {
               if (response.data.firmante) {
 
-                this.assignValueToGroupedInput('profesion_oficio', response.data.firmante.profesion_oficio);
-                this.assignValueToGroupedInput('direccion', response.data.firmante.domicilio);
-                this.assignValueToGroupedInput('correo', response.data.firmante.correo);
+                this.showMatchPopup(response.data.firmante);
 
               }
             }).catch(error => {
@@ -361,15 +379,63 @@
           }
         }
       },
+
+      // Función para mostrar el popup de coincidencia
+      showMatchPopup(firmante) {
+        // Muestra el modal de Bootstrap
+
+        const modal = new bootstrap.Modal(document.getElementById('matchModal'));
+        modal.show();
+        // Aquí asignamos la información del firmante al modal
+        this.firmanteEncontrado = firmante;
+      },
+
+      // Función para aceptar el autocompletado de los datos
+      acceptAutoComplete() {
+        // Asigna los valores al formulario con los datos del firmante
+        this.assignValueToGroupedInput('nacionalidad', this.firmanteEncontrado.nacionalidad_nombre);
+        this.assignValueToGroupedInput('estado_civil', this.firmanteEncontrado.estado_civil_nombre);
+        this.assignValueToGroupedInput('profesion_oficio', this.firmanteEncontrado.profesion_oficio);
+        this.assignValueToGroupedInput('region_domicilio', this.firmanteEncontrado.region);
+        this.assignValueToGroupedInput('comuna_domicilio', this.firmanteEncontrado.comuna);
+        this.assignValueToGroupedInput('direccion', this.firmanteEncontrado.domicilio);
+        this.assignValueToGroupedInput('correo', this.firmanteEncontrado.correo);
+
+        // Cierra el modal
+        this.closeModal('matchModal');
+      },
+
+      // Función para rechazar el autocompletado de los datos
+      rejectAutoComplete() {
+        this.closeModal('matchModal');
+      },
+      closeModal(id) {
+        const modalElement = document.getElementById(id);
+        if (modalElement) {
+          const modalInstance = bootstrap.Modal.getInstance(modalElement);
+          if (!modalInstance) {
+            const newModalInstance = new bootstrap.Modal(modalElement);
+            newModalInstance.hide();
+          } else {
+            modalInstance.hide();
+          }
+        } else {
+          console.error(`Modal con ID ${id} no encontrado.`);
+        }
+      },
       assignValueToGroupedInput(fieldName, value) {
+        if (fieldName == 'region_domicilio') {
+          this.fetchComunas(value);
+        }
         for (const groupName in this.groupedInputs) {
           const group = this.groupedInputs[groupName];
 
           // Busca el input dentro del grupo
           const input = group.find(input => input.name === fieldName);
 
+
           if (input) {
-            input.value = value; // Asignar el valor al campo
+            this.$set(input, 'value', value); // Usa $set para que Vue detecte el cambio
             return true; // Salir del método si se encuentra y asigna el valor
           }
         }
@@ -401,9 +467,34 @@
           let firmantesContainer = document.getElementById("posiblesFirmantes");
 
           if (firmantesContainer) {
+
+            firmantesContainer.innerHTML = '';
+
             this.firmantes.forEach((firmante, index) => {
               let firmanteHTML = document.createElement('span');
-              firmanteHTML.innerHTML = (index > 0 ? ', ' : ', ') + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + ' R.U.N. ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + ', ' + firmante.profesion_oficio + ', con domicilio para estos efectos en ' + firmante.domicilio + ' de la comuna de ' + firmante.comuna + ' ' + firmante.region + ', ';
+              
+              // Verificar si es el único firmante
+              if (this.firmantes.length === 1) {
+                firmanteHTML.innerHTML = 'y ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + 
+                  ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + 
+                  ', ' + firmante.profesion_oficio + ', con domicilio en ' + firmante.domicilio + 
+                  ', comuna ' + firmante.comuna + ', ' + firmante.region;
+              } 
+              // Verificar si es el último firmante
+              else if (index === this.firmantes.length - 1) {
+                firmanteHTML.innerHTML = 'y ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + 
+                  ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + 
+                  ', ' + firmante.profesion_oficio + ', con domicilio en ' + firmante.domicilio + 
+                  ', comuna ' + firmante.comuna + ', ' + firmante.region;
+              } 
+              // Para cualquier otro firmante
+              else {
+                firmanteHTML.innerHTML = ', ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + 
+                  firmante.apellido_materno + ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + 
+                  ', ' + firmante.estado_civil + ', ' + firmante.profesion_oficio + ', con domicilio en ' + 
+                  firmante.domicilio + ', comuna ' + firmante.comuna + ', ' + firmante.region;
+              }
+
               firmantesContainer.appendChild(firmanteHTML);
             });
           }
@@ -420,6 +511,7 @@
             domicilio: '',
             comuna: '',
             region: '',
+            sexo: 'femenino',
           }; // Limpiar el formulario
           this.isAccordionOpen = true;
           this.mostrarFormularioFirmante = false; // Ocultar el formulario
@@ -432,6 +524,8 @@
         this.firmantes.splice(index, 1); // Eliminar firmante por su índice
       },
       validateContinue() {
+
+        this.loading = true;
         // Resetear errores previos
         this.errors = {};
         this.generalError = '';
@@ -441,10 +535,12 @@
           group.forEach(input => {
             if (input.required && !input.value) {
               this.errors[input.name] = `El campo ${input.label || input.name} es requerido.`;
+              this.loading = false;
             }
 
             if (input.name === 'rut' && !this.validarRut(input.value)) {
               this.errors[input.name] = `El RUT ingresado es inválido.`;
+              this.loading = false;
             }
           });
         });
@@ -452,11 +548,27 @@
         // Si hay errores, mostrar mensaje de error general
         if (Object.keys(this.errors).length > 0) {
           this.generalError = "Por favor, completa los campos requeridos.";
+          this.loading = false;
+
+          this.$nextTick(() => {
+            // Esperar a que el DOM se actualice
+            const alertElement = this.$el.querySelector(".alert-danger");
+            if (alertElement) {
+              const rect = alertElement.getBoundingClientRect();
+              const offsetTop = window.scrollY + rect.top - 70; // Ajusta 30px hacia arriba
+              window.scrollTo({
+                top: offsetTop,
+                behavior: "smooth",
+              });
+            }
+          });
+
+          
           return;
         }
 
         if (this.authenticated) {
-          this.loading = true;
+
 
           try {
             this.guardarRedaccion();
@@ -467,9 +579,14 @@
             this.loading = false;
           }
         } else {
-          $('#loginRegister').modal('show');
+          this.loading = false;
+          const modal = new bootstrap.Modal(document.getElementById('loginRegister'));
+          modal.show();
         }
 
+      },
+      closeError() {
+        this.generalError = "";
       },
       validarRut(rut) {
         if (!rut) {
@@ -516,6 +633,7 @@
         }
       },
       consultarCorreo() {
+        this.loading = true;
         axios.get('/existeUsuario', {
             params: {
               correo: this.correo
@@ -523,18 +641,24 @@
           })
           .then(response => {
             if (response.data.message == 'ok') {
-              $('#loginRegister').modal('hide');
-              $('#login').modal('show');
+              this.loading = false;
+              this.closeModal('loginRegister');
+              const modal = new bootstrap.Modal(document.getElementById('login'));
+              modal.show();
             } else {
-              $('#loginRegister').modal('hide');
-              $('#register').modal('show');
+              this.loading = false;
+              this.closeModal('loginRegister');
+              const modal = new bootstrap.Modal(document.getElementById('register'));
+              modal.show();
             }
           })
           .catch(error => {
-            console.error('Error al obtener productos:', error);
+            this.loading = false;
+            console.error('Error :', error);
           });
       },
       _submitLogin: function() {
+        this.loading = true;
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         var claveEncriptada = this.clave;
         var remember = 'false';
@@ -562,6 +686,36 @@
       },
       submitLogin: function() {
         this._submitLogin();
+      },
+      _submitRegister: function() {
+        this.loading = true;
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        var claveEncriptada = this.clave;
+        //this.clave = '';
+        //this.nombre = 'Test';
+        this.password_confirmation = this.clave;
+
+        // Enviar los datos al servidor usando HTTPS
+        axios.post('/register', {
+            _token: csrfToken,
+            name: this.nombre,
+            email: this.correo,
+            password: claveEncriptada,
+            dni: this.dni,
+            password_confirmation: this.password_confirmation,
+          })
+          .then(response => {
+            // Crear el objeto que contendrá los valores de los inputs
+            this.guardarRedaccion();
+            
+            window.location.href = '/carroCompras';
+          })
+          .catch(error => {
+            console.error('Error al enviar el formulario:', error);
+          });
+      },
+      submitRegister: function() {
+        this._submitRegister();
       },
       loginTrue() {
         this.loading = true;
@@ -592,9 +746,14 @@
             domicilio: this.getInputValue('direccion'),
             comuna: this.getInputValue('comuna_domicilio'),
             region: this.getInputValue('region_domicilio'),
+            nacionalidad: this.getInputValue('nacionalidad'),
+            estado_civil: this.getInputValue('estado_civil'),
+            profesion_oficio: this.getInputValue('profesion_oficio'),
           },
           ...this.firmantes // Incluir los firmantes adicionales
         ];
+
+        console.log(formData)
 
         // Hacer petición para guardar la redacción
         let response = await axios.post('/guardarRedaccion', formData);
@@ -603,6 +762,7 @@
 
         console.log(response);
         this.loading = false;
+        debugger;
         return true;
       }
 

@@ -34,7 +34,7 @@
 </div>
 
 
-        <div class="map-container">
+        <div class="map-container" style="display: none;">
 
 
         </div>

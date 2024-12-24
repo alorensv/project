@@ -1,129 +1,6 @@
-<div v-for="(group, groupName) in groupedInputs" :key="groupName" class="card mb-3" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
-    <div class="card-body">
+@include('lex.forms.inputs')
 
-
-        <div class="accordion-header" @click="toggleAccordion(groupName)" :class="{ 'open': accordionState[groupName] }">
-            <h4 class="d-flex justify-content-between align-items-center">
-                <div>
-                    <span v-if="isGroupComplete(group)" class="badge badge-success">
-                        <i class="material-icons" style="font-size: 15px;">check</i>
-                    </span>
-                    
-                    <span>@{{ groupName }}</span>
-                </div>
-                <i class="material-icons">keyboard_arrow_down</i>
-            </h4>
-        </div>
-
-        <div class="accordion-body" v-show="accordionState[groupName]">
-            <div v-for="(input, index) in group" :key="index" class="mb-3">
-
-                <label :for="input.name" class="form-label">@{{ input.label }}</label>
-
-                <!-- Condicional para textarea -->
-                <textarea v-if="input.field_type === 'textarea'"
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-            </textarea>
-
-                <!-- Select de región -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'region' || input.name === 'region_domicilio' )"
-                    :id="input.name"
-                    v-model="input.value"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    @change="fetchComunas(input.value)"
-                    class="form-control">
-                    <option disabled value selected>
-                        @{{ input.placeholder || 'Seleccione una región' }} <!-- Muestra el placeholder o un texto por defecto -->
-                    </option>
-                    <option v-for="region in regiones" :key="region.id" :value="region.nombre">@{{ region.nombre }}</option>
-                </select>
-
-                <!-- Select de comuna -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'comuna' || input.name === 'comuna_domicilio' ) "
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-                    <option disabled value selected>
-                        @{{ input.placeholder || 'Seleccione una comuna' }} <!-- Muestra el placeholder o un texto por defecto -->
-                    </option>
-                    <option v-for="comuna in comunas" :key="comuna.id" :value="comuna.nombre">@{{ comuna.nombre }}</option>
-                </select>
-
-                <!-- Select de estado civil -->
-                <select v-else-if="input.field_type === 'select' && input.name === 'nacionalidad' "
-                    :id="input.name"
-                    v-model="input.value"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-                    <option disabled value selected>
-                        @{{ input.placeholder || 'Seleccione su nacionalidad' }} <!-- Muestra el placeholder o un texto por defecto -->
-                    </option>
-                    <option v-for="nacionalidad in nacionalidades" :key="nacionalidad.id" :value="nacionalidad.nombre">@{{ nacionalidad.nombre }}</option>
-                </select>
-
-                <!-- Select de estado civil -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'estado_civil' || input.name === 'estadoCivilTestigoUno' ) "
-                    :id="input.name"
-                    v-model="input.value"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-                    <option disabled value selected>
-                        @{{ input.placeholder || 'Seleccione su estado civil' }} <!-- Muestra el placeholder o un texto por defecto -->
-                    </option>
-                    <option v-for="estado_civil in estados_civiles" :key="estado_civil.id" :value="estado_civil.nombre">@{{ estado_civil.nombre }}</option>
-                </select>
-
-                <!-- text rut -->
-                <input
-                    v-else-if="input.name === 'rut'"
-                    :type="input.field_type"
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    @input="completeRut(input.name, input.value, 'input')"
-                    class="form-control" />
-
-                <!-- Condicional para otros tipos de input -->
-                <input v-else
-                    :type="input.field_type"
-                    :id="input.name"
-                    v-model="input.value"
-                    :placeholder="input.placeholder"
-                    :class="{'is-invalid': errors[input.name]}"
-                    @focus="focusField(input.name)"
-                    @blur="blurField(input.name)"
-                    class="form-control">
-
-                <div v-if="errors[input.name]" class="invalid-feedback">
-                    @{{ errors[input.name] }}
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="card mt-2" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
+<div v-if="cantidadFirmantes > 1" class="card mt-2" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
     <div class="card-body">
         <div class="mb-3">
             <button class="btn btn-primary w-100" @click="mostrarFormularioFirmante = !mostrarFormularioFirmante" style="display: inline-flex;align-items: center;justify-content: center;">
@@ -153,6 +30,22 @@
                 <label for="correoFirmante" class="form-label">Correo</label>
                 <input type="email" id="correoFirmante" v-model="nuevoFirmante.correo" class="form-control" placeholder="Correo del firmante">
             </div>
+
+            <div class="mb-3">
+                <label class="form-label">Sexo</label>
+                <div class="d-flex">
+                    <div class="col-6">
+                        <input type="radio" id="sexoFemenino" value="femenino" v-model="nuevoFirmante.sexo" @change="fetchInputs(nuevoFirmante.sexo)">
+                        <label for="sexoFemenino">Femenino</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="radio" id="sexoMasculino" value="masculino" v-model="nuevoFirmante.sexo" @change="fetchInputs(nuevoFirmante.sexo)">
+                        <label for="sexoMasculino">Masculino</label>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="mb-3">
                 <label for="nacionalidadFirmante" class="form-label">Nacionalidad</label>
                 <select id="nacionalidadFirmante" v-model="nuevoFirmante.nacionalidad" class="form-control">
@@ -273,9 +166,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="generalError" class="alert alert-danger mt-3">
-            @{{ generalError }}
-        </div>
+
     </div>
 
 </div>

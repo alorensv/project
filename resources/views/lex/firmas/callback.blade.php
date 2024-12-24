@@ -10,10 +10,10 @@
     <div v-bind:class="{ 'loader': loading }" v-cloak></div>
     <section class="white-division pt-5 pb-2" style="height: 93vh;">
         <div class="container">
-            <div class="row bg-white">
+            <div class="row celContainer bg-white">
                 <div class="col-12 pt-2">
                     <div class="row">
-                        <div class="col-5 p-5">
+                        <div class="col-md-5 p-5">
                             <div>
                                 <h3><span class="material-icons" style="width: 24px;">approval_delegation</span> Firma avanzada del documento</h3>
                                 @if(is_null($redaccion->final_base64))
@@ -45,11 +45,21 @@
 
                         </div>
 
-                        <div class="col-7">
-                            <div style="display: flex;">
-                                <h4 class="w-50">Previsualización del documento </h4>
-                                <span class="success pr-3">Autor: Alejandro Lorens </span>
-                                <p style="text-align: right;">Fecha de creación: 06-11-2024 </p>
+                        <div class="col-md-7">
+                        <div class="row">
+                                <div class="col-md-5">
+                                <h4>Previsualización del documento </h4>
+                                </div>
+
+                                <div class="col-md-3">
+                                    @if (!empty($redaccion->user_id))
+                                <span class="success pr-3">Autor: {{ $redaccion->user->name }} </span>
+                                @endif
+                                </div>
+
+                                <div class="col-md-4">
+                                <p style="text-align: right;">Fecha de creación: {{ $redaccion->formatted_date_creacion }} </p>
+                                </div>
                             </div>
                             <div style="width: 100%; height: 75vh; border: 1px solid #ccc;">
                                 <object

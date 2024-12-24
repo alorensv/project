@@ -17,40 +17,60 @@
             @include('lex.modals.firmantes')
             @include('lex.modals.verDocumento')
 
-            <div class="row bg-white market-body ">
-                <div class="col-8">
+            <div class="row bg-white market-body celContainer">
+                <div class="col-md-8">
                     <div class="row pb-3">
                         <div class="col-12">
-                            <h4>Compra de documento firmado</h4>
+                            <h4>Compra de documentos para firmar</h4>
+                            <hr>
                             <div>
                                 <div class="w-100" v-if="cart.length > 0" id="cart-items">
 
-                                    <div v-for="(item, index) in cart" :key="index">
+                                    <div v-for="(item, index) in cart" :key="index"  class="pt-2 pb-2">
 
-                                        <div class="card">
+                                        <div class="card" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px">
                                             <div class="card-header" id="headingCart">
-                                                <h5 class="mb-0">
-                                                    @{{ item.nombreDoc }}
-                                                </h5>
+                                                
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h5 class="mb-0">#@{{ item.id }} @{{ item.nombreDoc }}</h5>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                
                                             </div>
 
                                             <div class="card-body">
-                                                <table class="table table-striped" style="width:100%">
-                                                    <tr>
-                                                        <th>Cantidad de firmantes <span class="badge badge-primary fontBadge" @click="verFirmantes(item.id)"> @{{ item.firmantes }}</span></th>
-                                                        <td style="padding: 0 !important;">
-                                                            <button class="btn btn-primary mt-2" @click="verPDF(item.base64)">
-                                                                Ver PDF
-                                                            </button>
-                                                        </td>
-                                                        <th>Total</th>
-                                                        <td>$@{{ parseInt(item.precioDoc).toLocaleString('es-CL') }}</td>
-                                                        <!-- Agregar Checkbox para seleccionar documento -->
-                                                        <td>
-                                                            <input type="checkbox" :value="item" v-model="selectedItems" checked>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <div class="row">
+                                                            <div class="col-10 d-flex">
+                                                                <p class="mr-4">Cantidad de firmantes</p>
+                                                                <span class="badge badge-primary fontBadge" @click="verFirmantes(item.id)"> @{{ item.firmantes }}</span>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <i class="material-icons"  @click="verPDF(item.base64)" style="color: red;font-size: 30px;">picture_as_pdf</i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="row rowComprasCel">
+                                                            <div class="col-3">
+                                                                Total
+                                                            </div>
+                                                            <div class="col-5">
+                                                                $@{{ parseInt(item.precioDoc).toLocaleString('es-CL') }}
+                                                            </div>
+                                                            <div class="col-3 checkCelu">
+                                                                <input type="checkbox" :value="item" v-model="selectedItems" checked>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
 
@@ -70,7 +90,7 @@
 
 
                 </div>
-                <div class="col-4 bg-white border border-ligh pt-3 pl-5 pr-5">
+                <div class="col-md-4 bg-white border border-ligh pt-3 pl-5 pr-5">
                     <div class="row">
                         <div class="col-12">
                             <div class="w-100 pb-3">
@@ -198,11 +218,11 @@
         },
         mounted() {
             this.listarCarrito();
-            this.fetchRegiones();
+            //this.fetchRegiones();
             if (this.authenticated) {
                 // Ejecutar la función listarDirecciones si está autenticado
             }
-            this.initializeSelectedItems(); 
+            this.initializeSelectedItems();
         },
         methods: {
             verFirmantes(idRedaccion) {
@@ -212,8 +232,8 @@
                     this.firmantes = response.data.firmantes
                 }).catch(error => {
                     console.error('Error al consultar los firmantes:', error);
-                }).finally(() => {                        
-                    this.loading = false; 
+                }).finally(() => {
+                    this.loading = false;
                     const modal = new bootstrap.Modal(document.getElementById('firmantesModal'));
                     modal.show();
                 });
@@ -229,13 +249,13 @@
                     })
                     .catch((error) => {
                         console.error(error);
-                    }).finally(() => {                        
-                    this.loading = false; 
-                });
+                    }).finally(() => {
+                        this.loading = false;
+                    });
             },
             initializeSelectedItems() {
                 // Asegúrate de que selectedItems contenga referencias exactas de los objetos de cart
-                this.selectedItems = [...this.cart];  // Crea una copia exacta de los objetos
+                this.selectedItems = [...this.cart]; // Crea una copia exacta de los objetos
             },
             eliminarProducto(id) {
                 // Aquí puedes enviar una solicitud al servidor para eliminar el producto del carrito
@@ -250,11 +270,11 @@
             },
             calcularTotal: function() {
                 let total = 0;
-                this.cart.forEach(item => {
-                    total += parseInt(item.precioDoc);
+                this.selectedItems.forEach(item => {
+                    total += parseInt(item.precioDoc); // Suma el precio de cada item seleccionado
                 });
-                this.total = total;
-                return total;
+                this.total = total; // Actualiza el valor de la propiedad total (opcional)
+                return total; // Devuelve el total calculado
             },
             deleteFromCart: function(itemId) {
                 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -396,43 +416,54 @@
                 this.loading = true;
                 // Aquí envías los datos de los ítems seleccionados al backend
                 axios.post('/lexPagar', {
-                    selectedItems: this.selectedItems
-                })
-                .then(response => {
-                    // Verificamos si la respuesta contiene los datos necesarios
-                    if (response.data.url_tbk && response.data.token) {
-                        // Crea dinámicamente un formulario para enviar los datos a Webpay
-                        var form = document.createElement('form');
-                        form.setAttribute('method', 'POST');
-                        form.setAttribute('action', response.data.url_tbk);
+                        selectedItems: this.selectedItems
+                    })
+                    .then(response => {
+                        // Verificamos si la respuesta contiene los datos necesarios
+                        if (response.data.url_tbk && response.data.token) {
+                            // Crea dinámicamente un formulario para enviar los datos a Webpay
+                            var form = document.createElement('form');
+                            form.setAttribute('method', 'POST');
+                            form.setAttribute('action', response.data.url_tbk);
 
-                        // Crea el campo oculto para el token
-                        var tokenField = document.createElement('input');
-                        tokenField.setAttribute('type', 'hidden');
-                        tokenField.setAttribute('name', 'token_ws');
-                        tokenField.setAttribute('value', response.data.token);
-                        form.appendChild(tokenField);
+                            // Crea el campo oculto para el token
+                            var tokenField = document.createElement('input');
+                            tokenField.setAttribute('type', 'hidden');
+                            tokenField.setAttribute('name', 'token_ws');
+                            tokenField.setAttribute('value', response.data.token);
+                            form.appendChild(tokenField);
 
-                        // Añadir el formulario al body del documento
-                        document.body.appendChild(form);
+                            // Añadir el formulario al body del documento
+                            document.body.appendChild(form);
 
-                        // Enviar el formulario automáticamente
-                        form.submit();
-                    } else {
-                        alert('Error en la respuesta de Transbank');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al procesar el pago:', error);
-                    alert('Hubo un error al procesar el pago. Intenta nuevamente.');
-                }).finally(() => {                        
-                    this.loading = false; 
-                });
+                            // Enviar el formulario automáticamente
+                            form.submit();
+                        } else {
+                            alert('Error en la respuesta de Transbank');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al procesar el pago:', error);
+                        alert('Hubo un error al procesar el pago. Intenta nuevamente.');
+                    }).finally(() => {
+                        this.loading = false;
+                    });
             },
             verPDF(base64) {
-                this.documentoBase = base64;
-                const modal = new bootstrap.Modal(document.getElementById('verPDFModal'));
-                modal.show();
+
+                this.loading = true;
+                this.closeModal('verPDFModal');
+                // Asegúrate de esperar que se cierre completamente antes de continuar
+                setTimeout(() => {
+                    this.documentoBase = ""; // Limpia la variable para forzar la actualización
+                    this.$nextTick(() => {
+                        this.documentoBase = base64; // Asigna el nuevo valor
+                        const modal = new bootstrap.Modal(document.getElementById('verPDFModal'));
+                        modal.show();
+                        this.loading = false; // Desactiva el indicador de carga
+                    });
+                }, 300); // Espera 300 ms antes de reabrir el modal
+
             },
             closeModal(id) {
                 const modalElement = document.getElementById(id);

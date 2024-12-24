@@ -438,7 +438,7 @@ hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
   border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgb(0 0 0 / 60%)
 }
 
 small,
@@ -5494,7 +5494,6 @@ a.close.disabled {
 }
 .modal-backdrop.show {
   opacity: 0.5;
-  display: none;
 }
 
 .modal-header {

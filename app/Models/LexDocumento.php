@@ -11,7 +11,7 @@ class LexDocumento extends Model
 
     protected $table = 'lex_documentos';
 
-    protected $fillable = ['nombre', 'descripcion', 'default_text', 'imagen', 'estado','lex_categoria_id'];
+    protected $fillable = ['nombre', 'descripcion', 'default_text', 'cantidad_firmantes', 'imagen', 'estado','lex_categoria_id'];
 
     public function user()
     {
@@ -67,31 +67,49 @@ class LexDocumento extends Model
         
 
         // Generar el bloque HTML de firmantes
-        $firmantesHtml = '';
+        $firmantesHtml = ''; // Limpiar contenido previo
         $firmasHtml = '<div class="firmas-container" style="display: flex; flex-wrap: wrap; justify-content: center;">';
-        foreach ($firmantes as $firmante) {
-            if($firmante['rut'] == $rutDeclarante) continue;
-
-            // Concatenar los firmantes al estilo de la lógica en JavaScript
-            $firmantesHtml .= ', ' 
-            . htmlspecialchars($firmante['nombre']). ' '.htmlspecialchars($firmante['apellido_paterno']). ' '.htmlspecialchars($firmante['apellido_materno']) 
-            . ' R.U.N. ' . htmlspecialchars($firmante['rut']).','
-            . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']).',' 
-            . ' estado civil ' . htmlspecialchars($firmante['estado_civil']).','
-            . ' ' . htmlspecialchars($firmante['profesion_oficio']).','
-            . ' con domicilio para estos efectos en '.htmlspecialchars($firmante['domicilio']).' de la comuna de '
-            . htmlspecialchars($firmante['comuna']).', '.htmlspecialchars($firmante['region']); // . htmlspecialchars($firmante['direccion'])
-
+        
+        foreach ($firmantes as $index => $firmante) {
+            if ($firmante['rut'] == $rutDeclarante) continue;
+        
+            // Verificar si es el único firmante
+            if (count($firmantes) === 1) {
+                $firmantesHtml .= 'y ' 
+                . htmlspecialchars($firmante['nombre']) . ' ' . htmlspecialchars($firmante['apellido_paterno']) . ' ' . htmlspecialchars($firmante['apellido_materno']) 
+                . ' cédula de identidad ' . htmlspecialchars($firmante['rut']) . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']) . ', ' 
+                . htmlspecialchars($firmante['estado_civil']) . ', ' . htmlspecialchars($firmante['profesion_oficio']) . ', con domicilio en ' 
+                . htmlspecialchars($firmante['domicilio']) . ', comuna ' . htmlspecialchars($firmante['comuna']) . ', ' . htmlspecialchars($firmante['region']);
+            } 
+            // Verificar si es el último firmante
+            else if ($index === count($firmantes) - 1) {
+                $firmantesHtml .= 'y ' 
+                . htmlspecialchars($firmante['nombre']) . ' ' . htmlspecialchars($firmante['apellido_paterno']) . ' ' . htmlspecialchars($firmante['apellido_materno']) 
+                . ' cédula de identidad ' . htmlspecialchars($firmante['rut']) . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']) . ', ' 
+                . htmlspecialchars($firmante['estado_civil']) . ', ' . htmlspecialchars($firmante['profesion_oficio']) . ', con domicilio en ' 
+                . htmlspecialchars($firmante['domicilio']) . ', comuna ' . htmlspecialchars($firmante['comuna']) . ', ' . htmlspecialchars($firmante['region']);
+            } 
+            // Para cualquier otro firmante
+            else {
+                $firmantesHtml .= ', ' 
+                . htmlspecialchars($firmante['nombre']) . ' ' . htmlspecialchars($firmante['apellido_paterno']) . ' ' . htmlspecialchars($firmante['apellido_materno']) 
+                . ' cédula de identidad ' . htmlspecialchars($firmante['rut']) . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']) . ', ' 
+                . htmlspecialchars($firmante['estado_civil']) . ', ' . htmlspecialchars($firmante['profesion_oficio']) . ', con domicilio en ' 
+                . htmlspecialchars($firmante['domicilio']) . ', comuna ' . htmlspecialchars($firmante['comuna']) . ', ' . htmlspecialchars($firmante['region']);
+            }
+        
+            // Agregar al bloque HTML para la firma
             $firmasHtml .= '
-                <div id="firmas" class="col-6 mb-3" style="text-align: center; margin-right: 20px;font-size: 20px;">
+                <div id="firmas" class="col-6 mb-3" style="text-align: center; margin-right: 20px; font-size: 20px;">
                     <p>
                         <span>' . htmlspecialchars($firmante['nombre']) . '</span><br>
                         <span>' . htmlspecialchars($firmante['rut']) . '</span>
                     </p>
-                </div>
-            ';
+                </div>';
         }
+        
         $firmasHtml .= '</div>';
+        
 
         // Concatenar el HTML de firmantes al final del contenido del documento
         $htmlFinal .= $firmasHtml;

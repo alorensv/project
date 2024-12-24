@@ -63,10 +63,12 @@ class UserRedactaDocumento extends Model
 
             $guest_id = session('guest_id');
 
-            //$query .= " AND guest_id = '$guest_id'";
+            $query .= " AND guest_id = '$guest_id'";
         }
 
         $query .= " ORDER BY r.id DESC";
+
+        //dd($query);
 
         $selectData = collect(DB::select($query, $params));
 

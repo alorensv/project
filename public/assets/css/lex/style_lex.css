@@ -1,19 +1,25 @@
 /* LEX */
+.predocumento{
+    margin-left: 60px;margin-right: 60px;text-align: justify;font-size: 20px;
+}
+
+.btnPrincipalSearch{
+    width: 20%;
+}
+
+.spanPrincipalSearch{
+    padding-left: 7%;
+}
+
 #firmantesModal {
     z-index: 1050; /* Z-index típico de Bootstrap */
 }
 
-.progress {
-    display: flex;
-    height: 1.3rem!important;
-    overflow: hidden;
-    line-height: 0;
-    font-size: 0.675rem;
-    background-color: #ffffff;
-    border-radius: 0.25rem;
-    border: 1px solid;
-    border-color: #acacac #acacac #acacac #acacac;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.15);
+.checksForm{
+    float: left;
+    margin-top: 7px;
+    padding-left: 11px;
+    font-size: 13px;
 }
 
 .previsualizacionDocumento{
@@ -59,7 +65,8 @@
     font-size: 20px;
     background-color: #FB3F5C;
     color: white;
-    width: 40px;
+    width: 34px;
+    height: 30px;
   }
 
   .materialIconIntranet{
@@ -381,12 +388,16 @@
     padding: 20px;
     background-color: #f7f7f7;
     box-shadow: 0 0px 13px 0 rgba(0, 0, 0, 0.1);
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
 }
 
 .divTablasSuccess{
     padding: 20px;
     background-color: #e8ffea;
     box-shadow: 0 0px 13px 0 rgba(0, 0, 0, 0.1);
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
 }
 
 .cursorPointer {
@@ -2107,6 +2118,32 @@ footer .social-media ul li a {
 
 
 @media (max-width: 990px) {
+    
+    .displayNoneCel{
+        display: none!important;
+    }
+
+    .centerCel{
+        text-align: center!important;padding-bottom: 0px !important;
+    }
+
+    .checkCelu {
+        margin-top: 2px !important;
+        text-align: right;
+        margin-left: 26px;
+    }
+
+
+    .checkCelu input[type=radio], input[type=checkbox] {
+        width: 18px!important;
+        height: 18px!important;
+    }
+
+    .rowComprasCel{
+        padding-top: 16px!important;
+        border-top: 1px solid rgba(0, 0, 0, 0.125)!important;
+    }
+    
     #preloader img {
         width: 50% !important;
         /* Ajusta el tamaño de la imagen según sea necesario */
@@ -2325,7 +2362,7 @@ footer .social-media ul li a {
     }
 
     .nav-item{
-        max-width: 200px;
+        max-width: 320px;
         padding-bottom: 5px;
     }
 
@@ -2349,8 +2386,49 @@ footer .social-media ul li a {
 }
 
 @media (max-width: 480px) {
+
+    
+    #banner-carousel{
+        display: none;
+    }
+
+    .btnPrincipalSearch{
+        width: 100%!important;
+    }
+
+    .celContainer{
+        margin-top: 25%!important;
+    }
+
+    .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot{
+        margin-right: 40px!important;
+    }
+
+    .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev, .owl-carousel button.owl-dot{
+        margin-left: 40px!important;
+    }
+
+    .owl-carousel .owl-stage-outer{
+        margin-left: 10%!important;
+    }
+
+    .spanPrincipalSearch{
+        padding-left: 7%!important;
+    }
+    
     .modal {
         width: 97%!important;
+    }
+
+    .predocumento{
+        margin-left: 25px!important;
+        margin-right: 25px!important;
+        font-size: 16px!important;
+    }
+
+    .previsualizacionDocumento {
+        padding-right: 15px!important;
+        max-height: 100%!important;
     }
 
     footer .map-container {

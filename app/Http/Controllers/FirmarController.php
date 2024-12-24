@@ -155,9 +155,16 @@ class FirmarController extends Controller
     public function buscarFirmante($dni){
         $rutLimpio = preg_replace('/\./', '', $dni);
         
-        $firmante = LexFirmanteRedaccionDocumento::where('dni', $rutLimpio)
+        $firmante = LexFirmanteRedaccionDocumento::with(['nacionalidad', 'estadoCivil'])
+        ->where('dni', $rutLimpio)
         ->orderBy('id', 'desc')
         ->first();
+
+        if ($firmante) {
+            // Agregar los nombres de nacionalidad y estado civil
+            $firmante->nacionalidad_nombre = $firmante->nacionalidad->nombre ?? null;
+            $firmante->estado_civil_nombre = $firmante->estadoCivil->nombre ?? null;
+        }
 
         return response()->json(['firmante' => $firmante]);
     }

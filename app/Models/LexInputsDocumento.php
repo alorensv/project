@@ -11,7 +11,7 @@ class LexInputsDocumento extends Model
 
     protected $table = 'lex_inputs_documentos';
 
-    protected $fillable = ['name', 'label', 'placeholder', 'field_type', 'orden', 'required', 'documento_id'];
+    protected $fillable = ['name', 'label', 'placeholder', 'field_type', 'help_text',  'orden', 'required', 'documento_id'];
 
     public function redaccionDocumento()
     {

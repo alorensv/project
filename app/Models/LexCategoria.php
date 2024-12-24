@@ -24,7 +24,8 @@ class LexCategoria extends Model
         $query = "SELECT c.id AS id_categoria, c.nombre AS nombre_categoria, d.id as id_documento, 
                          d.nombre AS documento, d.precio
                   FROM lex_categorias c
-                  JOIN lex_documentos d ON c.id = d.lex_categoria_id";
+                  JOIN lex_documentos d ON c.id = d.lex_categoria_id
+                  WHERE d.estado = 1";
 
         $selectData = DB::select($query);
 

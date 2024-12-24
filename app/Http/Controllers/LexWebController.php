@@ -179,13 +179,15 @@ class LexWebController extends Controller
         return response()->json(['message' => 'request', 'categoria' => $categoria]);
     }
 
-    public function nacionalidades(){
-        $nacionalidades = Nacionalidad::all();
+    public function nacionalidades(Request $request){
+        $sexo = $request->get('sexo', 'femenino'); 
+        $nacionalidades = Nacionalidad::where('sexo', $sexo)->get(); 
         return response()->json(['message' => 'lista de nacionalidades', 'nacionalidades' => $nacionalidades]);
     }
 
-    public function estados_civiles(){
-        $estados_civiles = EstadoCivil::all();
+    public function estados_civiles(Request $request){
+        $sexo = $request->get('sexo', 'femenino'); 
+        $estados_civiles = EstadoCivil::where('sexo', $sexo)->get(); 
         return response()->json(['message' => 'lista de estados civiles', 'estados_civiles' => $estados_civiles]);
     }
 

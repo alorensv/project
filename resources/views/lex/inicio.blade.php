@@ -126,20 +126,34 @@
   <section class="welcome">
     <div>
       <div class="container section-phone-padding">
-        <div class="row">
-          <div class="col-lg-6 padding-title-presentation-large titleOne titlePrincipal">
-            <h4>Seguro, online y con validez legal </h4>
-            <h2>
+        <div class="row celContainer">
+          <div class="col-lg-12 padding-title-presentation-large titleOne titlePrincipal">
+            <h4 class="pb-2">Seguro, online y con validez legal </h4>
+            <h2 class="pb-2">
               ¿Necesitas un documento legal con firma avanzada en minutos?
             </h2>
             <p>Crea documentos que no requieren de redacción de abogado ni de cumplir con solemnidades especiales, ya que puede ser extendido por las partes firmantes del documento</p>
             <p>Podrás encontrar <strong>declaraciones, contratos, cartas poder y muchos más documentos</strong>.</p>
-            <p><br></p>
+            <div class="row">
+              <div class="col-4 col-lg-2">
+                <img src="https://www.ecertla.com//content/uploads/2023/09/logo-ecert.png" alt="" class="img-fluid">
+              </div>
+              <div class="col-4 col-lg-2 pt-3">
+                <img src="https://publico.transbank.cl/documents/20129/38535804/logo_tbk.svg" alt="" class="img-fluid">
+              </div>
+              <div class="col-4 col-lg-2 pt-3">
+              <img src="/img/lex/claveunica.png" alt="" class="img-fluid">
+              </div>
+            </div>
             <p>
-              <a href="/#" class="btn btn-lex-secondary d-flex align-items-center" style="width: 180px;">¡Conócenos más!</a>
+              <br>
+            </p>
+            <p>
+              <a href="/#" class="btn btn-lex-secondary d-flex align-items-center btnPrincipalSearch">
+                <i class="material-icons icon">search</i><span class="spanPrincipalSearch">Buscar documento</span></a>
             </p>
           </div>
-          <div class="col-6">
+          <!-- <div class="col-6">
 
             <div id="banner-carousel" class="owl-carousel owl-theme">
 
@@ -172,7 +186,7 @@
 
             </div>
 
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -254,10 +268,7 @@
     </div>
 
 
-
-
-
-
+ 
   </section>
 
 
@@ -350,7 +361,7 @@
               items: 1 // Mostrar 1 card en pantallas pequeñas
             },
             600: {
-              items: 2 // Mostrar 2 cards en pantallas medianas
+              items: 1 // Mostrar 2 cards en pantallas medianas
             },
             1000: {
               items: 4 // Mostrar 4 cards en pantallas grandes

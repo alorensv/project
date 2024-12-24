@@ -34,7 +34,7 @@
     <table style="width: 100%; margin-top: 20px;">
         <tr style="background-color: #f6f6f6; color: #000;">
             <td style="padding: 8px; background-color: #060737; color: white; font-size: 16px; font-weight: 900; text-align: center;">
-                <a href="http://127.0.0.1:8000/firmarDocumento/{{ $firmaDocumento->token }}" style="color: white; text-decoration: none;">Firmar documento</a>
+                <a href="https://chaonotaria.lineasdecodigo.cl/firmarDocumento/{{ $firmaDocumento->token }}" style="color: white; text-decoration: none;">Firmar documento</a>
             </td>
         </tr>
         <tr style="color: #000; text-align: center;">

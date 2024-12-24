@@ -43,6 +43,9 @@ class LexFirmanteRedaccionDocumento extends Model
         'domicilio',
         'comuna',
         'region',
+        'nacionalidad_id',
+        'estado_civil_id',
+        'profesion_oficio',
         'estado', 
         'lex_redaccion_id', 
         'base64', 
@@ -62,6 +65,17 @@ class LexFirmanteRedaccionDocumento extends Model
     public function redaccion()
     {
         return $this->belongsTo(UserRedactaDocumento::class, 'lex_redaccion_id');
+    }
+
+    public function nacionalidad()
+    {
+        return $this->belongsTo(Nacionalidad::class, 'nacionalidad_id');
+    }
+
+    // Relación con el modelo EstadoCivil
+    public function estadoCivil()
+    {
+        return $this->belongsTo(EstadoCivil::class, 'estado_civil_id');
     }
 
 
@@ -127,6 +141,12 @@ class LexFirmanteRedaccionDocumento extends Model
             $posiciones = LexFirmanteRedaccionDocumento::ARRAY_POSICIONES_FIRMAS[$index] ?? null;
             $rutLimpio = preg_replace('/\./', '', $firmante['rut']);
 
+            $nacionalidad = Nacionalidad::where('nombre', $firmante['nacionalidad'])->first();
+            $nacionalidad_id = $nacionalidad ? $nacionalidad->id : null;
+
+            $estadoCivil = EstadoCivil::where('nombre', $firmante['estado_civil'])->first();
+            $estadoCivil_id = $estadoCivil ? $estadoCivil->id : null;
+
             LexFirmanteRedaccionDocumento::create([
                 'lex_redaccion_id' => $documento->id,
                 'nombres' => $firmante['nombre'],
@@ -137,6 +157,9 @@ class LexFirmanteRedaccionDocumento extends Model
                 'domicilio' => $firmante['domicilio'] ?? '',
                 'comuna' => $firmante['comuna'] ?? '',
                 'region' => $firmante['region'] ?? '',
+                'nacionalidad_id' => $nacionalidad_id,
+                'estado_civil_id' => $estadoCivil_id,
+                'profesion_oficio' => $firmante['profesion_oficio'] ?? '',
                 'estado' => 0,
                 'posicion_firma_y' => $posiciones['posicion_firma_y'] ?? null,
                 'posicion_firma_x' => $posiciones['posicion_firma_x'] ?? null,

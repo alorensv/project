@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body divTablas">
                 <table class="table table-striped mt-3" style="width:100%">
                     <tr v-for="firmante in firmantes" :key="firmante.id">
                         <td style="width: 10%;">

@@ -11,5 +11,5 @@ class EstadoCivil extends Model
 
     protected $table = 'estados_civiles';
 
-    protected $fillable = ['nombre'];
+    protected $fillable = ['nombre','sexo','estado'];
 }
