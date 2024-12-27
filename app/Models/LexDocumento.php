@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DateTime;
+use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,14 +43,35 @@ class LexDocumento extends Model
         // Crear un array con los valores de los inputs
         $inputValues = [];
         $rutDeclarante = '';
+
         foreach ($inputs as $input) {
             // Asignar los valores de los inputs desde el request o un valor por defecto
-            if( $input->name == 'rut'){
-                $rutDeclarante = $request->input($input->name);
+            $inputValue = $request->input($input->name); // Obtén el valor del input
+
+            if ($input->name == 'rut') {
+                $rutDeclarante = $inputValue; // Asigna el valor del RUT
             }
-            $inputValues[$input->name] = $request->input($input->name) ?? 'espaciosRelleno';
+
+            // Verificar si el campo es de tipo fecha
+            if ($input->field_type === 'date' && !empty($inputValue)) {
+                $date = new DateTime($inputValue);
+                
+                    // Ajustar la zona horaria a la local (por ejemplo, América/Santiago)
+                    $date->setTimezone(new DateTimeZone('America/Santiago'));
+                
+                    // Formatear la fecha en el formato deseado (día de la semana, día, mes, año)
+                    $formattedDate = $date->format('l, d F Y'); // 'l' es el nombre completo del día, 'd' el día, 'F' el mes y 'Y' el año
+                
+                    // Asignar el valor formateado
+                    $inputValue = $formattedDate;
+            }
+
+            // Asignar el valor (formateado o no) al array de inputs
+            $inputValues[$input->name] = $inputValue ?? 'espaciosRelleno'; // Usa 'espaciosRelleno' si el valor es nulo o no está presente
         }
+
         $redaccion = json_encode($inputValues);
+
         
         // Crear las variables de búsqueda y reemplazo para el HTML
         $search = [];
@@ -75,7 +98,7 @@ class LexDocumento extends Model
         
             // Verificar si es el único firmante
             if (count($firmantes) === 1) {
-                $firmantesHtml .= 'y ' 
+                $firmantesHtml .= ' y ' 
                 . htmlspecialchars($firmante['nombre']) . ' ' . htmlspecialchars($firmante['apellido_paterno']) . ' ' . htmlspecialchars($firmante['apellido_materno']) 
                 . ' cédula de identidad ' . htmlspecialchars($firmante['rut']) . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']) . ', ' 
                 . htmlspecialchars($firmante['estado_civil']) . ', ' . htmlspecialchars($firmante['profesion_oficio']) . ', con domicilio en ' 
@@ -83,7 +106,7 @@ class LexDocumento extends Model
             } 
             // Verificar si es el último firmante
             else if ($index === count($firmantes) - 1) {
-                $firmantesHtml .= 'y ' 
+                $firmantesHtml .= ' y ' 
                 . htmlspecialchars($firmante['nombre']) . ' ' . htmlspecialchars($firmante['apellido_paterno']) . ' ' . htmlspecialchars($firmante['apellido_materno']) 
                 . ' cédula de identidad ' . htmlspecialchars($firmante['rut']) . ' de nacionalidad ' . htmlspecialchars($firmante['nacionalidad']) . ', ' 
                 . htmlspecialchars($firmante['estado_civil']) . ', ' . htmlspecialchars($firmante['profesion_oficio']) . ', con domicilio en ' 

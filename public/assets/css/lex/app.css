@@ -4973,6 +4973,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   font-size: 0.675rem;
   background-color: #e9ecef;
   border-radius: 0.25rem;
+  box-shadow: 0 0px 4px 0 rgb(0 0 0 / 43%);
 }
 
 .progress-bar {

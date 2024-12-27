@@ -9,6 +9,7 @@ class LexCompra extends Model
 {
     const ESTADO_COTIZANDO = 1;
     const ESTADO_PAGADO = 2;
+    const ESTADO_RECHAZADO = 3;
 
     use HasFactory;
 

@@ -7,7 +7,7 @@
 
 
   <section class="pt-2 pb-2">
-    <div class="container">
+    <div class="container top-phone-padding">
 
       <!-- <div class="pt-4 mt-2" style="background-color: #FB3F5C;color: white;padding: 20px;padding-bottom: 10px;">
         Sección de avisos
@@ -15,7 +15,7 @@
 
 
       <div class="alert alert-warning mt-3">
-        Completa el siguiente formulario con los campos requeridos
+        <p>Se dispone de 3 intentos para firmar; en caso de error en el ingreso de datos para la firma, tu firma se bloquea por 24 horas por seguridad.</p>
       </div>
 
       <div v-if="generalError" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
@@ -129,6 +129,15 @@
       correo: '',
       clave: '',
       inputs: JSON.parse(document.getElementById('vueRedaccion').getAttribute('data-inputs')),
+      tipo_reuniones: [{
+          id: 1,
+          nombre: 'JUNTA DE VECINOS'
+        },
+        {
+          id: 2,
+          nombre: 'COPROPIETARIOS'
+        }
+      ],
       groupedInputs: {},
       accordionState: {},
       formData: {},
@@ -181,17 +190,48 @@
       this.fetchNacionalidades();
       this.fetchEstadosCiviles();
     },
+    computed: {
+      groupCompletionStatus() {
+        const status = {};
+        for (const groupName in this.groupedInputs) {
+          const group = this.groupedInputs[groupName];
+          const totalFields = group.length;
+          const filledFields = group.filter(input => input.value !== '').length; // Campos no vacíos
+          status[groupName] = {
+            filled: filledFields,
+            total: totalFields
+          };
+        }
+        return status;
+      }
+    },
+    watch: {
+      // Observa cualquier cambio en los valores de los inputs
+      inputs: {
+        handler(newValue) {
+          // Después de que los inputs cambian, recalculate el estado de los grupos
+          this.groupInputs(); // Si modificas algún input, asegúrate de reagruparlos
+        },
+        deep: true // Asegúrate de escuchar cambios en los valores de los campos dentro de los objetos
+      }
+    },
     methods: {
       groupInputs() {
         this.groupedInputs = this.inputs.reduce((groups, input) => {
-
+          // Asegúrate de inicializar un valor predeterminado si es un campo vacío
           if (input.field_type === 'radio' && input.name === 'sexo' && !input.value) {
             input.value = "femenino";
           }
-        
           (groups[input.group] = groups[input.group] || []).push(input);
           return groups;
         }, {});
+      },
+      isGroupCompleteCount(group) {
+        const filledFields = group.filter(input => input.value !== '').length;
+        return filledFields === group.length;
+      },
+      isGroupComplete(group) {
+        return group.every(input => input.value && input.value.trim() !== '');
       },
       initializeAccordionState() {
         this.accordionState = Object.keys(this.groupedInputs).reduce((state, group) => {
@@ -203,12 +243,6 @@
       // Alterna el estado del acordeón
       toggleAccordion(groupName) {
         this.accordionState[groupName] = !this.accordionState[groupName];
-      },
-
-      // Verifica si todos los campos de un grupo están completos
-      isGroupComplete(group) {
-        // Verificar si todos los inputs dentro del grupo tienen un valor
-        return group.every(input => input.value && input.value.trim() !== '');
       },
       getInputValue(fieldName) {
         // Recorre los grupos y sus inputs
@@ -290,8 +324,10 @@
       async fetchNacionalidades(sexo = 'femenino') {
 
         try {
-        const response = await axios.get(`/nacionalidades`, {
-            params: { sexo }, // Enviar el género como parámetro
+          const response = await axios.get(`/nacionalidades`, {
+            params: {
+              sexo
+            }, // Enviar el género como parámetro
           });
           this.nacionalidades = response.data.nacionalidades; // Actualizar la lista
         } catch (error) {
@@ -301,8 +337,10 @@
       },
       async fetchEstadosCiviles(sexo = 'femenino') {
         try {
-        const response = await axios.get(`/estados_civiles`, {
-            params: { sexo }, // Enviar el género como parámetro
+          const response = await axios.get(`/estados_civiles`, {
+            params: {
+              sexo
+            }, // Enviar el género como parámetro
           });
           this.estados_civiles = response.data.estados_civiles; // Actualizar la lista
         } catch (error) {
@@ -393,6 +431,9 @@
       // Función para aceptar el autocompletado de los datos
       acceptAutoComplete() {
         // Asigna los valores al formulario con los datos del firmante
+        this.assignValueToGroupedInput('nombre', this.firmanteEncontrado.nombres);
+        this.assignValueToGroupedInput('apellido_paterno', this.firmanteEncontrado.apellido_paterno);
+        this.assignValueToGroupedInput('apellido_materno', this.firmanteEncontrado.apellido_materno);
         this.assignValueToGroupedInput('nacionalidad', this.firmanteEncontrado.nacionalidad_nombre);
         this.assignValueToGroupedInput('estado_civil', this.firmanteEncontrado.estado_civil_nombre);
         this.assignValueToGroupedInput('profesion_oficio', this.firmanteEncontrado.profesion_oficio);
@@ -472,26 +513,26 @@
 
             this.firmantes.forEach((firmante, index) => {
               let firmanteHTML = document.createElement('span');
-              
+
               // Verificar si es el único firmante
               if (this.firmantes.length === 1) {
-                firmanteHTML.innerHTML = 'y ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + 
-                  ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + 
-                  ', ' + firmante.profesion_oficio + ', con domicilio en ' + firmante.domicilio + 
+                firmanteHTML.innerHTML = ' y ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno +
+                  ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil +
+                  ', ' + firmante.profesion_oficio + ', con domicilio en ' + firmante.domicilio +
                   ', comuna ' + firmante.comuna + ', ' + firmante.region;
-              } 
+              }
               // Verificar si es el último firmante
               else if (index === this.firmantes.length - 1) {
-                firmanteHTML.innerHTML = 'y ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno + 
-                  ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil + 
-                  ', ' + firmante.profesion_oficio + ', con domicilio en ' + firmante.domicilio + 
+                firmanteHTML.innerHTML = ' y ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + firmante.apellido_materno +
+                  ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + ', ' + firmante.estado_civil +
+                  ', ' + firmante.profesion_oficio + ', con domicilio en ' + firmante.domicilio +
                   ', comuna ' + firmante.comuna + ', ' + firmante.region;
-              } 
+              }
               // Para cualquier otro firmante
               else {
-                firmanteHTML.innerHTML = ', ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' + 
-                  firmante.apellido_materno + ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad + 
-                  ', ' + firmante.estado_civil + ', ' + firmante.profesion_oficio + ', con domicilio en ' + 
+                firmanteHTML.innerHTML = ', ' + firmante.nombre + ' ' + firmante.apellido_paterno + ' ' +
+                  firmante.apellido_materno + ' cédula de identidad ' + firmante.rut + ' de nacionalidad ' + firmante.nacionalidad +
+                  ', ' + firmante.estado_civil + ', ' + firmante.profesion_oficio + ', con domicilio en ' +
                   firmante.domicilio + ', comuna ' + firmante.comuna + ', ' + firmante.region;
               }
 
@@ -563,7 +604,7 @@
             }
           });
 
-          
+
           return;
         }
 
@@ -707,7 +748,7 @@
           .then(response => {
             // Crear el objeto que contendrá los valores de los inputs
             this.guardarRedaccion();
-            
+
             window.location.href = '/carroCompras';
           })
           .catch(error => {

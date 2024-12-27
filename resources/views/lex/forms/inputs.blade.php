@@ -10,9 +10,13 @@
                     </span>
 
                     <span style="float: left;">@{{ groupName }}</span>
-                    <div class="checksForm">
-                        0/3
+                    <div class="checksForm" :class="{
+                        'text-danger': groupCompletionStatus[groupName].filled !== groupCompletionStatus[groupName].total,
+                        'text-success': groupCompletionStatus[groupName].filled === groupCompletionStatus[groupName].total
+                    }">
+                        @{{ groupCompletionStatus[groupName].filled }} / @{{ groupCompletionStatus[groupName].total }}
                     </div>
+
                 </div>
                 <i class="material-icons">keyboard_arrow_down</i>
             </h4>
@@ -35,7 +39,7 @@
             </textarea>
 
                 <!-- Select de región -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'region' || input.name === 'region_domicilio' || input.name === 'region_propiedad' )"
+                <select v-else-if="input.field_type === 'select' && ( input.name === 'region' || input.name === 'region_domicilio' || input.name === 'region_propiedad' || input.name === 'region_autorizado' )"
                     :id="input.name"
                     v-model="input.value"
                     :class="{'is-invalid': errors[input.name]}"
@@ -50,7 +54,7 @@
                 </select>
 
                 <!-- Select de comuna -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'comuna' || input.name === 'comuna_domicilio'  || input.name === 'comuna_propiedad' ) "
+                <select v-else-if="input.field_type === 'select' && ( input.name === 'comuna' || input.name === 'comuna_domicilio'  || input.name === 'comuna_propiedad' || input.name === 'comuna_autorizado' ) "
                     :id="input.name"
                     v-model="input.value"
                     :placeholder="input.placeholder"
@@ -65,7 +69,7 @@
                 </select>
 
                 <!-- Select de estado civil -->
-                <select v-else-if="input.field_type === 'select' && input.name === 'nacionalidad' "
+                <select v-else-if="input.field_type === 'select' && ( input.name === 'nacionalidad'  ||  input.name === 'nacionalidad_autorizado'  )"
                     :id="input.name"
                     v-model="input.value"
                     :class="{'is-invalid': errors[input.name]}"
@@ -113,7 +117,7 @@
 
 
                 <!-- Select de estado civil -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'estado_civil' || input.name === 'estadoCivilTestigoUno' ) "
+                <select v-else-if="input.field_type === 'select' && ( input.name === 'estado_civil' || input.name === 'estado_civil_autorizado' || input.name === 'estadoCivilTestigoUno' ) "
                     :id="input.name"
                     v-model="input.value"
                     :class="{'is-invalid': errors[input.name]}"
@@ -124,6 +128,19 @@
                         @{{ input.placeholder || 'Seleccione su estado civil' }} <!-- Muestra el placeholder o un texto por defecto -->
                     </option>
                     <option v-for="estado_civil in estados_civiles" :key="estado_civil.id" :value="estado_civil.nombre">@{{ estado_civil.nombre }}</option>
+                </select>
+
+                <select v-else-if="input.field_type === 'select' && input.name === 'tipo_reunion' "
+                    :id="input.name"
+                    v-model="input.value"
+                    :class="{'is-invalid': errors[input.name]}"
+                    @focus="focusField(input.name)"
+                    @blur="blurField(input.name)"
+                    class="form-control">
+                    <option disabled value selected>
+                        @{{ input.placeholder || 'Seleccione su estado civil' }} <!-- Muestra el placeholder o un texto por defecto -->
+                    </option>
+                    <option v-for="tipo in tipo_reuniones" :key="tipo.id" :value="tipo.nombre">@{{ tipo.nombre }}</option>
                 </select>
 
                 <!-- text rut -->

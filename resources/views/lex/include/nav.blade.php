@@ -43,7 +43,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                        
-                        <li class="nav-item px-2 pt-1">
+                        <!-- <li class="nav-item px-2 pt-1">
                             <a class="nav-link {{request()->routeIs('inicio') ? 'active' : ''}}" href="{{ route('inicio') }}">{{ __('Inicio') }}</a>
                         </li>
 
@@ -58,7 +58,7 @@
                             </a>
 
 
-                                <!-- <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
+                              <a class="dropdown-item {{request()->routeIs('servicio_cargas_especiales') ? 'active' : ''}}" href="{{ route('servicio_cargas_especiales') }}">{{ __('Transporte de cargas especiales') }}
                                 </a>
 
                                 <a class="dropdown-item {{request()->routeIs('transporte_equipos_forestales') ? 'active' : ''}}" href="{{ route('transporte_equipos_forestales') }}">{{ __('Transportes de equipos forestales') }}
@@ -74,12 +74,17 @@
                                 </a>
 
                                 <a class="dropdown-item {{request()->routeIs('venta_combustible') ? 'active' : ''}}" href="{{ route('venta_combustible') }}">{{ __('Venta de combustible') }}
-                                </a> -->
+                                </a>
 
                                 
                                 
                             </div>
 
+                        </li> -->
+
+                        <li class="nav-item pl-2 pr-3 pt-1">
+                            <!-- <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="{{ route('equipos') }}">{{ __('Asesoría') }}</a> -->
+                            <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="#">{{ __('Validez legal') }}</a>
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">

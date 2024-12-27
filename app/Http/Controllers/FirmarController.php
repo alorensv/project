@@ -96,7 +96,8 @@ class FirmarController extends Controller
 
         $firmaDocumento = LexFirmanteRedaccionDocumento::where('token', $token)->first();
         $redaccion = UserRedactaDocumento::where('id', $firmaDocumento->lex_redaccion_id)->first();
-
+        $redaccion->formatted_date_creacion = \Carbon\Carbon::parse($redaccion->created_at)->locale('es')->translatedFormat('d/m/Y');
+        
         if (is_null($firmaDocumento)) {
             return response()->json([
                 'status' => 'error',

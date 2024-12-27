@@ -3,32 +3,28 @@
 @section('content')
 
 <style>
-  @keyframes showTopText {
+@keyframes showTopText {
     0% {
-      transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
     }
-
-    40%,
-    60% {
-      transform: translate3d(0, 50%, 0);
+    40%, 60% {
+        transform: translate3d(0, 50%, 0);
     }
-
     100% {
-      transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
-  }
+}
 
-  @keyframes showBottomText {
+@keyframes showBottomText {
     0% {
-      transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
     }
-
     100% {
-      transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
-  }
+}
 
-  .animated-title {
+.animated-title {
     line-height: normal;
     color: #222;
     height: 134vmin;
@@ -37,87 +33,73 @@
     top: 21%;
     transform: translate(-64%, -54%);
     width: 72vmin;
-  }
+    z-index: 10;
+}
 
-  .animated-title>div {
+.animated-title > div {
     height: 49.6%;
     overflow: hidden;
     position: absolute;
     width: 100%;
-  }
+}
 
-  .animated-title>div div {
+.animated-title > div div {
     font-size: 2.6vmin;
     padding: 3.4vmin 0;
     position: absolute;
-  }
+    transition: transform 0.4s ease-out; /* Añadir transición más suave */
+}
 
-  .animated-title>div div span {
+.animated-title > div div span {
     display: block;
-  }
+}
 
-  .animated-title>div.text-top {
+.animated-title > div.text-top {
     border-bottom: 0.5vmin solid #ee6076;
     top: 0;
-  }
+}
 
-  .animated-title>div.text-top div {
-    animation: showTopText 1s forwards;
-    animation-delay: 0.5s;
+.animated-title > div.text-top div {
+    animation: showTopText 0.8s ease-out forwards; /* Reducir tiempo y añadir suavizado */
+    animation-delay: 0.2s; /* Ajustar el tiempo de delay */
     bottom: 0;
     transform: translate(0, 100%);
-  }
+}
 
-  .animated-title>div.text-top div span:first-child {
+.animated-title > div.text-top div span:first-child {
     color: #767676;
-  }
+}
 
-  .animated-title>div.text-bottom {
+.animated-title > div.text-bottom {
     bottom: 0;
-  }
+}
 
-  .animated-title>div.text-bottom div {
-    animation: showBottomText 0.5s forwards;
-    animation-delay: 1.75s;
+.animated-title > div.text-bottom div {
+    animation: showBottomText 0.6s ease-out forwards; /* Reducir tiempo de animación */
+    animation-delay: 1s; /* Ajustar delay */
     top: 0;
     transform: translate(0, -100%);
-  }
+}
 
-  .animated-title {
-    z-index: 10;
-  }
-
-  .animated-title p {
-    font-size: 19px !important;
-  }
-
-  .titleOne h4 {
-    animation-duration: 3s;
+/* Animación de los títulos (Slide-in) */
+.titleOne h4,
+.titlePrincipal h2,
+.titlePrincipal p {
+    animation-duration: 1s;
     animation-name: slidein;
-  }
+    animation-timing-function: ease-out; /* Añadir suavizado para el slide-in */
+}
 
-  .titlePrincipal h2 {
-    animation-duration: 2s;
-    animation-name: slidein;
-  }
-
-  .titlePrincipal p {
-    animation-duration: 2s;
-    animation-name: slidein;
-  }
-
-  @keyframes slidein {
+@keyframes slidein {
     from {
-      margin-left: 100%;
-      width: 100%;
+        margin-left: 40%;
+        width: 100%;
     }
-
     to {
-      margin-left: 0%;
-      width: 100%;
+        margin-left: 0%;
+        width: 100%;
     }
-  }
-  
+}
 
 </style>
 
@@ -127,32 +109,34 @@
     <div>
       <div class="container section-phone-padding">
         <div class="row celContainer">
-          <div class="col-lg-12 padding-title-presentation-large titleOne titlePrincipal">
+          <div class="col-lg-7 padding-title-presentation-large titleOne titlePrincipal">
             <h4 class="pb-2">Seguro, online y con validez legal </h4>
             <h2 class="pb-2">
               ¿Necesitas un documento legal con firma avanzada en minutos?
             </h2>
-            <p>Crea documentos que no requieren de redacción de abogado ni de cumplir con solemnidades especiales, ya que puede ser extendido por las partes firmantes del documento</p>
             <p>Podrás encontrar <strong>declaraciones, contratos, cartas poder y muchos más documentos</strong>.</p>
             <div class="row">
-              <div class="col-4 col-lg-2">
+              <div class="col-4 col-lg-2 pt-2">
                 <img src="https://www.ecertla.com//content/uploads/2023/09/logo-ecert.png" alt="" class="img-fluid">
               </div>
-              <div class="col-4 col-lg-2 pt-3">
+              <div class="col-4 col-lg-2 pt-2">
                 <img src="https://publico.transbank.cl/documents/20129/38535804/logo_tbk.svg" alt="" class="img-fluid">
               </div>
-              <div class="col-4 col-lg-2 pt-3">
-              <img src="/img/lex/claveunica.png" alt="" class="img-fluid">
+              <div class="col-4 col-lg-2 pt-2">
+                <img src="/img/lex/claveunica.png" alt="" class="img-fluid">
               </div>
             </div>
             <p>
               <br>
             </p>
-            <p>
-              <a href="/#" class="btn btn-lex-secondary d-flex align-items-center btnPrincipalSearch">
-                <i class="material-icons icon">search</i><span class="spanPrincipalSearch">Buscar documento</span></a>
-            </p>
           </div>
+          <div class="col-lg-5 displayNoneCel">
+            <img src="/img/lex/documentoPrincipal.png" alt="Documento legal" class="img-fluid documento-legal">
+          </div>
+
+
+
+
           <!-- <div class="col-6">
 
             <div id="banner-carousel" class="owl-carousel owl-theme">
@@ -188,8 +172,42 @@
 
           </div> -->
         </div>
+
+
+      </div>
+
+      <div class="bgBuscador">
+        <div class="container">
+          <div class="row">
+
+
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="btn btn-lex-secondary d-flex align-items-center btnPrincipalSearch" style="width: 100%; padding: 10px; display: flex; align-items: center;">
+                <i class="material-icons icon" style="font-size: 24px; margin-right: 10px;">search</i>
+                <input type="text" v-model="searchQuery" class="form-control" placeholder="Buscar documento" style="border: none; background: transparent; color: inherit; font-size: 16px; width: 100%; text-align: left;" @input="filterDocuments">
+              </div>
+              <!-- Lista de resultados de búsqueda -->
+              <ul v-if="filteredDocuments.length > 0" id="searchResults" class="list-group" style="display: block; position: absolute; width: 125%; padding-left: 33px; max-height: 200px; overflow-y: auto; z-index: 10;">
+                <li v-for="document in filteredDocuments" :key="document.id_documento" class="list-group-item" @click="redirectToDocument(document)">
+                  @{{ document.documento }}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+
+
+            <div class="col-md-9">
+              <p>Crea documentos que <strong>no requieren de redacción de abogado ni de cumplir con solemnidades especiales</strong>, ya que <strong>puede ser extendido por las partes firmantes</strong> del documento</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="bgInfo">
       <div class="container">
         <div class="pt-4 pb-5 text-center">
@@ -268,7 +286,7 @@
     </div>
 
 
- 
+
   </section>
 
 
@@ -320,6 +338,9 @@
         }
       ],
       intervalId: null,
+      searchQuery: '', // La cadena de búsqueda que se ingresa
+      categoriasDocumentos: @json($categoriasDocumentos), // Pasar los datos del backend
+      filteredDocuments: [] // Lista de documentos filtrados
     },
     created() {
       this.startAutoSlide();
@@ -331,6 +352,7 @@
       this.carruselBanner();
       this.carruselDocumentos();
       this.initStepAnimation();
+      document.getElementById('documentoSelect').addEventListener('change', this.redirigirDocumento);
     },
     methods: {
       startAutoSlide() {
@@ -391,22 +413,34 @@
             if (entry.isIntersecting) {
               // Mostrar inmediatamente el primer elemento
               setTimeout(() => {
-                  entry.target.classList.add('visible');
-                  visibleCount++; // Contar este paso como visible
-                  // Verificar si todos los pasos han sido visibles
-                  if (visibleCount === steps.length) {
-                    document.querySelector('.final-text').style.fontSize = '34px'; // Aumentar el tamaño del texto
-                  }
-                }, delay);
-                delay += 200; 
+                entry.target.classList.add('visible');
+                visibleCount++; // Contar este paso como visible
+                // Verificar si todos los pasos han sido visibles
+                if (visibleCount === steps.length) {
+                  document.querySelector('.final-text').style.fontSize = '34px'; // Aumentar el tamaño del texto
+                }
+              }, delay);
+              delay += 200;
             } else {
               entry.target.classList.remove('visible');
-              document.querySelector('.final-text').style.fontSize = '1.4rem'; 
+              document.querySelector('.final-text').style.fontSize = '1.4rem';
             }
           });
-        }, { threshold: 1 });
+        }, {
+          threshold: 1
+        });
 
         steps.forEach(step => observer.observe(step));
+      },
+      filterDocuments() {
+        const query = this.searchQuery.toLowerCase();
+        this.filteredDocuments = this.categoriasDocumentos.filter(document => 
+          document.documento.toLowerCase().includes(query)
+        );
+      },
+      // Método para redirigir al documento seleccionado
+      redirectToDocument(document) {
+        window.location.href = `/redactar/${document.id_documento}`;
       }
 
 

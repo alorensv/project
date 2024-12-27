@@ -91,11 +91,16 @@ class TransbankController extends Controller
         $type = 'sandbox';
         $endpoint = '/rswebpaytransaction/api/webpay/v1.2/transactions/' . $token;
         $response = $this->get_ws($data, $method, $type, $endpoint);
+       
+        $cancel = false;
         /** detalles de la compra */
         if (isset($response->buy_order)) {
+
+            $cancel = ($response->status == 'FAILED')? true : false;
+
             $auth = Auth::loginUsingId($response->session_id);
             $compra = LexCompra::find($response->buy_order);
-            $compra->estado = LexCompra::ESTADO_PAGADO;
+            $compra->estado = ($cancel)? LexCompra::ESTADO_RECHAZADO : LexCompra::ESTADO_PAGADO;
             $compra->ultimos_num_tarjeta = $response->card_detail->card_number;
             $compra->fecha_transaccion = Carbon::parse($response->transaction_date)->format('Y-m-d H:i:s');
             $compra->codigo_auth = $response->authorization_code;
@@ -103,7 +108,7 @@ class TransbankController extends Controller
             $compra->num_cuotas = $response->installments_number;
 
             //$compra->response_code = ;
-            if ($compra->save()) {
+            if ($compra->save() && !$cancel) {
                 //$order = Compras::updateCompraTransbank($response);
                 $detallesCompra = LexCompraServicio::getServiciosPagadosById($compra->id);
                 foreach ($detallesCompra as $redaccion) {
@@ -140,7 +145,7 @@ class TransbankController extends Controller
             }
         }
 
-        if (!$auth) {
+        if (!$auth || $cancel) {
             return view('lex/market/getResult', [
                 'response' => $response,
                 'compra' => $compra ?? null,

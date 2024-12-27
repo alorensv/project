@@ -4,8 +4,36 @@
 }
 
 .btnPrincipalSearch{
-    width: 20%;
+    width: 90%;
 }
+
+.bgBuscador{
+    background-color: #FB3F5C;
+    padding-top: 40px;
+    padding-bottom: 35px;
+    padding: 40px 100px 35px 100px;
+    color: white;
+    font-size: 20px;
+}
+
+
+
+@keyframes movimientoDocumento {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .documento-legal {
+    animation: movimientoDocumento 2s ease-in-out infinite;
+  }
+  
 
 .spanPrincipalSearch{
     padding-left: 7%;
@@ -105,6 +133,28 @@
 .success-message .material-icons {
     margin-right: 10px;
 }
+
+
+.danger-message {
+    color: red; /* Color de texto rojo */
+    font-size: 1.2em; /* Tamaño de texto, puedes ajustarlo */
+    font-weight: bold; /* Negrita para resaltar el mensaje */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
+    background-color: #f8d7da; /* Fondo rojo claro (puedes ajustarlo) */
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;
+}
+
+.danger-message .material-icons {
+    margin-right: 10px;
+}
+
+
+
 
 /* como funciona */
 .bgInfo {
@@ -241,23 +291,23 @@
   }
 
 .btn-lex-secondary {
-    color: #fff;
-    background-color: #FB3F5C;
-    border-color: #FB3F5C;
+    color: #FB3F5C;
+    background-color: #fff;
+    border-color: #fff;
     -webkit-transition: ease-out 0.7s;
     -moz-transition: ease-out 0.7s;
     transition: ease-out 0.7s;
 }
 
 .btn-lex-secondary:hover {
-    color: #FB3F5C;
-    background-color: #fff;
+    color: #fff;
+    background-color: #FB3F5C;
     border-color: #fff;
-    border-color: #FB3F5C;
+    
     /* Color del borde al hacer hover */
     transition: all 0.3s ease;
     /* Transición suave */
-    box-shadow: inset 400px 0 0 0 #fff;
+    box-shadow: inset 400px 0 0 0 #FB3F5C;
 }
 
 .btn-lex-secondary:focus,
@@ -2123,6 +2173,14 @@ footer .social-media ul li a {
         display: none!important;
     }
 
+    .bgBuscador{
+        padding: 40px 45px 35px 45px!important;
+    }
+
+    .top-phone-padding{
+        padding-top: 60px!important;
+    }
+    
     .centerCel{
         text-align: center!important;padding-bottom: 0px !important;
     }
