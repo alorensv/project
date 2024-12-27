@@ -58,10 +58,13 @@ class LexDocumento extends Model
                 
                     // Ajustar la zona horaria a la local (por ejemplo, América/Santiago)
                     $date->setTimezone(new DateTimeZone('America/Santiago'));
-                
+
+                    // Establecer la localización para español Latinoamericano
+                    setlocale(LC_TIME, 'es_CL.UTF-8');  // Español (Chile)
+
                     // Formatear la fecha en el formato deseado (día de la semana, día, mes, año)
-                    $formattedDate = $date->format('l, d F Y'); // 'l' es el nombre completo del día, 'd' el día, 'F' el mes y 'Y' el año
-                
+                    $formattedDate = strftime('%A, %d de %B de %Y', $date->getTimestamp());
+
                     // Asignar el valor formateado
                     $inputValue = $formattedDate;
             }
