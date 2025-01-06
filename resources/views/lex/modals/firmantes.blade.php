@@ -24,7 +24,7 @@
                         </td>
 
                         @if(Auth::check())
-                        <td>
+                        <td  v-if="firmante.compra">
                             <div v-if="firmante.estado == 0">
                                 <span class="badge badge-warning">Pendiente</span>
                                 <span class="badge badge-primary" @click="notificarFirmaPendiente(firmante.id)">Notificar</span>
@@ -33,9 +33,15 @@
                                 <span class="badge badge-danger">Rechazado</span>
                                 <p style="font-size: 12px;">Rechazó el @{{ firmante.formatted_date }}</p>
                             </div>
-                            <div v-else>
+                            <div v-else-if="firmante.estado == 1">
+                                <span class="badge badge-primary">En proceso</span>
+                            </div>
+                            <div v-else-if="firmante.estado == 1">
                                 <span class="badge badge-success">Firmado</span>
                                 <p style="font-size: 12px;">Firmó el @{{ firmante.formatted_date }}</p>
+                            </div>
+                            <div v-else>
+                                <span class="badge badge-danger">Error, estado fallido</span>
                             </div>
                         </td>
                         @endif

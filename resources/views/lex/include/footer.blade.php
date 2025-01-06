@@ -1,4 +1,4 @@
-<footer id="footerVue" style="background-color: #d5d5d5!important;">
+<footer id="footerVue" style="border-top: 1px solid #d7d7d7;">
   <div class="container section-phone-padding">
     <div class="row pt-5">
       <div class="col-md-4 logo-footer ">

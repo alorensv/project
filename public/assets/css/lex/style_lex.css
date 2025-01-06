@@ -134,6 +134,10 @@
     margin-right: 10px;
 }
 
+.celDisplay{
+    display: none;
+}
+
 
 .danger-message {
     color: red; /* Color de texto rojo */
@@ -495,7 +499,7 @@
 }
 
 .material-icons:hover{
-    color: #fff!important;
+    color: #b7b7b7!important;
 }
 
 .badge:hover{
@@ -2051,6 +2055,10 @@ footer .social-media ul li a {
 
 @media (min-width: 1700px) {
 
+    .celDisplay{
+        display: none!important;
+    }
+
     .logoWeb{
         position: absolute;
         width: 195px;
@@ -2091,6 +2099,10 @@ footer .social-media ul li a {
 
 
 @media (min-width: 1200px) {
+
+    .celDisplay{
+        display: none!important;
+    }
 
     .logoWeb{
         position: absolute;
@@ -2169,6 +2181,10 @@ footer .social-media ul li a {
 
 @media (max-width: 990px) {
     
+    .celDisplay{
+        display: block!important;
+    }
+
     .displayNoneCel{
         display: none!important;
     }

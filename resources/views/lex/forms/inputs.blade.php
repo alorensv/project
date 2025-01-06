@@ -83,7 +83,7 @@
                 </select>
 
                 <!-- Dentro del v-for -->
-                <div v-else-if="input.field_type === 'radio' && input.name === 'sexo'" class="d-flex">
+                <div v-else-if="input.field_type === 'radio' && ( input.name === 'sexo' || input.name === 'sexo_autorizado' )" class="d-flex">
                     <!-- Opción Femenino -->
                     <div class="col-4">
                         <div class="form-check">

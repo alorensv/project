@@ -182,7 +182,7 @@
                         </div>
                     </div>
 
-                    @if(isset($detallesCompra) && $detallesCompra > 0)
+                    @if(isset($detallesCompra) && $detallesCompra->count() > 0)
 
                     <div class="row pb-3">
                         <div class="col-12">

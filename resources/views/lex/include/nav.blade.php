@@ -14,22 +14,21 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                @if (request()->routeIs('redactar'))
-<!--                 <div class="d-flex ms-auto">
+                <div class="d-flex ms-auto celDisplay">
                     
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link active" id="formulario-tab" href="#formulario">Formulario</a>
+                            <a class="btn btn-outline-secondary d-flex align-items-center" href="{{ route('login') }}">
+                                {{ __('Iniciar sesión') }}
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="documento-tab" href="#documento">Documento</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="pagar-tab" href="#pagar">Pagar</a>
+                        <a class="btn btn-outline-secondary d-flex align-items-center" href="/carroCompras">
+                                <span class="material-icons">shopping_cart</span>
+                         </a>
                         </li>
                     </ul>
-                </div> -->
-                @endif
+                </div> 
 
                 </div>
 
@@ -96,6 +95,15 @@
                             <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="#">{{ __('Ayuda') }}</a>
                         </li>
 
+                        
+                        <!-- <li class="nav-item pl-2">
+                            <a class="btn btn-primary  d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
+                                Ayuda
+                            </a>
+                        </li> -->
+
+                        
+
                         @guest
                         
                         @else
@@ -116,9 +124,8 @@
             <div class="bg-light py-1">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                     
 
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -127,11 +134,6 @@
                         <li class="nav-item pl-2">
                             <a class="btn btn-outline-secondary d-flex align-items-center" href="{{ route('login') }}">
                                 {{ __('Iniciar sesión') }}
-                            </a>
-                        </li>
-                        <li class="nav-item pl-2">
-                            <a class="btn btn-primary  d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">
-                                Contáctenos
                             </a>
                         </li>
 
@@ -157,6 +159,11 @@
                         @endguest
                     </ul>
 
+                    <ul class="navbar-nav mr-auto">
+                        <a class="nav-link {{request()->routeIs('carroCompras') ? 'active' : ''}}" href="/carroCompras">
+                                <span class="pt-1 material-icons">shopping_cart</span>
+                         </a>
+                    </ul>  
 
                 </div>
             </div>

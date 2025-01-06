@@ -50,8 +50,16 @@ class FirmarController extends Controller
 
         if (empty($firmante)) return response()->json(['error' => 'Firmante no encontrado'], 404);
         $userRedactaDoc = UserRedactaDocumento::find($idRedaccion);
+        
+
 
         if ($userRedactaDoc) {
+
+            $fecha = date('j-n-Y');
+            $nombre_documento = $userRedactaDoc->documento->nombre;
+            $nombre_limpio = preg_replace('/[^a-zA-Z0-9_-]/', '', str_replace(' ', '_', $nombre_documento));
+            $nombre_pdf = "{$idRedaccion}_{$nombre_limpio}_{$fecha}.pdf";
+
             $envioBase64 = $userRedactaDoc->base64;
 
             $authCert = new eCert($orden = 1, $tipo = 1);
@@ -71,7 +79,7 @@ class FirmarController extends Controller
                 $authCert->setPosicionFirmaX($firmante->posicion_firma_x);
                 $authCert->setPosicionFirmaPagina($firmante->posicion_firma_pagina);
 
-                $authCert->setNombreDocumento("documento_test3.pdf");
+                $authCert->setNombreDocumento($nombre_pdf);
                 $authCert->setPDF($envioBase64);
                 $authCert->Preinscripcion();
 

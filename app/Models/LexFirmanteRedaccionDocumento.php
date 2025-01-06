@@ -29,6 +29,21 @@ class LexFirmanteRedaccionDocumento extends Model
             'posicion_firma_y' => 0,
             'posicion_firma_x' => 400,
             'posicion_firma_pagina' => 0,
+        ],
+        3 => [
+            'posicion_firma_y' => 0,
+            'posicion_firma_x' => 600,
+            'posicion_firma_pagina' => 0,
+        ],
+        4 => [
+            'posicion_firma_y' => 0,
+            'posicion_firma_x' => 800,
+            'posicion_firma_pagina' => 0,
+        ],
+        5 => [
+            'posicion_firma_y' => 0,
+            'posicion_firma_x' => 1000,
+            'posicion_firma_pagina' => 0,
         ]
     ];
 
@@ -117,9 +132,12 @@ class LexFirmanteRedaccionDocumento extends Model
     }
 
     public static function getFirmantes($idRedaccion) {
-        return self::where('lex_redaccion_id', $idRedaccion)
-                    ->get();
+        return self::select('lex_firmantes_redaccion_documento.*', 'cs.id as compra')
+            ->leftJoin('lex_compra_servicios as cs', 'cs.lex_user_redacta_documento_id', '=', 'lex_firmantes_redaccion_documento.lex_redaccion_id')
+            ->where('lex_firmantes_redaccion_documento.lex_redaccion_id', $idRedaccion)
+            ->get();
     }
+    
 
     public static function getDatosParaNofiticar($idFirmante){
         $query = "SELECT frd.nombres, frd.apellido_paterno, frd.correo, 

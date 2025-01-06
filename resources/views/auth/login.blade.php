@@ -39,6 +39,13 @@
             margin-top: 0rem !important;
         }
     }
+
+    @media (max-width: 990px) {   
+
+        .centerAll {
+            min-height: 60px!important;
+        }
+    }
 </style>
 <section class="vh-100">
     <div class="container-fluid">

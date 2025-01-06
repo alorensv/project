@@ -52,22 +52,33 @@ class LexDocumento extends Model
                 $rutDeclarante = $inputValue; // Asigna el valor del RUT
             }
 
-            // Verificar si el campo es de tipo fecha
             if ($input->field_type === 'date' && !empty($inputValue)) {
                 $date = new DateTime($inputValue);
                 
-                    // Ajustar la zona horaria a la local (por ejemplo, América/Santiago)
-                    $date->setTimezone(new DateTimeZone('America/Santiago'));
-
-                    // Establecer la localización para español Latinoamericano
-                    setlocale(LC_TIME, 'es_CL.UTF-8');  // Español (Chile)
-
-                    // Formatear la fecha en el formato deseado (día de la semana, día, mes, año)
-                    $formattedDate = strftime('%A, %d de %B de %Y', $date->getTimestamp());
-
-                    // Asignar el valor formateado
-                    $inputValue = $formattedDate;
+                // Ajustar la zona horaria a la local (por ejemplo, América/Santiago)
+                $date->setTimezone(new DateTimeZone('America/Santiago'));
+            
+                // Obtener día, mes y año
+                $dia = $date->format('d');
+                $mes = (int)$date->format('m'); // Convertir a entero para usar como índice
+                $anio = $date->format('Y');
+                $diaSemana = $date->format('l'); // Día de la semana en inglés
+            
+                // Obtener los arrays de días y meses desde el archivo de configuración
+                $diasSemana = config('fechas.dias');
+                $meses = config('fechas.meses');
+            
+                // Traducir día de la semana y mes
+                $diaSemanaTraducido = $diasSemana[$diaSemana] ?? $diaSemana;
+                $mesTraducido = $meses[$mes] ?? $mes;
+            
+                // Formatear la fecha en español
+                $formattedDate = "{$diaSemanaTraducido}, {$dia} de {$mesTraducido} de {$anio}";
+            
+                // Asignar el valor formateado
+                $inputValue = $formattedDate;
             }
+            
 
             // Asignar el valor (formateado o no) al array de inputs
             $inputValues[$input->name] = $inputValue ?? 'espaciosRelleno'; // Usa 'espaciosRelleno' si el valor es nulo o no está presente
