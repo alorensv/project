@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorias;
+use App\Models\CompraProductos;
+use App\Models\Compras;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -11,8 +13,11 @@ use Illuminate\Support\Facades\Http;
 
 use App\Models\Productos;
 use App\Models\Subcategorias;
+use App\Models\User;
 use App\Models\UserDirecciones;
 use Illuminate\Support\Facades\Auth;
+
+use Transbank\Webpay\WebpayPlus\Transaction;
 
 class MarketController extends Controller
 {
@@ -21,6 +26,17 @@ class MarketController extends Controller
     public function show()
     {
         return view('market/index');
+    }
+
+    public function existeUsuario(Request $request){
+        $email = $request->input('correo');
+        
+        $user = User::where('email', $email)->first();
+         if(empty($user)){
+             return response()->json(['message' => 'error', 'email' => $email]);
+         }else{
+             return response()->json(['message' => 'ok', 'user' => $user]);
+         }
     }
 
     public function getCategorias(Request $request)
@@ -33,10 +49,10 @@ class MarketController extends Controller
 
     public function getSubcategorias($idCategoria)
     {
-    
+
         // Buscar todas las subcategorías con el ID de categoría proporcionado
         $subcategorias = Subcategorias::where('categoria_id', $idCategoria)->get();
-    
+
         // Devolver las subcategorías como respuesta JSON
         return response()->json($subcategorias);
     }
@@ -48,6 +64,7 @@ class MarketController extends Controller
 
         if (empty($subcategorias)) {
             $productos = Productos::all();
+            //$productos = Productos::where('cantidad', '>', 0)->get();
         } else {
             $productos = Productos::whereIn('subcategoria_id', $subcategorias)->get();
         }
@@ -120,9 +137,14 @@ class MarketController extends Controller
         // Verifica si el producto ya está en el carrito
         if (array_key_exists($itemId, $cart)) {
             // Si el producto ya está en el carrito, actualiza la cantidad
-            
+
+            $producto = Productos::find($itemId);
+
             if ($action === 'increment') {
-                $cart[$itemId] += 1;
+                if($cart[$itemId] < $producto->cantidad){
+                    $cart[$itemId] += 1;
+                }
+                
             } elseif ($action === 'decrement') {
                 $cart[$itemId] -= 1;
                 if ($cart[$itemId] < 1) {
@@ -130,7 +152,6 @@ class MarketController extends Controller
                     unset($cart[$itemId]);
                 }
             }
-            
         } else {
             // Si el producto no está en el carrito, añádelo
             //error
@@ -143,16 +164,9 @@ class MarketController extends Controller
 
     public function getCart()
     {
-        $carts = session()->get('cart', []);
-
-        $carrito = [];
-        foreach ($carts as $key => $value) {
-            $producto = Productos::find($key);
-            $producto->cantidad = $value;
-            $carrito[] = $producto;
-        }
+        $carrito = Compras::getSessionCart();
         return response()->json($carrito);
-    }
+    }    
 
     public function deleteCart($id)
     {
@@ -197,21 +211,46 @@ class MarketController extends Controller
         // Obtener el ID del usuario logeado
         $userId = Auth::id();
         // Crear una nueva instancia de UserDireccion y asignar el user_id
+
+        $is_default = $request->input('is_default') ? 1 : 0;
+        if($is_default == 1){
+            $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
+            foreach ($userDirecciones as $direccion) {
+                $direccion->is_default = 0;
+                $direccion->save();
+            }
+        }
+
         $userDireccion = new UserDirecciones();
         $userDireccion->region = $request->input('region');
         $userDireccion->comuna = $request->input('comuna');
         $userDireccion->codigo_postal = $request->input('codigo_postal');
         $userDireccion->direccion = $request->input('direccion');
         $userDireccion->user_id = $userId; // Asignar el ID del usuario logeado
+        $userDireccion->nombre_contacto = $request->input('nombre_contacto');
+        $userDireccion->fono_contacto = $request->input('fono_contacto');
+        $userDireccion->is_default = $is_default;
         $userDireccion->save();
 
         return response()->json(['message' => 'request', 'userDireccion' => $userDireccion]);
     }
 
-    public function getUserDirecciones(){
+    public function getUserDirecciones()
+    {
         $userId = Auth::id();
         $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
-    
+
         return response()->json(['message' => 'request', 'userDirecciones' => $userDirecciones]);
     }
+
+    public function updateDireccionPredeterminada($id){
+        $userId = Auth::id();
+        $userDirecciones = UserDirecciones::where('user_id', $userId)->get();
+        foreach ($userDirecciones as $direccion) {
+            $direccion->is_default = ($direccion->id == $id)?  1 : 0;
+            $direccion->save();
+        }
+        return response()->json(['message' => 'ok']);
+    }
+
 }

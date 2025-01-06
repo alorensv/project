@@ -1,5 +1,20 @@
 <form @submit.prevent="submitForm">
     <div class="row">
+
+        <div class="col-6">
+            <div class="form-group">
+                <label for="nombre_contacto">Nombre Contacto</label>
+                <input type="text"  class="form-control" id="nombre_contacto" v-model="nombre_contacto" required>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-group">
+                <label for="fono_contacto">Teléfono móvil</label>
+                <input type="text"  class="form-control" id="fono_contacto" v-model="fono_contacto" required>
+            </div>
+        </div>
+
         <div class="col-6">
             <div class="form-group">
                 <label for="direccion">Región</label>
@@ -32,6 +47,16 @@
                 <input type="text"  class="form-control" id="direccion" v-model="direccion" required>
             </div>
         </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="is_default" v-model="is_default">
+                    <label class="form-check-label" for="is_default">Seleccionar dirección por defecto</label>
+                </div>
+            </div>
+        </div>
+        
     </div>
     <div class="col-12 text-right">
         <button type="submit" class="btn btn-primary">Guardar</button>

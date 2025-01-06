@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompraProductos;
+use App\Models\Compras;
 use App\Models\Productos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +41,18 @@ class AdminMarketController extends Controller
             return response()->json(['message' => 'error', 'producto' => $producto->save()]);
         }
 
+    }
+
+    public function verDetalleCompra($id){
+        /** detalles de la compra */
+        $compra = Compras::find($id);
+        if($compra->user_id <> Auth::id()) exit; 
+        $compra->estado = Compras::ESTADO_PAGADO; 
+        if($compra->save()){
+            $detalleCompra = CompraProductos::where('compra_id', $compra->id)->get();
+        }       
+
+        return view('market/getResult', ['compra' => (isset($compra))? $compra:null, 'detalleCompra' => (isset($detalleCompra))? $detalleCompra: null]);
     }
 
 }

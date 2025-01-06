@@ -181,11 +181,13 @@
   // highlight drag area
   $fileInput.on('dragenter focus click', function() {
     $droparea.addClass('is-active');
+    alert("filename")
   });
 
   // back to normal state
   $fileInput.on('dragleave blur drop', function() {
     $droparea.removeClass('is-active');
+    alert("filename")
   });
 
   // change inner text
@@ -196,8 +198,11 @@
     if (filesCount === 1) {
       // if single file is selected, show file name
       var fileName = $(this).val().split('\\').pop();
+      alert("filename");
+      alert(fileName)
       $textContainer.text(fileName);
     } else {
+      alert("filename")
       // otherwise show number of files
       $textContainer.text(filesCount + ' files selected');
     }
@@ -215,6 +220,7 @@
     var $textContainer = $(input).prev();
 
     if (filesCount === 1) {
+      alert("1")
       var fileName = input.files[0].name;
       $textContainer.text(fileName);
 
@@ -223,9 +229,10 @@
       logo.src = URL.createObjectURL(input.files[0]);
       return logo;
     } else {
+      alert("2")
       $textContainer.text(filesCount + ' archivos seleccionados');
       var logo = new Image();
-      logo.src = '/img/logo.png'; 
+      logo.src = '/img/tbl/qr/friedel.png'; 
       return logo;
     }
   }
@@ -233,15 +240,13 @@
 
 
   function updateQr(logo = false) {
-        
+
     document.getElementById("qr-container").innerHTML = '';
 
     var urlInput = document.getElementById('link').value;
     var colorInput = document.getElementById('color').value;
     var logoInput = document.getElementById('logo');
     var logo = handleImageChange(logoInput);
-    alert(logo)
-
 
     var url = (!urlInput || urlInput === undefined) ? 'https://lineasdecodigo.cl/' : urlInput;
 
@@ -250,15 +255,15 @@
     // Crea una instancia de QRCode.js
     var qrcode = new QRCode(document.getElementById("qr-container"), {
       text: url,
-      width: 250, // Ancho del código QR
-      height: 250, // Alto del código QR
+      width: 400, // Ancho del código QR
+      height: 400, // Alto del código QR
       colorDark: colorQr, // Color de los elementos oscuros del código QR
       colorLight: "#ffffff", // Color de los elementos claros del código QR
     });
 
     var canvas = document.querySelector("canvas"); // Obtiene el elemento canvas del código QR
     var context = canvas.getContext("2d");
-    var logoSize = 100; // Tamaño en píxeles
+    var logoSize = 150; // Tamaño en píxeles
     var x = (canvas.width - logoSize) / 2; // Posición en X
     var y = (canvas.height - logoSize) / 2; // Posición en Y
 

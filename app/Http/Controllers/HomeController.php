@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Compras;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,29 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $web = 'tbl'; 
+
+        if($web == 'tbl'){
+            return view('tbl.intranet.home');
+        }elseif($web == 'seguros'){
+            return view('seguros.web.inicio');
+        }
+
         return view('home');
     }
+
+    public function misCompras(){
+        //
+        return view('adminMarket/misCompras');
+    }
+
+    public function getMisCompras(){
+        $misCompras = Compras::where('user_id', Auth::id())
+        ->with('productos', 'productos.producto')
+        ->orderBy('id', 'desc')
+        ->get();
+        return response()->json($misCompras);
+    }
+
+    
 }

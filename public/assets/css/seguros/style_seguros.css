@@ -1,0 +1,2455 @@
+/* seguros */
+.imgLogoCel{
+    width: 390px;
+}
+
+.web{
+    display: block;
+}
+
+.cel{
+    display: none;
+}
+
+.logoUbication{
+    padding-top: 15%;
+}
+
+.paddingCel{
+    padding: 10% 10%;
+}
+
+.bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+}
+
+.navbar-expand-md {
+    display: none !important;
+}
+
+.py-4 {
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+}
+
+.centerAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    padding-top: 0rem;
+    color: #5a5a5a;
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.moving-crow {
+    position: relative;
+    animation: moveLeftRight 2s infinite linear;
+}
+
+@keyframes moveLeftRight {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateY(15px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+.modal-content {
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: white;
+    position: relative;
+}
+
+.modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 314px;
+    background-image: url(/img/seguros/perfil.png);
+    background-size: 200%;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 50;
+}
+
+.modal-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Color negro con 50% de opacidad */
+    z-index: 60; /* Un nivel por encima de la imagen de fondo */
+}
+
+.modal-body {
+    z-index: 2;
+    position: relative;
+}
+
+img.rounded-circle {
+    border-radius: 50%;
+    max-width: 150px;
+}
+
+.btn-primary {
+    border-radius: 50px;
+    padding: 10px 30px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 3;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+body {
+    background-color: #ffffff!important;
+}
+
+.faq-container {
+    display: flex;
+    align-items: center;
+}
+.faq-icon {
+    background-color:#d64078;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+.faq-text {
+    background-color: #d64078;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin-left: -10px;
+    z-index: -1;
+}
+
+.bg-seguros-web {
+    background-image: url('/img/seguros/bg.png');
+    background-size: cover;
+    background-position: left;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    animation: moveBackground 2s forwards; /* Ajusta la duración según lo necesites */
+}
+
+.bg-seguros-cel {
+    background-image: url('/img/seguros/bgTop.png');
+    background-size: cover;
+    background-position: left;
+    width: 100%;
+    position: relative;
+    animation: moveBackground 2s forwards; /* Ajusta la duración según lo necesites */
+}
+
+@keyframes moveBackground {
+    from {
+        background-position: -10px 0; /* Empieza 100px hacia la izquierda */
+    }
+    to {
+        background-position: 0 0; /* Termina en la posición original */
+    }
+}
+
+.seguro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.seguro-icon {
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    box-shadow: 0 0 10px rgb(9 9 9);
+}
+
+.seguro-icon:hover {
+    box-shadow: 0 0 10px rgb(255 255 255);
+}
+
+.seguro-icon .material-icons:hover {
+    font-size: 40px !important;
+    color: white !important;
+}
+
+.seguro-icon .material-icons {
+    font-size: 45px !important;
+    color: white !important;
+}
+
+.seguro-text {
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+    max-width: 150px;
+}
+
+@keyframes circular-border {
+    0% {
+        transform: rotate(0deg);
+        border-color: #fff transparent transparent transparent;
+    }
+    25% {
+        border-color: #fff #fff transparent transparent;
+    }
+    50% {
+        border-color: #fff #fff #fff transparent;
+    }
+    75% {
+        border-color: #fff #fff #fff #fff;
+    }
+    100% {
+        transform: rotate(360deg);
+        border-color: #fff #fff #fff #fff;
+    }
+}
+
+.seguro-border{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 1s;
+}
+
+.seguro-border2{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border2::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 3s;
+}
+
+.seguro-border3{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border3::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 5s;
+}
+
+.seguro-border4{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border4::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 7s;
+}
+
+.seguro-border5{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border5::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 9s;
+}
+
+.seguro-border6{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border6::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 11s;
+}
+
+.seguro-border7{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border7::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 13s;
+}
+
+.seguro-border8{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border8::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 15s;
+}
+
+.seguro-border9{
+    position: absolute;cursor: pointer;
+}
+
+.seguro-border9::before {
+    content: "";
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    animation: circular-border 1s ease-in-out 2, pause-animation 25s forwards;
+    animation-delay: 17s;
+}
+
+@keyframes pause-animation {
+    0%, 100% {
+        border-color: #fff transparent transparent transparent;
+    }
+}
+
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.perfil-icon {
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    font-size: 24px;
+}
+
+.perfil-icon .material-icons:hover {
+    font-size: 40px !important;
+    color: white !important;
+}
+
+.perfil-icon .material-icons {
+    font-size: 45px !important;
+    color: white !important;
+}
+
+.perfil-text {
+    color: black;
+    text-align: center;
+    margin-top: 5px;
+    max-width: 150px;
+}
+
+
+
+.contenedorSeguros{
+    padding: 90px;
+}
+
+.contenedorPadre {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.redes-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 10px; /* Ajusta según sea necesario */
+}
+
+
+
+/* tbl */
+
+/* INTRANET */
+.table-bordered th, .table-bordered td {
+    border: 0px solid #dee2e6; 
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.material-icons {
+    cursor: pointer;
+}
+
+.col3Padding{
+    padding-right: 10px!important;
+    padding-left: 10px!important;
+}
+
+.custom-file-title {
+    position: absolute;
+    right: 0;
+    left: 17px;
+    width: 93%;
+    z-index: 1;
+    height: calc(1.6em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    overflow: hidden;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+
+  .custom-file-title:hover {
+    background-color: #050528;
+  }
+
+.closeModal{
+    width: 35px;
+    height: 30px;
+    padding-top: 0px;
+    padding-bottom: 29px;
+    background-color: white;
+    color: #060737;
+    font-weight: 600;
+}
+
+.material-icons:hover{
+    font-size: 22px!important;
+    color: #5f5d5d!important;
+}
+
+.badge:hover{
+    font-size: 11px!important;
+    cursor: pointer;
+    color: yellow!important;
+}
+
+tr:hover{
+    background-color: #fff16738!important;
+}
+
+.adminDiv{
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    min-height: 700px;
+    padding-top: 50px;
+    text-align: justify;
+    top: 50px; 
+}
+
+.custom-rounded .form-control, 
+.custom-rounded .input-group-text {
+    border-radius: 20px;
+}
+
+.custom-rounded .input-group {
+    display: flex;
+    flex-wrap: nowrap;
+    border-radius: 20px; /* Aplica border-radius a toda la input-group */
+}
+
+.custom-rounded .input-group .form-control {
+    border-top-right-radius: 20px; /* Redondea las esquinas superiores derecha del input */
+    border-bottom-right-radius: 20px; /* Redondea las esquinas inferiores derecha del input */
+}
+
+.custom-rounded .input-group .input-group-append .input-group-text {
+    border-top-left-radius: 20px; /* Redondea las esquinas superiores izquierda del span */
+    border-bottom-left-radius: 20px; /* Redondea las esquinas inferiores izquierda del span */
+}
+
+.custom-rounded .input-group .input-group-text {
+    border-radius: 0; /* Asegúrate de que el span no tenga borde redondeado para evitar inconsistencias */
+}
+
+/*galeria*/
+
+.sociosIzajes{
+    width: 25%;height: 25%;
+    margin-right: 5px;
+}
+
+.imgCaruselPrincipal {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.modal-header .close {
+    color: #495ab4;
+}
+  
+
+.titleServices1 h1 {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    border-right: 0.15em solid #060737;
+    animation: typing 2s steps(38) 1s 1 normal both, blink 1s steps(1) infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+
+#buttonCotizarCelular{
+    background-color: white;
+    display: none;
+}
+
+/* styles.css */
+.gallery-item {
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+}
+
+.filtrosDiv{
+    background-color: #fafafa;
+    padding: 29px 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.titleEquipos {
+    margin-bottom: -12px;
+    margin-left: 23px;
+}
+
+/*carusel traslados*/
+
+.services_gallery-container {
+    overflow: hidden;
+  }
+  
+  .services_gallery-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .services_gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .services_gallery-item img {
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+  }
+  
+  .services_gallery-inner .col-md-4 {
+   padding-left: 0px!important;
+   padding-right: 0px!important;
+    }
+  
+  .services_gallery-item img:hover {
+    transform: scale(1.1);
+  }
+  
+  @media (min-width: 768px) {
+    .services_gallery-item {
+      flex: 0 0 33.333%;
+      max-width: 33.333%;
+    }
+  }
+  
+  
+
+.blueH {
+    font-weight: 600;
+    color: #060737;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.traslados .carousel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 521px;
+    /* Aumenta la altura del contenedor principal del carrusel si es necesario */
+}
+
+.traslados .titles {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    margin-left: 24vh;
+    color: white;
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin-top: 5%;
+}
+
+.traslados .title {
+    padding: 20px 15px 18px 20px;
+    /* Ajuste de padding */
+    cursor: pointer;
+    transition: font-size 0.2s ease, transform 0.2s ease;
+    /* Transición suave */
+}
+
+.traslados .title:hover {
+    font-size: 1.1rem;
+    /* Aumenta el tamaño de la fuente al pasar el cursor */
+    transform: scale(1.1);
+    background-color: white;
+    color: #060737;
+    /* Añade un efecto de escala para mayor impacto */
+}
+
+.traslados .indicators {
+    flex: 0 0 40px;
+    /* Ajusta el tamaño de la columna de indicadores */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.traslados .indicator {
+    width: 10px;
+    height: 10px;
+    background-color: gray;
+    border-radius: 50%;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.traslados .indicator.active {
+    background-color: white;
+
+}
+
+.traslados .photos {
+    flex: 3;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 763px;
+    position: relative;
+    align-items: flex-end;
+    top: -31px;
+}
+
+.traslados .photo {
+    display: none;
+    width: 100%;
+    height: 80%;
+    /* Aumenta la altura de las fotos dentro del contenedor */
+    position: relative;
+}
+
+.traslados .photo.active {
+    display: block;
+}
+
+.traslados .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    /* Ajusta la imagen hacia la parte superior del contenedor */
+}
+
+.traslados .title.active {
+    background-color: white;
+    color: #060737;
+    /* Cambia el color según tu preferencia */
+}
+
+
+
+.indicators-container {
+    width: 70%;
+    margin: 20px auto;
+    /* Margen automático en la parte superior e inferior y centrado horizontal */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.indicadores .indicator {
+    flex: 1 1 25%;
+    /* Ocupa el 25% del ancho del contenedor en pantallas grandes */
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.value-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.indicadores .indicator .value {
+    font-size: 1em;
+    /* Ajusta el tamaño para que sea consistente con el contenedor */
+}
+
+.indicadores .indicator .title {
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .indicadores .indicator {
+        flex: 1 1 50%;
+        /* Ocupa el 50% del ancho del contenedor en pantallas pequeñas */
+    }
+}
+
+.bgIndicadores {
+    width: 100%;
+    height: 260px;
+    background-image: url(/img/tbl/ruta_indicadores.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* */
+
+
+/* Preloader CSS */
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    /* Cambia el color de fondo si lo deseas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d64077fb;
+    /*background-color: #d64078;
+     Fondo de color #060737 */
+}
+
+.spinner {
+    border: 12px solid #f3f3f3;
+    border-top: 12px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+#preloader img {
+    width: 25%;
+    /* Ajusta el tamaño de la imagen según sea necesario */
+    height: auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.titleCarousel {
+    position: absolute;
+    background-color: #0607379e;
+    padding: 28px;
+    width: 101%;
+    color: #ffffff;
+
+    /* border-radius: 40px; */
+    top: 40%;
+    animation: transformTitleCarousel 2s ease-in-out forwards;
+
+}
+
+.titleServices1 {
+    width: 80%;
+    font-family: "Kanit", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.titleServices2 {
+    width: 28%;
+}
+
+.titleServices2Celular{
+    display: none;
+}
+
+.titleServices2 .material-icons:hover {
+    color: #060737 !important;
+}
+
+.titleServices2Celular .material-icons:hover {
+    color: #060737 !important;
+}
+
+@keyframes transformTitleCarousel {
+    to {
+        padding: 58px 28px;
+        top: 2%;
+    }
+}
+
+.bgRuta {
+    width: 100%;
+    height: 300px;
+    background-image: url(/img/tbl/ruta.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.presentacionServicio {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+    animation: transformpresentacionServicio 2s ease forwards;
+}
+
+@keyframes transformpresentacionServicio {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+.presentacionR {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+}
+
+.presentacionR.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.ceroR {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+}
+
+.ceroR.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.45rem 1.35rem;
+    font-size: 1rem;
+    border-radius: 10rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-outline-secondary {
+    color: #060737;
+    border-color: #060737;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #060737;
+    border-color: #060737;
+    -webkit-transition: ease-out 0.7s;
+    -moz-transition: ease-out 0.7s;
+    transition: ease-out 0.7s;
+}
+
+.btn-primary:hover {
+    color: #060737;
+    background-color: #fff;
+    border-color: #fff;
+    border-color: #060737;
+    /* Color del borde al hacer hover */
+    transition: all 0.3s ease;
+    /* Transición suave */
+    box-shadow: inset 400px 0 0 0 #fff;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    color: #060737;
+    background-color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(133, 142, 150, 0.5);
+}
+
+.btn-secondary {
+    color: #060737;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #060737;
+    border-color: #060737;
+}
+
+
+.carousel {
+    z-index: 2;
+}
+
+.welcome {
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    min-height: 700px;
+    padding-top: 50px;
+    text-align: justify;
+}
+
+
+
+
+
+.traslados {
+    background-color: #060737;
+    min-height: 611px;
+}
+
+.indicadores {
+    background-color: white;
+    min-height: 260px;
+
+}
+
+.transporte-cargas {
+    background-color: #060737;
+    min-height: 611px;
+}
+
+.transporte-cargas h2 {
+    color: #fff !important;
+}
+
+.transporte-cargas p {
+    color: #fff !important;
+}
+
+
+.transporte-cargas img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.mision-vision {
+    background-color: #060737;
+    min-height: 450px;
+}
+
+.mision-vision h2 {
+    color: #fff !important;
+}
+
+.mision-vision p {
+    color: #fff !important;
+}
+
+
+.mision-vision img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
+.logoGrande {
+    padding-top: 5%;
+}
+
+.carousel-caption {
+    position: absolute;
+    right: 8%;
+    bottom: 20px;
+    left: 12%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+
+.welcome-servicios {
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #060737;
+    min-height: 687px;
+    padding-top: 70px;
+    text-align: justify;
+}
+
+.welcome-servicios p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+/*sobredimensionados*/
+.bg_sobredimensionados {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/sobredimensionado_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+/*sobredimensionados*/
+.bg_cargaespecial {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/carga_especial_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_equiposforestales {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/maquinaria_forestal_0.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_rescateequipos {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/rescate_equipo.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_izaje {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/izaje.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_ventacombustible{
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/arriendo_combustible.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_transportemaquinaria {
+    width: 50%;
+    height: 300px;
+    background-image: url(/img/tbl/services/maquinaria_menor.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.bg_transportesbulnes {
+    width: 50%;
+    height: 501px;
+    background-image: url(/img/tbl/sobre_tbl.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+}
+
+.galery {
+    background-color: white;
+}
+
+.galery {
+    width: 100%;
+    /* height: 260px; */
+    background-image: url(/img/tbl/ruta_indicadores.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bgservicios {
+    width: 100%;
+    /* height: 260px; */
+    background-image: url(/img/tbl/ruta_indicadores.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.sobre_tbl {
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    min-height: 550px;
+    padding-top: 50px;
+    text-align: justify;
+}
+
+
+/*MIS COMPRAS */
+.order-item {
+    display: block;
+    margin-bottom: 16px;
+    padding: 0 24px 16px;
+    background-color: #fff;
+    color: #222;
+}
+
+.order-item-header-line {
+    margin: 0 12px;
+    width: 1px;
+    height: 30px;
+    background-color: #e5e5e5;
+}
+
+.order-item-header-date,
+.order-item-header-right a span {
+    margin: 0 4px;
+}
+
+
+.comet-icon {
+    display: inline-block;
+    color: inherit;
+    font-style: normal;
+    line-height: 0;
+    text-align: center;
+    text-transform: none;
+    vertical-align: -0.125em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.order-item-header,
+.order-item-header label {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.order-item-header {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    line-height: 60px;
+    border-bottom: 1px solid #e5e5e5;
+    color: #222;
+}
+
+.order-item-header-status {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 0;
+    width: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 12px;
+}
+
+.order-item-header-status-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+    margin-right: 12px;
+}
+
+.order-item-header-right {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.order-item-header-right-info {
+    line-height: 1.5;
+    text-align: right;
+    font-size: 13px;
+}
+
+.order-item-store {
+    margin: 12px 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    line-height: 16px;
+    font-weight: 500;
+    color: #222;
+}
+
+.order-item-store-name {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.order-item-content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.order-item-content-body,
+.order-item-content-img-list {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.order-item-content-body {
+    margin-right: 16px;
+}
+
+.order-item-content-info {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 0;
+    width: 0;
+    line-height: 1.5;
+}
+
+.order-item-content-info-name,
+.order-item-content-info-tag {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.order-item-content-info-sku {
+    color: #999;
+}
+
+.order-item-content-info-number,
+.order-item-content-info-sku {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+    margin-bottom: 12px;
+}
+
+.order-item-content-info-number {
+    margin-bottom: 8px;
+}
+
+.order-item-content-info-number,
+.order-item-content-info-sku {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+    margin-bottom: 12px;
+}
+
+.order-item-content-info-name,
+.order-item-content-info-tag {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.order-item-content-opt {
+    min-width: 288px;
+}
+
+.order-item-content-opt-price {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.order-item-content-opt-price-total {
+    font-weight: 700;
+}
+
+.order-item-btns-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.order-item-btns {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.comet-btn:not(.comet-btn-icon-only):not(.comet-btn-link) {
+    min-width: 80px;
+}
+
+.order-item-btns .order-item-btn {
+    margin: 6px 0;
+    width: 224px;
+    height: auto;
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+
+/*market place*/
+
+.fa,
+.fas-727272 {
+    font-size: 11px;
+    color: #727272;
+}
+
+.division-25292c {
+    background: #25292c;
+}
+
+.breadcrumb {
+    background-color: #e8e8e8 !important;
+}
+
+.a:hover {
+    text-decoration: none !important;
+}
+
+.emptyCart {
+    background-color: rgb(246, 246, 246);
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 2px;
+    margin-bottom: 14px;
+}
+
+
+.material-icons-min {
+    padding: 5px;
+    font-size: 15px !important;
+    color: #727272 !important;
+}
+
+.white-division {
+    background: rgb(255, 255, 255);
+}
+
+.white-division p {
+    color: black;
+}
+
+.white-division h2 {
+    color: #3f8dc9;
+}
+
+/*fin market place*/
+
+#email-icon {
+    position: relative;
+}
+
+.email-text {
+    display: none;
+    position: absolute;
+    top: 46%;
+    /* right: 100%; */
+    left: -28vh;
+    transform: translateY(-50%);
+    background-color: #3f8dc9;
+    padding: 5px 12px;
+    border: 1px solid #3f8dc9;
+    border-top: none;
+    border-radius: 4px;
+    color: white;
+}
+
+#email-icon:hover .email-text {
+    display: block;
+}
+
+.center {
+    max-width: 95%;
+}
+
+.texto-cotiza {
+    color: #1f6ba6;
+    padding: 0px 0px 40px 0px;
+    text-align: center;
+}
+
+
+.texto-cotiza p i {
+    font-size: 20px;
+    margin-left: 5px;
+    position: relative;
+    color: #1f6ba6;
+    transform: rotate(-90deg);
+}
+
+.texto-clientes {
+    color: #1f6ba6;
+    padding: 0px 0px 10px 0px;
+    text-align: center;
+}
+
+.texto-clientes p i {
+    font-size: 20px;
+    margin-left: 5px;
+    position: relative;
+    color: #1f6ba6;
+    transform: rotate(-90deg);
+}
+
+.div_cotiza {
+    position: absolute;
+    z-index: 99;
+    /* padding-top: 10%; */
+    width: 30%;
+    /* left: 0; */
+    right: 7%;
+    top: 84%;
+}
+
+#contacto {
+    padding: 35px 60px 50px;
+}
+
+#contacto .form-group {
+    text-align: left;
+    font-weight: 600;
+}
+
+.portafolio {
+    background: rgb(255, 255, 255);
+}
+
+.portafolio p {
+    color: black;
+}
+
+.portafolio h2 {
+    color: #3f8dc9;
+}
+
+.cotiza {
+    background: rgb(41, 41, 47);
+    background: linear-gradient(90deg, rgba(41, 41, 47, 1) 0%, rgba(34, 32, 32, 1) 35%, rgba(75, 72, 72, 1) 100%);
+}
+
+.cotiza p {
+    color: white;
+}
+
+.cotiza h2 {
+    color: #3f8dc9;
+}
+
+.welcome-servicios h2{
+    color: white!important;
+}
+
+.titles-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.05rem;
+    font-size: 20px;
+}
+
+/* Estilo para el contenedor del código QR */
+#qr-container {
+    text-align: center;
+    /* Centra horizontalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Centra vertical y horizontalmente */
+    margin-top: 20px;
+    /* Espacio superior opcional */
+}
+
+
+.qrInptus {}
+
+
+/*COUNTER*/
+.clientes {
+    padding-bottom: 20px;
+}
+
+.counter-style {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.clientes .box {
+    border-right: 1px solid #ccc;
+}
+
+.clientes .box b {
+    display: block;
+    font-weight: bold;
+    font-size: 70px;
+    color: #5a646a;
+    text-align: center;
+    min-height: 100px;
+}
+
+.clientes .box span {
+    width: 120px;
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    margin: 0 auto;
+    color: #5a646a;
+}
+
+/*CONVENIO MARCO*/
+.convenio-marco-home {
+    background: #25292c;
+}
+
+.convenio-marco-home .center {
+    display: grid;
+    grid-template-columns: 30% 50%;
+    grid-column-gap: 100px;
+    grid-template-rows: 150px;
+    align-items: center;
+    padding: 100px 0;
+}
+
+.convenio-marco-home img {
+    width: 100%;
+}
+
+.convenio-marco-home p {
+    margin: 0;
+    color: #979798;
+}
+
+.convenio-marco-home a {
+    display: block;
+    color: #fff;
+    margin-top: 20px;
+}
+
+/*FOOTER*/
+footer {
+    padding: 50px 0;
+    background: white;
+    /* border-radius: 40px; */
+}
+
+footer .map-container {
+    width: 450px;
+    height: 70px;
+    overflow: hidden;
+}
+
+footer .map-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+footer .custom-link {
+    height: 45px;
+    text-decoration: none;
+}
+
+footer .center {
+    position: relative;
+}
+
+footer .logo-footer {
+    padding-bottom: 1px;
+}
+
+footer .logo-footer h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #060737;
+    margin-bottom: 20px;
+}
+
+
+footer .footerCero {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-200px);
+}
+
+footer .footerCero.animate {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.ceroTop {
+    opacity: 0;
+    transition: transform 1s ease;
+    transform: translateY(0);
+    /* Inicialmente sin traslación */
+}
+
+.ceroTop.animate {
+    transform: translateY(-200px);
+    /* Movimiento hacia abajo */
+}
+
+
+
+footer .logo-footer h3:hover {
+    color: #41425f;
+    /* Cambia el color del texto a blanco al pasar el cursor */
+    font-weight: 400;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer .logo-footer ul li {
+    margin-bottom: 10px;
+    letter-spacing: 0;
+}
+
+footer .logo-footer ul li a {
+    font-size: 16px;
+    color: #060737;
+
+    text-decoration: none;
+}
+
+
+footer span {
+    color: #9aa8b1;
+    display: block;
+    font-size: 14px;
+    margin: 15px 0 30px;
+}
+
+footer .menu-footer {
+    top: 0;
+    padding: 0 50px;
+    border-right: 1px solid #c3c3c3;
+    border-left: 1px solid #d7d7d7;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+}
+
+footer .menu-footer h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #060737;
+    margin-bottom: 20px;
+}
+
+
+footer ul {
+    list-style: none;
+}
+
+footer .menu-footer ul li {
+    margin-bottom: 10px;
+    letter-spacing: 0;
+}
+
+footer .menu-footer ul li a {
+    font-size: 16px;
+    color: #060737;
+
+    text-decoration: none;
+}
+
+footer .social-media {
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+
+footer .social-media h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #060737;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+
+footer .social-media i {
+    color: #060737;
+    font-size: 27px;
+    margin-left: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+footer .social-media ul li a {
+    font-size: 16px;
+    color: #060737;
+
+    text-decoration: none;
+}
+
+#lineas {
+    padding: 8px 10px;
+    text-align: right;
+}
+
+
+/*webs*/
+.portada_web {
+    margin-top: 45px;
+}
+
+.portada_web img {
+    width: 100%;
+}
+
+.margenCarusel {
+    padding-bottom: 0px !important;
+    margin-top: 3%;
+}
+
+.estiloCotiza {
+    background-color: white;
+    color: rgb(6, 7, 55);
+}
+
+.buttonServices {
+    font-size: 22px !important;
+    padding: 1rem 1.5rem;
+    margin-top: -14px;
+    display: inline-block;
+    text-align: center;
+}
+
+.buttonServices p {
+    margin-top: 10px;
+}
+
+.buttonServices span,
+.buttonServices i {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.buttonServices i {
+    margin-left: 10px;
+    /* Ajusta el margen según sea necesario */
+}
+
+.titleCarousel .d-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.indicators-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.traslados_celular{
+    display: none;
+    background-color: #060737;    
+}
+
+@media (min-width: 2000px) {
+
+    .web{
+        display: block;
+    }
+    
+    .cel{
+        display: none;
+    }
+}
+
+@media (min-width: 1700px) {
+
+    .web{
+        display: block;
+    }
+    
+    .cel{
+        display: none;
+    }
+
+    h2,
+    .h2 {
+        top: 18% !important;
+    }
+
+    .div_cotiza {
+        top: 60% !important;
+    }
+
+    #preloader img {
+        width: 45% !important;
+        /* Ajusta el tamaño de la imagen según sea necesario */
+        height: auto;
+    }
+
+    .carousel-item {
+        height: 53rem !important;
+    }
+
+    .div_cotiza {
+        top: 90% !important;
+    }
+}
+
+
+@media (min-width: 1200px) {
+
+    .web{
+        display: block;
+    }
+    
+    .cel{
+        display: none;
+    }
+
+    h2,
+    .h2 {
+        font-size: 2.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #060737;
+    }
+
+    .large-screen {
+        display: block !important;
+    }
+    .small-screen {
+        display: none;
+    }
+
+    .welcome-servicios h2,
+    .h2 {
+        font-size: 2.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .transporte-cargas .h2 {
+        font-size: 2.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #fff !important;
+    }
+
+    .bg_sobredimensionados {
+        height: 617px;
+    }
+
+    .bg_cargaespecial {
+        height: 617px;
+    }
+
+    .bg_equiposforestales {
+        height: 617px;
+    }
+
+    .bg_rescateequipos {
+        height: 617px;
+    }
+
+    .bg_transportemaquinaria {
+        height: 617px;
+    }
+
+    .bg_izaje {
+        height: 617px;
+    }
+
+    .bg_ventacombustible{
+        height: 617px;
+    }
+
+    .modal-dialog {
+        max-width: 55%!important;
+    }
+}
+
+
+
+@media (max-width: 990px) {
+
+    .web{
+        display: none;
+    }
+    
+    .cel{
+        display: block;
+    }
+
+    .contenedorSeguros {
+        padding: 113px 20px!important;
+    }
+
+    .logoUbication {
+        padding-top: 8%!important;
+    }
+
+    .imgLogoCel{
+        width: 250px!important;
+    }
+
+    .paddingCel{
+
+    }
+
+    .perfil-icon {
+        width: 65px!important;
+        height: 65px!important;
+    }
+
+    #preloader img {
+        width: 50% !important;
+        /* Ajusta el tamaño de la imagen según sea necesario */
+        height: auto;
+        margin-right: 21px;
+    }
+
+    .margenCarusel {
+        margin-top: 30% !important;
+    }
+
+    .estiloCotiza {
+        display: none;
+    }
+
+    footer .map-container {
+        width: 390px !important;
+    }
+
+    .titleCarousel {
+        width: 104% !important;
+    }
+
+    .titleCarousel .d-flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttonServices {
+        margin-left: 55px;
+        margin-top: -4px;
+        font-size: 16px !important;
+    }
+
+    @keyframes transformTitleCarousel {
+        to {
+            padding: 45px 28px;
+            top: 2%;
+        }
+    }
+
+    h1,
+    .h1 {
+        font-size: 1.2rem !important;
+    }
+
+    .titleServices1 {
+        width: 100% !important;
+    }
+
+    .carousel-item {
+        height: 35rem !important;
+    }
+
+    .imgCaruselPrincipal {
+        width: 100% !important;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .large-screen {
+        display: none;
+    }
+    .small-screen {
+        display: block !important;
+        width: 100% !important;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .titleServices2 {
+        display: none;
+    }
+
+    .titleServices2Celular {
+        width: 100% !important;
+        margin-top: 25px;
+        display: block;
+    }
+
+    .section-phone-padding {
+        padding: 0px 35px 40px !important;
+    }
+
+    .bgRuta {
+        margin-top: -133px !important;
+    }
+
+    .traslados .titles {
+        margin-left: 0vh !important;
+    }
+
+    .traslados .title {
+        padding: 10px 6px 0px 21px !important;
+        font-size: 1rem !important;
+    }
+
+    footer .menu-footer {
+        padding: 40px 16px !important;
+        border-left: 0px solid #c3c3c3 !important;
+        border-right: 0px solid #c3c3c3 !important;
+        border-top: 1px solid #c3c3c3 !important;
+        border-bottom: 1px solid #d7d7d7 !important;
+    }
+
+    footer .social-media {
+        text-align: left !important;
+        padding-top: 40px !important;
+    }
+
+    .sobre_tbl {
+        margin-top: 80px !important;
+    }
+
+    .bg_sobredimensionados {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+
+    .bg_cargaespecial {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+
+    .bg_rescateequipos {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+
+    .bg_izaje {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+
+    .bg_ventacombustible{
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+
+    .bg_equiposforestales {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }
+    
+    .bg_transportemaquinaria {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: 65px;
+    }    
+
+    .bg_transportesbulnes {
+        width: 100% !important;
+        height: 300px !important;
+        position: relative !important;
+        margin-top: -20px;
+    }
+
+    h2,
+    .h2 {
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+    }
+
+    .pt-5, .py-5 {
+        padding-top: 2rem !important;
+    }
+
+    .logoGrande {
+        padding-top: 15% !important;
+    }
+
+    footer .logo-footer {
+        padding-bottom: 30px !important;
+    }
+
+    .indicators-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .indicadores {
+        min-height: 420px !important;
+    }
+
+    #traslados{
+        display: none;
+    }
+
+    .traslados_celular{
+        display: block;
+    }
+
+    .swiffy-slider li{
+        padding: 0px 40px 40px;
+    }
+
+    .swiffy-slider .slider-nav{
+        visibility: visible!important;
+    }
+
+    .swiffy-slider .img-fluid {
+        height: 200px!important;
+    }
+
+    .nav-item{
+        max-width: 200px;
+        padding-bottom: 5px;
+    }
+
+    .modal {
+        width: 89%!important;
+    }
+
+    .sociosIzajes{
+        width: 45%;height: 45%;
+        margin-right: 5px;
+    }
+
+    .filtrosDiv {
+        margin-top: 80px;
+    }
+
+    #buttonCotizarCelular{
+        display: block;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .modal {
+        width: 97%!important;
+    }
+
+    footer .map-container {
+        width: 345px !important;
+        height: 182px!important;
+    }
+
+    .navbar-nav .dropdown-menu {
+        position: static;
+        float: none;
+        width: 354px;
+    }
+
+}

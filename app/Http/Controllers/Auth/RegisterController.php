@@ -70,17 +70,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'dni' => $data['dni'],
         ]);
-    }
-
-    protected function existeUsuario($email){
-        $user = User::where('email', $email)->first();
-        if(empty($user)){
-            return response()->json(['message' => 'error', 'email' => $email]);
-        }else{
-            return response()->json(['message' => 'ok', 'user' => $user]);
-        }
-
     }
 
 }

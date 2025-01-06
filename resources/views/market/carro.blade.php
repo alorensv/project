@@ -1,29 +1,18 @@
-@extends('plantilla')
+@extends('tiny.tinyTemplate')
 
 @section('content')
 <style>
 
 </style>
-<section class="container py-4" style="margin-top: 20px;">
+<section class="white-division pt-5 pb-2" style="margin-top: 20px;">
 
+<div class="container">
     @include('market.modals.loginRegister')
     @include('market.modals.register')
-    @include('market.modals.login')
-
-    <div class="row">
-        <div class="col-12 pl-3">
-            <nav aria-label="breadcrumb">
-                <ol class="bg-white breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('market') }}">Market</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('carro') }}">Carro</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Carro</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    @include('market.modals.login')    
 
     <div class="row bg-white market-body ">
-        <div class="col-8 pt-4 pl-4">
+        <div class="col-8">
             <div class="row pb-3">
                 <div class="col-12">
                     <div id="accordionCarrito">
@@ -64,12 +53,12 @@
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="quantity-input mr-2">
-                                                                    <button id="minus-btn" @click="decrementQuantity(item)">
-                                                                        <i class="fas fa-minus" style="font-size: 11px;"></i>
+                                                                    <button id="minus-btn" class="border border-light border-1" @click="decrementQuantity(item)">
+                                                                        <i class="fas fa-minus fas-727272"style="font-size: 11px;"></i>
                                                                     </button>
-                                                                    <input type="number" v-model="item.cantidad" min="1" style="width: 42px;">
-                                                                    <button id="plus-btn" @click="incrementQuantity(item)">
-                                                                        <i class="fas fa-plus" style="font-size: 11px;"></i>
+                                                                    <input type="number" class="border border-light border-1" v-model="item.cantidad" min="1" style="width: 42px;">
+                                                                    <button id="plus-btn" class="border border-light border-1" @click="incrementQuantity(item)">
+                                                                        <i class="fas fa-plus fas-727272" style="font-size: 11px;"></i>
                                                                     </button>
                                                                 </div>
                                                                 <button class="btn btn-sm btn-danger" id="deleteFromCart" @click="deleteFromCart(item.id)">
@@ -128,7 +117,12 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="direccion in direcciones" :key="direccion.id">
-                                            <td><input type="checkbox" style="width: 20px;" class="form-control" name="selectDireccion" id="selectDireccion"></td>
+                                            <td class="pt-0"><input type="checkbox" style="width: 20px;" 
+                                            class="form-control" 
+                                            name="selectDireccion" 
+                                            id="selectDireccion" 
+                                            :checked="direccion.is_default == 1"
+                                            @change="cambiarDireccionPredeterminada(direccion.id)"></td>
                                             <td>@{{ direccion.region }} / @{{ direccion.comuna }}</td>
                                             <td>@{{ direccion.direccion }}</td>
                                         </tr>
@@ -154,13 +148,13 @@
             </div>
 
         </div>
-        <div class="col-4 bg-white border border-ligh pt-3 pl-5 pr-4">
+        <div class="col-4 bg-white border border-ligh pt-3 pl-5 pr-5">
             <div class="row">
                 <div class="col-12">
-                    <div class="row pb-3">
+                    <div class="w-100 pb-3">
                         <p class="w-100">Resumen</p>
                     </div>
-                    <div class="row w-100">
+                    <div class="w-100">
                         <div class="w-100" v-if="cart.length > 0" id="cart-items">
                             <table class="table w-100">
                                 <thead>
@@ -214,9 +208,9 @@
                             <p class="carrito_vacio" style="margin-left: 13px; align-self: center; padding-top: 17px;">Tu Carro está vacío</p>
                         </div>
                     </div>
-                    <div class="row pb-3" style="text-align: center;">
+                    <div class="w-100 pb-3" style="text-align: center;">
                         @auth
-                            <a href="/carro" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</a>
+                            <button @click="pagarWebpay" class="w-100 btn btn-success"><i class="material-icons">shopping_cart</i>Pagar</button>
                         @else
                             <a href="#" title="Para continuar, inicia sesión o regístrate" data-toggle="tooltip" class="w-100 mb-3 btn btn-secondary"><i class="material-icons">shopping_cart</i>Pagar</a>
                             
@@ -227,9 +221,12 @@
             </div>
         </div>
     </div>
+</div>
+
 
 
 </section>
+@include('tiny.footer')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @if(Auth::check())
@@ -263,16 +260,20 @@
             correo: '',
             clave: '',
             password_confirmation: '',
+            nombre_contacto: '',
+            fono_contacto: '',
             direccion: '',
             region: '',
             comuna: '',
             codigo_postal: '',
+            is_default: false,
             regiones: [],
             comunas: [],
             selectedRegion: '',
             selectedComuna: '',
             direcciones: [],
-            mostrarAgregarDireccion: false
+            mostrarAgregarDireccion: false,
+            total: ''
         },
         mounted() {
             this.listarCarrito();
@@ -309,6 +310,7 @@
                 this.cart.forEach(item => {
                     total += parseInt(item.costo) * parseInt(item.cantidad);
                 });
+                this.total = total;
                 return total;
             },
             deleteFromCart: function(itemId) {
@@ -331,10 +333,20 @@
                         region: this.selectedRegion,
                         comuna: this.selectedComuna,
                         codigo_postal: this.codigo_postal,
-                        direccion: this.direccion
+                        direccion: this.direccion,
+                        nombre_contacto: this.nombre_contacto,
+                        fono_contacto: this.fono_contacto,
+                        is_default: this.is_default
                     })
                     .then((response) => {
                         this.listarDirecciones();
+                        this.nombre_contacto = '';
+                        this.fono_contacto = '';
+                        this.region = '';
+                        this.comuna = '';
+                        this.direccion = '';
+                        this.codigo_postal = '';
+                        this.is_default = '';
                     })
                     .catch((error) => {
                         console.error(error);
@@ -431,7 +443,11 @@
                 this.mostrarAgregarDireccion = !this.mostrarAgregarDireccion;
             },
             consultarCorreo() {
-                axios.get(`/existeUsuario/${this.correo}`)
+                axios.get('/existeUsuario', {
+                        params: {
+                            correo: this.correo
+                        }
+                    })
                     .then(response => {
                         if (response.data.message == 'ok') {
                             $('#loginRegister').modal('hide');
@@ -439,11 +455,10 @@
                         } else {
                             $('#loginRegister').modal('hide');
                             $('#register').modal('show');
-                        }                        
-
+                        }  
                     })
                     .catch(error => {
-                        console.error('Error al enviar el formulario:', error);
+                        console.error('Error al obtener productos:', error);
                     });
             },
             decrementQuantity: function(item) {
@@ -474,6 +489,21 @@
                         console.error(error);
                     });
             },
+            cambiarDireccionPredeterminada(id){
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                axios.post(`/updateDireccionPredeterminada/${id}`, {
+                        _token: csrfToken,
+                    })
+                    .then((response) => {
+                        this.listarDirecciones();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            },
+            pagarWebpay(){
+                location.href = 'pagar';
+            }
 
         }
     });

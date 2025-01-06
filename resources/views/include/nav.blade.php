@@ -3,7 +3,7 @@
                 <div class="col-md-3 bg-light py-1">
                     
                     <a class="navbar-brand" href="{{ route('inicio') }}">
-                        <img src="img/logo_lineas.png" class="mx-auto d-block img-fluid">
+                        <img src="/img/logo_lineas.png" class="mx-auto d-block img-fluid">
                     </a>
                 </div>
 
@@ -75,6 +75,10 @@
                                     @endif-->
                                 @else
                                     <li class="nav-item dropdown">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ route('misCompras') }}">Mis Compras</a>
+                                        </li>
 
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ route('productos') }}">Productos</a>
