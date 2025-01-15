@@ -27,8 +27,8 @@
 
                         <div class="form-group">
                             <label for="clave">Contraseña:</label>
-                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">
-                            <small class="form-text text-muted">La contraseña debe tener al menos 6 caracteres.</small>
+                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="8">
+                            <small class="form-text text-muted">La contraseña debe tener al menos 8 caracteres.</small>
                         </div>
 
                         <div class="col-12 text-right">

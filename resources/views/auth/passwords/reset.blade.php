@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('lex.plantilla')
 
 @section('content')
 <div class="container">

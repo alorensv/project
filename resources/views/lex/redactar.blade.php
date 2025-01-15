@@ -30,81 +30,80 @@
         <!-- Columna de categorías (Panel de Inputs) -->
         <div class="col-md-4">
           <div>
-
-            @if($documento->lex_categoria_id == 1)
-            @include('lex.forms.declaraciones')
-            @else
-            @include('lex.forms.poderes')
-            @endif
+            
+            @include('lex.forms.formularioFirmantes')
 
           </div>
         </div>
 
         <!-- Columna de productos (Cuadro de Declaración Jurada) -->
-        <div class="col-md-8 sticky-top" style="max-height: 401px;">
-          <div class="card mt-3">
-            <div class="card-body previsualizacionDocumento" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
-              <div>
+        <div class="col-md-8 ">
+          <div class="sticky-top">
+            <div class="card mt-3">
+              <div class="card-body previsualizacionDocumento" style="box-shadow: rgba(168, 166, 168, 0.89) 10px 10px 15px -6px;">
+                <div>
 
-                <div class="predocumento">
-                  <div v-if="firmantes.length === 0">
-                    {!! $documento->default_text !!}
+                  <div class="predocumento">
+                    <div v-if="firmantes.length === 0">
+                      {!! $documento->default_text !!}
+                    </div>
+                    <div v-else>
+                      {!! $documento->default_text_plural !!}
+                    </div>
                   </div>
-                  <div v-else>
-                    {!! $documento->default_text_plural !!}
+
+
+                  <div class="firmas-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
+                    <div v-for="(firmante, index) in firmantes" :key="index" class="mb-3" style="text-align: center; margin-right: 20px;font-size: 20px;">
+                      <p>
+                        <span>@{{ firmante.nombre }}</span> <span>@{{ firmante.apellido_paterno }}</span> <span>@{{ firmante.apellido_materno }}</span><br>
+                        <span>@{{ firmante.rut }}</span><br>
+                        <span>@{{ firmante.correo }}</span>
+                      </p>
+                    </div>
                   </div>
+
                 </div>
+              </div>
+            </div>
 
+            <div class="pt-3">
+              <div class="row">
+                <div class="col-6">
 
-                <div class="firmas-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
-                  <div v-for="(firmante, index) in firmantes" :key="index" class="mb-3" style="text-align: center; margin-right: 20px;font-size: 20px;">
-                    <p>
-                      <span>@{{ firmante.nombre }}</span> <span>@{{ firmante.apellido_paterno }}</span> <span>@{{ firmante.apellido_materno }}</span><br>
-                      <span>@{{ firmante.rut }}</span><br>
-                      <span>@{{ firmante.correo }}</span>
-                    </p>
-                  </div>
                 </div>
+                <div class="col-lg-6">
+                  <div class="card p-4" style="box-shadow: 10px 10px 15px -6px rgba(168,166,168,0.89);">
+                    <table>
+                      <tr>
+                        <th>Valor documento</th>
+                        <td>${{ number_format($documento->precio, 0, ',', '.') }}</td>
+                      </tr>
+                      <tr>
+                        <th>Firma(s) adicional(es)</th>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th>Total</th>
+                        <td>${{ number_format($documento->precio, 0, ',', '.') }}</td>
+                      </tr>
+                    </table>
+                    <div class="mt-3" style="float: right;">
+                      <button class="btn btn-success w-100" @click="validateContinue" style=" display: inline-flex;align-items: center;justify-content: center;">
+                        Pagar <span class="material-icons icon pl-2">payments</span></button>
+                    </div>
 
+                  </div>
+
+
+
+
+
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="pt-3">
-            <div class="row">
-              <div class="col-6">
-
-              </div>
-              <div class="col-lg-6">
-                <div class="card p-4" style="box-shadow: 10px 10px 15px -6px rgba(168,166,168,0.89);">
-                  <table>
-                    <tr>
-                      <th>Valor documento</th>
-                      <td>${{ number_format($documento->precio, 0, ',', '.') }}</td>
-                    </tr>
-                    <tr>
-                      <th>Firma(s) adicional(es)</th>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th>Total</th>
-                      <td>${{ number_format($documento->precio, 0, ',', '.') }}</td>
-                    </tr>
-                  </table>
-                  <div class="mt-3" style="float: right;">
-                    <button class="btn btn-success w-100" @click="validateContinue" style=" display: inline-flex;align-items: center;justify-content: center;">
-                      Pagar <span class="material-icons icon pl-2">payments</span></button>
-                  </div>
-
-                </div>
-
-
-
-
-
-              </div>
-            </div>
-          </div>
+          
 
         </div>
       </div>
@@ -123,20 +122,23 @@
       authenticated: <?php echo json_encode(auth()->check()); ?>,
       loader: false,
       documentoId: <?php echo json_encode($documento->id); ?>,
+      documentoCategoria: <?php echo json_encode($documento->lex_categoria_id); ?>,
       cantidadFirmantes: <?php echo json_encode($documento->cantidad_firmantes); ?>,
       nombre: '',
       dni: '',
       correo: '',
       clave: '',
       inputs: JSON.parse(document.getElementById('vueRedaccion').getAttribute('data-inputs')),
-      tipo_reuniones: [{
-          id: 1,
-          nombre: 'JUNTA DE VECINOS'
-        },
-        {
-          id: 2,
-          nombre: 'COPROPIETARIOS'
-        }
+      tipo_reuniones: [
+        {id: 1,nombre: 'JUNTA DE VECINOS'},
+        {id: 2,nombre: 'COPROPIETARIOS'}
+      ],
+      tipos_usos: [
+        {id: 1,nombre: 'habitacional'},
+        {id: 2,nombre: 'bodega'},
+        {id: 3,nombre: 'oficina'},
+        {id: 4,nombre: 'comercial'},
+        {id: 5,nombre: 'dirección tributaria'}
       ],
       groupedInputs: {},
       accordionState: {},
@@ -145,6 +147,7 @@
       isFocused: {},
       isAccordionOpen: false,
       firmantes: [],
+      nombreCampoNuevoFirmante: 'Agregar firmantes',
       mostrarFormularioFirmante: false, // Controlar el formulario para agregar firmantes
       nuevoFirmante: {
         nombre: '',
@@ -171,7 +174,8 @@
       selectedRegion: null
     },
     mounted() {
-
+      this.nameFormFirmantes();
+      window.addEventListener("beforeunload", this.confirmarSalida);
       this.groupInputs();
       this.initializeAccordionState();
 
@@ -213,9 +217,27 @@
           this.groupInputs(); // Si modificas algún input, asegúrate de reagruparlos
         },
         deep: true // Asegúrate de escuchar cambios en los valores de los campos dentro de los objetos
-      }
+      },
     },
     methods: {
+      nameFormFirmantes(){
+        if( this.documentoCategoria == 1 ){
+          this.nombreCampoNuevoFirmante = 'Agregar declarante';
+        }
+
+        if( this.documentoCategoria == 2 ){
+          this.nombreCampoNuevoFirmante = 'Agregar autorizado';
+        }
+
+        if( this.documentoCategoria == 3 ){
+          this.nombreCampoNuevoFirmante = 'Agregar autorizado';
+        }
+
+        if( this.documentoCategoria == 4 ){
+          this.nombreCampoNuevoFirmante = 'Agregar contraparte';
+        }
+        
+      },
       groupInputs() {
         this.groupedInputs = this.inputs.reduce((groups, input) => {
           // Asegúrate de inicializar un valor predeterminado si es un campo vacío
@@ -596,7 +618,7 @@
             const alertElement = this.$el.querySelector(".alert-danger");
             if (alertElement) {
               const rect = alertElement.getBoundingClientRect();
-              const offsetTop = window.scrollY + rect.top - 70; // Ajusta 30px hacia arriba
+              const offsetTop = window.scrollY + rect.top - 90; // Ajusta 30px hacia arriba
               window.scrollTo({
                 top: offsetTop,
                 behavior: "smooth",
@@ -805,7 +827,25 @@
         this.loading = false;
         debugger;
         return true;
-      }
+      },
+      confirmarSalida(event) {
+        const mensaje = "Si sales perderás la redacción. ¿Estás seguro de salir?";
+        event.preventDefault();
+        event.returnValue = mensaje; // Necesario para navegadores modernos
+      },
+      beforeDestroy() {
+        window.removeEventListener("beforeunload", this.confirmarSalida);
+      },
+      beforeRouteLeave(to, from, next) {
+        const confirmacion = confirm(
+            "Si sales perderás la redacción. ¿Estás seguro de salir?"
+          );
+          if (confirmacion) {
+            next(); // Permite el cambio de ruta
+          } else {
+            next(false); // Cancela el cambio de ruta
+          }
+      },
 
     }
   });

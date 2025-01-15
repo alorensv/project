@@ -82,17 +82,15 @@
                         </li> -->
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <!-- <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="{{ route('equipos') }}">{{ __('Asesoría') }}</a> -->
-                            <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="#">{{ __('Validez legal') }}</a>
+                            <a class="nav-link {{request()->routeIs('validezLegal') ? 'active' : ''}}" href="/validezLegal">{{ __('Validez legal') }}</a>
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <!-- <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="{{ route('equipos') }}">{{ __('Asesoría') }}</a> -->
-                            <a class="nav-link {{request()->routeIs('equipos') ? 'active' : ''}}" href="#">{{ __('Asesoría') }}</a>
+                            <a class="nav-link" href="https://swap-lex.cl/" target="_blank">{{ __('Asesoría') }}</a>
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link {{request()->routeIs('transportes_bulnes') ? 'active' : ''}}" href="#">{{ __('Ayuda') }}</a>
+                            <a class="nav-link {{request()->routeIs('ayuda') ? 'active' : ''}}" href="/ayuda">{{ __('Ayuda') }}</a>
                         </li>
 
                         

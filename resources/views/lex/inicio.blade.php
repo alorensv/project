@@ -107,6 +107,7 @@
 
   <section class="welcome">
     <div>
+      <div class="bgInicio">
       <div class="container section-phone-padding">
         <div class="row celContainer">
           <div class="col-lg-7 padding-title-presentation-large titleOne titlePrincipal">
@@ -133,47 +134,10 @@
           <div class="col-lg-5 displayNoneCel">
             <img src="/img/lex/documentoPrincipal.png" alt="Documento legal" class="img-fluid documento-legal">
           </div>
-
-
-
-
-          <!-- <div class="col-6">
-
-            <div id="banner-carousel" class="owl-carousel owl-theme">
-
-              <div v-for="(item, index) in carouselItems" :key="index">
-
-                <div class="item">
-                  <div>
-                    <div class="animated-title">
-                      <div class="text-top">
-                        <div style="margin-bottom: -10px;">
-                          <span>@{{ item.title }}</span>
-
-                        </div>
-                      </div>
-                      <div class="text-bottom pt-1">
-                        <span>
-                          <p>@{{ item.sub1 }}</p>
-                        </span>
-                        <div>
-                          <p>@{{ item.sub2 }}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <img class="second-slide imgCaruselPrincipal" :src="item.image" alt="Second slide">
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div> -->
         </div>
 
 
+      </div>
       </div>
 
       <div class="bgBuscador">
@@ -269,7 +233,7 @@
           @foreach($categoriasDocumentos as $categoriaDocumento)
 
           <div class="item">
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem;box-shadow:rgba(168, 166, 168, 0.89) 5px 0px 15px -3px;">
               <img src="/img/lex/docFirma.png" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title" style="min-height: 64px;">{{ $categoriaDocumento->documento }}</h5>

@@ -39,7 +39,7 @@
             </textarea>
 
                 <!-- Select de región -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'region' || input.name === 'region_domicilio' || input.name === 'region_propiedad' || input.name === 'region_autorizado' )"
+                <select v-else-if="input.field_type === 'select' && ( input.name === 'region' || input.name === 'region_domicilio' || input.name === 'region_propiedad' || input.name === 'region_autorizado' || input.name === 'region_acuerdo' )"
                     :id="input.name"
                     v-model="input.value"
                     :class="{'is-invalid': errors[input.name]}"
@@ -54,7 +54,7 @@
                 </select>
 
                 <!-- Select de comuna -->
-                <select v-else-if="input.field_type === 'select' && ( input.name === 'comuna' || input.name === 'comuna_domicilio'  || input.name === 'comuna_propiedad' || input.name === 'comuna_autorizado' ) "
+                <select v-else-if="input.field_type === 'select' && ( input.name === 'comuna' || input.name === 'comuna_domicilio'  || input.name === 'comuna_propiedad' || input.name === 'comuna_autorizado' || input.name === 'comuna_acuerdo' ) "
                     :id="input.name"
                     v-model="input.value"
                     :placeholder="input.placeholder"
@@ -138,14 +138,28 @@
                     @blur="blurField(input.name)"
                     class="form-control">
                     <option disabled value selected>
-                        @{{ input.placeholder || 'Seleccione su estado civil' }} <!-- Muestra el placeholder o un texto por defecto -->
+                        @{{ input.placeholder || 'Seleccione tipo de reunión' }} <!-- Muestra el placeholder o un texto por defecto -->
                     </option>
                     <option v-for="tipo in tipo_reuniones" :key="tipo.id" :value="tipo.nombre">@{{ tipo.nombre }}</option>
-                </select>
+                </select>  
+
+                <!-- Select uso del inmubeble -->
+                <select v-else-if="input.field_type === 'select' && input.name === 'uso_propiedad' "
+                    :id="input.name"
+                    v-model="input.value"
+                    :class="{'is-invalid': errors[input.name]}"
+                    @focus="focusField(input.name)"
+                    @blur="blurField(input.name)"
+                    class="form-control">
+                    <option disabled value selected>
+                        @{{ input.placeholder || 'Seleccione tipo de uso del inmueble' }} <!-- Muestra el placeholder o un texto por defecto -->
+                    </option>
+                    <option v-for="uso in tipos_usos" :key="uso.id" :value="uso.nombre">@{{ uso.nombre }}</option>
+                </select> 
 
                 <!-- text rut -->
                 <input
-                    v-else-if="input.name === 'rut' || input.name === 'rut_autorizado'"
+                    v-else-if="input.name === 'rut' || input.name === 'rut_autorizado' || input.name === 'rut_cuenta_bancaria'"
                     :type="input.field_type"
                     :id="input.name"
                     v-model="input.value"

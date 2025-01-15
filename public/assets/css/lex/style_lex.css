@@ -51,8 +51,7 @@
 }
 
 .previsualizacionDocumento{
-    padding-right: 60px;
-    text-align: justify;
+    padding-right: 20px;
     font-size: 20px;
     max-height: 559px;
     overflow-y: scroll;
@@ -185,6 +184,14 @@
 .bgInfo .content {
     position: relative;
     z-index: 1;  /* Asegura que el contenido sea visible por encima de la imagen difusa */
+}
+
+.bgInicio{
+    content: '';
+    background-image: url(/img/lex/bg2.png); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 

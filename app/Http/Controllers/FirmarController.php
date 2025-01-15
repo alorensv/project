@@ -205,14 +205,15 @@ class FirmarController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Firmante no encontrado'], 404);
         }
 
-        $token = bin2hex(random_bytes(30)); // Genera un token de 60 caracteres
 
-        $expiration = now()->addDays(5); // Establece la expiración en 5 días a partir de ahora
-        $duration = $expiration->diffInMinutes(now()); // Calcula la duración en minutos
+        if(is_null($firmaDocumento->token)){
+            $token = bin2hex(random_bytes(30)); // Genera un token de 60 caracteres
+            $expiration = now()->addDays(5); // Establece la expiración en 5 días a partir de ahora
+            $duration = $expiration->diffInMinutes(now()); // Calcula la duración en minutos
+            $firmaDocumento->token = hash('sha256', $token);
+            $firmaDocumento->expires_at = $expiration;
+        }
 
-
-        $firmaDocumento->token = hash('sha256', $token);
-        $firmaDocumento->expires_at = $expiration;
         if ($firmaDocumento->save()) {
             Mail::to([$firmaDocumento->correo, 'alorensv@gmail.com'])->send(new NotificarFirma($firmaDocumento));
             return response()->json(['status' => 'ok', 'datos' => $firmaDocumento], 200);

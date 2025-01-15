@@ -4,7 +4,7 @@
     <div class="card-body">
         <div class="mb-3">
             <button class="btn btn-primary w-100" @click="mostrarFormularioFirmante = !mostrarFormularioFirmante" style="display: inline-flex;align-items: center;justify-content: center;">
-                Agregar Firmante <span class="material-icons icon pl-2 pr-3">group_add</span> (+$5.000)
+                @{{nombreCampoNuevoFirmante}} <!-- <span class="material-icons icon pl-2 pr-3">group_add</span> (+$5.000) -->
             </button>
 
         </div>

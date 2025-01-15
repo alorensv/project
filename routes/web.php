@@ -11,6 +11,7 @@ use App\Http\Controllers\MarketController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\QrManagerController;
 use App\Http\Controllers\SegurosController;
+use App\Http\Controllers\SicomController;
 use App\Http\Controllers\TransbankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
@@ -249,3 +250,6 @@ Route::get('/documento/descargar/{idRedaccion}', [LexWebController::class, 'busc
 Route::get('/enviarCorreo/{idRedaccion}', [FirmarController::class, 'enviarCorreo'])->name('enviarCorreo');
 
 Route::get('/callback/{token}', [FirmarController::class, 'callback'])->name('callback');
+
+Route::get('/validezLegal', [LexWebController::class, 'validezLegal'])->name('validezLegal');
+Route::get('/ayuda', [LexWebController::class, 'ayuda'])->name('ayuda');

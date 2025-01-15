@@ -28,6 +28,18 @@ class LexWebController extends Controller
         return view('lex.inicio', ['categoriasDocumentos' => $categoriasDocumentos]);
     }
 
+    public function validezLegal()
+    {
+        $categoriasDocumentos = LexCategoria::categoriasDocumentos();
+        return view('lex.validezLegal', ['categoriasDocumentos' => $categoriasDocumentos]);
+    }
+
+    public function ayuda()
+    {
+        $categoriasDocumentos = LexCategoria::categoriasDocumentos();
+        return view('lex.ayuda', ['categoriasDocumentos' => $categoriasDocumentos]);
+    }
+
     public function categoriasDoc(){
         $categoriasDocumentos = LexCategoria::categoriasDocumentos();
         

@@ -53,9 +53,11 @@ class LexDocumento extends Model
             }
 
             if ($input->field_type === 'date' && !empty($inputValue)) {
-                $date = new DateTime($inputValue);
-                
-                // Ajustar la zona horaria a la local (por ejemplo, América/Santiago)
+                // Crear un DateTime desde el valor ingresado, asumiendo que es UTC            
+                $date = new DateTime("{$inputValue} 12:00:00", new DateTimeZone('UTC'));
+
+
+                // Ajustar la zona horaria a América/Santiago
                 $date->setTimezone(new DateTimeZone('America/Santiago'));
             
                 // Obtener día, mes y año
@@ -78,6 +80,7 @@ class LexDocumento extends Model
                 // Asignar el valor formateado
                 $inputValue = $formattedDate;
             }
+            
             
 
             // Asignar el valor (formateado o no) al array de inputs
