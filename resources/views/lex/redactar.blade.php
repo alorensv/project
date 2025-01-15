@@ -58,7 +58,7 @@
                       <p>
                         <span>@{{ firmante.nombre }}</span> <span>@{{ firmante.apellido_paterno }}</span> <span>@{{ firmante.apellido_materno }}</span><br>
                         <span>@{{ firmante.rut }}</span><br>
-                        <span>@{{ firmante.correo }}</span>
+                        <!-- <span>@{{ firmante.correo }}</span> -->
                       </p>
                     </div>
                   </div>
