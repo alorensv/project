@@ -171,7 +171,8 @@
       comunas: [],
       nacionalidades: [],
       estados_civiles: [],
-      selectedRegion: null
+      selectedRegion: null,
+      loginError: ''
     },
     mounted() {
       this.nameFormFirmantes();
@@ -632,15 +633,22 @@
 
         if (this.authenticated) {
 
-
           try {
-            this.guardarRedaccion();
-            window.location.href = '/carroCompras';
+
+            infoResult = this.guardarRedaccion();
+            if (infoResult) {
+              this.beforeDestroy();
+              window.location.href = '/carroCompras';
+            } else {
+              this.loading = false;
+              this.generalError = 'Error al guardar la redacción';
+            }
 
           } catch (error) {
             console.error('Error al guardar la redacción:', error);
             this.loading = false;
           }
+
         } else {
           this.loading = false;
           const modal = new bootstrap.Modal(document.getElementById('loginRegister'));
@@ -650,6 +658,9 @@
       },
       closeError() {
         this.generalError = "";
+      },
+      closeLoginError(){
+        this.loginError = "";
       },
       validarRut(rut) {
         if (!rut) {
@@ -684,16 +695,22 @@
         this.loading = true;
 
         try {
-          // Crear el objeto que contendrá los valores de los inputs
-          this.guardarRedaccion();
 
-          // Redireccionar al carrito de compras
-          window.location.href = '/carroCompras';
+          infoResult = this.guardarRedaccion();
+          if (infoResult) {
+            this.beforeDestroy();
+            window.location.href = '/carroCompras';
+          } else {
+            this.loading = false;
+            this.generalError = 'Error al guardar la redacción';
+          }
 
         } catch (error) {
           console.error('Error al guardar la redacción:', error);
           this.loading = false;
         }
+
+
       },
       consultarCorreo() {
         this.loading = true;
@@ -735,15 +752,27 @@
           })
           .then(response => {
 
-            infoResult = this.guardarRedaccion();
-            if (infoResult) {
-              window.location.href = '/carroCompras';
-            } else {
-              // mostrar un popup con el error al intentar guardar redacción
+            try {
+
+              infoResult = this.guardarRedaccion();
+              if (infoResult) {
+                this.beforeDestroy();
+                window.location.href = '/carroCompras';
+              } else {
+                this.loading = false;
+                this.generalError = 'Error al guardar la redacción';
+              }
+
+            } catch (error) {
+              console.error('Error al guardar la redacción:', error);
+              this.loading = false;
             }
+
 
           })
           .catch(error => {
+            this.loading = false;
+            this.loginError = error.response?.data?.errors || 'Error al iniciar sesión.';
             console.error('Error al enviar el formulario:', error);
           });
       },
@@ -768,10 +797,24 @@
             password_confirmation: this.password_confirmation,
           })
           .then(response => {
-            // Crear el objeto que contendrá los valores de los inputs
-            this.guardarRedaccion();
 
-            window.location.href = '/carroCompras';
+            try {
+
+              infoResult = this.guardarRedaccion();
+              if (infoResult) {
+                this.beforeDestroy();
+                window.location.href = '/carroCompras';
+              } else {
+                this.loading = false;
+                this.generalError = 'Error al guardar la redacción';
+              }
+
+            } catch (error) {
+              console.error('Error al guardar la redacción:', error);
+              this.loading = false;
+            }
+
+
           })
           .catch(error => {
             console.error('Error al enviar el formulario:', error);
@@ -816,16 +859,15 @@
           ...this.firmantes // Incluir los firmantes adicionales
         ];
 
-        console.log(formData)
+        //console.log(formData)
 
         // Hacer petición para guardar la redacción
         let response = await axios.post('/guardarRedaccion', formData);
 
         //PENDING RETURN RESPONSE OK OR ERROR
 
-        console.log(response);
+        //console.log(response);
         this.loading = false;
-        debugger;
         return true;
       },
       confirmarSalida(event) {

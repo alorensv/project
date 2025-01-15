@@ -215,6 +215,7 @@
             firmantes: {},
             documentoBase: '',
             selectedItems: [],
+            loginError: ''
         },
         mounted() {
             this.listarCarrito();

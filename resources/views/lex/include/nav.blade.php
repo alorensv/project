@@ -86,7 +86,7 @@
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">
-                            <a class="nav-link" href="https://swap-lex.cl/" target="_blank">{{ __('Asesoría') }}</a>
+                            <a class="nav-link" href="https://swap-lex.cl/asesorias/" target="_blank">{{ __('Asesoría') }}</a>
                         </li>
 
                         <li class="nav-item pl-2 pr-3 pt-1">

@@ -15,15 +15,19 @@
                         </div>
                         <div class="form-group">
                             <label for="clave">Contraseña:</label>
-                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="6">
+                            <input type="password" class="form-control" id="clave" v-model="clave" required minlength="8">
                         </div>
 
                         @if (Route::has('password.request'))
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                        <a class="btn btn-secondary" href="{{ route('password.request') }}">
                             {{ __('¿Olvistaste tu contraseña?') }}
                         </a>
                         @endif
 
+                        <div v-if="loginError" class="alert alert-danger mt-3 d-flex justify-content-between align-items-center">
+                            <span>@{{ loginError }}</span>
+                            <button type="button" class="btn-close" aria-label="Close" @click="closeLoginError"></button>
+                        </div>
 
                         <div class="col-12 text-right">
                             <button type="submit" class="btn btn-primary">Iniciar sesión</button>
